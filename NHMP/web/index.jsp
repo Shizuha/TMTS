@@ -68,7 +68,7 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    <script src="resources/plugins/common/common.min.js"></script>
+    <script src="resources/css/ERP/plugins/common/common.min.js"></script>
     <script src="resources/js/ERP/custom.min.js"></script>
     <script src="resources/js/ERP/settings.js"></script>
     <script src="resources/js/ERP/gleek.js"></script>
