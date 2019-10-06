@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@
+	page import="member.model.vo.Member"
+%>
+
+<%
+	Member loginMember = (Member)session.getAttribute("loginMember"); 
+%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -46,15 +54,26 @@
                   <li class="nav-item"><a href="#" class="nav-link" >기능소개</a></li>
                   <li class="nav-item"><a href="#" class="nav-link">온라인 고객센터</a></li>
                   <li class="nav-item"><a href="#" class="nav-link">이민삼수 소개</a></li>
-                  <li class="nav-item"><a href="/NHMP/views/Main/login.jsp" class="nav-link"><span>로그인</span></a></li>
-                  <li class="nav-item cta"><a href="#" class="nav-link"><span>시스템 관리</span></a></li>
+                  <% if(true) { //미 로그인%>
+                  	<li class="nav-item"><a href="/NHMP/views/Main/login.jsp" class="nav-link"><span>로그인</span></a></li>
+                  <% }else { //로그인%>
+                  
+                  <% } %>
+                  
+                  <% if(true) { // 미회원이 보는 화면%>
+                  	&nbsp;
+                  <% } else if( loginMember.equals("admin") ) { // 관리자 로그인 시 %>
+                  	<li class="nav-item cta"><a href="/NHMP/views/ERP/main.jsp" class="nav-link"><span>시스템 관리</span></a></li>
+                  <% } else { // 요양병원 가입자 접속 시 %>
+                  	&nbsp;
+                  <% } %>
                 </ul>
               </div>
             </div>
           </nav>
     <!-- END nav -->
 
-    <div class="hero-wrap js-fullheight img" style="background-image: url(resources/Main/images/Main/bg_1.jpg);">
+    <div class="hero-wrap js-fullheight img" style="background-image: url(/NHMP/resources/Main/images/bg_1.jpg);">
       <div class="overlay"></div>
       <div class="container-fluid px-0">
         <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-center">
