@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 
 <%@
-	page import="member.model.vo.Member"
+	page import="ERP.Employee.model.vo.Employee"
 %>
 
 <%
-	Member loginMember = (Member)session.getAttribute("loginMember"); 
+	Employee loginEmployee = (Employee)session.getAttribute("loginMember"); 
 %>
 
 <!DOCTYPE html>
@@ -41,19 +41,19 @@
 
           <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
             <div class="container">
-              <a class="navbar-brand" href="#">이 민 삼 수</a>
+              <a class="navbar-brand" href="/NHMP/index.jsp">이 민 삼 수</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
               </button>
 
               <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                  <li class="nav-item active"><a href="#" class="nav-link">Home</a></li>
+                  <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
                   <!--  <li class="nav-item"><a href="views/main/about.html" class="nav-link">About</a></li> -->
-                  <li class="nav-item"><a href="#" class="nav-link">서비스 소개</a></li>
-                  <li class="nav-item"><a href="#" class="nav-link" >기능소개</a></li>
-                  <li class="nav-item"><a href="#" class="nav-link">온라인 고객센터</a></li>
-                  <li class="nav-item"><a href="#" class="nav-link">이민삼수 소개</a></li>
+                  <li class="nav-item"><a href="/NHMP/views/Main/domain.jsp" class="nav-link">서비스 소개</a></li>
+                  <li class="nav-item"><a href="/NHMP/views/Main/hosting.jsp" class="nav-link" >기능소개</a></li>
+                  <li class="nav-item"><a href="/NHMP/views/Main/blog.jsp" class="nav-link">온라인 고객센터</a></li>
+                  <li class="nav-item"><a href="/NHMP/views/Main/contact.jsp" class="nav-link">이민삼수 소개</a></li>
                   <% if(true) { //미 로그인%>
                   	<li class="nav-item"><a href="/NHMP/views/Main/login.jsp" class="nav-link"><span>로그인</span></a></li>
                   <% }else { //로그인%>
@@ -62,7 +62,7 @@
                   
                   <% if(true) { // 미회원이 보는 화면%>
                   	&nbsp;
-                  <% } else if( loginMember.equals("admin") ) { // 관리자 로그인 시 %>
+                  <% } else if( loginEmployee.equals("admin") ) { // 관리자 로그인 시 %>
                   	<li class="nav-item cta"><a href="/NHMP/views/ERP/main.jsp" class="nav-link"><span>시스템 관리</span></a></li>
                   <% } else { // 요양병원 가입자 접속 시 %>
                   	&nbsp;

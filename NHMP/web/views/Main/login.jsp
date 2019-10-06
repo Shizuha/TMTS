@@ -42,7 +42,7 @@
                     <div class="form-input-content">
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5">
-                                <a class="text-center" href="index.jsp"> <h4>NHMP</h4></a>
+                                <a class="text-center" href="/NHMP/index.jsp"> <h4>NHMP</h4></a>
         
                                 <form class="mt-5 mb-5 login-input" action="/cp/login" method="post">
                                     <div class="form-group">
@@ -53,7 +53,13 @@
                                     </div>
                                     <button class="btn login-form__btn submit w-100">로그인</button>
                                 </form>
-                                <p class="mt-5 login-form__footer">비밀번호 몰라? <a href="page-register.html" class="text-primary">여기로</a> 이동~</p>
+                                <div class="mt-5 login-form__footer">비밀번호 몰라? 
+                                	<a href="page-register.html" class="text-primary">여기로</a> 이동~
+                                </div>
+                                <div align="right">
+                               		<a id="signup" href="/NHMP/views/Main/singup.jsp" >회원가입</a>
+                               	</div>
+                                
                             </div>
                         </div>
                     </div>
