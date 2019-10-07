@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 
 <%@
-	page import="ERP.Employee.model.vo.Employee"
+	page import="Main.NursingHospital.model.ov.NursingHospital"
 %>
 
 <%
-	Employee loginEmployee = (Employee)session.getAttribute("loginMember"); 
+	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
 %>
 
 <!DOCTYPE html>
@@ -54,15 +54,18 @@
                   <li class="nav-item"><a href="/NHMP/views/Main/hosting.jsp" class="nav-link" >기능소개</a></li>
                   <li class="nav-item"><a href="/NHMP/views/Main/blog.jsp" class="nav-link">온라인 고객센터</a></li>
                   <li class="nav-item"><a href="/NHMP/views/Main/contact.jsp" class="nav-link">이민삼수 소개</a></li>
-                  <% if(true) { //미 로그인%>
+                  <% if(loginHospital == null) { //미 로그인%>
                   	<li class="nav-item"><a href="/NHMP/views/Main/login.jsp" class="nav-link"><span>로그인</span></a></li>
                   <% }else { //로그인%>
-                  
+                  	<li class="nav-item">
+                  		<a href="/NHMP/views/Main/login.jsp" class="nav-link">
+                  		<span>내정보</span></a>
+                  	</li>
                   <% } %>
                   
-                  <% if(true) { // 미회원이 보는 화면%>
+                  <% if(loginHospital == null) { // 미회원이 보는 화면%>
                   	&nbsp;
-                  <% } else if( loginEmployee.equals("admin") ) { // 관리자 로그인 시 %>
+                  <% } else if( loginHospital != null ) { // 관리자 로그인 시 %>
                   	<li class="nav-item cta"><a href="/NHMP/views/ERP/main.jsp" class="nav-link"><span>시스템 관리</span></a></li>
                   <% } else { // 요양병원 가입자 접속 시 %>
                   	&nbsp;
