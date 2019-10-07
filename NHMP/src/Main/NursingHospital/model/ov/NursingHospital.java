@@ -27,6 +27,19 @@ public class NursingHospital implements Serializable{
 	public NursingHospital() {}
 
 
+	
+
+
+	public NursingHospital(String nH_USERID, String nH_USERPWD) {
+		super();
+		NH_USERID = nH_USERID;
+		NH_USERPWD = nH_USERPWD;
+	}
+
+
+
+
+
 	public int getNH_ID() {
 		return NH_ID;
 	}

@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@
+	page import="Main.NursingHospital.model.ov.NursingHospital"
+%>
+
+<%
+	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
+%>
+
+
+
+
+
 <!DOCTYPE html>
 <html class="h-100">
 
@@ -43,22 +56,34 @@
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5">
                                 <a class="text-center" href="/NHMP/index.jsp"> <h4>NHMP</h4></a>
-        
-                                <form class="mt-5 mb-5 login-input" action="/cp/login" method="post">
-                                    <div class="form-group">
-                                        <input type="text" name="userid"class="form-control" placeholder="userID">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" name="userpwd"class="form-control" placeholder="Password">
-                                    </div>
-                                    <button class="btn login-form__btn submit w-100">로그인</button>
-                                </form>
-                                <div class="mt-5 login-form__footer">비밀번호 몰라? 
-                                	<a href="page-register.html" class="text-primary">여기로</a> 이동~
-                                </div>
-                                <div align="right">
-                               		<a id="signup" href="/NHMP/views/Main/singup.jsp" >회원가입</a>
-                               	</div>
+        						<% if(loginHospital != null) {%>
+        							<div align="center">
+										<%= loginHospital.getNH_NAME() %>님,<br>
+										메일 0 개&nbsp; &nbsp; &nbsp; 쪽지 0 개<br>
+										<!-- 쿼리스트링을 이용하여 값을 전달 (?이름=값) -->
+										<a href="/NHMP/myinfo?userid=<%= loginHospital.getNH_USERID() %>">내 정보</a>
+										&nbsp; &nbsp; &nbsp; &nbsp; 
+										<a href="/NHMP/index.jsp">홈으로</a> 
+										&nbsp; &nbsp; &nbsp; &nbsp; 
+										<a href="/NHMP/logout">로그아웃</a> <br>
+									</div>
+        						<% }else {%>
+        							<form class="mt-5 mb-5 login-input" action="/NHMP/login" method="post">
+                                 	  	<div class="form-group">
+                            	            <input type="text" name="userid"class="form-control" placeholder="userID">
+                              	     	</div>
+                             	      	<div class="form-group">
+                              	        	<input type="password" name="userpwd"class="form-control" placeholder="Password">
+                             	      	</div>
+                           	        	<button class="btn login-form__btn submit w-100">로그인</button>
+                          	     	</form>
+	                                <div align="right">
+	                                	비밀번호 몰라?<a href="page-register.html" class="text-primary">여기로</a> 이동~
+	                                </div>
+	                                <div align="right">
+	                                	<a id="signup" href="/NHMP/views/Main/singup.jsp" style="text-align:left" >회원가입</a>
+	                                </div>
+        						<% } %>
                                 
                             </div>
                         </div>
