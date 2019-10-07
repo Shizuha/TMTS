@@ -61,7 +61,7 @@
 										<%= loginHospital.getNH_NAME() %>님,<br>
 										메일 0 개&nbsp; &nbsp; &nbsp; 쪽지 0 개<br>
 										<!-- 쿼리스트링을 이용하여 값을 전달 (?이름=값) -->
-										<a href="/NHMP/myinfo?userid=<%= loginHospital.getNH_USERID() %>">내 정보</a>
+										<a href="/NHMP/myinfo?userid=<%= loginHospital.getNH_USERID() %>">상세정보</a>
 										&nbsp; &nbsp; &nbsp; &nbsp; 
 										<a href="/NHMP/index.jsp">홈으로</a> 
 										&nbsp; &nbsp; &nbsp; &nbsp; 
