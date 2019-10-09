@@ -53,7 +53,7 @@
 
 <h1 align="center">회원가입</h1>
 <br>
-<form action="" method="post" onsubmit="return validation();">
+<form action="/NHMP/singup" method="post" onsubmit="return validation();">
 	<table align="center" width="600" cellspacing="0" cellpadding="5" border="1">
 		<tr>
 			<th>아이디 *</th>
@@ -98,7 +98,7 @@
 			</td>
 		</tr>
 		<tr>
-			<th>전화번호</th>
+			<th>전화번호 *</th>
 			<td>
 				<select>
 					<option value="010" name="fphone">010
@@ -106,15 +106,17 @@
 					<option value="016" name="fphone">016
 					<option value="019" name="fphone">019
 				</select>
-				<input type="tel" name="mphone" maxlength="4">-
-				<input type="tel" name="lphone" maxlength="4">
+				<input type="tel" name="mphone" maxlength="4" required>-
+				<input type="tel" name="lphone" maxlength="4" required>
 			</td>
 		</tr>
 		<tr>
 			<th>이메일</th>
 			<td>
-				<input type="text"> &nbsp; @ &nbsp;
-				<select>
+				<!-- <input type="text"> &nbsp; @ &nbsp; -->
+				<input type="email" name="email">
+				<!-- <select>
+					
 					<option value="">직접입력</option>
 					<option value="naver.com">naver.com</option>
 					<option value="hanmail.net">hanmail.net</option>
@@ -124,7 +126,7 @@
 					<option value="lycos.co.kr">lycos.co.kr</option>
 					<option value="empal.com">empal.com</option>
 					<option value="korea.com">korea.com</option>
-				</select>
+				</select> -->
 			</td>
 		</tr>
 		<tr>
@@ -136,17 +138,17 @@
 			</td>
 		</tr>
 		<tr>
-			<th>사업자등록번호</th>
+			<th>사업자등록번호 *</th>
 			<td>
-				<input name="" value="" maxlength="3" type="text" style="width:79px;" /> - 
-				<input name="psnCobsEnprNO2" value="" maxlength="2" type="text" style="width:79px;" /> - 
-				<input id="psnCobsEnprNO3" name="psnCobsEnprNO3" value="" maxlength="5" type="text" style="width:79px;" />
+				<input name="psnCobsEnprNO1" value="" maxlength="3" type="text" style="width:79px;" required> - 
+				<input name="psnCobsEnprNO2" value="" maxlength="2" type="text" style="width:79px;" required> - 
+				<input id="psnCobsEnprNO3" name="psnCobsEnprNO3" value="" maxlength="5" type="text" style="width:79px;" required>
 			</td>
 		</tr>
 		<tr>
 			<th>상호명</th>
 			<td>
-				<input id=""  name="chkBsnsNM"  value="" type="text" style="width:194px;" disabled="true"/>
+				<input id=""  name="chkBsnsNM"  value="" type="text" style="width:194px;" >
 			</td>
 		</tr>
 		
@@ -173,7 +175,7 @@
 		<tr>
 			<th>회사 주소</th>
 			<td>
-				API 적용
+				<input type="text" name="comaddr">
 			</td>
 		</tr>
 		<tr>

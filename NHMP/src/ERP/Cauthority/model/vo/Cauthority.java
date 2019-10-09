@@ -1,4 +1,4 @@
-package Main.Cauthority.model.vo;
+package ERP.Cauthority.model.vo;
 
 import java.io.Serializable;
 

@@ -18,6 +18,19 @@ public class NHService {
 		close(conn);
 		return nh;
 	}
+
+	public int insertHPT(NursingHospital hospital) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = ndao.insertHPT(conn, hospital);
+		
+		if(result > 0) {
+			commit(conn);			
+		}else {
+			rollback(conn);			
+		}
+		return result;
+	}
 	
 	
 }
