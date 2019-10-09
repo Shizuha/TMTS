@@ -57,6 +57,11 @@ public class NHDao {
 		
 		return nh;
 	}
+
+	public int insertHPT(Connection conn, NursingHospital hospital) {
+		int result = 0;
+		return result;
+	}
 	
 	
 	

@@ -16,6 +16,8 @@
 
 <h1 align="center">에러 발생 : <%= message %></h1>
 <h2 align="center"><a href = "/NHMP/index.jsp">홈으로 이동</a></h2>
+<h2 align="center"><a href = "/NHMP/views/ERP/main.jsp">시스템 관리로 이동</a></h2>
+
 
 
 
