@@ -1,13 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	int idcheck = (Integer)request.getAttribute("result");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+
 <script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+	//아이디 중복 확인
+	$(function() {
+		$("#idcheck").click(function(){
+			var userid = $("#userid").val();
+			if(userid.length != "0"){
+				$.ajax({
+					url : "/NHMP/idcheck",
+					type : "get",
+					data : {userid:$("#userid").val()},
+					success : function(data){
+						if(data != "이미 사용중인 아이디 입니다."){
+						alert(data);
+						$("#userpwd").select();
+						} else {
+						alert(data);
+						$("#userid").select();
+						return false
+						}
+					}				
+				});
+			}else {
+				/* alert(userid.length); */
+				alert("아이디를 입력하세요");
+			}
+			
+		});
+	});
 
+	//패스워드 확인
 	$(function() {
 		$("#target").submit(function(event) {
 			var pwd1 = $("#userpwd").val();
@@ -53,13 +86,13 @@
 
 <h1 align="center">회원가입</h1>
 <br>
-<form action="/NHMP/singup" method="post" onsubmit="return validation();">
+<form action="/NHMP/singup" method="post" onsubmit="return validation();" id="target">
 	<table align="center" width="600" cellspacing="0" cellpadding="5" border="1">
 		<tr>
 			<th>아이디 *</th>
 			<td>
 				<input type="text" name="userid" id="userid" required> &nbsp;
-				<button onclick="return checkId();">중복체크</button>
+				<button id="idcheck" onclick="return checkId();">중복체크</button>
 			</td>
 		</tr>
 		
@@ -100,11 +133,11 @@
 		<tr>
 			<th>전화번호 *</th>
 			<td>
-				<select>
-					<option value="010" name="fphone">010
-					<option value="011" name="fphone">011
-					<option value="016" name="fphone">016
-					<option value="019" name="fphone">019
+				<select name="fphone">
+					<option value="010" selected="selected">010
+					<option value="011">011
+					<option value="016">016
+					<option value="019">019
 				</select>
 				<input type="tel" name="mphone" maxlength="4" required>-
 				<input type="tel" name="lphone" maxlength="4" required>
@@ -174,15 +207,31 @@
 	</script> -->
 		<tr>
 			<th>회사 주소</th>
+			
+			<!-- 주소와 우편번호를 입력할 <input>들을 생성하고 적당한 name과 class를 부여한다 -->
 			<td>
-				<input type="text" name="comaddr">
+				우편번호  &nbsp;&nbsp;&nbsp; <input type="text" name="comaddrnum" class="postcodify_postcode5"  style="text-align:left; width:60px; "> 
+				<input type="button" id="postcodify_search_button" value="검색" style="text-align:right;"> <br>
+				도로명 주소  <input type="text" name="comaddrmain" class="postcodify_address"   style="text-align:left; width:200px; ">  <br>
+				상세 주소  &nbsp;&nbsp;&nbsp;<input type="text" name="comaddrdetail" class="postcodify_details"  style="text-align:left; width:200px; ">  <br>
+				
+				
+				<!-- jQuery와 Postcodify를 로딩한다 -->
+				<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+				<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+				
+				<!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
+				<script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
 			</td>
+			
+			<!-- <td>
+				<input type="text" name="comaddr">
+			</td> -->
 		</tr>
 		<tr>
 			<th>기타사항</th>
 			<td>
-				<textarea name="etc" rows="5" cols="60">
-				</textarea>
+				<textarea name="etc" rows="5" cols="60"></textarea>
 			</td>
 		</tr>
 		<tr>
