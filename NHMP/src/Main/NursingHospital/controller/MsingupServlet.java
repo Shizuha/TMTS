@@ -62,7 +62,9 @@ public class MsingupServlet extends HttpServlet {
 		//회사 상호명
 		Hospital.setCOMPANY_NAME(request.getParameter("chkBsnsNM"));
 		//회사 주소
-		Hospital.setNH_ADRESS(request.getParameter("comaddr"));
+		String commAddr = request.getParameter("comaddrnum") +"번지, "+ request.getParameter("comaddrmain") +" "+ request.getParameter("comaddrdetail");
+		System.out.println(commAddr);
+		Hospital.setNH_ADRESS(commAddr);
 		//기타사항
 		Hospital.setNH_ETC(request.getParameter("etc"));
 		

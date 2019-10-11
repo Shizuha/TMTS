@@ -31,6 +31,13 @@ public class NHService {
 		}
 		return result;
 	}
+
+	public int idCheck(String userid) {
+		Connection conn = getConnection();
+		int result = ndao.idCheck(conn, userid);
+		close(conn);
+		return result;
+	}
 	
 	
 }

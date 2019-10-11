@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 import Main.NursingHospital.model.ov.NursingHospital;
 
 public class NHDao {
@@ -60,6 +61,59 @@ public class NHDao {
 
 	public int insertHPT(Connection conn, NursingHospital hospital) {
 		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String query = "INSERT INTO NURSING_HOSPITAL VALUES((select max(NH_ID)+1 from nursing_hospital), ?, DEFAULT, DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, 'null', 'null', ?, ?, ?,DEFAULT)";
+		//이름, 주민번호, 주소, 내/외, 회사 전화번호, 폰, 이메일, 아이디, 패스워드, 성별, 회사명 , 사업자 등록번호 
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, hospital.getNH_NAME());			//이름
+			pstmt.setString(2, hospital.getNH_NO());			//주민번호
+			pstmt.setString(3, hospital.getNH_ADRESS());		//주소
+			pstmt.setString(4, hospital.getNH_ITNAL_FOR());		//내/외국인
+			pstmt.setString(5, hospital.getNH_AD_TEL());		//회사 전화번호 AD
+			pstmt.setString(6, hospital.getNH_PHONE());			//폰
+			pstmt.setString(7, hospital.getNH_EMAIL());			//이메일
+			pstmt.setString(8, hospital.getNH_USERID());		//아이디
+			pstmt.setString(9, hospital.getNH_USERPWD());		//패스워드
+			pstmt.setString(10, hospital.getGENDER());			//성별
+			pstmt.setString(11, hospital.getCOMPANY_NAME());	//회사명
+			pstmt.setString(12, hospital.getCOMPANY_NO());		//사업자 등록번호
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int idCheck(Connection conn, String userid) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from NURSING_HOSPITAL where nh_userid = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userid);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = 1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
 		return result;
 	}
 	
