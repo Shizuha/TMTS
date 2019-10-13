@@ -18,24 +18,24 @@
 
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700" rel="stylesheet">
 
-    <link rel="stylesheet" href="/NHMP/resources/Main/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="/NHMP/resources/Main/css/animate.css">
+    <link rel="stylesheet" href="/NHMP/resources/Main/css/open-iconic-bootstrap.min.css?after">
+    <link rel="stylesheet" href="/NHMP/resources/Main/css/animate.css?after">
 
-    <link rel="stylesheet" href="/NHMP/resources/Main/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/NHMP/resources/Main/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/NHMP/resources/Main/css/magnific-popup.css">
+    <link rel="stylesheet" href="/NHMP/resources/Main/css/owl.carousel.min.css?after">
+    <link rel="stylesheet" href="/NHMP/resources/Main/css/owl.theme.default.min.css?after">
+    <link rel="stylesheet" href="/NHMP/resources/Main/css/magnific-popup.css?after">
 
-    <link rel="stylesheet" href="/NHMP/resources/Main/css/aos.css">
+    <link rel="stylesheet" href="/NHMP/resources/Main/css/aos.css?after">
 
-    <link rel="stylesheet" href="/NHMP/resources/Main/css/ionicons.min.css">
+    <link rel="stylesheet" href="/NHMP/resources/Main/css/ionicons.min.css?after">
 
-    <link rel="stylesheet" href="/NHMP/resources/Main/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="/NHMP/resources/Main/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="/NHMP/resources/Main/css/bootstrap-datepicker.css?after">
+    <link rel="stylesheet" href="/NHMP/resources/Main/css/jquery.timepicker.css?after">
 
 
-    <link rel="stylesheet" href="/NHMP/resources/Main/css/flaticon.css">
-    <link rel="stylesheet" href="/NHMP/resources/Main/css/icomoon.css">
-    <link rel="stylesheet" href="/NHMP/resources/Main/css/style.css">
+    <link rel="stylesheet" href="/NHMP/resources/Main/css/flaticon.css?after">
+    <link rel="stylesheet" href="/NHMP/resources/Main/css/icomoon.css?after">
+    <link rel="stylesheet" href="/NHMP/resources/Main/css/style.css?after">
   </head>
   <body>
 
@@ -56,19 +56,18 @@
                   <li class="nav-item"><a href="/NHMP/views/Main/contact.jsp" class="nav-link">이민삼수 소개</a></li>
                   <% if(loginHospital == null) { //미 로그인%>
                   	<li class="nav-item"><a href="/NHMP/views/Main/login.jsp" class="nav-link"><span>로그인</span></a></li>
-                  <% }else { //로그인%>
+                  <% } else if ( loginHospital.getNH_USERID().equals("admin") ) {	//관리자 로그인%> 
                   	<li class="nav-item">
                   		<a href="/NHMP/views/Main/login.jsp" class="nav-link">
                   		<span>내정보</span></a>
+                  		<li class="nav-item cta"><a href="/NHMP/views/ERP/main.jsp" class="nav-link"><span>시스템 관리</span></a></li>
                   	</li>
-                  <% } %>
-                  
-                  <% if(loginHospital == null) { // 미회원이 보는 화면%>
-                  	&nbsp;
-                  <% } else if( loginHospital != null ) { // 관리자 로그인 시 %>
-                  	<li class="nav-item cta"><a href="/NHMP/views/ERP/main.jsp" class="nav-link"><span>시스템 관리</span></a></li>
-                  <% } else { // 요양병원 가입자 접속 시 %>
-                  	&nbsp;
+                  <% } else { //일반 로그인%>
+                  	<li class="nav-item">
+                  		<a href="/NHMP/views/Main/login.jsp" class="nav-link">
+                  		<span>내정보</span></a>
+                  		<li class="nav-item cta"><a href="/NHMP/views/ERP/main.jsp" class="nav-link"><span>시스템 관리</span></a></li>
+                  	</li>
                   <% } %>
                 </ul>
               </div>

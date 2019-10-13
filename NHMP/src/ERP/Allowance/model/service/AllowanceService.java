@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import ERP.Allowance.model.dao.AllowanceDao;
 import ERP.Allowance.model.vo.Allowance;
+import ERP.Deduction.model.vo.Deduction;
 
 public class AllowanceService {
 	private AllowanceDao ADao = new AllowanceDao();
@@ -18,8 +19,10 @@ public class AllowanceService {
 	}
 
 	public ArrayList<Allowance> selectList() {
-		ADao.selectList();
-		return null;
+		Connection conn = getConnection();
+		ArrayList<Allowance> list = ADao.selectList(conn);
+		return list;
+		
 	}
 
 	public Allowance insertAllowance() {

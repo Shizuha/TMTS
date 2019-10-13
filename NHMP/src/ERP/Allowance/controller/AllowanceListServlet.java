@@ -3,6 +3,7 @@ package ERP.Allowance.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +34,19 @@ public class AllowanceListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 수당 전체 조회용 컨트롤러
 		ArrayList<Allowance> list = new AllowanceService().selectList();
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		RequestDispatcher view = null;
+		
+		if(list.size() > 0) {
+			view = request.getRequestDispatcher("views/ERP/Allowance/Allowance.jsp");
+			request.setAttribute("list", list);
+			view.forward(request, response);
+		}else {
+			view = request.getRequestDispatcher("views/common/Error.jsp");
+			request.setAttribute("message", "조회 실패");
+			view.forward(request, response);
+		}
+		
 	}
 
 	/**
