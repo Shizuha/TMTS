@@ -20,15 +20,15 @@
 	href="/NHMP/resources/ERP/images/common/favicon.png">
 <!-- Pignose Calender -->
 <link
-	href="/NHMP/resources/ERP/css/plugins/pg-calendar/css/pignose.calendar.min.css"
+	href="/NHMP/resources/ERP/css/plugins/pg-calendar/css/pignose.calendar.min.css?after"
 	rel="stylesheet">
 <!-- Chartist -->
 <link rel="stylesheet"
-	href="/NHMP/resources/ERP/css/plugins/chartist/css/chartist.min.css">
+	href="/NHMP/resources/ERP/css/plugins/chartist/css/chartist.min.css?after">
 <link rel="stylesheet"
-	href="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+	href="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css?after">
 <!-- Custom Stylesheet -->
-<link href="/NHMP/resources/ERP/css/style.css" rel="stylesheet">
+<link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
 
 </head>
 
@@ -60,7 +60,7 @@
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
-				<a href="index.html"> <b class="logo-abbr"><img
+				<a href="/NHMP/views/ERP/main.jsp"> <b class="logo-abbr"><img
 						src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> <span
 					class="logo-compact"><img
 						src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
@@ -269,21 +269,9 @@
 		<div class="nk-sidebar">
 			<div class="nk-nav-scroll">
 				<ul class="metismenu" id="menu">
-
-					<!--    <li class="nav-label">Dashboard</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="index.html">Home 1</a></li>
-                            <li><a href="./index-2.html">Home 2</a></li>
-                        </ul>
-                    </li>
-                    -->
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
-						href="javascript:void()" aria-expanded="false"> <i
-							class="fa fa-users"></i><span class="nav-text">인사관리</span> <!-- <i class="icon-globe-alt menu-icon"></i><span class="nav-text">인사설정</span>-->
+						href="javascript:void()" aria-expanded="false"> 
+						<i class="fa fa-users"></i><span class="nav-text">인사관리</span> 
 					</a>
 						<ul aria-expanded="false">
 							<li><a href="layout-blank.html">인사정보관리</a></li>
@@ -305,8 +293,9 @@
 					</li>
 					<!-- <li class="nav-label">Apps</li> -->
 					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> <i class="fa fa-id-card"></i> <span
-							class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
+						aria-expanded="false"> 
+						<i class="fa fa-id-card"></i> 
+						<span class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
 					</a>
 						<% if(loginHospital != null) { %>
 						<ul aria-expanded="false">
@@ -360,9 +349,9 @@
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="ui-accordion.html">공제항목등록</a></li>
-							<li><a href="ui-alert.html">수당항목등록</a></li>
-							<li><a href="ui-badge.html">급여계산</a></li>
+							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
+							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
+							<li><a href="/NHMP/paylist">급여계산</a></li>
 							<!--
                             <li><a href="ui-button.html">Button</a></li>
                             <li><a href="ui-button-group.html">Button Group</a></li>

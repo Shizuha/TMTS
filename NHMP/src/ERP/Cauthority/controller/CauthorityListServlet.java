@@ -43,10 +43,8 @@ public class CauthorityListServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			view.forward(request, response);
 		}else {
-			view = request.getRequestDispatcher("views/ERP/Cauthority/CauthorityList.jsp");
-			request.setAttribute("list", list);
-			//view = request.getRequestDispatcher("views/common/Error.jsp");
-			//request.setAttribute("message", "조회 실패");
+			view = request.getRequestDispatcher("views/common/Error.jsp");
+			request.setAttribute("message", "조회 실패");
 			view.forward(request, response);
 		}
 		

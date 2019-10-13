@@ -19,8 +19,8 @@ public class DeductionService {
 
 	public ArrayList<Deduction> selectList() {
 		Connection conn = getConnection();
-		DDao.selectList();
-		return null;
+		ArrayList<Deduction> list = DDao.selectList(conn);
+		return list;
 	}
 
 	public Deduction insertDeduction() {
