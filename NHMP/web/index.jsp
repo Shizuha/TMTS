@@ -60,7 +60,7 @@
                   	<li class="nav-item">
                   		<a href="/NHMP/views/Main/login.jsp" class="nav-link">
                   		<span>내정보</span></a>
-                  		<li class="nav-item cta"><a href="/NHMP/views/ERP/main.jsp" class="nav-link"><span>시스템 관리</span></a></li>
+                  		<li class="nav-item cta"><a href="/NHMP/views/ERP/Admin_main.jsp" class="nav-link"><span>시스템 관리</span></a></li>
                   	</li>
                   <% } else { //일반 로그인%>
                   	<li class="nav-item">
