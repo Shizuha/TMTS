@@ -45,7 +45,6 @@ public class CalendarListServlet extends HttpServlet {
 		// 캘린더 값 가져오는 서블릿
 		try {
 			String jsondata = request.getParameter("jsondata");
-			System.out.println(jsondata);
 
 			JSONParser parser = new JSONParser();
 
@@ -55,35 +54,21 @@ public class CalendarListServlet extends HttpServlet {
 
 			ArrayList<Calendar> list = new CalendarService().listCalendar(sendJson);
 			
-			System.out.println(list);
 			JSONArray jarr = new JSONArray();
 
 			// list를 jarr로 옮기기
 			for (Calendar c : list) {
 				// b 객체 저장할 json 객체 생성
 				JSONObject job = new JSONObject();
-				job.put("_id", c.getCalnum());
+				job.put("_id", c.getId());
 				job.put("title",c.getTitle());
-				// JSON에서 한글 깨짐 막으려면, java.net.URLEncoder.encode() 메소드로 인코딩 처리
-				job.put("description", c.getCalendarcontent());
+				job.put("description", c.getDescription());
 				job.put("start", c.getStartdate());
-				job.put("end", c.getEnddate());
-				job.put("type", "카테고리1");
-				job.put("username", "다현");
-				job.put("backgroundColor", "#D25565");
-				job.put("textColor", "#ffffff");
+				job.put("end", String.valueOf(c.getEnddate()));
+				job.put("type", c.getCategory());
+				job.put("backgroundColor", c.getBackgroundcolor());
+				job.put("textColor", c.getTextcolor());
 				job.put("allDay", "false");
-				
-				/*"_id": 1,
-			    "title": "거래처 미팅",
-			    "description": "Lorem ipsum dolor sit incid idunt ut Lorem ipsum sit.",
-			    "start": "2019-05-07T09:30",
-			    "end": "2019-05-07T15:00",
-			    "type": "카테고리1",
-			    "username": "다현",
-			    "backgroundColor": "#D25565",
-			    "textColor": "#ffffff",
-			    "allDay": false*/
 
 				jarr.add(job);
 			}
@@ -98,7 +83,6 @@ public class CalendarListServlet extends HttpServlet {
 			out.flush();
 			out.close();
 
-			System.out.println(list);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

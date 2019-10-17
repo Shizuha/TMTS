@@ -13,8 +13,10 @@ public class CalendarService {
 	
 	CalendarDao cdao = new CalendarDao();
 
-	public ArrayList<Calendar> InsertCalendar() {
-		return null;
+	public void InsertCalendar(JSONObject sendJson) {
+		Connection conn = getConnection();
+		cdao.InsertCalendar(conn, sendJson);
+		close(conn);
 	}
 
 	public ArrayList<Calendar> listCalendar(JSONObject sendJson) {

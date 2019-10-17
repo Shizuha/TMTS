@@ -19,10 +19,10 @@ public class CalendarDao {
 		PreparedStatement pstmt = null;
 		ResultSet rest = null;
 		
-		String query = "select cal_num, emp_id, title, " + 
+		String query = "select cal_num, id_, title, description, " + 
 				"to_char(start_date, 'yyyy-mm-dd')||'T'||to_char(start_date, 'HH24:MM') as start_date, " + 
 				"to_char(end_date, 'yyyy-mm-dd')||'T'||to_char(end_date, 'HH24:MM') as end_date, " + 
-				"calendar_content from calendar";
+				"cate_gory, backgroundcolor, textcolor from calendar";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -35,13 +35,15 @@ public class CalendarDao {
 			
 			while(rest.next()) {
 				Calendar cal = new Calendar();
-				cal.setCalnum(rest.getInt("cal_num"));
-				cal.setEmpid(rest.getString("emp_id"));
+				cal.setId(rest.getString("id_"));
 				cal.setTitle(rest.getString("title"));
+				cal.setDescription(rest.getString("description"));
 				cal.setStartdate(rest.getString("start_date"));
 				cal.setEnddate(rest.getString("end_date"));
-				cal.setCalendarcontent(rest.getString("calendar_content"));
-				System.out.println(cal);
+				cal.setCategory(rest.getString("cate_gory"));
+				cal.setBackgroundcolor(rest.getString("backgroundcolor"));
+				cal.setTextcolor(rest.getString("textcolor"));
+
 				list.add(cal);
 			}
 		} catch (SQLException e) {
@@ -51,6 +53,35 @@ public class CalendarDao {
 		}
 		
 		return list;
+	}
+
+	public void InsertCalendar(Connection conn, JSONObject sendJson) {
+		
+		PreparedStatement pstmt = null;
+		String query = "INSERT INTO CALENDAR VALUES (SEQ_CAL.NEXTVAL, "
+				+ "?, ?, ?, to_date(?, 'yyyy-mm-dd hh24:mi'), "
+				+ "to_date(?, 'yyyy-mm-dd hh24:mi'), "
+				+ "?, ?,DEFAULT)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, String.valueOf(sendJson.get("_id")));
+			pstmt.setString(2, String.valueOf(sendJson.get("title")));
+			pstmt.setString(3, String.valueOf(sendJson.get("description")));
+			pstmt.setString(4, String.valueOf(sendJson.get("start")));
+			pstmt.setString(5, String.valueOf(sendJson.get("end")));
+			pstmt.setString(6, String.valueOf(sendJson.get("type")));
+			pstmt.setString(7, String.valueOf(sendJson.get("backgroundColor")));
+			
+			pstmt.execute();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return;
 	}
 
 }
