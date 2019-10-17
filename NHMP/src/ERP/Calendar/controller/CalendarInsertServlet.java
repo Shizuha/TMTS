@@ -14,9 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.oracle.jrockit.jfr.RequestableEvent;
 
 import ERP.Calendar.Model.Service.CalendarService;
 import ERP.Calendar.Model.vo.Calendar;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class CalendarInsertServlet
@@ -40,37 +45,29 @@ public class CalendarInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 캘린더 등록 서블릿
-		
-		response.setCharacterEncoding("utf-8");
-		
-		//전송용 json 객체 생성
-		JSONObject sendJson = new JSONObject();
-		
-		//list 옮겨 저장할 json 배열 객체를 생성
-		JSONArray jarr = new JSONArray();
-		
-		//list를 jarr로 옮기기
-		/*for(Calendar c : list) {
-			//b 객체 저장할 json 객체 생성
-			JSONObject job = new JSONObject();
-			job.put("edit-title", URLEncoder.encode(c.getTitle(), "utf-8"));
-			//JSON에서 한글 깨짐 막으려면, java.net.URLEncoder.encode() 메소드로 인코딩 처리
-			job.put("edit-start", c.getStartdate());
-			job.put("edit-end", c.getEnddate());
-			job.put("edit-desc", URLEncoder.encode(c.getCalendarcontent(), "utf-8"));
+		// 전송온 값 꺼내고, 문자열 보내기 컨트롤러
+		try {
 			
-			jarr.add(job);
-		}*/
+		NursingHospital nh = (NursingHospital) request.getSession().getAttribute("loginHospital");
 		
-		//json 배열을 전송용 json 객체에 저장한다.
-		sendJson.put("list", jarr);
+		String jsoncal = request.getParameter("jsondata");
 		
-		//요청한 뷰로 응답처리한다.
-		response.setContentType("application/json; charset=utf-8");
-		PrintWriter out = response.getWriter();
-		out.write(sendJson.toJSONString());
-		out.flush();
-		out.close();
+		System.out.println("전송온 값 : " + jsoncal);
+
+		response.setCharacterEncoding("utf-8");
+
+		JSONParser parser = new JSONParser();
+
+		Object obj = parser.parse(jsoncal);
+
+		JSONObject sendJson = (JSONObject) obj;
+		sendJson.put("_id", String.valueOf(nh.getNH_NAME()));
+		CalendarService calendarService = new CalendarService();
+		calendarService.InsertCalendar(sendJson);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
