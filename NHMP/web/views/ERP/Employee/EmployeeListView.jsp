@@ -21,24 +21,19 @@
     <title>NHMP</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <!-- Pignose Calender -->
-    <link href="/NHMP/resources/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
-    <!-- Chartist -->
-    <link rel="stylesheet" href="/NHMP/resources/plugins/chartist/css/chartist.min.css">
-    <link rel="stylesheet" href="/NHMP/resources/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
-    <!-- Custom Stylesheet -->
-    <link href="/NHMP/resources/css/style.css" rel="stylesheet">
+   
+    
+   
+   <!--  메인 css중요한 링크 -->
+    <link href="/NHMP/ERP/resources/css/style.css" rel="stylesheet">
 
-  <!-- Custom fonts for this template -->
-  <link href="/NHMP/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <!-- Custom styles for this template -->
-  <link href="/NHMP/resources/css/sb-admin-2.min.css" rel="stylesheet">
+  <!-- 아이콘 처리용 -->
+  <link href="/NHMP/resources/ERP/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <!-- 페이징 밑단 색깔처리용 -->
+  <link href="/NHMP/resources/ERP/css/sb-admin-2.min.css" rel="stylesheet">
 
-  <!-- Custom styles for this page -->
-  <link href="/NHMP/resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  <script type="text/javascript" src="/NHMP/resources/js/jquery-3.4.1.min.js"></script>
+  <!-- 스크립트태그 -->
+  <script type="text/javascript" src="/NHMP/ERP/resources/js/jquery-3.4.1.min.js"></script>
   <script type="text/javascript">
   	$(function(){
   		
@@ -154,10 +149,10 @@
         <div class="nav-header">
             <div class="brand-logo">
                 <a href="index.html">
-                    <b class="logo-abbr"><img src="/NHMP/resources/images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="/NHMP/resources/images/logo-compact.png" alt=""></span>
+                    <b class="logo-abbr"><img src="/NHMP/ERP/resources/images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="/NHMP/ERP/resources/images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
-                        <img src="/NHMP/resources/images/logo-text.png" alt="">
+                        <img src="/NHMP/resources/ERP/images/logo-text.png" alt="">
                     </span>
                 </a>
             </div>
@@ -182,7 +177,7 @@
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="/NHMP/resources/images/user/1.png" height="40" width="40" alt="">
+                                <img src="/NHMP/resources/ERP/images/user/1.png" height="40" width="40" alt="">
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
@@ -194,7 +189,7 @@
                                         
                                         <hr class="my-2">
                                         <li>
-                                            <a href="/NHMP/views/member/calendar.jsp"><i class="icon-lock"></i> <span>일정관리</span></a>
+                                            <a href="/NHMP/ERP/views/Employee/calendar.jsp"><i class="icon-lock"></i> <span>일정관리</span></a>
                                         </li>
                                         <li><a href="/NHMP/logout"><i class="icon-key"></i> <span>로그아웃</span></a></li>
                                     </ul>
@@ -231,7 +226,7 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="./layout-blank.html">전체사원조회</a></li>
-                            <li><a href="/NHMP/views/Employee/IsertEmployee.jsp">사원정보 등록</a></li>
+                            <li><a href="/NHMP/views/ERP/Employee/IsertEmployee.jsp">사원정보 등록</a></li>
                             
                             
                             
@@ -275,7 +270,7 @@
         <!--**********************************
             Content body start
         ***********************************-->
-        <div class="content-body">
+        <div class="content-body" style="padding:40px;">
 		<div class="container-fluid">
 			<div class="search">
 				<div class="empname">
@@ -303,13 +298,13 @@
                 <table class="table table-bordered" style="margin-top:10px;"id="dataTable" width="100%" cellspacing="0" border="1">
                   
                     <tr class="mainTr">
-                      <th><input type="checkbox" class="check-all">&nbsp;전체선택</th>
-                      <th>사번</th>
-                      <th>이름</th>
-                      <th>입사일</th>
-                      <th>휴대폰</th>
-                      <th>이메일</th>
-                      <th>급여</th>
+                      <th width="110px"><input type="checkbox" class="check-all">&nbsp;전체선택</th>
+                      <th width="110px">사번</th>
+                      <th width="110px">이름</th>
+                      <th width="110px">입사일</th>
+                      <th width="120px">휴대폰</th>
+                      <th width="110px">이메일</th>
+                      <th>주소</th>
                     </tr>
                   <%for(Employee e : empList){ %>
                   	
@@ -332,7 +327,7 @@
                       <th>입사일</th>
                       <th>휴대폰</th>
                       <th>이메일</th>
-                      <th>급여</th>
+                      <th>주소</th>
                     </tr>
                 </table>
                 </form>
@@ -400,34 +395,10 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    <script src="/NHMP/resources/plugins/common/common.min.js"></script>
-    <script src="/NHMP/resources/js/custom.min.js"></script>
-    <script src="/NHMP/resources/js/settings.js"></script>
-    <script src="/NHMP/resources/js/gleek.js"></script>
-    <script src="/NHMP/resources/js/styleSwitcher.js"></script>
-
-    <!-- Chartjs -->
-    <script src="/NHMP/resources/plugins/chart.js/Chart.bundle.min.js"></script>
-    <!-- Circle progress -->
-    <script src="/NHMP/resources/plugins/circle-progress/circle-progress.min.js"></script>
-    <!-- Datamap -->
-    <script src="/NHMP/resources/plugins/d3v3/index.js"></script>
-    <script src="/NHMP/resources/plugins/topojson/topojson.min.js"></script>
-    <script src="/NHMP/resources/plugins/datamaps/datamaps.world.min.js"></script>
-    <!-- Morrisjs -->
-    <script src="/NHMP/resources/plugins/raphael/raphael.min.js"></script>
-    <script src="/NHMP/resources/plugins/morris/morris.min.js"></script>
-    <!-- Pignose Calender -->
-    <script src="/NHMP/resources/plugins/moment/moment.min.js"></script>
-    <script src="/NHMP/resources/plugins/pg-calendar/js/pignose.calendar.min.js"></script>
-    <!-- ChartistJS -->
-    <script src="/NHMP/resources/plugins/chartist/js/chartist.min.js"></script>
-    <script src="/NHMP/resources/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
-    
-    <!-- ----------------------------------------------------------------------------------------------- -->
-    
-
-
+    <script src="/NHMP/resources/ERP/common/common.min.js"></script>
+    <script src="/NHMP/resources/ERP/js/custom.min.js"></script>
+    <script src="/NHMP/resources/ERP/js/settings.js"></script>
+    <script src="/NHMP/resources/ERP/js/gleek.js"></script>
 
 </body>
 
