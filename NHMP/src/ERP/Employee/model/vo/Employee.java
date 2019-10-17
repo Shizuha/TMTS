@@ -1,4 +1,4 @@
-package ERP.Employee.model.vo;
+package employee.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -6,7 +6,7 @@ import java.sql.Date;
 public class Employee implements Serializable{
 	private static final long serialVersionUID = 5555L;
 	
-	private int empId;
+	private String empId;
 	private String empName;
 	private java.sql.Date hireDate;
 	private java.sql.Date rsnDate;
@@ -16,6 +16,7 @@ public class Employee implements Serializable{
 	private String adTel;
 	private String phone;
 	private String email;
+	private int salary;
 	private String userId;
 	private String userpwd;
 	private String empEtc;
@@ -30,14 +31,14 @@ public class Employee implements Serializable{
 	private String allowanceCode;
 	private String authorityCode;
 	private String wardCode;
-	
+	private String holdOffice;
 	public Employee() {}
 	
-	public Employee(int empId, String empName, Date hireDate, Date rsnDate, String empNo, String address,
-			String itnalFor, String adTel, String phone, String email, String userId, String userpwd, String empEtc,
+	public Employee(String empId, String empName, Date hireDate, Date rsnDate, String empNo, String address,
+			String itnalFor, String adTel, String phone, String email, int salary, String userId, String userpwd, String empEtc,
 			String empImgOriginalFilename, String empRenameFilename, String gender, String empmentCode, String deptCode,
 			String teamCode, String posCode, String deductionCode, String allowanceCode, String authorityCode,
-			String wardCode) {
+			String wardCode, String holdOffice) {
 		super();
 		this.empId = empId;
 		this.empName = empName;
@@ -49,6 +50,7 @@ public class Employee implements Serializable{
 		this.adTel = adTel;
 		this.phone = phone;
 		this.email = email;
+		this.salary = salary;
 		this.userId = userId;
 		this.userpwd = userpwd;
 		this.empEtc = empEtc;
@@ -63,13 +65,24 @@ public class Employee implements Serializable{
 		this.allowanceCode = allowanceCode;
 		this.authorityCode = authorityCode;
 		this.wardCode = wardCode;
+		this.holdOffice = holdOffice;
+	}
+	
+	
+
+	public String getHoldOffice() {
+		return holdOffice;
 	}
 
-	public int getEmpId() {
+	public void setHoldOffice(String holdOffice) {
+		this.holdOffice = holdOffice;
+	}
+
+	public String getEmpId() {
 		return empId;
 	}
 
-	public void setEmpId(int empId) {
+	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
 
@@ -143,6 +156,15 @@ public class Employee implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+
+	public int getSalary() {
+		return salary;
+	}
+
+	public void setSalary(int salary) {
+		this.salary = salary;
 	}
 
 	public String getUserId() {
@@ -261,13 +283,17 @@ public class Employee implements Serializable{
 	public String toString() {
 		return "Employee [empId=" + empId + ", empName=" + empName + ", hireDate=" + hireDate + ", rsnDate=" + rsnDate
 				+ ", empNo=" + empNo + ", address=" + address + ", itnalFor=" + itnalFor + ", adTel=" + adTel
-				+ ", phone=" + phone + ", email=" + email + ", userId=" + userId + ", userpwd=" + userpwd + ", empEtc="
-				+ empEtc + ", empImgOriginalFilename=" + empImgOriginalFilename + ", empRenameFilename="
-				+ empRenameFilename + ", gender=" + gender + ", empmentCode=" + empmentCode + ", deptCode=" + deptCode
-				+ ", teamCode=" + teamCode + ", posCode=" + posCode + ", deductionCode=" + deductionCode
-				+ ", allowanceCode=" + allowanceCode + ", authorityCode=" + authorityCode + ", wardCode=" + wardCode
-				+ "]";
+				+ ", phone=" + phone + ", email=" + email + ", salary=" + salary + ", userId=" + userId + ", userpwd="
+				+ userpwd + ", empEtc=" + empEtc + ", empImgOriginalFilename=" + empImgOriginalFilename
+				+ ", empRenameFilename=" + empRenameFilename + ", gender=" + gender + ", empmentCode=" + empmentCode
+				+ ", deptCode=" + deptCode + ", teamCode=" + teamCode + ", posCode=" + posCode + ", deductionCode="
+				+ deductionCode + ", allowanceCode=" + allowanceCode + ", authorityCode=" + authorityCode
+				+ ", wardCode=" + wardCode + ", holdOffice=" + holdOffice + "]";
 	}
+
+	
+
+	
 	
 	
 
