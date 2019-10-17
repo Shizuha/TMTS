@@ -50,7 +50,7 @@ public class CalendarInsertServlet extends HttpServlet {
 		JSONArray jarr = new JSONArray();
 		
 		//list를 jarr로 옮기기
-		for(Calendar c : list) {
+		/*for(Calendar c : list) {
 			//b 객체 저장할 json 객체 생성
 			JSONObject job = new JSONObject();
 			job.put("edit-title", URLEncoder.encode(c.getTitle(), "utf-8"));
@@ -60,7 +60,7 @@ public class CalendarInsertServlet extends HttpServlet {
 			job.put("edit-desc", URLEncoder.encode(c.getCalendarcontent(), "utf-8"));
 			
 			jarr.add(job);
-		}
+		}*/
 		
 		//json 배열을 전송용 json 객체에 저장한다.
 		sendJson.put("list", jarr);
