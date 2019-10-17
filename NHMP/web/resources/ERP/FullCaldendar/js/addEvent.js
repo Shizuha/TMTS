@@ -30,7 +30,7 @@ var newEvent = function (start, end, eventType) {
     eventModal.modal('show');
 
     /******** 임시 RAMDON ID - 실제 DB 연동시 삭제 **********/
-    var eventId = 1 + Math.floor(Math.random() * 1000);
+    var eventId = 'admin';
     /******** 임시 RAMDON ID - 실제 DB 연동시 삭제 **********/
 
     //새로운 일정 저장버튼 클릭
@@ -38,18 +38,16 @@ var newEvent = function (start, end, eventType) {
     $('#save-event').on('click', function () {
 
         var eventData = {
-            _id: eventId,
             title: editTitle.val(),
             start: editStart.val(),
             end: editEnd.val(),
             description: editDesc.val(),
             type: editType.val(),
-            username: '사나',
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
             allDay: false
         };
-
+        
         if (eventData.start > eventData.end) {
             alert('끝나는 날짜가 앞설 수 없습니다.');
             return false;
@@ -76,13 +74,16 @@ var newEvent = function (start, end, eventType) {
         eventModal.find('input, textarea').val('');
         editAllDay.prop('checked', false);
         eventModal.modal('hide');
-
+       
+        console.log(eventData)
+        var jsondata = JSON.stringify(eventData);
         //새로운 일정 저장
+        
         $.ajax({
             type: "get",
             url: "/NHMP/calin",
             data: {
-            	userid : $("#userid").val(), userpwd : $("#userpwd").val()
+            	jsondata
             },
             dataType: 'json',
             success: function (response) {

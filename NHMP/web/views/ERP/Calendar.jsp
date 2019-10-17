@@ -6,8 +6,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>FullCalendar Example</title>
-    <link rel="shortcut icon" href="image/favicon.ico">
-
+    <link rel="shortcut icon" href="/NHMP/resources/ERP/FullCaldendar/image/favicon.ico">
+	
     <link rel="stylesheet" href="/NHMP/resources/ERP/FullCaldendar/vendor/css/fullcalendar.min.css" />
     <link rel="stylesheet" href="/NHMP/resources/ERP/FullCaldendar/vendor/css/bootstrap.min.css">
     <link rel="stylesheet" href='/NHMP/resources/ERP/FullCaldendar/vendor/css/select2.min.css' />
@@ -149,21 +149,21 @@
             </div>
         </div>
         
-         <div class="col-lg-6">
+        <!--  <div class="col-lg-6">
                     <label for="calendar_view">등록자별</label>
                     <div class="input-group">
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="정연"
-                                checked>정연</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="다현"
-                                checked>다현</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="사나"
-                                checked>사나</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="나연"
-                                checked>나연</label>
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="홍길동"
+                                checked>홍길동</label>
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="박원순"
+                                checked>박원순</label>
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="유시민"
+                                checked>유시민</label>
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="장제원"
+                                checked>장제원</label>
                         <label class="checkbox-inline"><input class='filter' type="checkbox" value="지효"
                                 checked>지효</label>
                     </div>
-                </div>
+                </div> -->
 
         <!-- /.filter panel -->
     </div>

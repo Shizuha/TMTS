@@ -20,20 +20,20 @@ function filtering(event) {
   var show_username = true;
   var show_type = true;
 
-  var username = $('input:checkbox.filter:checked').map(function () {
-    return $(this).val();
-  }).get();
-  var types = $('#type_filter').val();
-
-  show_username = username.indexOf(event.username) >= 0;
-
-  if (types && types.length > 0) {
-    if (types[0] == "all") {
-      show_type = true;
-    } else {
-      show_type = types.indexOf(event.type) >= 0;
-    }
-  }
+//  var username = $('input:checkbox.filter:checked').map(function () {
+//    return $(this).val();
+//  }).get();
+//  var types = $('#type_filter').val();
+//
+//  show_username = username.indexOf(event.username) >= 0;
+//
+//  if (types && types.length > 0) {
+//    if (types[0] == "all") {
+//      show_type = true;
+//    } else {
+//      show_type = types.indexOf(event.type) >= 0;
+//    }
+//  }
 
   return show_username && show_type;
 }
@@ -163,8 +163,6 @@ var calendar = $('#calendar').fullCalendar({
     date.end = "2099-12-30";
     
     var jsondata = JSON.stringify(date);
-    console.log(jsondata);
-    
     $.ajax({
       type: "get",
       url: "/NHMP/callist",
@@ -176,8 +174,6 @@ var calendar = $('#calendar').fullCalendar({
       success: function (response) {
     	  var events = [];
     	  var list = response.list;
-    	  console.log(list);
-    	  console.log(response);
     	  for(var i = 0; i < list.length; i++ ){
           if (list[i].allDay && list[i].start !== list[i].end) {
             // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
@@ -193,7 +189,7 @@ var calendar = $('#calendar').fullCalendar({
         		  username:list[i].username,
         		  backgroundColor:list[i].backgroundColor,
         		  textColor:list[i].textColor,
-        		  allDay:false,
+        		  allDay:list[i].allDay,
           };
           events.push(evt);
         }
