@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="ERP.counselingLog.model.vo.CounselingLog"%>
+	pageEncoding="UTF-8" %>
+<%@ page import="ERP.counselingLog.model.vo.CounselingLog" %>
 <%
 	CounselingLog cl = (CounselingLog) request.getAttribute("cl");
 %>
@@ -46,5 +47,7 @@
 					&nbsp; <input type="reset" value="등록취소"> &nbsp; <a
 					href="javascript:history.go(-1);">이전 페이지로 이동</a></th>
 			</tr>
+</form>
+</table>
 </body>
 </html>

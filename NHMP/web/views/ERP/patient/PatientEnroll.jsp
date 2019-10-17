@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -313,10 +313,10 @@
 					</a>
 
 						<ul aria-expanded="false">
-							<li><a href="Patient/PatientListView.jsp">전체환자 조회</a></li>
-							<li><a href="Patient/PatientDetailView.jsp">환자 입원 등록</a></li>
-							<li><a href="Patient/CounselingLogEnroll.jsp">상담일지 등록</a></li>
-							<li><a href="Patient/MedicienRecordEnroll.jsp">투약일지 등록</a></li>
+							<li><a href="patient/PatientListView.jsp">전체환자 조회</a></li>
+							<li><a href="patient/PatientEnroll.jsp">환자 입원 등록</a></li>
+							<li><a href="counselingLog/CounselingLogEnroll.jsp">상담일지 등록</a></li>
+							<li><a href="medicienRecord/MedicienRecordEnroll.jsp">투약일지 등록</a></li>
 						</ul></li>
 					<!--
                     <li>
@@ -464,7 +464,7 @@
 						cellspacing="0" cellpadding="5" border="1">
 						<tr>
 							<th>병록번호</th>
-							<td><input type="number" name="patNum" id="patNum" required></td>
+							<td><input type="number" name="patNum" id="patNum" required value="<%-- <%= patient.getPatNum() %> --%>"readonly></td>
 						</tr>
 
 						<tr>
@@ -481,7 +481,7 @@
 
 						<tr>
 							<th>입원날짜</th>
-							<td></td>
+							<td><input type="text" name="pat_ent_date"></td>
 						</tr>
 
 						<tr>

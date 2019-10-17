@@ -1,14 +1,15 @@
 package ERP.patient.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import ERP.patient.model.vo.Patient;
-
-import static common.JDBCTemplate.*;
 
 public class PatientDao {
 	public PatientDao() {}
@@ -60,8 +61,33 @@ public class PatientDao {
 	}
 	
 	public int insertPatient(Connection conn, Patient patient) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query= "insert into patient values(?, ?, ?, sysdate, default, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, patient.getPatNum());
+			pstmt.setString(2, patient.getPatName());
+			pstmt.setString(3, patient.getPatType());
+			pstmt.setString(4, patient.getPatGender());
+			pstmt.setString(5, patient.getPatNo());
+			pstmt.setString(6, patient.getAddress());
+			pstmt.setString(7, patient.getFamily());
+			pstmt.setString(8, patient.getEmail());
+			pstmt.setString(9, patient.getPatPhone());
+			pstmt.setString(10, patient.getWard());
+			pstmt.setString(11, patient.getPatDoc());
+			
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 	public int updatePatient(Connection conn, Patient patient) {

@@ -26,7 +26,7 @@ import ERP.counselingLog.model.vo.CounselingLog;
  */
 @WebServlet("/counselinsert")
 public class CounselingLogInsertServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6001L;
        
     /**
      * @see HttpServlet#HttpServlet()
