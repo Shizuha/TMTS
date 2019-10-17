@@ -23,10 +23,16 @@ public class DeductionService {
 		return list;
 	}
 
-	public Deduction insertDeduction() {
+	public int insertDeduction(Deduction deduction) {
 		Connection conn = getConnection();
-		DDao.insertDeduction();
-		return null;
+		int result = DDao.insertDeduction(conn, deduction);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 	public Deduction deleteDeduction() {
@@ -34,5 +40,14 @@ public class DeductionService {
 		DDao.deleteDeduction();
 		return null;
 	}
+
+	public String selectFormula(String dcode) {
+		Connection conn = getConnection();
+		String Formula = DDao.selectFormula(conn, dcode);
+		close(conn);
+		return Formula;
+	}
+
+	
 
 }

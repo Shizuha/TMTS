@@ -1,7 +1,7 @@
-package Main.NursingHospital.controller;
+package ERP.Deduction.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,19 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Main.NursingHospital.model.service.NHService;
+import ERP.Deduction.model.service.DeductionService;
+import ERP.Deduction.model.vo.Deduction;
 
 /**
- * Servlet implementation class MidCheckServlet
+ * Servlet implementation class DeductionInFservlet
  */
-@WebServlet("/idcheck")
-public class MidCheckServlet extends HttpServlet {
+@WebServlet("/insertF")
+public class DeductionInFservlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MidCheckServlet() {
+    public DeductionInFservlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,24 +32,20 @@ public class MidCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 아이디 중복 확인 컨트롤러(Ajax)
-		int result = 0;
-		String userid = request.getParameter("userid");
-		System.out.println(userid);
+		// 수식 등록 처리용 컨트롤러
 		
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter out = response.getWriter();
-		result = new NHService().idCheck(userid);
-		/*RequestDispatcher view = null;*/
-		if(result > 0 ) {
-			out.append("이미 사용중인 아이디 입니다.");
-			
+	
+		ArrayList<Deduction> list = new DeductionService().selectList();
+		RequestDispatcher view = null;
+		if(list.size() > 0) {
+			view = request.getRequestDispatcher("views/ERP/Deduction/insertFormula.jsp");
+			request.setAttribute("list", list);
+			view.forward(request, response);
 		}else {
-			out.append("사용가능한 아이디 입니다.");
-			request.setAttribute("result", result);
+			view = request.getRequestDispatcher("views/common/Error.jsp");
+			request.setAttribute("message", "로딩 실패 다시 시도해 주세요");
+			view.forward(request, response);
 		}
-		out.flush();
-		out.close();
 	}
 
 	/**
