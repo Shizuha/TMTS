@@ -67,7 +67,7 @@ public class EmployeeListServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		if (empList.size() > 0) {
 
-			view = request.getRequestDispatcher("views/Employee/employeeListView.jsp");
+			view = request.getRequestDispatcher("views/ERP/Employee/EmployeeListView.jsp");
 			request.setAttribute("empList", empList);
 			request.setAttribute("maxPage", maxPage);
 			request.setAttribute("currentPage", currentPage);

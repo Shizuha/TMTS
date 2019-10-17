@@ -2,12 +2,16 @@
 	pageEncoding="UTF-8"%>
 
 <%@
-	page import="Main.NursingHospital.model.ov.NursingHospital, java.util.ArrayList, ERP.Deduction.model.vo.Deduction, ERP.Allowance.model.vo.Allowance"%>
+	page import="Main.NursingHospital.model.ov.NursingHospital, 
+				java.util.ArrayList, ERP.Deduction.model.vo.Deduction, 
+				ERP.Allowance.model.vo.Allowance, ERP.Employee.model.vo.Employee"%>
 
 <%
 	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
 	ArrayList<Allowance> Alist = (ArrayList<Allowance>)request.getAttribute("Alist");
 	ArrayList<Deduction> Dlist = (ArrayList<Deduction>)request.getAttribute("Dlist");
+	ArrayList<Employee> Elist = (ArrayList<Employee>)request.getAttribute("Elist");
+	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +21,64 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMTS</title>
+<style type="text/css">
+	#rootdiv{
+		float:left;
+		width:1100px;
+		height:500px;
+		border : 1px solid red;
+		margin:40px;
+		
+	}
+	
+	#rootdiv #Payleft{
+		border: 1px solid gold; 
+		float: left; 
+		width: 33%;
+	}
+	#rootdiv #Payleft table{
+		width:100%;
+		float:left;
+	}	
+	
+	#rootdiv #Paycenter{
+		border: 1px solid gold; 
+		float: right; 
+		width: 33%;
+	}
+	#rootdiv #Paycenter table{
+		width:70%;
+		float:right;
+	}
+	
+	#rootdiv #Payright{
+		border: 1px solid gold; 
+		float: right; 
+		width: 33%;
+	}
+	#rootdiv #Payright table{
+		width:70%;
+		float:right;
+	}
+	
+	#rootdiv div{
+		height:300px;
+		border:0px;
+		margin:0px;
+		padding:0px;
+		
+	}
+	
+	#Payresult {
+		margin:0%;
+		border: 1px solid blue;
+		float:right;
+	}	
+	#Payresult table{
+		width:363px;
+	}
+
+</style>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="/NHMP/resources/ERP/images/common/favicon.png">
@@ -330,80 +392,110 @@
             Content body start
         ***********************************-->
 		<div class="content-body">
-			<form action="">
-				<br>
-				<br>
-				<div style="float: right; width: 25%;">
-					<table width="300" border="1">
-						<tr>
-							<th ></th>
-							<th align="center">수당명칭2</th>
-						</tr>
-						<% for(Allowance a : Alist){%>
-							<tr align="center">
-								<td><input type="checkbox" style="text-align:center; vertical-align: middle; width:1.0rem; height:1.0rem"></td>
-								<td><%= a.getALLOWANCE_NAME() %></td>
+			<div id="rootdiv">
+				<form action="">
+					<br> <br>
+					
+					<div id="Payleft"">
+						<table border="1" margin="0 0 0 0">
+							<tr>
+								<th>선택</th>
+								<th>이름</th>
+								<th>사번</th>
 							</tr>
-						<% } %>
-						<!-- 디비에서 list 받아서 가져오기 -->
-					</table>
-				</div>
-				<div style="float: right; width: 25%;">
-					<table width="300" border="1">
-						<tr>
-							<th ></th>
-							<th align="center">공제명칭1</th>
-						</tr>
-						<% for(Deduction d : Dlist){%>
+							<%
+								for (Employee e : Elist) {
+							%>
 							<tr align="center">
-								<td><input type="checkbox" style="text-align:center; vertical-align: middle; width:1.0rem; height:1.0rem"></td>
-								<td><%= d.getDEDUCTION_NAME() %></td>
+								<td><input type="checkbox" class="Echeckbox<%= e.getEmpId() %>" onclick=""
+									style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
+								<td><%=e.getEmpName()%></td>
+								<td><%=e.getEmpId()%></td>
 							</tr>
-						<% } %>
-						<!-- 디비에서 list 받아서 가져오기 -->
-					</table>
-				</div>
-				<div style="float: right; width:43%;">
-					<table width="500" border="1">
-						<tr>
-							<th style="text-align:center;">선택</th>
-							<th align="center">직원정보</th>
-						</tr>
-						<% for(Deduction d : Dlist){%>
+							<%
+								}
+							%>
+							<!-- 디비에서 list 받아서 가져오기 -->
+						</table>
+					</div>	<!-- Payleft -->
+
+					<div id="Paycenter" >
+						<table width="auto" border="1" margin="0 0 0 0">
+							<tr>
+								<th>선택</th>
+								<th align="center">공제명칭1</th>
+							</tr>
+							<%
+								for (Deduction d : Dlist) {
+							%>
 							<tr align="center">
-								<td><input type="checkbox" style="text-align:center; vertical-align: middle; width:1.0rem; height:1.0rem"></td>
-								<td><%= d.getDEDUCTION_NAME() %></td>
+								<td>
+									<input type="checkbox"  
+											style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem">
+								</td>
+								<td><%=d.getDEDUCTION_NAME()%></td>
 							</tr>
-						<% } %>
-						<!-- 디비에서 list 받아서 가져오기 -->
-					</table>
-				</div >
-					<!-- #/ container -->
-				<br><br><br><br>
-				<div style="float: right; width: 50%;">
-					<table width="715" border="1">
-						<tr>
-							<th width="20%" style="text-align:center;">계산</th>		
-							<td style="text-align:right;"><input type="text" style="width:555px; text-align:right;">원</td>			
-						</tr>
-						<tr>
-							<th width="20%" style="text-align:center;">계산</th>		
-							<td style="text-align:right;"><input type="text" style="width:555px; text-align:right;">원</td>					
-						</tr>
-						<tr>
-							<th width="20%" style="text-align:center;">계산</th>		
-							<td style="text-align:right;"><input type="text" style="width:555px; text-align:right;">원</td>					
-						</tr>
-						<tr>
-							<th width="20%" style="text-align:center;">계산</th>		
-							<td style="text-align:right;"><input type="text" style="width:555px; text-align:right;">원</td>					
-						</tr>
-					</table>
-				</div>
-			</form>
+							<%
+								}
+							%>
+							<!-- 디비에서 list 받아서 가져오기 -->
+						</table>
+					</div>		<!-- Paycenter -->
+
+					<div id="Payright" >
+						<table width="auto" border="1" margin="0 0 0 0">
+							<tr>
+								<th>선택</th>
+								<th align="center">수당명칭2</th>
+							</tr>
+							<%
+								for (Allowance a : Alist) {
+							%>
+							<tr align="center">
+								<td><input type="checkbox"
+									style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
+								<td><%=a.getALLOWANCE_NAME()%></td>
+							</tr>
+							<%
+								}
+							%>
+							<!-- 디비에서 list 받아서 가져오기 -->
+						</table>
+					</div>		<!-- Payright -->
+					<div id="Payresult">
+						<table border="1">
+							<tr>
+								<th style="text-align: center;">계산</th>
+								<td style="text-align: right;">
+									<input type="text" style="text-align: right;">원
+								</td>
+							</tr>
+							<tr>
+								<th style="text-align: center;">계산</th>
+								<td style="text-align: right;">
+									<input type="text" style="text-align: right;">원
+								</td>
+							</tr>
+							<tr>
+								<th style="text-align: center;">계산</th>
+								<td style="text-align: right;">
+									<input type="text" style="text-align: right;">원
+								</td>
+							</tr>
+							<tr>
+								<th style="text-align: center;">계산</th>
+								<td style="text-align: right;">
+									<input type="text" style="text-align: right;">원
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>					
+				</form>
+			
 		</div>
-		
-			<!--**********************************
+
+		<!--**********************************
             Content body end
         ***********************************-->
 

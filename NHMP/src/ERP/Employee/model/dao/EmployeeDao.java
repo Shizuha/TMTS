@@ -133,7 +133,7 @@ public class EmployeeDao {
 		Statement pstmt = null;
 		ResultSet rs = null;
 
-		String query = "select * from member ";
+		String query = "select * from employee ";
 
 		try {
 
@@ -169,7 +169,7 @@ public class EmployeeDao {
 				emp.setAllowanceCode(rs.getString("allowance_code"));
 				emp.setAuthorityCode(rs.getString("authority_code"));
 				emp.setWardCode(rs.getString("ward_code"));
-
+				System.out.println(emp);
 				memList.add(emp);
 			}
 

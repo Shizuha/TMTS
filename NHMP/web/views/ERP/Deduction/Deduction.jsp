@@ -56,7 +56,7 @@
 		
 	});
 	
-	//수식입력 토글 미완성
+	
 	function inFCheck(no){
 		var checkbtn = "inFbtn"+no; //체크박스	
 		var $checkbtn = $("#"+checkbtn);
