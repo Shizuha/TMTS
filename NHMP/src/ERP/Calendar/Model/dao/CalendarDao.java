@@ -17,7 +17,7 @@ public class CalendarDao {
 		ArrayList<Calendar> list = new ArrayList<Calendar>();
 		
 		PreparedStatement pstmt = null;
-		ResultSet rest = null;
+		ResultSet rest = null; 
 		
 		String query = "select cal_num, id_, title, description, " + 
 				"to_char(start_date, 'yyyy-mm-dd')||'T'||to_char(start_date, 'HH24:MM') as start_date, " + 

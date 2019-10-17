@@ -17,7 +17,7 @@ function getDisplayEventDate(event) {
 }
 
 function filtering(event) {
-  var show_username = true;
+  var show_username = true; 
   var show_type = true;
 
 //  var username = $('input:checkbox.filter:checked').map(function () {

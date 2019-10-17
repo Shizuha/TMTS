@@ -72,7 +72,7 @@
                                 <label class="col-xs-4" for="edit-start">시작</label>
                                 <input class="inputModal" type="text" name="edit-start" id="edit-start" />
                             </div>
-                        </div>
+                        </div>  
                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-end">끝</label>

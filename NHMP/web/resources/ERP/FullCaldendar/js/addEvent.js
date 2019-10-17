@@ -18,7 +18,7 @@ var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
  * ************** */
 var newEvent = function (start, end, eventType) {
 
-    $("#contextMenu").hide(); //메뉴 숨김
+    $("#contextMenu").hide(); //메뉴 숨김 
 
     modalTitle.html('새로운 일정');
     editStart.val(start);

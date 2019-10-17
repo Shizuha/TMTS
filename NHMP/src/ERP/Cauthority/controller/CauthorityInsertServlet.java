@@ -19,7 +19,7 @@ public class CauthorityInsertServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CauthorityInsertServlet() {
+    public CauthorityInsertServlet() { 
         super();
         // TODO Auto-generated constructor stub
     }
