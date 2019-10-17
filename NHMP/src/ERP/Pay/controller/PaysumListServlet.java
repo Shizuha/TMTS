@@ -14,6 +14,8 @@ import ERP.Allowance.model.service.AllowanceService;
 import ERP.Allowance.model.vo.Allowance;
 import ERP.Deduction.model.service.DeductionService;
 import ERP.Deduction.model.vo.Deduction;
+import ERP.Employee.model.service.EmployeeService;
+import ERP.Employee.model.vo.Employee;
 
 /**
  * Servlet implementation class PaysumListServlet
@@ -37,12 +39,15 @@ public class PaysumListServlet extends HttpServlet {
 		// 급여 계산에 사용될 공제 및 수당 리스트 처리용 컨트롤러
 		ArrayList<Deduction> Dlist = new DeductionService().selectList();
 		ArrayList<Allowance> Alist = new AllowanceService().selectList();
+		ArrayList<Employee> Elist = new EmployeeService().selectAll();
+		System.out.println(Elist);
 		RequestDispatcher view = null;
 		
 		if(Dlist.size() > 0) {
 			view = request.getRequestDispatcher("views/ERP/PaySum/PaySum.jsp");
 			request.setAttribute("Dlist", Dlist);
 			request.setAttribute("Alist", Alist);
+			request.setAttribute("Elist", Elist);
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
 			request.setAttribute("message", "페이지 조회 실패");

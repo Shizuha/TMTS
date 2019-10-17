@@ -319,7 +319,7 @@
 							class="fa fa-users"></i><span class="nav-text">인사관리</span> <!-- <i class="icon-globe-alt menu-icon"></i><span class="nav-text">인사설정</span>-->
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="layout-blank.html">인사정보관리</a></li>
+							<li><a href="/NHMP/list">인사정보관리</a></li>
 							<li><a href="layout-one-column.html">인사정보등록</a></li>
 							<li><a href="layout-two-column.html">조직도</a></li>
 							<!--
@@ -389,9 +389,9 @@
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="ui-accordion.html">공제항목등록</a></li>
-							<li><a href="ui-alert.html">수당항목등록</a></li>
-							<li><a href="ui-badge.html">급여계산</a></li>
+							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
+							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
+							<li><a href="/NHMP/paylist">급여계산</a></li>
 							<!--
                             <li><a href="ui-button.html">Button</a></li>
                             <li><a href="ui-button-group.html">Button Group</a></li>
