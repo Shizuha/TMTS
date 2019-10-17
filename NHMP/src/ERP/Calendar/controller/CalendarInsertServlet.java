@@ -61,14 +61,14 @@ public class CalendarInsertServlet extends HttpServlet {
 		Object obj = parser.parse(jsoncal);
 
 		JSONObject sendJson = (JSONObject) obj;
-		sendJson.put("_id", String.valueOf(nh.getNH_NAME()));
+		sendJson.put("_id", String.valueOf(nh.getNH_USERID()));
 		CalendarService calendarService = new CalendarService();
 		calendarService.InsertCalendar(sendJson);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	} 
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

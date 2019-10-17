@@ -23,7 +23,7 @@ public class CauthorityListServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CauthorityListServlet() {
+    public CauthorityListServlet() { 
         super();
         // TODO Auto-generated constructor stub
     }

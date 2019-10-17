@@ -13,7 +13,7 @@ public class Calendar implements java.io.Serializable {
 	private String category;
 	private String username;
 	private String backgroundcolor;
-	private String textcolor;
+	private String textcolor; 
 	
 	public Calendar() {}
 
