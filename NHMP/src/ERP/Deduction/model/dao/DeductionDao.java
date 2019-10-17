@@ -3,6 +3,7 @@ package ERP.Deduction.model.dao;
 import static common.JDBCTemplate.close;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,7 +23,7 @@ public class DeductionDao {
 		Statement stmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from deduction order by deduction_no desc";
+		String query = "select * from deduction order by deduction_no asc";
 		
 		try {
 			stmt = conn.createStatement();
@@ -52,8 +53,30 @@ public class DeductionDao {
 		
 	}
 
-	public void insertDeduction() {
-		// TODO Auto-generated method stub
+	public int insertDeduction(Connection conn, Deduction deduction) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String query = "insert into deduction values(?, ?, ?, ?, ?)";
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, deduction.getDEDUCTION_CODE());
+			pstmt.setInt(2, deduction.getDEDUCTION_NO());
+			pstmt.setString(3, deduction.getDEDUCTION_NAME());
+			pstmt.setString(4, deduction.getDEDUCTION_FORMULA());
+			pstmt.setString(5, deduction.getDEDUCTION_ETC());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 		
 	}
 
@@ -61,5 +84,35 @@ public class DeductionDao {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public String selectFormula(Connection conn, String dcode) {
+		String result = "";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select deduction_formula from deduction where deduction_code = ? ";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, dcode);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getString(1);
+				System.out.println("dao : "+result);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+
 
 }

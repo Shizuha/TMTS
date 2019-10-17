@@ -23,14 +23,17 @@
 					data : {userid:$("#userid").val()},
 					success : function(data){
 						if(data != "이미 사용중인 아이디 입니다."){
-						alert(data);
-						$("#userpwd").select();
+							alert(data);
+							$("#userpwd").select();
 						} else {
-						alert(data);
-						$("#userid").select();
+							alert(data);
+							$("#userid").select();
 						return false
 						}
-					}				
+					},
+					error : function(jqXHR, textStatus, errorThrown ){
+						console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
+					}
 				});
 			}else {
 				/* alert(userid.length); */

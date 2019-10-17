@@ -1,6 +1,9 @@
 package ERP.Deduction.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,8 +33,32 @@ public class DeductionInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 공제 추가 컨트롤러
-		Deduction deduction = new DeductionService().insertDeduction();
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("utf-8");
+		
+		Deduction deduction = new Deduction();
+		
+		
+		deduction.setDEDUCTION_CODE(request.getParameter("Dcode"));
+		deduction.setDEDUCTION_NAME(request.getParameter("Dname"));
+		deduction.setDEDUCTION_NO(Integer.parseInt(request.getParameter("Dno")));
+		deduction.setDEDUCTION_FORMULA(request.getParameter("Dformula"));
+		deduction.setDEDUCTION_ETC(request.getParameter("Detc"));
+		
+		System.out.println(deduction);
+		int result = new DeductionService().insertDeduction(deduction);
+		RequestDispatcher view = null;
+		if(result > 0) {
+			ArrayList<Deduction> list = new DeductionService().selectList();
+			view = request.getRequestDispatcher("views/ERP/Deduction/Deduction.jsp");
+			request.setAttribute("list", list);
+			view.forward(request, response);
+		}else {
+			view = request.getRequestDispatcher("views/common/Error.jsp");
+			request.setAttribute("message", "공제 등록 실패");
+			view.forward(request, response);
+		}
+		
+		
 	}
 
 	/**

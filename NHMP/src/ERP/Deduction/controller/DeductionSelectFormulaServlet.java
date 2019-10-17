@@ -1,28 +1,29 @@
-package Main.NursingHospital.controller;
+package ERP.Deduction.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Main.NursingHospital.model.service.NHService;
+import org.json.simple.JSONObject;
+
+import ERP.Deduction.model.service.DeductionService;
 
 /**
- * Servlet implementation class MidCheckServlet
+ * Servlet implementation class DeductionSelectOneServlet
  */
-@WebServlet("/idcheck")
-public class MidCheckServlet extends HttpServlet {
+@WebServlet("/done")
+public class DeductionSelectFormulaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MidCheckServlet() {
+    public DeductionSelectFormulaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +32,21 @@ public class MidCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 아이디 중복 확인 컨트롤러(Ajax)
-		int result = 0;
-		String userid = request.getParameter("userid");
-		System.out.println(userid);
+		// 수식 조회용 컨트롤러
+		String Dcode = request.getParameter("dcode");
+		System.out.println("sevlet : "+Dcode);
+		
+		String Formula = new DeductionService().selectFormula(Dcode);
+		
+		System.out.println("servlet formula : " + Formula);
+		
+		JSONObject job = new JSONObject();
+		job.put("Formula", Formula);
 		
 		response.setContentType("text/html; charset=utf-8");
+		System.out.println("servlet : "+job.toJSONString());
 		PrintWriter out = response.getWriter();
-		result = new NHService().idCheck(userid);
-		/*RequestDispatcher view = null;*/
-		if(result > 0 ) {
-			out.append("이미 사용중인 아이디 입니다.");
-			
-		}else {
-			out.append("사용가능한 아이디 입니다.");
-			request.setAttribute("result", result);
-		}
+		out.print(job.toJSONString());
 		out.flush();
 		out.close();
 	}
