@@ -21,6 +21,7 @@ public class AllowanceService {
 	public ArrayList<Allowance> selectList() {
 		Connection conn = getConnection();
 		ArrayList<Allowance> list = ADao.selectList(conn);
+		close(conn);
 		return list;
 		
 	}
@@ -35,4 +36,22 @@ public class AllowanceService {
 		return null;
 	}
 
-}
+	public int insertAllowance(Allowance awna) {
+		Connection conn = getConnection();
+		int result = ADao.insertAllowance(conn, awna);
+		close(conn);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public String selectFormula(String acode) {
+		Connection conn = getConnection();
+		String Formula = ADao.selectFormula(conn, acode);
+		close(conn);
+		return Formula;
+	}
+}	

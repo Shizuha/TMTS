@@ -3,11 +3,11 @@
 
 <%@
 	page
-	import="Main.NursingHospital.model.ov.NursingHospital, java.util.ArrayList, ERP.Deduction.model.vo.Deduction"%>
+	import="Main.NursingHospital.model.ov.NursingHospital, java.util.ArrayList, ERP.Allowance.model.vo.Allowance"%>
 
 <%
 	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
-	ArrayList<Deduction> list = (ArrayList<Deduction>)request.getAttribute("list");
+	ArrayList<Allowance> list = (ArrayList<Allowance>)request.getAttribute("list");
 	String Bnum = (String)request.getAttribute("Bnum");
 %>
 <!DOCTYPE html>
@@ -84,18 +84,18 @@ $(function(){
 	});
 	
 	$("#savebtn").click(function(){
-		$(opener.document).find('#Formula'+Bnum+'').val(calc);
+		$(opener.document).find('#AFormula'+Bnum+'').val(calc);
 		window.close();
 	});
 		
 });
 
-function Dcode(dcode, dno){
-	console.log(dcode);
+function Acode(acode){
+	console.log(Acode);
 	$.ajax({
-		url : "/NHMP/done",
+		url : "/NHMP/aone",
 		type: "post",
-		data : {dcode : dcode},
+		data : {acode : acode},
 		dataType : "json",
 		success : function(data){
 			calc+=data.Formula;
@@ -127,14 +127,14 @@ function Bcode(T01){
 
 				</tr>
 			</table>
-			<% for(Deduction d : list){%>
+			<% for(Allowance a : list){%>
 				<% if(list.size()%5 == 0  ) { %>
 				<br>
 				<% }else { %>
 					<table width="130px" cellspacing="0" cellpadding="5" border="1" id="deduction_talbe" style="float: left;">
-						<th width="auto"><a style="text-align: center;"><%= d.getDEDUCTION_NAME() %></a></th>
+						<th width="auto"><a style="text-align: center;"><%= a.getALLOWANCE_NAME() %></a></th>
 							<tr align="center">
-						<td width="150px"><a herf="" onclick="Dcode('<%= d.getDEDUCTION_CODE() %>')" style="text-align: center;"><%= d.getDEDUCTION_CODE() %></a></td>
+						<td width="150px"><a herf="" onclick="Acode('<%= a.getALLOWANCE_CODE() %>')" style="text-align: center;"><%= a.getALLOWANCE_CODE() %></a></td>
 						 
 							</tr>
 					</table>
@@ -148,7 +148,9 @@ function Bcode(T01){
 					<h4>
 					설정한 계산식의 결과입니다<br>
 					맞게 설정이 되었으면<br>
-					[저장]을 눌러주세요.
+					[저장]을 눌러주세요.<br>
+					-계산식 대신 값을 <br>
+					지정하셔도 됩니다.
 					</h4>
 					<input type="text" id="Fwindow"  style=" width:200px; text-align:right;"> <br><br>
 					<input type="button" value="저장" id="savebtn" style=" width:100px; text-align:center;">

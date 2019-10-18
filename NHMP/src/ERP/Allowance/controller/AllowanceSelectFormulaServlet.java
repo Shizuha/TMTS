@@ -1,29 +1,30 @@
-package ERP.Deduction.controller;
+package ERP.Allowance.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ERP.Deduction.model.service.DeductionService;
-import ERP.Deduction.model.vo.Deduction;
+import org.json.simple.JSONObject;
+
+import ERP.Allowance.model.service.AllowanceService;
+
 
 /**
- * Servlet implementation class DeductionInFservlet
+ * Servlet implementation class AllowanceSelectFormulaServlet
  */
-@WebServlet("/insertF")
-public class DeductionInFservlet extends HttpServlet {
+@WebServlet("/aone")
+public class AllowanceSelectFormulaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeductionInFservlet() {
+    public AllowanceSelectFormulaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,20 +33,22 @@ public class DeductionInFservlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 수식 등록 처리용 컨트롤러
-		String Bnum = request.getParameter("Bnum");
-		System.out.println(Bnum);
-		ArrayList<Deduction> list = new DeductionService().selectList();
-		RequestDispatcher view = null;
-		if(list.size() > 0) {
-			view = request.getRequestDispatcher("views/ERP/Deduction/insertFormula.jsp");
-			request.setAttribute("list", list);
-			request.setAttribute("Bnum", Bnum);
-		}else {
-			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "로딩 실패 다시 시도해 주세요");
-		}
-		view.forward(request, response);
+		// 수당 수식 조회용 컨트롤러
+		String Acode = request.getParameter("acode");
+				
+		String Formula = new AllowanceService().selectFormula(Acode);
+				
+		System.out.println("servlet formula : " + Formula);
+		
+		JSONObject job = new JSONObject();
+		job.put("Formula", Formula);
+		
+		response.setContentType("text/html; charset=utf-8");
+		System.out.println("servlet : "+job.toJSONString());
+		PrintWriter out = response.getWriter();
+		out.print(job.toJSONString());
+		out.flush();
+		out.close();
 	}
 
 	/**
