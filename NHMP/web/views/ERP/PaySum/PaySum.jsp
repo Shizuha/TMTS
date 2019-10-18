@@ -84,40 +84,75 @@
 
 <script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+
+/* $(document).ready(function(){
+    alert(1);//2
+  });
+
+  (function(){
+    alert(2);//1
+  })();
+
+  $(function(){
+    alert(3);//3
+  }); */
+
+
+
+
+
 var payresult = "";
-$(function(){
-	$('input[type="checkbox"][name="ECheckBtn"]').click(function(){
-		//직원 체크박스 선택하면
-		if($(this).prop("checked")){
-			//체크박스 전체를 check 해제후 click한 요소만 true 지정
-			$('input[type="checkbox"][name="ECheckBtn"]').prop('checked', false);
-			$('input[type="checkbox"][name="DCheckBtn"]').prop('checked', false);
-			$(this).prop('checked', true);
-			//금액 초기화
+var Ecnt = 0;
+function Echeckbox(empid){
+	var thispuls = "ECheckBtn"+empid;
+	var id = "";
+	if( ($("#"+thispuls).prop('checked')) ){
+		if($("#pay").val() == 0 ){	
+			Ecnt=1;
+			id = empid;
+			$.ajax({
+				url : "/NHMP/getpay",
+				type: "post",
+				data : {empid : empid},
+				dataType : "json",
+				success : function(data){
+					console.log(data.salary);
+					$("#pay").val(data.salary);
+				}, error : function(jqXHR, textStatus, errorThrown ){
+					console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
+				}
+			})
+		}else{
+			Ecnt=1;
 			$("#pay").val(0);
 			$(".CpayD").val(0);
+			$('input[type="checkbox"][class="CECheckBtn"]').prop('checked', false);
+			$('input[type="checkbox"][class="DCheckBtn"]').prop('checked', false);
+			$("#"+thispuls).prop('checked',true);
+			$.ajax({
+				url : "/NHMP/getpay",
+				type: "post",
+				data : {empid : empid},
+				dataType : "json",
+				success : function(data){
+					console.log(data.salary);
+					$("#pay").val(data.salary);
+				}, error : function(jqXHR, textStatus, errorThrown ){
+					console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
+				}
+			})
 		}
-	});
-	
-});
-
-	function Echeckbox(empid){
-		var id = empid;
-		$.ajax({
-			url : "/NHMP/getpay",
-			type: "post",
-			data : {empid : empid},
-			dataType : "json",
-			success : function(data){
-				console.log(data.salary);
-				$("#pay").val(data.salary);
-			}, error : function(jqXHR, textStatus, errorThrown ){
-				console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
-			}
-		})
+	}else{
+		$('input[type="checkbox"][class="CECheckBtn"]').prop('checked', false);
+		$("#pay").val(0);
+		Ecnt=0;
 	}
-	
-	function Dcheckbox(Dcode, Dno){
+}
+
+
+
+function Dcheckbox(Dcode, Dno){
+	if($("#pay").val() != 0){
 		var payD = "#payD";
 		var deduction_no = Dno;
 		payresult = payD+deduction_no;
@@ -140,8 +175,17 @@ $(function(){
 				console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
 			}
 		})
+	}else{
+		alert("한명의 직원을 선택하여 주세요");
+		$('input[type="checkbox"][class="DCheckBtn"]').prop('checked', false);
 	}
+}
+
 	
+	
+	
+	
+
 </script>
 
 
@@ -473,7 +517,7 @@ $(function(){
 								for (Employee e : Elist) {
 							%>
 							<tr align="center">
-								<td><input type="checkbox" name="ECheckBtn"
+								<td><input type="checkbox" name="ECheckBtn" id="ECheckBtn<%= e.getEmpId() %>" class="CECheckBtn"
 									onclick="Echeckbox('<%=e.getEmpId()%>')"
 									style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
 								<td><%=e.getEmpName()%></td>
@@ -497,7 +541,7 @@ $(function(){
 								for (Deduction d : Dlist) {
 							%>
 							<tr align="center">
-								<td><input type="checkbox" name="DCheckBtn"
+								<td><input type="checkbox" class="DCheckBtn"
 									onclick="Dcheckbox('<%= d.getDEDUCTION_CODE() %>','<%= d.getDEDUCTION_NO() %>')"
 									style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem">
 								</td>
