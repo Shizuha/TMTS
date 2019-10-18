@@ -16,9 +16,104 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMTS</title>
+<style type="text/css">
+	#alistdiv{
+		border:1px solid red;
+		float: left;
+		margin-left:50px;
+		width:1500px;
+	}
+	
+	#alistdiv .btn{
+		background-color: #7571f9;
+		border: none;
+		color:#fff;
+		border-radius:3px;
+		text-align: center;
+		text-decoration: none;
+	    display: inline-block;
+	    font-size: 15px;
+	    margin: 4px;
+	    cursor: pointer;
+	}
+	#dlistdiv .inFbtn{
+		background-color: #7571f9;
+		border: none;
+		color:#fff;
+		border-radius:3px;
+		text-align: center;
+		text-decoration: none;
+	    display: inline-block;
+	    font-size: 15px;
+	    margin: 4px;
+	    cursor: pointer;
+	}
+	
+	#alistdiv table{
+		width:100%;
+		float:left;
+		text-align:center;
+		background:#f4f4f4;
+		color:#000;
+	}
+	
+	#alistdiv table th{
+		background: rgb(117, 113, 249, 0.5);
+    	color:rgba(0, 0, 0, 1);
+    	text-align:center;
+	}
+</style>
+
+
+
+<script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
-	function showPopup() { 
-		window.open("/NHMP/views/ERP/Deduction/insertFormula.jsp", "계산 내역", "width=400, height=300, left=100, top=50"); 
+	function showPopup(url, name) { 
+		window.open(url, name, "width=570px, height=650px, left=900, top=50"); 
+	}
+	
+	$(function(){
+		var count = <%= list.size()+1 %>;
+		$("#btn_add_row").click(function(){
+			var lastTr = 'lastTr'+count;
+			var last = $('#'+lastTr);
+			count +=1;
+			var addtr = '<tr align="center" id="lastTr'+count+'">'+
+						'	<td><input type="checkbox" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>'+
+						'	<td><input type="text" name="Aname" value="" style="text-align: center; width: 100px;"placeholder="수당명"></td>'+
+						'	<td><input type="text" name="Ano" value="'+count+'"	readonly style="text-align: center; width: 25px;"></td>'+
+						'	<td><input type="text" name="Acode" value=""  style="text-align: center; width: 50px;"placeholder="su1"></td>'+
+						'	<td><input type="text" name="Aformula" id="AFormula'+count+'" value="" readonly style="text-align: center; width: 100px;"placeholder="계산식"></td>'+
+						'	<td><input type="checkbox" id="inFCheck'+count+'" onclick="inFCheck('+count+')" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>'+
+						'	<td><input type="button" class="inFbtn'+count+'" value="수식 입력" onclick="showPopup('+"'/NHMP/insertFA?Bnum="+count+"','insertFA'"+');" disabled></td>'+
+						'	<td><input type="text" name="Detc" style="text-align:center; width:100px;" placeholder="설명"></td>'+
+						'</tr>';
+			last.after(addtr);
+		});
+		
+		$("#btn_delete_row").click(function(){
+			if(count >= <%= list.size()+2 %>){
+				var lastTr = 'lastTr'+count;		
+				var last = $('#'+lastTr);
+				last.remove();
+				count -= 1;	
+			}
+		});
+	});
+	function inFCheck(no){
+		var checkbtn = "inFbtn"+no; //체크박스	
+		var $checkbtn = $("#"+checkbtn);
+		var inFbtn = "inFbtn"+no;	//수식넣기 버튼
+		var $inFbtn = $("."+checkbtn);
+		if( $inFbtn.attr("disabled") == "disabled" ){
+			console.log($inFbtn.attr("disabled"));	
+			$inFbtn.removeAttr("disabled");
+		}else{
+			console.log($inFbtn.attr("disabled") == "disabled");
+			$inFbtn.attr("disabled", true);
+		}
+		
+		
 	}
 	
 </script>
@@ -335,234 +430,61 @@
             Content body start
         ***********************************-->
 		<div class="content-body" align="center">
-			<br>
-			<br>
-			
-			<table width="1000" cellspacing="0" cellpadding="5" border="1">
-				<tr>
-					<th ></th>
-					<th align="center">수당명칭</th>
-					<th align="center">표시순서</th>
-					<th align="center">계정코드</th>
-					<th align="center">계산식</th>
-					<th align="center">계산항목</th>
-					<th align="center">계산내역</th>
-					<th align="center">비고</th>
-				</tr>
-				<% for(Allowance a : list){%>
-					<tr align="center">
-						<td><input type="checkbox" style="text-align:center; vertical-align: middle; width:1.0rem; height:1.0rem"></td>
-						<td><%= a.getALLOWANCE_NAME() %></td>
-						<td><%= a.getALLOWANCE_NO() %></td>
-						<td><%= a.getALLOWANCE_CODE() %></td>
-						<td><%= a.getALLOWANCE_FORMULA() %></td>
-						<td>&nbsp;</td>
-						<td><input type="button" value="계산 내역" onclick="showPopup();"></td>
-						<td><%= a.getALLOWANCE_NAME() %><br>
-						<%-- <% if( d.getDEDUCTION_NAME().equals("국민연금") ) {%>
-							<div id="Deduction">
-						  		<div> 
-						  			<span><i class="fa fa-info-circle" aria-hidden="true"></i></span>
-						    		<p class="arrow_box"><%= d.getDEDUCTION_ETC() %></p>
-						  		</div>
-							</div>
-							
-						<% } %> --%>
-				
-					</tr>
-				<% } %>
-				<!-- 디비에서 list 받아서 가져오기 -->
-			</table>
-			
-			
-			
-			<!-- <div class="container-fluid mt-3">
-				<div class="row">
-					<div class="col-lg-3 col-sm-6">
-						<div class="card gradient-1">
-							<div class="card-body">
-								<h3 class="card-title text-white">즐겨찾기_1</h3>
-								<div class="d-inline-block">
-									<h2 class="text-white">메뉴 명</h2>
-									   <p class="text-white mb-0">Jan - March 2019</p> 
-								</div>
-								<span class="float-right display-5 opacity-5"><i
-									class="fa fa-question"></i></span>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-sm-6">
-						<div class="card gradient-2">
-							<div class="card-body">
-								<h3 class="card-title text-white">즐겨찾기_2</h3>
-								<div class="d-inline-block">
-									<h2 class="text-white">메뉴 명</h2>
-									   <p class="text-white mb-0">Jan - March 2019</p>
-								</div>
-								<span class="float-right display-5 opacity-5"><i
-									class="fa fa-question"></i></span>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-sm-6">
-						<div class="card gradient-3">
-							<div class="card-body">
-								<h3 class="card-title text-white">즐겨찾기_3</h3>
-								<div class="d-inline-block">
-									<h2 class="text-white">메뉴 명</h2>
-									       <p class="text-white mb-0">Jan - March 2019</p>
-								</div>
-								<span class="float-right display-5 opacity-5"><i
-									class="fa fa-question"></i></span>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-sm-6">
-						<div class="card gradient-4">
-							<div class="card-body">
-								<h3 class="card-title text-white">즐겨찾기_4</h3>
-								<div class="d-inline-block">
-									<h2 class="text-white">메뉴 명</h2>
-									       <p class="text-white mb-0">Jan - March 2019</p>
-								</div>
-								<span class="float-right display-5 opacity-5"><i
-									class="fa fa-question"></i></span>
-							</div>
-						</div>
-					</div>
+			<br> <br>
+			<div id="alistdiv">
+				<div style="float: left;">
+					<input type="button" value="┼" id="btn_add_row" class="btn"> &nbsp;
+					<input type="button" value="─" id="btn_delete_row" class="btn">	
 				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="card">
-							<div class="card-body">
-								<div class="active-member">
-									<div class="table-responsive">
-										<table class="table table-xs mb-0">
-											<thead>
-												<tr>
-													<th>사용자</th>
-													<th>접속기기</th>
-													<th>접속지역</th>
-													<th>지위</th>
-													<th>결제방법</th>
-													<th>활동</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td><img src="/NHMP/resources/ERP/images/avatar/1.jpg"
-														class=" rounded-circle mr-3" alt="">Sarah Smith</td>
-													<td>iPhone X</td>
-													<td><span>United States</span></td>
-													<td>
-														<div>
-															<div class="progress" style="height: 6px">
-																<div class="progress-bar bg-success" style="width: 50%"></div>
-															</div>
-														</div>
-													</td>
-													<td><i class="fa fa-circle-o text-success  mr-2"></i>
-														Paid</td>
-													<td><span>Last Login</span> <span class="m-0 pl-3">10
-															sec ago</span></td>
-												</tr>
-												<tr>
-													<td><img src="/NHMP/resources/ERP/images/avatar/2.jpg"
-														class=" rounded-circle mr-3" alt="">Walter R.</td>
-													<td>Pixel 2</td>
-													<td><span>Canada</span></td>
-													<td>
-														<div>
-															<div class="progress" style="height: 6px">
-																<div class="progress-bar bg-success" style="width: 50%"></div>
-															</div>
-														</div>
-													</td>
-													<td><i class="fa fa-circle-o text-success  mr-2"></i>
-														Paid</td>
-													<td><span>Last Login</span> <span class="m-0 pl-3">50
-															sec ago</span></td>
-												</tr>
-												<tr>
-													<td><img src="/NHMP/resources/ERP/images/avatar/3.jpg"
-														class=" rounded-circle mr-3" alt="">Andrew D.</td>
-													<td>OnePlus</td>
-													<td><span>Germany</span></td>
-													<td>
-														<div>
-															<div class="progress" style="height: 6px">
-																<div class="progress-bar bg-warning" style="width: 50%"></div>
-															</div>
-														</div>
-													</td>
-													<td><i class="fa fa-circle-o text-warning  mr-2"></i>
-														Pending</td>
-													<td><span>Last Login</span> <span class="m-0 pl-3">10
-															sec ago</span></td>
-												</tr>
-												<tr>
-													<td><img src="/NHMP/resources/ERP/images/avatar/6.jpg"
-														class=" rounded-circle mr-3" alt=""> Megan S.</td>
-													<td>Galaxy</td>
-													<td><span>Japan</span></td>
-													<td>
-														<div>
-															<div class="progress" style="height: 6px">
-																<div class="progress-bar bg-success" style="width: 50%"></div>
-															</div>
-														</div>
-													</td>
-													<td><i class="fa fa-circle-o text-success  mr-2"></i>
-														Paid</td>
-													<td><span>Last Login</span> <span class="m-0 pl-3">10
-															sec ago</span></td>
-												</tr>
-												<tr>
-													<td><img src="/NHMP/resources/ERP/images/avatar/4.jpg"
-														class=" rounded-circle mr-3" alt=""> Doris R.</td>
-													<td>Moto Z2</td>
-													<td><span>England</span></td>
-													<td>
-														<div>
-															<div class="progress" style="height: 6px">
-																<div class="progress-bar bg-success" style="width: 50%"></div>
-															</div>
-														</div>
-													</td>
-													<td><i class="fa fa-circle-o text-success  mr-2"></i>
-														Paid</td>
-													<td><span>Last Login</span> <span class="m-0 pl-3">10
-															sec ago</span></td>
-												</tr>
-												<tr>
-													<td><img src="/NHMP/resources/ERP/images/avatar/5.jpg"
-														class=" rounded-circle mr-3" alt="">Elizabeth W.</td>
-													<td>Notebook Asus</td>
-													<td><span>China</span></td>
-													<td>
-														<div>
-															<div class="progress" style="height: 6px">
-																<div class="progress-bar bg-warning" style="width: 50%"></div>
-															</div>
-														</div>
-													</td>
-													<td><i class="fa fa-circle-o text-warning  mr-2"></i>
-														Pending</td>
-													<td><span>Last Login</span> <span class="m-0 pl-3">10
-															sec ago</span></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div> -->
-				
-				<!-- #/ container -->
+				<br>
+				<br>
+				<form action="/NHMP/allowinsert" method="post">
+					<table cellspacing="0" cellpadding="5" border="1">
+						<tr>
+							<th></th>
+							<th align="center">수당명칭</th>
+							<th align="center">표시순서</th>
+							<th align="center">계정코드</th>
+							<th align="center">계산식</th>
+							<th align="center">계산항목</th>
+							<th align="center">계산내역</th>
+							<th align="center">비고</th>
+						</tr>
+						<% for (Allowance a : list) { %>
+						<tr align="center">
+							<td><input type="checkbox" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
+							<td><input type="text" value="<%=a.getALLOWANCE_NAME()%>" readonly style="text-align: center; width: 100px;"></td>
+							<td><input type="text" value="<%=a.getALLOWANCE_NO()%>"	readonly style="text-align: center; width: 25px;"></td>
+							<td><input type="text" value="<%=a.getALLOWANCE_CODE()%>" readonly style="text-align: center; width: 50px;"></td>
+							<td><input type="text" value="<%=a.getALLOWANCE_FORMULA()%>" readonly style="text-align: center; width: 100px;"></td>
+							<td><input type="checkbox" id="inFCheck<%=a.getALLOWANCE_NO()%>" onclick="inFCheck(<%=a.getALLOWANCE_NO()%>)" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
+							<td><input type="button" class="inFbtn<%=a.getALLOWANCE_NO()%>" value="수식 입력" onclick="showPopup('/NHMP/insertFA?Bnum=<%= a.getALLOWANCE_NO() %>', 'insertFA');" disabled></td>
+							<td><%=a.getALLOWANCE_NAME()%><br>
+						</tr>
+						<% } %>
+						<tr align="center" id="lastTr<%= list.size()+1 %>">
+							<td><input type="checkbox" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
+							<td><input type="text" name="Aname" value="" style="text-align: center; width: 100px;"placeholder="수당명"></td>
+							<td><input type="text" name="Ano" value="<%= list.size()+1 %>"	readonly style="text-align: center; width: 25px;"></td>
+							<td><input type="text" name="Acode" value=""  style="text-align: center; width: 50px;"placeholder="su1"></td>
+							<td><input type="text" name="Aformula" id="AFormula<%= list.size()+1 %>" value="" readonly style="text-align: center; width: 100px;"placeholder="계산식"></td>
+							<td><input type="checkbox" id="inFCheck<%= list.size()+1 %>" onclick="inFCheck(<%= list.size()+1 %>)" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
+							<td><input type="button" class="inFbtn<%= list.size()+1 %>" value="수식 입력" onclick="showPopup('/NHMP/insertFA?Bnum=<%= list.size()+1 %>', 'insertFA');" disabled></td>
+							<td><input type="text" name="Detc" style="text-align:center; width:100px;" placeholder="설명"></td>
+						</tr>
+						<!-- 디비에서 list 받아서 가져오기 -->
+						<tr>
+							<td colspan="8" align="center">
+								<input type="submit" value="저장" class="btn" width="50px" > &nbsp;
+								<input type="reset" value="초기화" class="btn" width="50px">
+							</td>
+						</tr>
+					</table>
+				</form>
 			</div>
-			<!--**********************************
+			<!-- #/ container -->
+		</div>
+		<!--**********************************
             Content body end
         ***********************************-->
 

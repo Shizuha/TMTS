@@ -16,6 +16,55 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMTS</title>
+<style type="text/css">
+
+	#dlistdiv{
+		margin-left:50px;
+		width:1500px;
+	}
+	
+	#dlistdiv .btn{
+		background-color: #7571f9;
+		border: none;
+		color:#fff;
+		border-radius:3px;
+		text-align: center;
+		text-decoration: none;
+	    display: inline-block;
+	    font-size: 15px;
+	    margin: 4px;
+	    cursor: pointer;
+	}
+	#dlistdiv .inFbtn{
+		background-color: #7571f9;
+		border: none;
+		color:#fff;
+		border-radius:3px;
+		text-align: center;
+		text-decoration: none;
+	    display: inline-block;
+	    font-size: 15px;
+	    margin: 4px;
+	    cursor: pointer;
+	}
+	
+	#dlistdiv table{
+		width:100%;
+		float:left;
+		text-align:center;
+		background:#f4f4f4;
+		color:#000;
+	}
+	
+	#dlistdiv table th{
+		background: rgb(117, 113, 249, 0.5);
+    	color:rgba(0, 0, 0, 1);
+    	text-align:center;
+	}
+</style>
+
+
+
 <script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	
@@ -34,12 +83,12 @@
 						'	<td><input type="text" name="Dname" style="text-align:center; width:100px;" placeholder="공제명"></td>'+
 						'	<td><input type="text" name="Dno" value="'+count+'" readonly style="text-align:center; width:25px;"></td>'+
 						'	<td><input type="text" name="Dcode" style="text-align:center; width:50px;" placeholder="코드"></td>'+
-						'	<td><input type="text" name="Dformula" style="text-align:center; width:100px;" placeholder="계산식"></td>'+
+						'	<td><input type="text" name="Dformula" id="Formula'+count+'" style="text-align:center; width:100px;" placeholder="계산식"></td>'+
 						'	<td><input type="checkbox" id="inFCheck'+count+'" onclick="inFCheck('+count+')" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>'+
-						'	<td><input type="button" class="inFbtn'+count+'" value="수식 입력" onclick="showPopup('+"'/NHMP/insertF','insertF'"+');"disabled></td>'+
+						'	<td><input type="button" class="inFbtn'+count+'" value="수식 입력" onclick="showPopup('+"'/NHMP/insertF?Bnum="+count+"','insertF'"+');"disabled></td>'+
 						'	<td><input type="text" name="Detc" style="text-align:center; width:100px;" placeholder="설명"></td>'+
 						'</tr>';
-			last.after(addtr);
+			last.after(addtr);  
 		});
 		
 		$("#btn_delete_row").click(function(){
@@ -50,10 +99,6 @@
 				count -= 1;	
 			}
 		});
-		
-		
-	
-		
 	});
 	
 	
@@ -396,11 +441,10 @@ $("#txtBox").removeAttr("disabled"); */
         ***********************************-->
 		<div class="content-body" align="center" >
 			<br>
-			<div style="margin-left:50px;">
+			<div id="dlistdiv">
 				<div style="float: left;">
-				&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="┼" id="btn_add_row" width="25px"> &nbsp;
-				<input type="button" value="─" id="btn_delete_row" width="25px">	
-						
+					<input type="button" value="┼" id="btn_add_row" class="btn"> &nbsp;
+					<input type="button" value="─" id="btn_delete_row" class="btn">	
 				</div>
 				<br>
 				<br>	
@@ -424,7 +468,7 @@ $("#txtBox").removeAttr("disabled"); */
 							<td><input type="text" value="<%= d.getDEDUCTION_CODE() %>" readonly style="text-align:center; width:50px;"></td>
 							<td><input type="text" value="<%= d.getDEDUCTION_FORMULA() %>" readonly style="text-align:center; width:100px;"></td>
 							<td><input type="checkbox" id="inFCheck<%= d.getDEDUCTION_NO() %>" onclick="inFCheck(<%= d.getDEDUCTION_NO() %>)" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
-							<td><input type="button" class="inFbtn<%= d.getDEDUCTION_NO() %>" value="수식 입력" onclick="showPopup('/NHMP/insertF', 'insertF');"disabled></td>
+							<td><input type="button" class="inFbtn<%= d.getDEDUCTION_NO() %>" value="수식 입력" onclick="showPopup('/NHMP/insertF?Bnum=<%= d.getDEDUCTION_NO() %>', 'insertF');"disabled></td>
 							<td><%= d.getDEDUCTION_NAME() %><br> <% if( !d.getDEDUCTION_NAME().equals("null") ) {%>
 								<div id="Deduction">
 									<div>
@@ -439,16 +483,16 @@ $("#txtBox").removeAttr("disabled"); */
 							<td><input type="text" name="Dname" style="text-align:center; width:100px;" placeholder="공제명"></td>
 							<td><input type="text" name="Dno" value="<%= list.size()+1 %>" readonly style="text-align:center; width:25px;"></td>
 							<td><input type="text" name="Dcode" style="text-align:center; width:50px;" placeholder="코드"></td>
-							<td><input type="text" name="Dformula" id="Formula" style="text-align:center; width:100px;" readonly placeholder="계산식"></td>
+							<td><input type="text" name="Dformula" id="Formula<%= list.size()+1 %>" style="text-align:center; width:100px;" readonly placeholder="계산식"></td>
 							<td><input type="checkbox" id="inFCheck<%= list.size()+1 %>" onclick="inFCheck(<%= list.size()+1 %>)" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
-							<td><input type="button"  class="inFbtn<%= list.size()+1 %>" value="수식입력"  onclick="showPopup('/NHMP/insertF', 'insertF');"disabled></td>
+							<td><input type="button"  class="inFbtn<%= list.size()+1 %>" value="수식입력"  onclick="showPopup('/NHMP/insertF?Bnum=<%= list.size()+1 %> %>', 'insertF');"disabled></td>
 							<td><input type="text" name="Detc" style="text-align:center; width:100px;" placeholder="설명"></td>
 						</tr>
 						<!-- 디비에서 list 받아서 가져오기 -->
 						<tr>
 							<td colspan="8" align="center">
-								<input type="submit" value="저장"  width="50px" > &nbsp;
-								<input type="reset" value="초기화"  width="50px">
+								<input type="submit" value="저장" class="btn" width="50px" > &nbsp;
+								<input type="reset" value="초기화" class="btn" width="50px">
 							</td>
 						</tr>
 					</table>

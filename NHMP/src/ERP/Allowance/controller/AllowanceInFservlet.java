@@ -14,16 +14,16 @@ import ERP.Allowance.model.service.AllowanceService;
 import ERP.Allowance.model.vo.Allowance;
 
 /**
- * Servlet implementation class AllowanceInsertServlet
+ * Servlet implementation class AllowanceInFservlet
  */
-@WebServlet("/allowinsert")
-public class AllowanceInsertServlet extends HttpServlet {
+@WebServlet("/insertFA")
+public class AllowanceInFservlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AllowanceInsertServlet() {
+    public AllowanceInFservlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,26 +32,18 @@ public class AllowanceInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 수당 등록용 컨트롤러
-		request.setCharacterEncoding("utf-8");
-		
-		Allowance awna = new Allowance();
-		
-		awna.setALLOWANCE_CODE(request.getParameter("Acode"));
-		awna.setALLOWANCE_NAME(request.getParameter("Aname"));
-		awna.setALLOWANCE_NO(Integer.parseInt(request.getParameter("Ano")));
-		awna.setALLOWANCE_FORMULA(request.getParameter("Aformula"));
-		awna.setALLOWANCE_ETC(request.getParameter("Aetc"));
-		
-		int result = new AllowanceService().insertAllowance(awna);
+		// 수당 수식 처리용 컨트롤러
+		String Bnum = request.getParameter("Bnum");
+		System.out.println(Bnum);
+		ArrayList<Allowance> list = new AllowanceService().selectList();
 		RequestDispatcher view = null;
-		if(result > 0 ) {
-			ArrayList<Allowance> list = new AllowanceService().selectList();
-			view = request.getRequestDispatcher("views/ERP/Allowance/Allowance.jsp");
+		if(list.size() > 0) {
+			view = request.getRequestDispatcher("views/ERP/Allowance/insertFormulaA.jsp");
 			request.setAttribute("list", list);
+			request.setAttribute("Bnum", Bnum);
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "수당 등록 실패");
+			request.setAttribute("message", "로딩 실패 다시 시도해 주세요");
 		}
 		view.forward(request, response);
 	}

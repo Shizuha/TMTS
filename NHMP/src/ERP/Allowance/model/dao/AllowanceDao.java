@@ -3,6 +3,7 @@ package ERP.Allowance.model.dao;
 import static common.JDBCTemplate.close;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,7 +24,7 @@ public class AllowanceDao {
 		Statement stmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from allowance order by allowance_no desc";
+		String query = "select * from allowance order by allowance_no asc";
 		
 		try {
 			stmt = conn.createStatement();
@@ -61,6 +62,56 @@ public class AllowanceDao {
 	public void deleteAllowance() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public int insertAllowance(Connection conn, Allowance awna) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String query = "insert into allowance values(?, ?, ?, ?, ?)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, awna.getALLOWANCE_CODE());
+			pstmt.setInt(2, awna.getALLOWANCE_NO());
+			pstmt.setString(3, awna.getALLOWANCE_NAME());
+			pstmt.setString(4, awna.getALLOWANCE_FORMULA());
+			pstmt.setString(5, awna.getALLOWANCE_ETC());
+			
+			result = pstmt.executeUpdate();
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String selectFormula(Connection conn, String acode) {
+		String result = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select allowance_formula from allowance where allowance_code = ? ";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, acode);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getString(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
 	}
 
 }
