@@ -5,7 +5,6 @@ public class Calendar implements java.io.Serializable {
 	private static final long serialVersionUID = 7000L;
 	
 	private int calnum;
-	private String id;
 	private String title;
 	private String description;
 	private String startdate;
@@ -14,14 +13,14 @@ public class Calendar implements java.io.Serializable {
 	private String username;
 	private String backgroundcolor;
 	private String textcolor; 
+
 	
 	public Calendar() {}
 
-	public Calendar(int calnum, String id, String title, String description, String startdate, String enddate,
+	public Calendar(int calnum, String title, String description, String startdate, String enddate,
 			String category, String username, String backgroundcolor, String textcolor) {
 		super();
 		this.calnum = calnum;
-		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.startdate = startdate;
@@ -39,15 +38,6 @@ public class Calendar implements java.io.Serializable {
 	public void setCalnum(int calnum) {
 		this.calnum = calnum;
 	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getTitle() {
 		return title;
 	}
@@ -114,7 +104,7 @@ public class Calendar implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "Calendar [calnum=" + calnum + ", id=" + id + ", title=" + title + ", description=" + description
+		return "Calendar [calnum=" + calnum + ", title=" + title + ", description=" + description
 				+ ", startdate=" + startdate + ", enddate=" + enddate + ", category=" + category + ", username="
 				+ username + ", backgroundcolor=" + backgroundcolor + ", textcolor=" + textcolor + "]";
 	}

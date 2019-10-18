@@ -9,6 +9,7 @@ var editType = $('#edit-type');
 var editColor = $('#edit-color');
 var editDesc = $('#edit-desc');
 
+
 var addBtnContainer = $('.modalBtnContainer-addEvent');
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 
@@ -19,24 +20,23 @@ var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 var newEvent = function (start, end, eventType) {
 
     $("#contextMenu").hide(); //메뉴 숨김 
-
+   
     modalTitle.html('새로운 일정');
     editStart.val(start);
     editEnd.val(end);
     editType.val(eventType).prop("selected", true);
-
     addBtnContainer.show();
     modifyBtnContainer.hide();
     eventModal.modal('show');
-
+    
     /******** 임시 RAMDON ID - 실제 DB 연동시 삭제 **********/
-    var eventId = 'admin';
+    /*var eventId = 'admin';*/
     /******** 임시 RAMDON ID - 실제 DB 연동시 삭제 **********/
 
     //새로운 일정 저장버튼 클릭
     $('#save-event').unbind();
     $('#save-event').on('click', function () {
-
+    	
         var eventData = {
             title: editTitle.val(),
             start: editStart.val(),

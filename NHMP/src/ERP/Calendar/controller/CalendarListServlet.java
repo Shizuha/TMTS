@@ -2,7 +2,6 @@ package ERP.Calendar.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -16,10 +15,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.sun.javafx.scene.paint.GradientUtils.Parser;
-
 import ERP.Calendar.Model.Service.CalendarService;
 import ERP.Calendar.Model.vo.Calendar;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class CalendarListServlet
@@ -44,6 +42,8 @@ public class CalendarListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// 캘린더 값 가져오는 서블릿
 		try {
+			NursingHospital nh = (NursingHospital) request.getSession().getAttribute("loginHospital"); // 유효성 검사
+			
 			String jsondata = request.getParameter("jsondata");
 
 			JSONParser parser = new JSONParser();
@@ -53,19 +53,19 @@ public class CalendarListServlet extends HttpServlet {
 			JSONObject sendJson = (JSONObject) obj;
 
 			ArrayList<Calendar> list = new CalendarService().listCalendar(sendJson);
-			
 			JSONArray jarr = new JSONArray();
-
+			
 			// list를 jarr로 옮기기
 			for (Calendar c : list) {
 				// b 객체 저장할 json 객체 생성
 				JSONObject job = new JSONObject();
-				job.put("_id", c.getId());
+				job.put("_id", c.getCalnum()); // 받아온걸 돌림
 				job.put("title",c.getTitle());
 				job.put("description", c.getDescription());
 				job.put("start", c.getStartdate());
 				job.put("end", String.valueOf(c.getEnddate()));
 				job.put("type", c.getCategory());
+				job.put("username", c.getUsername());
 				job.put("backgroundColor", c.getBackgroundcolor());
 				job.put("textColor", c.getTextcolor());
 				job.put("allDay", "false");
