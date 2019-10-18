@@ -438,7 +438,7 @@
                         </ul>
                     </li>-->
 						</ul>
-					<li><a href="javascript:void()" aria-expanded="false"> <i
+					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
 					<li><a href="javascript:void()" aria-expanded="false"> <i
