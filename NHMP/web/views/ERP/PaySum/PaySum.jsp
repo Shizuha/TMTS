@@ -44,7 +44,7 @@
 	#rootdiv #Paycenter{
 		border: 1px solid gold; 
 		float: right; 
-		width: 33%;
+		width: 34%;
 	}
 	#rootdiv #Paycenter table{
 		width:70%;
@@ -75,10 +75,122 @@
 		float:right;
 	}	
 	#Payresult table{
-		width:363px;
+		margin-right:10px;
+		width:200px;
+		border: 1px solid #000;
 	}
 
 </style>
+
+<script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+/* $(document).ready(function(){
+    alert(1);//2
+  });
+
+  (function(){
+    alert(2);//1
+  })();
+
+  $(function(){
+    alert(3);//3
+  }); */
+
+
+
+
+
+var payresult = "";
+var Ecnt = 0;
+function Echeckbox(empid){
+	var thispuls = "ECheckBtn"+empid;
+	var id = "";
+	if( ($("#"+thispuls).prop('checked')) ){
+		if($("#pay").val() == 0 ){	
+			Ecnt=1;
+			id = empid;
+			$.ajax({
+				url : "/NHMP/getpay",
+				type: "post",
+				data : {empid : empid},
+				dataType : "json",
+				success : function(data){
+					console.log(data.salary);
+					$("#pay").val(data.salary);
+				}, error : function(jqXHR, textStatus, errorThrown ){
+					console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
+				}
+			})
+		}else{
+			Ecnt=1;
+			$("#pay").val(0);
+			$(".CpayD").val(0);
+			$('input[type="checkbox"][class="CECheckBtn"]').prop('checked', false);
+			$('input[type="checkbox"][class="DCheckBtn"]').prop('checked', false);
+			$("#"+thispuls).prop('checked',true);
+			$.ajax({
+				url : "/NHMP/getpay",
+				type: "post",
+				data : {empid : empid},
+				dataType : "json",
+				success : function(data){
+					console.log(data.salary);
+					$("#pay").val(data.salary);
+				}, error : function(jqXHR, textStatus, errorThrown ){
+					console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
+				}
+			})
+		}
+	}else{
+		$('input[type="checkbox"][class="CECheckBtn"]').prop('checked', false);
+		$('input[type="checkbox"][class="DCheckBtn"]').prop('checked', false);
+		$("#pay").val(0);
+		$(".CpayD").val(0);
+		Ecnt=0;
+	}
+}
+
+
+
+function Dcheckbox(Dcode, Dno){
+	if($("#pay").val() != 0){
+		var payD = "#payD";
+		var deduction_no = Dno;
+		payresult = payD+deduction_no;
+		$.ajax({
+			url : "/NHMP/getdeduc",
+			type: "post",
+			data : {Dcode : Dcode},
+			success : function(data){
+				console.log(data);
+				//직원 선택 없이 공제만 선택할 경우 ? 
+				//공제나 수당에 체크버튼 클릭 시 직원 체크 없을 경우 알러트창 발생 후 모든 체크 풀어버리기 !!
+				var pay = $("#pay").val();
+				console.log(pay);
+				var resultformula = data.replace("T01", pay);
+				console.log(resultformula);
+				var result = eval(resultformula);
+				console.log(result);
+				$(payresult).val(result.toFixed(0));
+			}, error : function(jqXHR, textStatus, errorThrown ){
+				console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
+			}
+		})
+	}else{
+		alert("한명의 직원을 선택하여 주세요");
+		$('input[type="checkbox"][class="DCheckBtn"]').prop('checked', false);
+	}
+}
+
+	
+	
+	
+	
+
+</script>
+
+
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="/NHMP/resources/ERP/images/common/favicon.png">
@@ -395,7 +507,7 @@
 			<div id="rootdiv">
 				<form action="">
 					<br> <br>
-					
+
 					<div id="Payleft"">
 						<table border="1" margin="0 0 0 0">
 							<tr>
@@ -407,7 +519,8 @@
 								for (Employee e : Elist) {
 							%>
 							<tr align="center">
-								<td><input type="checkbox" class="Echeckbox<%= e.getEmpId() %>" onclick=""
+								<td><input type="checkbox" name="ECheckBtn" id="ECheckBtn<%= e.getEmpId() %>" class="CECheckBtn"
+									onclick="Echeckbox('<%=e.getEmpId()%>')"
 									style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
 								<td><%=e.getEmpName()%></td>
 								<td><%=e.getEmpId()%></td>
@@ -417,9 +530,10 @@
 							%>
 							<!-- 디비에서 list 받아서 가져오기 -->
 						</table>
-					</div>	<!-- Payleft -->
+					</div>
+					<!-- Payleft -->
 
-					<div id="Paycenter" >
+					<div id="Paycenter">
 						<table width="auto" border="1" margin="0 0 0 0">
 							<tr>
 								<th>선택</th>
@@ -429,9 +543,9 @@
 								for (Deduction d : Dlist) {
 							%>
 							<tr align="center">
-								<td>
-									<input type="checkbox"  
-											style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem">
+								<td><input type="checkbox" class="DCheckBtn"
+									onclick="Dcheckbox('<%= d.getDEDUCTION_CODE() %>','<%= d.getDEDUCTION_NO() %>')"
+									style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem">
 								</td>
 								<td><%=d.getDEDUCTION_NAME()%></td>
 							</tr>
@@ -440,9 +554,10 @@
 							%>
 							<!-- 디비에서 list 받아서 가져오기 -->
 						</table>
-					</div>		<!-- Paycenter -->
+					</div>
+					<!-- Paycenter -->
 
-					<div id="Payright" >
+					<div id="Payright">
 						<table width="auto" border="1" margin="0 0 0 0">
 							<tr>
 								<th>선택</th>
@@ -461,38 +576,71 @@
 							%>
 							<!-- 디비에서 list 받아서 가져오기 -->
 						</table>
-					</div>		<!-- Payright -->
+					</div>
+					<!-- Payright -->
 					<div id="Payresult">
 						<table border="1">
-							<tr>
-								<th style="text-align: center;">계산</th>
-								<td style="text-align: right;">
-									<input type="text" style="text-align: right;">원
-								</td>
-							</tr>
-							<tr>
-								<th style="text-align: center;">계산</th>
-								<td style="text-align: right;">
-									<input type="text" style="text-align: right;">원
-								</td>
-							</tr>
-							<tr>
-								<th style="text-align: center;">계산</th>
-								<td style="text-align: right;">
-									<input type="text" style="text-align: right;">원
-								</td>
-							</tr>
-							<tr>
-								<th style="text-align: center;">계산</th>
-								<td style="text-align: right;">
-									<input type="text" style="text-align: right;">원
-								</td>
-							</tr>
+							<div id="Payresult">
+								<table border="1">
+									<% for (Allowance a : Alist) { %>
+									<tr>
+										<th style="text-align: center;"><%= a.getALLOWANCE_NAME() %>
+											<td style="text-align: center;">
+												<input type="text" id=""
+													value="0" style="text-align: right; width: 100px;" readonly>원
+											</td>
+										</th>
+									</th>
+									<% } %>
+									<tr>
+										<th style="text-align: center;">수당총액
+											<td style="text-align: center;"><input type="text" id=""
+												value="0" style="text-align: right; width: 100px;" readonly>원
+											</td>
+										</th>
+									</tr>
+									<tr>
+										<th style="text-align: center;">월수령액
+											<td style="text-align: center;"><input type="text" id=""
+												value="0" style="text-align: right; width: 100px;" readonly>원
+											</td>
+										</th>
+									</tr>
+								</table>
+							</div>
+
+							<div id="Payresult">
+								<table border="1" id="resultwindow">
+									<% for (Deduction d : Dlist) { %>
+									<tr>
+										<th style="text-align: center;"><%= d.getDEDUCTION_NAME() %>
+											<td style="text-align: center;">
+												<input type="text" id="payD<%= d.getDEDUCTION_NO() %>" class="CpayD"
+													value="0" style="text-align: right; width: 100px;" readonly>원
+											</td>
+										</th>
+									</th>
+									<% } %>
+									<tr>
+										<th style="text-align: center;">공제총액
+											<td style="text-align: center;"><input type="text" id=""
+												value="0" style="text-align: right; width: 100px;" readonly>원
+											</td>
+										</th>
+									</tr>
+									<tr>
+										<th style="text-align: center;">기본급
+											<td style="text-align: center;"><input type="text" id="pay"
+												value="0" style="text-align: right; width: 100px;" readonly>원
+											</td>
+										</th>
+									</tr>
+								</table>
+							</div>
 						</table>
 					</div>
-				</div>					
 				</form>
-			
+			</div>
 		</div>
 
 		<!--**********************************

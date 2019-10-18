@@ -7,6 +7,14 @@
 <%
 	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
 %>
+
+<%@ page import="ERP.notice.model.vo.Notice, java.util.ArrayList" %>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.If"%>
+<%@page import="ERP.notice.model.vo.Notice" %> 
+<%
+	Notice notice = (Notice)request.getAttribute("notice");
+%>   
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,9 +38,17 @@
 <!-- Custom Stylesheet -->
 <link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
 
+<!-- rpNoticeDetailView.jsp 추가분 -->
+
+
+<!-- rpNoticeDetailView.jsp 추가분 끝 -->
+
+
 </head>
 
 <body>
+
+
 
 	<!--*******************
         Preloader start
@@ -349,8 +365,8 @@
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
 					</a>
 						<ul aria-expanded="false">
-							<!-- <li><a href="/NHMP/deduclise">공제항목등록</a></li>
-							<li><a href="/NHMP/allowlist">수당항목등록</a></li> -->
+							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
+							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
 							<li><a href="/NHMP/paylist">급여계산</a></li>
 							<!--
                             <li><a href="ui-button.html">Button</a></li>
@@ -447,6 +463,25 @@
 			</div>
 			</ul>
 		</div>
+<!-- ErpNoticeListView.jsp 추가분 -->		
+<center>		
+		
+	<table align="center" width="500" border="1" cellspacing="0" cellpadding="5">
+	<tr><th colspan="4"><%= notice.getNoticeNo() %>번 공지사항 화면</th></tr>
+	<tr><th >제목</th><td><%= notice.getNoticeTitle() %></td><th>조회수</th><td><%= notice.getNoticeCount() %></td></tr>
+	<tr><th>작성자</th><td colspan="3"><%= notice.getNoticeWriter() %></td></tr>
+	<tr><th>등록날짜</th><td colspan="3"><%= notice.getNoticeDate() %></td></tr>
+	<tr><th>내용</th><td colspan="3"><%= notice.getNoticeContent() %></td></tr>
+	<tr><th colspan="4"><a href="/NHMP/nlist">목록으로 이동</a></th></tr>
+	</table>
+
+
+</center>
+<!-- ErpNoticeListView.jsp 추가분 끝-->
+
+
+
+
 
 		<!--**********************************
             Sidebar end
@@ -457,7 +492,7 @@
         ***********************************-->
 		<div class="content-body">
 
-			<div class="container-fluid mt-3">
+			<!-- <div class="container-fluid mt-3">
 				<div class="row">
 					<div class="col-lg-3 col-sm-6">
 						<div class="card gradient-1">
@@ -465,7 +500,7 @@
 								<h3 class="card-title text-white">즐겨찾기_1</h3>
 								<div class="d-inline-block">
 									<h2 class="text-white">메뉴 명</h2>
-									<!--    <p class="text-white mb-0">Jan - March 2019</p>  -->
+									   <p class="text-white mb-0">Jan - March 2019</p> 
 								</div>
 								<span class="float-right display-5 opacity-5"><i
 									class="fa fa-question"></i></span>
@@ -478,7 +513,7 @@
 								<h3 class="card-title text-white">즐겨찾기_2</h3>
 								<div class="d-inline-block">
 									<h2 class="text-white">메뉴 명</h2>
-									<!--    <p class="text-white mb-0">Jan - March 2019</p> -->
+									   <p class="text-white mb-0">Jan - March 2019</p>
 								</div>
 								<span class="float-right display-5 opacity-5"><i
 									class="fa fa-question"></i></span>
@@ -491,7 +526,7 @@
 								<h3 class="card-title text-white">즐겨찾기_3</h3>
 								<div class="d-inline-block">
 									<h2 class="text-white">메뉴 명</h2>
-									<!--        <p class="text-white mb-0">Jan - March 2019</p> -->
+									       <p class="text-white mb-0">Jan - March 2019</p>
 								</div>
 								<span class="float-right display-5 opacity-5"><i
 									class="fa fa-question"></i></span>
@@ -504,14 +539,14 @@
 								<h3 class="card-title text-white">즐겨찾기_4</h3>
 								<div class="d-inline-block">
 									<h2 class="text-white">메뉴 명</h2>
-									<!--        <p class="text-white mb-0">Jan - March 2019</p> -->
+									       <p class="text-white mb-0">Jan - March 2019</p>
 								</div>
 								<span class="float-right display-5 opacity-5"><i
 									class="fa fa-question"></i></span>
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!--    <div class="row">
                     <div class="col-lg-12">
                         <div class="row">
@@ -678,7 +713,7 @@
 
                 </div>
                 -->
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-lg-12">
 						<div class="card">
 							<div class="card-body">
@@ -805,7 +840,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!--
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6">

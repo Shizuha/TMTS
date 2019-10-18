@@ -7,6 +7,12 @@
 <%
 	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
 %>
+
+<%@ page import="ERP.notice.model.vo.Notice, java.util.ArrayList" %>
+<% //스크립트릿(scriptlet) 태그라고 함
+	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,9 +36,55 @@
 <!-- Custom Stylesheet -->
 <link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
 
+<!-- ErpNoticeListView.jsp 추가분 -->
+
+<style type="text/css">
+div.searchbox {
+	border : 1px solid blue;
+	width : 600px;
+	height : 120px;
+	background : ivory;
+	padding : 0;
+}
+</style>
+<script type="text/javascript" src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	showDiv();
+	
+	$("input[name=item]").on("change", function(){
+		showDiv();
+	});
+});
+
+function showDiv(){
+	if($("input[name=item]").eq(0).is(":checked")){
+		$("#titlediv").css("display", "block");
+		$("#writerdiv").css("display", "none");
+		$("#datediv").css("display", "none");
+	}
+	
+	if($("input[name=item]").eq(1).is(":checked")){
+		$("#titlediv").css("display", "none");
+		$("#writerdiv").css("display", "block");
+		$("#datediv").css("display", "none");
+	}
+	
+	if($("input[name=item]").eq(2).is(":checked")){
+		$("#titlediv").css("display", "none");
+		$("#writerdiv").css("display", "none");
+		$("#datediv").css("display", "block");
+	}
+}
+</script>
+<!-- ErpNoticeListView.jsp 추가분 끝 -->
+
+
 </head>
 
 <body>
+
+
 
 	<!--*******************
         Preloader start
@@ -349,8 +401,8 @@
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
 					</a>
 						<ul aria-expanded="false">
-							<!-- <li><a href="/NHMP/deduclise">공제항목등록</a></li>
-							<li><a href="/NHMP/allowlist">수당항목등록</a></li> -->
+							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
+							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
 							<li><a href="/NHMP/paylist">급여계산</a></li>
 							<!--
                             <li><a href="ui-button.html">Button</a></li>
@@ -447,6 +499,71 @@
 			</div>
 			</ul>
 		</div>
+		
+		<!-- ErpNoticeListView.jsp 추가분 -->
+<h1 align="center">공지사항 전체 목록 보기 : <%= list.size() %> 개</h1>
+<h3 align="center"><a href="/NHMP/nlist">전체 목록 보기</a></h3>
+<center>
+<div class="searchbox">
+<div>
+	<h2>검색할 항목을 선택하시오.</h2>
+	<input type="radio" name="item" value="title" checked> 제목 &nbsp; &nbsp; &nbsp; 
+	<input type="radio" name="item" value="writer"> 작성자 &nbsp; &nbsp; &nbsp; 
+	<input type="radio" name="item" value="date"> 날짜
+</div>
+<div id="titlediv">
+	<form action="/NHMP/nsearch" method="post">
+		<input type="hidden" name="search" value="title">
+		<label>검색할 제목을 입력하시오 : 
+		<input type="search" name="keyword"></label>
+		<input type="submit" value="검색">
+	</form>
+</div>
+<div id="writerdiv">
+	<form action="/NHMP/nsearch" method="post">
+		<input type="hidden" name="search" value="writer">
+		<label>검색할 작성자 아이디를 입력하시오 : 
+		<input type="search" name="keyword"></label>
+		<input type="submit" value="검색">
+	</form>
+</div>
+<div id="datediv">
+	<form action="/NHMP/nsearch" method="post">
+		<input type="hidden" name="search" value="date">
+		<label>검색할 날짜를 선택하시오 : 
+		<input type="date" name="from"> ~ <input type="date" name="to"></label>
+		<input type="submit" value="검색">
+	</form>
+</div>
+</div>
+<br>
+<table align="center" width="600" border="1" cellspacing="0" cellpadding="5" float="block">
+<tr >
+	<th>번호</th>
+	<th>제목</th>
+	<th>작성자</th>
+	<th>작성날짜</th>
+	<th>조회수</th>
+</tr>
+<% for(Notice n : list){ %>
+<tr >
+	<th><%= n.getNoticeNo() %></th>
+	<td><a href="/NHMP/ndetail?no=<%= n.getNoticeNo() %>"><%= n.getNoticeTitle() %></a></td>
+	<td><%= n.getNoticeWriter() %></td>
+	<td align="center">
+		<%= n.getNoticeDate() %>
+	</td>
+	<td><%= n.getNoticeCount() %></td>
+</tr>
+<% } %>
+
+</table>
+<!-- ErpNoticeListView.jsp 추가분 끝-->
+</center>
+<br>
+
+
+
 
 		<!--**********************************
             Sidebar end
@@ -457,7 +574,7 @@
         ***********************************-->
 		<div class="content-body">
 
-			<div class="container-fluid mt-3">
+			<!-- <div class="container-fluid mt-3">
 				<div class="row">
 					<div class="col-lg-3 col-sm-6">
 						<div class="card gradient-1">
@@ -465,7 +582,7 @@
 								<h3 class="card-title text-white">즐겨찾기_1</h3>
 								<div class="d-inline-block">
 									<h2 class="text-white">메뉴 명</h2>
-									<!--    <p class="text-white mb-0">Jan - March 2019</p>  -->
+									   <p class="text-white mb-0">Jan - March 2019</p> 
 								</div>
 								<span class="float-right display-5 opacity-5"><i
 									class="fa fa-question"></i></span>
@@ -478,7 +595,7 @@
 								<h3 class="card-title text-white">즐겨찾기_2</h3>
 								<div class="d-inline-block">
 									<h2 class="text-white">메뉴 명</h2>
-									<!--    <p class="text-white mb-0">Jan - March 2019</p> -->
+									   <p class="text-white mb-0">Jan - March 2019</p>
 								</div>
 								<span class="float-right display-5 opacity-5"><i
 									class="fa fa-question"></i></span>
@@ -491,7 +608,7 @@
 								<h3 class="card-title text-white">즐겨찾기_3</h3>
 								<div class="d-inline-block">
 									<h2 class="text-white">메뉴 명</h2>
-									<!--        <p class="text-white mb-0">Jan - March 2019</p> -->
+									       <p class="text-white mb-0">Jan - March 2019</p>
 								</div>
 								<span class="float-right display-5 opacity-5"><i
 									class="fa fa-question"></i></span>
@@ -504,14 +621,14 @@
 								<h3 class="card-title text-white">즐겨찾기_4</h3>
 								<div class="d-inline-block">
 									<h2 class="text-white">메뉴 명</h2>
-									<!--        <p class="text-white mb-0">Jan - March 2019</p> -->
+									       <p class="text-white mb-0">Jan - March 2019</p>
 								</div>
 								<span class="float-right display-5 opacity-5"><i
 									class="fa fa-question"></i></span>
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!--    <div class="row">
                     <div class="col-lg-12">
                         <div class="row">
@@ -678,7 +795,7 @@
 
                 </div>
                 -->
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-lg-12">
 						<div class="card">
 							<div class="card-body">
@@ -805,7 +922,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!--
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6">

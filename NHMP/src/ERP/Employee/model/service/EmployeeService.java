@@ -103,6 +103,16 @@ public class EmployeeService {
 		close(conn);
 		return result;
 	}
+
+	
+	public Employee selectIDOne(String empid) {
+		Connection conn = getConnection();
+		Employee emp = eDao.selectIDOne(conn, empid);
+		close(conn);
+		return emp;
+	}
+
+	
 	
 	
 
