@@ -127,7 +127,7 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-        <div class="panel panel-default">
+        <!-- <div class="panel panel-default">
 
             <div class="panel-heading">
                 <h3 class="panel-title">필터</h3>
@@ -147,7 +147,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         
         <!--  <div class="col-lg-6">
                     <label for="calendar_view">등록자별</label>

@@ -19,7 +19,7 @@ function getDisplayEventDate(event) {
 function filtering(event) {
   var show_username = true; 
   var show_type = true;
-
+  
 //  var username = $('input:checkbox.filter:checked').map(function () {
 //    return $(this).val();
 //  }).get();
@@ -100,7 +100,7 @@ var calendar = $('#calendar').fullCalendar({
       }),
       content: $('<div />', {
           class: 'popoverInfoCalendar'
-        }).append('<p><strong>등록자:</strong> ' + event.username + '</p>')
+        }).append('<p><strong>등록자:</strong> ' + event._id + '</p>')
         .append('<p><strong>구분:</strong> ' + event.type + '</p>')
         .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
         .append('<div class="popoverDescCalendar"><strong>설명:</strong> ' + event.description + '</div>'),
@@ -172,6 +172,7 @@ var calendar = $('#calendar').fullCalendar({
       },
       datatype: 'json',
       success: function (response) {
+    	  console.log(response);
     	  var events = [];
     	  var list = response.list;
     	  for(var i = 0; i < list.length; i++ ){
@@ -193,6 +194,7 @@ var calendar = $('#calendar').fullCalendar({
           };
           events.push(evt);
         }
+    	console.log(events)
         callback(events);
       }
     });

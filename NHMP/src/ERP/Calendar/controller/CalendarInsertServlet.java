@@ -45,7 +45,6 @@ public class CalendarInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 캘린더 등록 서블릿
-		// 전송온 값 꺼내고, 문자열 보내기 컨트롤러
 		try {
 			
 		NursingHospital nh = (NursingHospital) request.getSession().getAttribute("loginHospital");

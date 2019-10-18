@@ -16,6 +16,7 @@ public class CalendarService {
 	public void InsertCalendar(JSONObject sendJson) {
 		Connection conn = getConnection();
 		cdao.InsertCalendar(conn, sendJson);
+		commit(conn);
 		close(conn);
 	}
 
@@ -24,6 +25,13 @@ public class CalendarService {
 		ArrayList<Calendar> list = cdao.listCalendar(conn, sendJson);
 		close(conn);
 		return list;
+	}
+
+	public void updateCalendar(JSONObject sendJson) {
+		Connection conn = getConnection();
+		cdao.updateCalendar(conn, sendJson);
+		commit(conn);
+		close(conn);
 	}
 	
 	

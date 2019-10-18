@@ -2,7 +2,6 @@
  *  일정 편집
  * ************** */
 var editEvent = function (event, element, view) {
-
     $('.popover.fade.top').remove();
     $(element).popover("hide");
 
@@ -46,7 +45,6 @@ var editEvent = function (event, element, view) {
             alert('일정명은 필수입니다.')
             return false;
         }
-
         var statusAllDay;
         var startDate;
         var endDate;
@@ -66,28 +64,33 @@ var editEvent = function (event, element, view) {
 
         eventModal.modal('hide');
 
-        event.allDay = statusAllDay;
-        event.title = editTitle.val();
-        event.start = startDate;
-        event.end = displayDate;
-        event.type = editType.val();
-        event.backgroundColor = editColor.val();
-        event.description = editDesc.val();
+        var eventup = {
+        		_id:event._id,
+        		allDay: statusAllDay,
+		        title: editTitle.val(),
+		        start: startDate,
+		        end: displayDate,
+		        type: editType.val(),
+		        backgroundColor: editColor.val(),
+		        description: editDesc.val(),
+		        username:event.username,
+		        }
 
         $("#calendar").fullCalendar('updateEvent', event);
-
+        var jsonupdate = JSON.stringify(eventup);
         //일정 업데이트
         $.ajax({
             type: "get",
-            url: "",
+            url: "/NHMP/calup",
             data: {
-                //...
+            	jsonupdate
             },
             success: function (response) {
-                alert('수정되었습니다.')
+                alert('수정되었습니다.');
+                location.reload();
             }
         });
-
+        console.log(jsonupdate)
     });
 
     // 삭제버튼
