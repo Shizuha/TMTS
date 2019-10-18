@@ -144,7 +144,9 @@ function Echeckbox(empid){
 		}
 	}else{
 		$('input[type="checkbox"][class="CECheckBtn"]').prop('checked', false);
+		$('input[type="checkbox"][class="DCheckBtn"]').prop('checked', false);
 		$("#pay").val(0);
+		$(".CpayD").val(0);
 		Ecnt=0;
 	}
 }
