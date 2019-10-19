@@ -51,19 +51,18 @@
 		background: rgb(117, 113, 249, 0.5);
     	color:rgba(0, 0, 0, 1);
     	text-align:center;
-    	color:rgba(0, 0, 0, 1);
     	/* opacity:0.5; */
 	}
 	
 	
 	
 	#rootdiv #Paycenter{
-		 /* border : 1px solid red; */
+		/* border : 1px solid red; */
 		float: right; 
-		width: 260px;
+		width: 300px;
 	}
 	#rootdiv #Paycenter table{
-		width:250px;
+		width:290px;
 		float:right;
 		text-align:center;
 		background:#f4f4f4;
@@ -78,12 +77,12 @@
 	
 	
 	#rootdiv #Payright{
-		 /* border : 1px solid red; */
+		/* border : 1px solid red; */
 		float: right; 
 		width: 30%;
 	}
 	#rootdiv #Payright table{
-		width:250px;
+		width:290px;
 		float:right;
 		text-align:center;
 		background:#f4f4f4;
@@ -108,16 +107,16 @@
 	}	
 	#rootdiv #Payresult table{
 		margin-left:10px;
-		width:250px;
+		width:290px;
 		text-align:center;
 		background:#f4f4f4;
 		color:#000;
 	}
 	#rootdiv #Payresult table th{
 		background: rgb(117, 113, 249, 0.5);
+		width:129px;
     	text-align:center;
     	color:rgba(0, 0, 0, 1);
-    	/* opacity:0.5; */
 	}
 
 </style>
@@ -127,6 +126,8 @@
 var payresult = "";
 var Ecnt = 0;
 var totalresult = "0";
+var totalresultA = "0";
+
 function Echeckbox(empid){
 	var thispuls = "ECheckBtn"+empid;
 	var id = "";
@@ -150,11 +151,10 @@ function Echeckbox(empid){
 			})
 		}else{
 			Ecnt=1;
-			$("#pay").val(0);
-			$(".CpayD").val(0);
-			$("#totalD").val(0);
+			$('input[type="text"]').val(0);
 			$('input[type="checkbox"][class="CECheckBtn"]').prop('checked', false);
 			$('input[type="checkbox"][class="DCheckBtn"]').prop('checked', false);
+			$('input[type="checkbox"][class="ACheckBtn"]').prop('checked', false);
 			$("#"+thispuls).prop('checked',true);
 			$.ajax({
 				url : "/NHMP/getpay",
@@ -172,9 +172,8 @@ function Echeckbox(empid){
 	}else{
 		$('input[type="checkbox"][class="CECheckBtn"]').prop('checked', false);
 		$('input[type="checkbox"][class="DCheckBtn"]').prop('checked', false);
-		$("#pay").val(0);
-		$(".CpayD").val(0);
-		$("#totalD").val(0);
+		$('input[type="checkbox"][class="ACheckBtn"]').prop('checked', false);
+		$('input[type="text"]').val(0);
 		Ecnt=0;
 	}
 }
@@ -198,14 +197,16 @@ function Dcheckbox(Dcode, Dno){
 				console.log(result);
 				if($("#"+Did).prop('checked')){
 					totalresult = eval(eval(totalresult)+eval(result));
+					console.log("totalresult : "+totalresult);
+					console.log("result : "+result);
 					$(payresult).val(result);
 					$("#totalD").val(totalresult);
-					$("#totalM").val(eval(pay-totalresult));
+					$("#totalM").val(eval(eval(pay)-eval(totalresult)+eval(totalresultA)));
 				}else{
 					totalresult = eval(eval(totalresult)-eval(result));
 					$(payresult).val(0);
 					$("#totalD").val(totalresult);
-					$("#totalM").val();
+					$("#totalM").val( eval( eval($("#totalM").val())+eval(result) ) );
 				}
 				
 			}, error : function(jqXHR, textStatus, errorThrown ){
@@ -215,6 +216,44 @@ function Dcheckbox(Dcode, Dno){
 	}else{
 		alert("한명의 직원을 선택하여 주세요");
 		$('input[type="checkbox"][class="DCheckBtn"]').prop('checked', false);
+	}
+}
+
+function Acheckbox(Acode, Ano){
+	if($("#pay").val() != 0){
+		var payA = "#payA";
+		var Aid = "ACheckBtn"+Ano;
+		payresult = payA+Ano;
+		$.ajax({
+			url : "/NHMP/getallow",
+			type: "post",
+			data : {Acode : Acode},
+			success : function(data){
+				
+				var pay = $("#pay").val();
+				var resultformula = data.replace("T01", pay);
+				var resultA = Math.floor(eval(resultformula)/10)*10;
+				if($("#"+Aid).prop('checked')){
+					totalresultA = eval(eval(totalresultA)+eval(resultA));
+					$(payresult).val(resultA);
+					$("#totalA").val(totalresultA);
+					$("#totalM").val( eval(eval($("#pay").val())-eval($("#totalD").val())+eval($("#totalA").val())) )  ;
+					
+				}else{
+					totalresultA = eval(eval(totalresultA)-eval(resultA));
+					$(payresult).val(0);
+					$("#totalA").val(totalresultA);
+					$("#totalM").val( eval(eval($("#pay").val())-eval($("#totalD").val())+eval($("#totalA").val())));
+				}
+				
+			}, error : function(jqXHR, textStatus, errorThrown ){
+				console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
+			}
+		})
+	}else{
+		alert("한명의 직원을 선택하여 주세요");
+		$('input[type="checkbox"][class="DCheckBtn"]').prop('checked', false);
+		$('input[type="checkbox"][class="ACheckBtn"]').prop('checked', false);
 	}
 }
 
@@ -604,7 +643,9 @@ function Dcheckbox(Dcode, Dno){
 									for (Allowance a : Alist) {
 								%>
 								<tr align="center">
-									<td><input type="checkbox"
+									<td><input type="checkbox" class="ACheckBtn" 
+										id="ACheckBtn<%= a.getALLOWANCE_NO() %>"
+										onclick="Acheckbox('<%= a.getALLOWANCE_CODE() %>','<%= a.getALLOWANCE_NO() %>')"
 										style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
 									<td><%=a.getALLOWANCE_NAME()%></td>
 								</tr>
@@ -624,7 +665,8 @@ function Dcheckbox(Dcode, Dno){
 										%>
 										<tr>
 											<th style="text-align: center;"><%=a.getALLOWANCE_NAME()%>
-											<td style="text-align: center;"><input type="text" id=""
+											<td style="text-align: center;"><input type="text"
+												id="payA<%= a.getALLOWANCE_NO() %>" class="CpayA"
 												value="0" style="text-align: right; width: 140px;" readonly>원
 											</td>
 											</th>
