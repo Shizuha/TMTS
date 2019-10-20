@@ -12,6 +12,12 @@
 <% //스크립트릿(scriptlet) 태그라고 함
 	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
 %>
+<%
+	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
+	int beginPage = ((Integer)request.getAttribute("beginPage")).intValue();
+	int endPage = ((Integer)request.getAttribute("endPage")).intValue();
+	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -557,7 +563,37 @@ function showDiv(){
 </tr>
 <% } %>
 
+
+
 </table>
+
+     <!-- 패이징처리 서블릿 -->
+<div id="pagebox" align="center">
+<a href="/NHMP/nlist?page=1">|◁</a> &nbsp;
+<% if((beginPage - 10) < 1){ %>
+	<a href="/NHMP/nlist?page=1">◀◀</a>
+<% }else{ %>
+	<a href="/NHMP/nlist?page=<%= beginPage - 10 %>">◀◀</a>
+<% } %> &nbsp;
+<% for(int p = beginPage; p <= endPage; p++){ 
+		if(p == currentPage){
+%>
+	<a href="/NHMP/nlist?page=<%= p %>"><font color="red"><b>[<%= p %>]</b></font></a>
+<% }else{ %>
+	<a href="/NHMP/nlist?page=<%= p %>"><%= p %></a>
+<% }}  %> &nbsp;
+<% if((endPage + 10) > maxPage){ %>
+	<a href="/NHMP/nlist?page=<%= maxPage %>">▶▶</a>
+<% }else{ %>
+	<a href="/NHMP/nlist?page=<%= endPage + 10 %>">▶▶</a>
+<% } %> &nbsp;
+<a href="/NHMP/nlist?page=<%= maxPage %>">▷|</a>
+</div>
+<!-- 홈으로 가는 버튼 생성 -->
+<div align="center">
+	<a href="/NHMP/nlist">홈으로 이동</a>
+</div>
+        
 <!-- ErpNoticeListView.jsp 추가분 끝-->
 </center>
 <br>
@@ -1127,6 +1163,7 @@ function showDiv(){
 			<!--**********************************
             Content body end
         ***********************************-->
+   
 
 
 			<!--**********************************

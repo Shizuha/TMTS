@@ -474,7 +474,7 @@
 	<tr><th>내용</th><td colspan="3"><%= notice.getNoticeContent() %></td></tr>
 	<tr><th colspan="4"><a href="/NHMP/nlist">목록으로 이동</a></th></tr>
 	</table>
-
+	
 
 </center>
 <!-- ErpNoticeListView.jsp 추가분 끝-->

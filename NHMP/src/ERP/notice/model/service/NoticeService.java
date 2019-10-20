@@ -30,5 +30,47 @@ public class NoticeService {
 		return notice;
 	}
 
-
+	
+	//조회수 증가 위한 메소드
+	public int updateReadCount(int noticeNo) {
+		
+				Connection conn = getConnection();
+				int result = ndao.updateReadCount(conn, noticeNo);
+				if (result > 0) {
+					commit(conn);
+				}else {
+					rollback(conn);
+				}
+				close(conn);
+				return result;
+	}
+	
+	//조회수 패이징
+	public int getListCount() {
+		Connection conn = getConnection();
+		int listCount = ndao.getListCount(conn);
+		close(conn);
+		return listCount;
+	}
+	
+	//10개의 행만 조회처리 하는 서비스
+	public ArrayList<Notice> selectList(int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Notice> list = ndao.selectList(conn, startRow, endRow);
+		close(conn);
+		return list;
+	}
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+

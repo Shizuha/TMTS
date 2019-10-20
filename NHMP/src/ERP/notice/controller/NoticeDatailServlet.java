@@ -34,12 +34,20 @@ public class NoticeDatailServlet extends HttpServlet {
 		// 공지글 상세보기 처리용 컨트롤러
 				int noticeNo = Integer.parseInt(request.getParameter("no"));
 				
+				
+				
+				//1증가된 조회수 셀렉트
+				NoticeService noticeservice = new NoticeService();
+				noticeservice.updateReadCount(noticeNo); //조회수 1 증가 처리함
+				
 				Notice notice = new NoticeService().selectOne(noticeNo);
 				
 				RequestDispatcher view = null;
 				if (notice != null) {
 					view = request.getRequestDispatcher("views/ERP/Notice/ErpNoticeDetailView.jsp");
 					request.setAttribute("notice", notice);
+					request.setAttribute("noticeno", noticeNo);
+					
 					
 				}else {
 					view = request.getRequestDispatcher("views/common/Error.jsp");
