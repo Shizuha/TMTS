@@ -31,11 +31,6 @@ public class AllowanceService {
 		return null;
 	}
 
-	public Allowance deleteAllowance() {
-		ADao.deleteAllowance();
-		return null;
-	}
-
 	public int insertAllowance(Allowance awna) {
 		Connection conn = getConnection();
 		int result = ADao.insertAllowance(conn, awna);
@@ -53,5 +48,12 @@ public class AllowanceService {
 		String Formula = ADao.selectFormula(conn, acode);
 		close(conn);
 		return Formula;
+	}
+
+	public int deleteAllowance(String code) {
+		Connection conn = getConnection();
+		int result = ADao.deleteAllowance(conn, code);
+		close(conn);
+		return result;
 	}
 }	

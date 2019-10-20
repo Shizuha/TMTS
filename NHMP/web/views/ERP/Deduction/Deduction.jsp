@@ -19,8 +19,9 @@
 <style type="text/css">
 
 	#dlistdiv{
+		float: left;
 		margin-left:50px;
-		width:1500px;
+		width:1300px;
 	}
 	
 	#dlistdiv .btn{
@@ -35,6 +36,18 @@
 	    margin: 4px;
 	    cursor: pointer;
 	}
+	#dlistdiv #BLbtn{
+		float:left;
+		width:1300px;
+	}
+	#dlistdiv #BLbtn input{
+		float:left;
+	}
+	#dlistdiv #BLbtn #SDbtn{
+		float:right;
+	}
+	
+		
 	#dlistdiv .inFbtn{
 		background-color: #7571f9;
 		border: none;
@@ -60,6 +73,9 @@
 		background: rgb(117, 113, 249, 0.5);
     	color:rgba(0, 0, 0, 1);
     	text-align:center;
+	}
+	#dlistdiv table td input{
+		margin:5px;
 	}
 </style>
 
@@ -99,6 +115,39 @@
 				count -= 1;	
 			}
 		});
+		
+		$("#SDbtn").click(function(){
+			var cnt = 0;
+			for (var i = 1; i <= count-1; i++){
+				var Did = "DnoCh"+i;
+				if($("#"+Did).is(':checked') == true){
+					var code = $("#Dcode"+i).val();
+					$.ajax({
+						url : "/NHMP/delDD",
+						type : "post",
+						data : {code : code},
+						success : function(data){
+							location.href = "/NHMP/deduclise"
+							
+						}, error : function(jqXHR, textStatus, errorThrown){
+							console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
+						}
+						
+					});
+					
+				}
+			}
+			
+			if($('input[type="checkbox"][class="Dcheck"]').is(':checked')){
+				
+			}else{
+				//체크가 없으면
+				alert("선택 삭제를 위해서는 저장된 공제 중 한 개 이상의 공제을 선택하여주십시오");
+				return false;
+			}
+			
+		});
+		
 	});
 	
 	
@@ -442,16 +491,19 @@ $("#txtBox").removeAttr("disabled"); */
 		<div class="content-body" align="center" >
 			<br>
 			<div id="dlistdiv">
-				<div style="float: left;">
+			<!-- <form action="" method="post"> -->
+				<div id="BLbtn">
 					<input type="button" value="┼" id="btn_add_row" class="btn"> &nbsp;
 					<input type="button" value="─" id="btn_delete_row" class="btn">	
+					<input type="button" id="SDbtn" value="선택삭제" class="btn">
 				</div>
+			<!-- </form>	 -->
 				<br>
 				<br>	
 				<form action="/NHMP/deducinsert" method="post">
 					<table width="1000" cellspacing="0" cellpadding="5" border="1" id="deduction_talbe" style="float: left; ">
 						<tr>
-							<th></th>
+							<th>선택</th>
 							<th align="center">공제명칭</th>
 							<th align="center">표시순서</th>
 							<th align="center">계정코드</th>
@@ -462,10 +514,10 @@ $("#txtBox").removeAttr("disabled"); */
 						</tr>
 						<% for(Deduction d : list){%>
 						<tr align="center">
-							<td><input type="checkbox" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
+							<td><input type="checkbox" class="Dcheck" id="DnoCh<%= d.getDEDUCTION_NO() %>" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
 							<td><input type="text" value="<%= d.getDEDUCTION_NAME() %>" readonly style="text-align:center; width:100px;"></td>
-							<td><input type="text" value="<%= d.getDEDUCTION_NO() %>" readonly style="text-align:center; width:25px;"></td>
-							<td><input type="text" value="<%= d.getDEDUCTION_CODE() %>" readonly style="text-align:center; width:50px;"></td>
+							<td><input type="text" class="Dno" value="<%= d.getDEDUCTION_NO() %>" readonly style="text-align:center; width:25px;"></td>
+							<td><input type="text" id="Dcode<%= d.getDEDUCTION_NO() %>" value="<%= d.getDEDUCTION_CODE() %>" readonly style="text-align:center; width:50px;"></td>
 							<td><input type="text" value="<%= d.getDEDUCTION_FORMULA() %>" readonly style="text-align:center; width:100px;"></td>
 							<td><input type="checkbox" id="inFCheck<%= d.getDEDUCTION_NO() %>" onclick="inFCheck(<%= d.getDEDUCTION_NO() %>)" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
 							<td><input type="button" class="inFbtn<%= d.getDEDUCTION_NO() %>" value="수식 입력" onclick="showPopup('/NHMP/insertF?Bnum=<%= d.getDEDUCTION_NO() %>', 'insertF');"disabled></td>
@@ -485,7 +537,7 @@ $("#txtBox").removeAttr("disabled"); */
 							<td><input type="text" name="Dcode" style="text-align:center; width:50px;" placeholder="코드"></td>
 							<td><input type="text" name="Dformula" id="Formula<%= list.size()+1 %>" style="text-align:center; width:100px;" readonly placeholder="계산식"></td>
 							<td><input type="checkbox" id="inFCheck<%= list.size()+1 %>" onclick="inFCheck(<%= list.size()+1 %>)" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
-							<td><input type="button"  class="inFbtn<%= list.size()+1 %>" value="수식입력"  onclick="showPopup('/NHMP/insertF?Bnum=<%= list.size()+1 %> %>', 'insertF');"disabled></td>
+							<td><input type="button"  class="inFbtn<%= list.size()+1 %>" value="수식입력"  onclick="showPopup('/NHMP/insertF?Bnum=<%= list.size()+1 %>', 'insertF');"disabled></td>
 							<td><input type="text" name="Detc" style="text-align:center; width:100px;" placeholder="설명"></td>
 						</tr>
 						<!-- 디비에서 list 받아서 가져오기 -->

@@ -1,6 +1,8 @@
 package ERP.Allowance.model.dao;
 
 import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -59,11 +61,6 @@ public class AllowanceDao {
 		
 	}
 
-	public void deleteAllowance() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public int insertAllowance(Connection conn, Allowance awna) {
 		int result = 0;
 		
@@ -111,6 +108,33 @@ public class AllowanceDao {
 			close(rset);
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public int deleteAllowance(Connection conn, String code) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String query = "delete from allowance where allowance_code = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, code);
+			
+			result = pstmt.executeUpdate();
+			
+			if(result > 0 ) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 
