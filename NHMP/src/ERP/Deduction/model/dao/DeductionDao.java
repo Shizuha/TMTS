@@ -1,6 +1,6 @@
 package ERP.Deduction.model.dao;
 
-import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,11 +12,6 @@ import java.util.ArrayList;
 import ERP.Deduction.model.vo.Deduction;
 
 public class DeductionDao {
-
-	public void updateDeduction() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public ArrayList<Deduction> selectList(Connection conn) {
 		ArrayList<Deduction> list = new ArrayList<Deduction>();
@@ -80,10 +75,6 @@ public class DeductionDao {
 		
 	}
 
-	public void deleteDeduction() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public String selectFormula(Connection conn, String dcode) {
 		String result = "";
@@ -111,6 +102,38 @@ public class DeductionDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int deleteDeduction(Connection conn, String code) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String query = "delete from deduction where deduction_code = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, code);
+			
+			result = pstmt.executeUpdate();
+			
+			if(result > 0 ) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public void updateDeduction() {
+		
+		
 	}
 
 

@@ -21,7 +21,7 @@
 		border:1px solid red;
 		float: left;
 		margin-left:50px;
-		width:1500px;
+		width:1300px;
 	}
 	
 	#alistdiv .btn{
@@ -36,7 +36,17 @@
 	    margin: 4px;
 	    cursor: pointer;
 	}
-	#dlistdiv .inFbtn{
+	#alistdiv #BLbtn{
+		float:left;
+		width:1300px;
+	}
+	#alistdiv #BLbtn input{
+		float:left;
+	}
+	#alistdiv #BLbtn #SAbtn{
+		float:right;
+	}
+	#alistdiv .inFbtn{
 		background-color: #7571f9;
 		border: none;
 		color:#fff;
@@ -61,6 +71,9 @@
 		background: rgb(117, 113, 249, 0.5);
     	color:rgba(0, 0, 0, 1);
     	text-align:center;
+	}
+	#alistdiv table td input{
+		margin:5px;
 	}
 </style>
 
@@ -99,7 +112,42 @@
 				count -= 1;	
 			}
 		});
+		
+		$("#SAbtn").click(function(){
+			var cnt = 0;
+			for (var i = 1; i <= count-1; i++){
+				var Aid = "AnoCh"+i;
+				if($("#"+Aid).is(':checked') == true){
+					var code = $("#Acode"+i).val();
+					$.ajax({
+						url : "/NHMP/delAlo",
+						type : "post",
+						data : {code : code},
+						success : function(data){
+							location.href = "/NHMP/allowlist"
+							
+						}, error : function(jqXHR, textStatus, errorThrown){
+							console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
+						}
+						
+					});
+					
+				}
+			}
+			
+			if($('input[type="checkbox"][class="Acheck"]').is(':checked')){
+				
+			}else{
+				//체크가 없으면
+				
+				alert("선택 삭제를 위해서는 저장된 수당 중 한 개 이상의 수당을 선택하여주십시오");
+				return false;
+			}
+			
+		});
+		
 	});
+	
 	function inFCheck(no){
 		var checkbtn = "inFbtn"+no; //체크박스	
 		var $checkbtn = $("#"+checkbtn);
@@ -432,9 +480,10 @@
 		<div class="content-body" align="center">
 			<br> <br>
 			<div id="alistdiv">
-				<div style="float: left;">
+				<div id="BLbtn">
 					<input type="button" value="┼" id="btn_add_row" class="btn"> &nbsp;
 					<input type="button" value="─" id="btn_delete_row" class="btn">	
+					<input type="button" id="SAbtn" value="선택삭제" class="btn">
 				</div>
 				<br>
 				<br>
@@ -452,10 +501,10 @@
 						</tr>
 						<% for (Allowance a : list) { %>
 						<tr align="center">
-							<td><input type="checkbox" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
+							<td><input type="checkbox" class="Acheck" id="AnoCh<%= a.getALLOWANCE_NO() %>" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
 							<td><input type="text" value="<%=a.getALLOWANCE_NAME()%>" readonly style="text-align: center; width: 100px;"></td>
 							<td><input type="text" value="<%=a.getALLOWANCE_NO()%>"	readonly style="text-align: center; width: 25px;"></td>
-							<td><input type="text" value="<%=a.getALLOWANCE_CODE()%>" readonly style="text-align: center; width: 50px;"></td>
+							<td><input type="text" id="Acode<%= a.getALLOWANCE_NO() %>" value="<%=a.getALLOWANCE_CODE()%>" readonly style="text-align: center; width: 50px;"></td>
 							<td><input type="text" value="<%=a.getALLOWANCE_FORMULA()%>" readonly style="text-align: center; width: 100px;"></td>
 							<td><input type="checkbox" id="inFCheck<%=a.getALLOWANCE_NO()%>" onclick="inFCheck(<%=a.getALLOWANCE_NO()%>)" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
 							<td><input type="button" class="inFbtn<%=a.getALLOWANCE_NO()%>" value="수식 입력" onclick="showPopup('/NHMP/insertFA?Bnum=<%= a.getALLOWANCE_NO() %>', 'insertFA');" disabled></td>

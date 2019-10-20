@@ -35,17 +35,20 @@ public class DeductionService {
 		return result;
 	}
 
-	public Deduction deleteDeduction() {
-		Connection conn = getConnection();
-		DDao.deleteDeduction();
-		return null;
-	}
+
 
 	public String selectFormula(String dcode) {
 		Connection conn = getConnection();
 		String Formula = DDao.selectFormula(conn, dcode);
 		close(conn);
 		return Formula;
+	}
+
+	public int deleteDeduction(String code) {
+		Connection conn = getConnection();
+		int result = DDao.deleteDeduction(conn, code);
+		close(conn);
+		return result;
 	}
 
 	

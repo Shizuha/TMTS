@@ -57,7 +57,6 @@
 var result = "";
 var calc = "";
 var Bnum = <%= Bnum %>;
-alert(Bnum);
 $(function(){
 	$(".numB").click(function(){
 		calc += $(this).val();

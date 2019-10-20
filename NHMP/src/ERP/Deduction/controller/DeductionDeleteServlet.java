@@ -1,6 +1,8 @@
 package ERP.Deduction.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,12 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ERP.Deduction.model.service.DeductionService;
-import ERP.Deduction.model.vo.Deduction;
 
 /**
  * Servlet implementation class DeductionDeleteServlet
  */
-@WebServlet("/deducdel")
+@WebServlet("/delDD")
 public class DeductionDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,8 +31,17 @@ public class DeductionDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 공제 삭제 컨트롤러
-		Deduction deduction = new DeductionService().deleteDeduction();
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String code = request.getParameter("code");
+		System.out.println(code);
+		if(!code.equals("gong1") && !code.equals("gong2") && !code.equals("gong3") && !code.equals("gong4")) {
+			int reuslt = new DeductionService().deleteDeduction(code);
+		}else {
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.append("기본공제입니다.");
+			out.flush();
+			out.close();
+		}
 	}
 
 	/**

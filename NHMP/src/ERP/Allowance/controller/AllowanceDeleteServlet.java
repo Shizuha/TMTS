@@ -1,6 +1,8 @@
 package ERP.Allowance.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,11 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.Allowance.model.service.AllowanceService;
 import ERP.Allowance.model.vo.Allowance;
+import ERP.Deduction.model.service.DeductionService;
 
 /**
  * Servlet implementation class AllowanceDeleteServlet
  */
-@WebServlet("/allowdel")
+@WebServlet("/delAlo")
 public class AllowanceDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,8 +33,10 @@ public class AllowanceDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 수당 삭제용 컨트롤러
-		Allowance awna = new AllowanceService().deleteAllowance();
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String code = request.getParameter("code");
+		System.out.println(code);
+		int reuslt = new AllowanceService().deleteAllowance(code);
+		
 	}
 
 	/**
