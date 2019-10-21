@@ -85,4 +85,106 @@ public class NoticeDao {
 		return notice;
 	}
 
+
+	// 조회수 처리하는 dao
+	public int updateReadCount(Connection conn, int noticeNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null; 
+		
+		String query ="update notice "
+				+ " set notice_count = notice_count + 1 "
+				+ "where notice_no = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, noticeNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}	
+		return result;
+	}
+	
+	//조회수 페이징
+		public int getListCount(Connection conn) {
+			int listCount = 0;
+			Statement stmt = null;
+			ResultSet rset = null;
+			
+			String query = "select count(*) from notice";
+			
+			try {
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(query);
+				if(rset.next()) {
+					listCount = rset.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(stmt);
+			}
+			return listCount;
+		}
+	
+
+//페이징 처리
+		public ArrayList<Notice> selectList(Connection conn, int startRow, int endRow) {
+			ArrayList<Notice> list = new ArrayList<Notice>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			///쿼리문 모르겠음
+			String query = "select * from ("
+					+ "select rownum rnum, notice_no, notice_title, notice_content,"
+					+ "notice_count, notice_writer,"
+					+ " notice_date from (select * from notice order by notice_no desc)) " 
+					+ " where rnum >= ? and rnum <= ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					Notice notice = new Notice();
+					
+					notice.setNoticeNo(rset.getInt("notice_no"));
+					notice.setNoticeTitle(rset.getString("notice_title"));
+					notice.setNoticeContent(rset.getString("notice_content"));
+					notice.setNoticeCount(rset.getInt("notice_count"));
+					notice.setNoticeWriter(rset.getString("notice_writer"));
+					notice.setNoticeDate(rset.getDate("notice_date"));
+					
+					list.add(notice);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return list;
+		}
 }
+
+
+
+
+
+
+
+
+
+
+
