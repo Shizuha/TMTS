@@ -13,23 +13,22 @@ import static common.JDBCTemplate.close;
 
 public class CalendarDao {
 
-	public ArrayList<Calendar> listCalendar(Connection conn, JSONObject sendJson) {
+	public ArrayList<Calendar> listCalendar(Connection conn, JSONObject sendJson, String adminid) {
 		ArrayList<Calendar> list = new ArrayList<Calendar>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rest = null; 
-		
+
 		String query = "select cal_num, id_, title, description, " + 
 				"to_char(start_date, 'yyyy-mm-dd')||'T'||to_char(start_date, 'HH24:MM') as start_date, " + 
 				"to_char(end_date, 'yyyy-mm-dd')||'T'||to_char(end_date, 'HH24:MM') as end_date, " + 
-				"cate_gory, backgroundcolor, textcolor from calendar";
+				"cate_gory, backgroundcolor, textcolor from calendar where id_ = ?";
 		
 		try {
 			
 			pstmt = conn.prepareStatement(query);
-			/*pstmt.setString(1, String.valueOf(sendJson.get("_id")));*/
+			pstmt.setString(1, adminid);
 			
-			/*System.out.println(String.valueOf(sendJson.get("id")));*/
 			rest = pstmt.executeQuery();
 			
 			while(rest.next()) {
@@ -55,44 +54,43 @@ public class CalendarDao {
 		return list;
 	}
 
-	public void InsertCalendar(Connection conn, JSONObject sendJson) {
+	public void InsertCalendar(Connection conn, JSONObject sendJson, String adminid) {
 		
 		PreparedStatement pstmt = null;
-		String query = "INSERT INTO CALENDAR VALUES (?, "
+		String query = "INSERT INTO CALENDAR VALUES (seq_cal.nextval, "
 				+ "?, ?, ?, to_date(?, 'yyyy-mm-dd hh24:mi'), "
 				+ "to_date(?, 'yyyy-mm-dd hh24:mi'), "
 				+ "?, ?, DEFAULT)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, String.valueOf(sendJson.get("calnum")));
-			pstmt.setString(2, String.valueOf(sendJson.get("_id")));
-			pstmt.setString(3, String.valueOf(sendJson.get("title")));
-			pstmt.setString(4, String.valueOf(sendJson.get("description")));
-			pstmt.setString(5, String.valueOf(sendJson.get("start")));
-			pstmt.setString(6, String.valueOf(sendJson.get("end")));
-			pstmt.setString(7, String.valueOf(sendJson.get("type")));
-			pstmt.setString(8, String.valueOf(sendJson.get("backgroundColor")));
+			pstmt.setString(1, adminid);
+			pstmt.setString(2, String.valueOf(sendJson.get("title")));
+			pstmt.setString(3, String.valueOf(sendJson.get("description")));
+			pstmt.setString(4, String.valueOf(sendJson.get("start")));
+			pstmt.setString(5, String.valueOf(sendJson.get("end")));
+			pstmt.setString(6, String.valueOf(sendJson.get("type")));
+			pstmt.setString(7, String.valueOf(sendJson.get("backgroundColor")));
 			
 			pstmt.execute();
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
+
 		return;
 	}
 
 	public void updateCalendar(Connection conn, JSONObject sendJson) {
 		PreparedStatement pstmt = null;
-		Calendar cal = new Calendar();
+		
 		String query = "update calendar set title = ?, description = ?, "
 				+ "start_date = to_date(?, 'yyyy-mm-dd hh24:mi'), "
 				+ "end_date = to_date(?, 'yyyy-mm-dd hh24:mi'), "
 				+ "cate_gory = ?, backgroundcolor = ? where cal_num = ?";
-		System.out.println(Integer.parseInt((String) sendJson.get("_id")));
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, String.valueOf(sendJson.get("title")));
@@ -112,6 +110,27 @@ public class CalendarDao {
 		}
 		
 		return;
+	}
+
+	public void deleteCalendar(Connection conn, JSONObject sendJson) {
+		PreparedStatement pstmt = null;
+		
+		String query = "delete from calendar where cal_num = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt((String) sendJson.get("_id")));
+			
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return;
+		
 	}
 
 }

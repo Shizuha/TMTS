@@ -1,5 +1,4 @@
 var eventModal = $('#eventModal');
-
 var modalTitle = $('.modal-title');
 var editAllDay = $('#edit-allDay');
 var editTitle = $('#edit-title');
@@ -12,7 +11,6 @@ var editDesc = $('#edit-desc');
 
 var addBtnContainer = $('.modalBtnContainer-addEvent');
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
-
 
 /* ****************
  *  새로운 일정 생성
@@ -38,7 +36,7 @@ var newEvent = function (start, end, eventType) {
     $('#save-event').on('click', function () {
     	
         var eventData = {
-            title: editTitle.val(),
+        	title: editTitle.val(),
             start: editStart.val(),
             end: editEnd.val(),
             description: editDesc.val(),

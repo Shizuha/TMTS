@@ -24,7 +24,7 @@ import Main.NursingHospital.model.ov.NursingHospital;
  */
 @WebServlet("/callist")
 public class CalendarListServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7002L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -45,21 +45,21 @@ public class CalendarListServlet extends HttpServlet {
 			NursingHospital nh = (NursingHospital) request.getSession().getAttribute("loginHospital"); // 유효성 검사
 			
 			String jsondata = request.getParameter("jsondata");
-
+			String adminid = nh.getNH_USERID();
+			
 			JSONParser parser = new JSONParser();
 
 			Object obj = parser.parse(jsondata);
 
 			JSONObject sendJson = (JSONObject) obj;
-
-			ArrayList<Calendar> list = new CalendarService().listCalendar(sendJson);
+			
+			ArrayList<Calendar> list = new CalendarService().listCalendar(sendJson, adminid);
 			JSONArray jarr = new JSONArray();
 			
 			// list를 jarr로 옮기기
 			for (Calendar c : list) {
-				// b 객체 저장할 json 객체 생성
 				JSONObject job = new JSONObject();
-				job.put("_id", c.getCalnum()); // 받아온걸 돌림
+				job.put("_id", c.getCalnum()); 
 				job.put("title",c.getTitle());
 				job.put("description", c.getDescription());
 				job.put("start", c.getStartdate());
@@ -75,7 +75,7 @@ public class CalendarListServlet extends HttpServlet {
 
 			// json 배열을 전송용 json 객체에 저장한다.
 			sendJson.put("list", jarr);
-
+			
 			// 요청한 뷰로 응답처리한다.
 			response.setContentType("application/json; charset=utf-8");
 			PrintWriter out = response.getWriter();
