@@ -100,7 +100,7 @@ var calendar = $('#calendar').fullCalendar({
       }),
       content: $('<div />', {
           class: 'popoverInfoCalendar'
-        }).append('<p><strong>등록자:</strong> ' + event._id + '</p>')
+        }).append('<p><strong>등록자:</strong> ' + event.username + '</p>')
         .append('<p><strong>구분:</strong> ' + event.type + '</p>')
         .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
         .append('<div class="popoverDescCalendar"><strong>설명:</strong> ' + event.description + '</div>'),
@@ -161,18 +161,16 @@ var calendar = $('#calendar').fullCalendar({
     var date = new Object();
     date.start = "1900-01-01";
     date.end = "2099-12-30";
-    
     var jsondata = JSON.stringify(date);
     $.ajax({
       type: "get",
       url: "/NHMP/callist",
       data: {
         // 실제 사용시, 날짜를 전달해 일정기간 데이터만 받아오기를 권장
-    	jsondata 
+    	jsondata
       },
       datatype: 'json',
       success: function (response) {
-    	  console.log(response);
     	  var events = [];
     	  var list = response.list;
     	  for(var i = 0; i < list.length; i++ ){
@@ -194,7 +192,6 @@ var calendar = $('#calendar').fullCalendar({
           };
           events.push(evt);
         }
-    	console.log(events)
         callback(events);
       }
     });

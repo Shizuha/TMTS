@@ -63,7 +63,7 @@ var editEvent = function (event, element, view) {
         }
 
         eventModal.modal('hide');
-
+        
         var eventup = {
         		_id:event._id,
         		allDay: statusAllDay,
@@ -73,9 +73,9 @@ var editEvent = function (event, element, view) {
 		        type: editType.val(),
 		        backgroundColor: editColor.val(),
 		        description: editDesc.val(),
-		        username:event.username,
+		        username: username,
 		        }
-
+        
         $("#calendar").fullCalendar('updateEvent', event);
         var jsonupdate = JSON.stringify(eventup);
         //일정 업데이트
@@ -90,7 +90,6 @@ var editEvent = function (event, element, view) {
                 location.reload();
             }
         });
-        console.log(jsonupdate)
     });
 
     // 삭제버튼
@@ -98,16 +97,23 @@ var editEvent = function (event, element, view) {
         $('#deleteEvent').unbind();
         $("#calendar").fullCalendar('removeEvents', [event._id]);
         eventModal.modal('hide');
-
+        
+        var eventup = {
+        		_id:event._id,
+        }
+        
+        var jsondelete = JSON.stringify(eventup);
+        
         //삭제시
         $.ajax({
             type: "get",
-            url: "",
+            url: "/NHMP/caldelete",
             data: {
-                //...
+            	jsondelete
             },
             success: function (response) {
                 alert('삭제되었습니다.');
+                location.reload();
             }
         });
     });

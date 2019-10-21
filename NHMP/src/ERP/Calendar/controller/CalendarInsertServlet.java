@@ -46,23 +46,21 @@ public class CalendarInsertServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// 캘린더 등록 서블릿
 		try {
-			
+		
 		NursingHospital nh = (NursingHospital) request.getSession().getAttribute("loginHospital");
 		
+		String adminid = nh.getNH_USERID();
 		String jsoncal = request.getParameter("jsondata");
-		
-		System.out.println("전송온 값 : " + jsoncal);
 
 		response.setCharacterEncoding("utf-8");
 
 		JSONParser parser = new JSONParser();
 
 		Object obj = parser.parse(jsoncal);
-
+		
 		JSONObject sendJson = (JSONObject) obj;
-		sendJson.put("_id", String.valueOf(nh.getNH_USERID()));
 		CalendarService calendarService = new CalendarService();
-		calendarService.InsertCalendar(sendJson);
+		calendarService.InsertCalendar(sendJson, adminid);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="Main.NursingHospital.model.ov.NursingHospital"%>
+<%
+	NursingHospital loginAdmin = (NursingHospital)session.getAttribute("loginHospital");
+%>
+<% if(loginAdmin != null && loginAdmin.getAUTHORITY_CODE().equals("G1")){ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -168,7 +172,12 @@
         <!-- /.filter panel -->
     </div>
     <!-- /.container -->
-
+<%} else {%>
+<script>
+      alert("접근 권한이 없습니다!");
+      self.close();
+</script>
+<% } %>
     <script src="/NHMP/resources/ERP/FullCaldendar/vendor/js/jquery.min.js"></script>
     <script src="/NHMP/resources/ERP/FullCaldendar/vendor/js/bootstrap.min.js"></script>
     <script src="/NHMP/resources/ERP/FullCaldendar/vendor/js/moment.min.js"></script>

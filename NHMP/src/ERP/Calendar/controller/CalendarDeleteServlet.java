@@ -15,18 +15,18 @@ import ERP.Calendar.Model.Service.CalendarService;
 import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
- * Servlet implementation class CalendarUpdateServlet
+ * Servlet implementation class CalendarDeleteServlet
  */
-@WebServlet("/calup")
-public class CalendarUpdateServlet extends HttpServlet {
-	private static final long serialVersionUID = 7004L;
+@WebServlet("/caldelete")
+public class CalendarDeleteServlet extends HttpServlet {
+	private static final long serialVersionUID = 7003L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CalendarUpdateServlet() {
+    public CalendarDeleteServlet() {
         super();
-        // TODO Auto-generated constructor stubS
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -34,9 +34,9 @@ public class CalendarUpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			// 캘린더 수정 서블릿
+			// 캘린더 삭제 서블릿
 			
-			String jsoncal = request.getParameter("jsonupdate");
+			String jsoncal = request.getParameter("jsondelete");
 
 			response.setCharacterEncoding("utf-8");
 			JSONParser parser = new JSONParser();
@@ -45,7 +45,7 @@ public class CalendarUpdateServlet extends HttpServlet {
 			JSONObject sendJson = (JSONObject) obj;
 			//sendjson에 있는 username 과 session 에 있는 id 가 같으면 변경 실행 아니면 아이디가 다르다는 메세지 출력 
 			CalendarService calendarService = new CalendarService();
-			calendarService.updateCalendar(sendJson);
+			calendarService.deleteCalendar(sendJson);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
