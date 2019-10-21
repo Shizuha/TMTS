@@ -32,7 +32,7 @@ public class DeductionInFservlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 수식 등록 처리용 컨트롤러
+		// 공제 수식 등록 처리용 컨트롤러
 		String Bnum = request.getParameter("Bnum");
 		System.out.println(Bnum);
 		ArrayList<Deduction> list = new DeductionService().selectList();

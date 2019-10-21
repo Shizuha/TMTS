@@ -59,8 +59,10 @@ public class Allowance implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Deduction [ALLOWANCE_CODE=" + ALLOWANCE_CODE + ", ALLOWANCE_NO=" + ALLOWANCE_NO + ", ALLOWANCE_NAME="
+		return "Allowance [ALLOWANCE_CODE=" + ALLOWANCE_CODE + ", ALLOWANCE_NO=" + ALLOWANCE_NO + ", ALLOWANCE_NAME="
 				+ ALLOWANCE_NAME + ", ALLOWANCE_FORMULA=" + ALLOWANCE_FORMULA + ", ALLOWANCE_ETC=" + ALLOWANCE_ETC
 				+ "]";
 	}
+
+	
 }

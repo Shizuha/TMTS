@@ -37,7 +37,7 @@ public class AllowanceSelectFormulaServlet extends HttpServlet {
 		String Acode = request.getParameter("acode");
 				
 		String Formula = new AllowanceService().selectFormula(Acode);
-				
+		
 		System.out.println("servlet formula : " + Formula);
 		
 		JSONObject job = new JSONObject();
