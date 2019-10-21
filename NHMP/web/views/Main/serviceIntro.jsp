@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@
+	page import="Main.NursingHospital.model.ov.NursingHospital"
+%>
+
+<%
+	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
+%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,16 +46,33 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="/NHMP/index.jsp" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="/NHMP/views/Main/domain.jsp" class="nav-link">서비스 소개</a></li>
-              <li class="nav-item"><a href="/NHMP/views/Main/hosting.jsp" class="nav-link" >기능소개</a></li>
-              <li class="nav-item"><a href="/NHMP/views/Main/blog.jsp" class="nav-link">온라인 고객센터</a></li>
-              <li class="nav-item"><a href="/NHMP/views/Main/contact.jsp" class="nav-link">이민삼수 소개</a></li>
-              <% if(true) { //미 로그인%>
-              	<li class="nav-item"><a href="/NHMP/views/Main/login.jsp" class="nav-link"><span>로그인</span></a></li>
-              <% }else { //로그인%>
-                  
-              <% } %>
+	          <li class="nav-item active"><a href="/NHMP/index.jsp" class="nav-link">Home</a></li>
+                  <!--  <li class="nav-item"><a href="views/main/about.html" class="nav-link">About</a></li> -->
+                  <li class="nav-item"><a href="/NHMP/views/Main/serviceIntro.jsp" class="nav-link">서비스 소개</a></li>
+                  <li class="nav-item"><a href="/NHMP/views/Main/functionIntro.jsp" class="nav-link" >기능소개</a></li>
+                  <li class="nav-item"><a href="/NHMP/views/Main/serviceCenter.jsp" class="nav-link">온라인 고객센터</a></li>
+                  <li class="nav-item"><a href="/NHMP/views/Main/introduce.jsp" class="nav-link">이민삼수 소개</a></li>
+                  <% if(loginHospital == null) { //미 로그인%>
+                  	<li class="nav-item"><a href="/NHMP/views/Main/login.jsp" class="nav-link"><span>로그인</span></a></li>
+                  <% } else if ( loginHospital.getAUTHORITY_CODE().equals("G1") ) {	//관리자 로그인%> 
+                  	<li class="nav-item">
+                  		<a href="/NHMP/views/Main/login.jsp" class="nav-link">
+                  		<span>내정보</span></a>
+                  		<li class="nav-item cta"><a href="/NHMP/views/ERP/Admin_main.jsp" class="nav-link"><span>시스템 관리</span></a></li>
+                  	</li>
+                  <% } else if(loginHospital.getAUTHORITY_CODE().equals("G0")) { //미가입자 로그인%>
+                  	<li class="nav-item">
+                  		<a href="/NHMP/views/Main/login.jsp" class="nav-link">
+                  		<span>내정보</span></a>
+                  		<!-- <li class="nav-item cta"><a href="/NHMP/views/ERP/main.jsp" class="nav-link"><span>시스템 관리</span></a></li> -->
+                  	</li>
+                  <% }else{ //일반 사용자 %>
+                  	<li class="nav-item">
+                  		<a href="/NHMP/views/Main/login.jsp" class="nav-link">
+                  		<span>내정보</span></a>
+                  		<li class="nav-item cta"><a href="/NHMP/views/ERP/Admin_main.jsp" class="nav-link"><span>시스템 관리</span></a></li>
+                  	</li>
+                  <% } %>
               
               <%-- <% if(true) { // 미회원이 보는 화면%>
               	&nbsp;
