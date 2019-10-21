@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import ERP.Allowance.model.dao.AllowanceDao;
 import ERP.Allowance.model.vo.Allowance;
-import ERP.Deduction.model.vo.Deduction;
 
 public class AllowanceService {
 	private AllowanceDao ADao = new AllowanceDao();

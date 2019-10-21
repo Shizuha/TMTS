@@ -12,7 +12,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import ERP.Allowance.model.vo.Allowance;
-import ERP.Deduction.model.vo.Deduction;
 
 public class AllowanceDao {
 

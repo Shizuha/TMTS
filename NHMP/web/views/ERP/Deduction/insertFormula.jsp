@@ -127,7 +127,7 @@ function Bcode(T01){
 				</tr>
 			</table>
 			<% for(Deduction d : list){%>
-				<% if(list.size()%5 == 0  ) { %>
+				<% if(d.getDEDUCTION_NO()%5 == 0  ) { %>
 				<br>
 				<% }else { %>
 					<table width="130px" cellspacing="0" cellpadding="5" border="1" id="deduction_talbe" style="float: left;">

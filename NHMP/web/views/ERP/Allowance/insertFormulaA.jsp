@@ -57,7 +57,7 @@
 var result = "";
 var calc = "";
 var Bnum = <%= Bnum %>;
-alert(Bnum);
+
 $(function(){
 	$(".numB").click(function(){
 		calc += $(this).val();
@@ -124,19 +124,18 @@ function Bcode(T01){
 				<th width="auto"><a style="text-align: center;">기본급</a></th>
 				<tr align="center">
 					<td width="150px"><a herf="" onclick="Bcode('T01')" style="text-align: center;">T01</a></td>
-
 				</tr>
 			</table>
-			<% for(Allowance a : list){%>
-				<% if(list.size()%5 == 0  ) { %>
+			<% for(Allowance a : list) { %>
+				<% if(a.getALLOWANCE_NO()%5 == 0  ) { %>
 				<br>
 				<% }else { %>
 					<table width="130px" cellspacing="0" cellpadding="5" border="1" id="deduction_talbe" style="float: left;">
 						<th width="auto"><a style="text-align: center;"><%= a.getALLOWANCE_NAME() %></a></th>
 							<tr align="center">
-						<td width="150px"><a herf="" onclick="Acode('<%= a.getALLOWANCE_CODE() %>')" style="text-align: center;"><%= a.getALLOWANCE_CODE() %></a></td>
-						 
-							</tr>
+						<td width="150px">
+							<a  onclick="Acode('<%= a.getALLOWANCE_CODE() %>')" style="text-align: center;"><%= a.getALLOWANCE_CODE() %></a>
+						</td>
 					</table>
 				<% } %>
 			<% } %>
