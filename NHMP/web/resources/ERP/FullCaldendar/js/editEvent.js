@@ -73,9 +73,9 @@ var editEvent = function (event, element, view) {
 		        type: editType.val(),
 		        backgroundColor: editColor.val(),
 		        description: editDesc.val(),
-		        username: username,
+		        username: event.username,
 		        }
-        
+        console.log(eventup)
         $("#calendar").fullCalendar('updateEvent', event);
         var jsonupdate = JSON.stringify(eventup);
         //일정 업데이트
