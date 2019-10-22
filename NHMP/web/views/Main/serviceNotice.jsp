@@ -11,89 +11,97 @@
 <head>
 <title>온라인 고객센터</title>
 <style type="text/css">
-	#selectUL{
-		margin:0px;
-		margin-left:350px;
-		padding:0;
-		padding-top:0px;
-		width:300px;
-		height:60px;
-		background:#207dff;
-		list-style:none;
-		padding-top:15px;
-	}
-	#selectUL li a{
-		float:left; 
-		width:100px;
-		height:60px;
-		padding-top:5px;
-		padding-bottom:5px;
-		margin-right:0px;
-		font-size: 25px;
-		text-align:center;
-		color:#fff;
-	}
-	#selectUL li a:hover{
-		float:left; 
-		width:100px;
-		height:60px;
-		padding-top:5px;
-		padding-bottom:5px;
-		margin-right:0px;
-		font-size: 25px;
-		text-align:center;
-		color:#58b909;
-	}
-	#indiv{
-		width:1200px;
-		height:800px;
-		margin-left:350px;
-		border:1px solid red;
-	}
-	#indiv .singupT {
-		border:1px solid red;
-		width:900px;
-		margin-left:150px;
-		float:center;
-		text-align:center;
-	}
-	#indiv .singupT th {
-		padding-top:10px;
-		padding-bottom:10px;
-		width:300px;
-		float:center;
-		text-align:center;
-	}
-	#indiv .singupT td input{
-		width:600px;
-		float:center;
-		text-align:center;
-	}
-	#indiv #selectTable{
-		border:1px solid blue;
-		margin-left:50px;
-		text-align:center;
-		width:1100px;
-		height:500px;
-	}
-	#indiv #selectTable td{
-		width:33%;
-	}
-	#indiv .Sbtn {
-		width:1100px;
-		align:center;
-		text-align:center;
-		background:207dff;
-		margin-left:50px;
-	}
-	#indiv .Sbtn input{
-		width:150px;
-		align:center;
-		text-align:center;
-		background:207dff;
-	}
-	
+#selectUL {
+	margin: 0px;
+	margin-left: 350px;
+	padding: 0;
+	padding-top: 0px;
+	width: 300px;
+	height: 60px;
+	background: #207dff;
+	list-style: none;
+	padding-top: 15px;
+}
 
+#selectUL li a {
+	float: left;
+	width: 100px;
+	height: 60px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-right: 0px;
+	font-size: 25px;
+	text-align: center;
+	color: #fff;
+}
+
+#selectUL li a:hover {
+	float: left;
+	width: 100px;
+	height: 60px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-right: 0px;
+	font-size: 25px;
+	text-align: center;
+	color: #58b909;
+}
+
+#indiv {
+	width: 1200px;
+	height: 800px;
+	margin-left: 350px;
+	border: 1px solid red;
+}
+
+#indiv .singupT {
+	border: 1px solid red;
+	width: 900px;
+	margin-left: 150px;
+	float: center;
+	text-align: center;
+}
+
+#indiv .singupT th {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 300px;
+	float: center;
+	text-align: center;
+}
+
+#indiv .singupT td input {
+	width: 600px;
+	float: center;
+	text-align: center;
+}
+
+#indiv #selectTable {
+	border: 1px solid blue;
+	margin-left: 50px;
+	text-align: center;
+	width: 1100px;
+	height: 500px;
+}
+
+#indiv #selectTable td {
+	width: 33%;
+}
+
+#indiv .Sbtn {
+	width: 1100px;
+	align: center;
+	text-align: center;
+	background: 207dff;
+	margin-left: 50px;
+}
+
+#indiv .Sbtn input {
+	width: 150px;
+	align: center;
+	text-align: center;
+	background: 207dff;
+}
 </style>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -212,76 +220,35 @@
 			</ul>
 			<div id="indiv">
 				<% if (loginHospital == null) {	%>
-					<h1 align="center">회원 가입 후 신청해주세요.</h1>
+				<h1 align="center">회원 가입 후 신청해주세요.</h1>
 				<% } else { %>
 				<% if(loginHospital.getNH_SERVICE_CODE().equals("GS0")) { %>
-				<table class="singupT">
+				<table id="newNotice"
+					style="width: 100%; border-top: 1px solid #444444; border-collapse: collapse;">
 					<tr>
-						<th>이름 :
-							<td>
-								<input type="text" value="<%= loginHospital.getNH_NAME() %>"></td>
-							</th>
-						</tr>
-						<tr> 
-							<th>회사명 : 
-								<td>
-									<input type="text" value="<%= loginHospital.getCOMPANY_NAME() %>">
-								</td>
-							</th>
-						</tr>
-						<tr> 
-							<th>연락받을 이메일 :
-								<td>
-									<input type="email" value="<%= loginHospital.getNH_EMAIL() %>">
-								</td>
-							</th>
-						</tr>
-						<tr> 
-							<th>연락받을 전화번호 :
-								<td>
-									<input type="text" value="<%= loginHospital.getNH_PHONE() %>">
-								</td>
-							</th>
-						</tr>
-				</table>
-				<table id="selectTable">
-					<tr>
-						<td>가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차</td>
-						<td>가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차</td>
-						<td>가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차</td>
+						<th
+							style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">번호</th>
+						<th
+							style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">제목</th>
+						<th
+							style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">구분</th>
+						<th
+							style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">작성일</th>
+						<th
+							style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">작성자</th>
 					</tr>
-					<tr>
-						<td>경량화 <br>
-							<input type="radio" name="selectType" value="basic"
-										style="width:25px;height:25px;">
-					</td>
-						<td>고급형 <br>
-							<input type="radio" name="selectType" value="Advanced"
-										style="width:25px;height:25px;">
-						</td>
-						<td>프리미엄 <br>
-							<input type="radio" name="selectType" value="premium"
-										style="width:25px;height:25px;">
-						</td>
-				</tr>
 				</table>
-				<div class="Sbtn">
-					<br>
-					<input type="submit" value="신청하기" style="margin-right:10px;">
-					<input type="reset" value="취소" style="margin-left:10px;">
-				</div>
-			
 			</div>
 		</form>
-			<% }else if(loginHospital.getNH_SERVICE_CODE().equals("GS1")) { %>
-					<h1 align="center">서비스 승인 대기중...</h1>
-			<% }else { %>
-					<h1 align="center">이미 서비스를 이용중입니다.</h1>
-			<% } %>
+		<% }else if(loginHospital.getNH_SERVICE_CODE().equals("GS1")) { %>
+		<h1 align="center">서비스 승인 대기중...</h1>
+		<% }else { %>
+		<h1 align="center">이미 서비스를 이용중입니다.</h1>
 		<% } %>
-		
+		<% } %>
+
 	</section>
-	
+
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
 		<div class="container">
 			<div class="row mb-5"></div>
