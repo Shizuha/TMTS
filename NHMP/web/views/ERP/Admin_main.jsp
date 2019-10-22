@@ -54,15 +54,15 @@ $(function(){
   			var values = "";
   			
   			for(var i in json.list){
-  				<% if(loginAdmin != null){ %>
+  				if(loginAdmin != null){ 
   				values += "<tr><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].no + 
   				"</td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
   				+ "</a></td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].date + "</td></tr>";
   				/* <a href='/frist/ndetail?no= */
-  			<% } else { %>
+  			 } else {
   				values += "<tr><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].no + "</td><td>" + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
   				+ "</td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].date + "</td></tr>";
-  			<% } %>
+  			 } 
   			}
   			/* <td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd; */
   			$("#newNotice").html($("#newNotice").html() + values);

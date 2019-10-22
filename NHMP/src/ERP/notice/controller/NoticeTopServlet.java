@@ -58,10 +58,8 @@ public class NoticeTopServlet extends HttpServlet {
 
 			jarr.add(job);
 		}
-		System.out.println();
 		// json 배열을 전송용 json 객체에 저장한다.
 		sendJson.put("list", jarr);
-
 		// 요청한 뷰로 응답처리한다.
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
