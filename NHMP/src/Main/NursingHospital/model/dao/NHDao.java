@@ -46,6 +46,7 @@ public class NHDao {
 				nh.setGENDER(rset.getString("GENDER"));
 				nh.setCOMPANY_NAME(rset.getString("COMPANY_NAME"));
 				nh.setCOMPANY_NO(rset.getString("COMPANY_NO"));
+				nh.setNH_SERVICE_CODE(rset.getString("NH_SERVICE_CODE"));
 				nh.setAUTHORITY_CODE(rset.getString("NH_AUTHORITY_CODE"));
 			}
 			

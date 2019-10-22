@@ -203,7 +203,8 @@
 	</div>
 
 	<section class="ftco-section" border="1px solid red">
-		<form action="">
+		<% if(loginHospital.getNH_SERVICE_CODE().equals("GS0")) { %>
+		<form action="/NHMP/servicesingup" method="post">
 			<ul id="selectUL" style="padding-top:0px;">
 				<li><a href="/NHMP/views/Main/serviceCenter.jsp">가입하기</a></li>
 				<li><a href="">QnA</a></li>
@@ -265,13 +266,13 @@
 				</tr>
 				<tr>
 					<td>경량화 <br>
-						<input type="radio" name="selectType" style="width:25px;height:25px;">
+						<input type="radio" name="selectType" value="basic" style="width:25px;height:25px;">
 					</td>
 					<td>고급형 <br>
-						<input type="radio" name="selectType" style="width:25px;height:25px;">
+						<input type="radio" name="selectType" value="Advanced" style="width:25px;height:25px;">
 					</td>
 					<td>프리미엄 <br>
-						<input type="radio" name="selectType" style="width:25px;height:25px;">
+						<input type="radio" name="selectType" value="premium" style="width:25px;height:25px;">
 					</td>
 				</tr>
 				</table>
@@ -282,6 +283,11 @@
 				</div>
 			</div>
 		</form>
+		<% }else if(loginHospital.getNH_SERVICE_CODE().equals("GS1")) { %>
+			<h1 align="center">서비스 승인 대기중...</h1>
+		<% }else { %>
+			<h1 align="center">이미 서비스를 이용중입니다.</h1>
+		<% } %>
 	</section>
 
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
