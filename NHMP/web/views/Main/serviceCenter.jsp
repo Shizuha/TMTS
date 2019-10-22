@@ -203,77 +203,66 @@
 	</div>
 
 	<section class="ftco-section" border="1px solid red">
-		<% if(loginHospital.getNH_SERVICE_CODE().equals("GS0")) { %>
+
 		<form action="/NHMP/servicesingup" method="post">
-			<ul id="selectUL" style="padding-top:0px;">
+			<ul id="selectUL" style="padding-top: 0px;">
 				<li><a href="/NHMP/views/Main/serviceCenter.jsp">가입하기</a></li>
 				<li><a href="">QnA</a></li>
 				<li><a href="">공지사항</a></li>
 			</ul>
 			<div id="indiv">
-				<% if(loginHospital == null) { %>
-					<table class="singupT">
-						<tr> 
-							<th>이름 : 
-								<td><input type="text" value=""></td>
+				<% if (loginHospital == null) {	%>
+					<h1 align="center">회원 가입 후 신청해주세요.</h1>
+				<% } else { %>
+				<% if(loginHospital.getNH_SERVICE_CODE().equals("GS0")) { %>
+				<table class="singupT">
+					<tr>
+						<th>이름 :
+							<td>
+								<input type="text" value="<%= loginHospital.getNH_NAME() %>"></td>
 							</th>
 						</tr>
 						<tr> 
-							<th>회사명 :
-								<td><input type="text" value=""></td>
-							</th>
-						</tr>
-						<tr> 
-							<th>연락받을 이메일 :
-								<td><input type="email" value=""></td>
-							</th>
-						</tr>
-						<tr> 
-							<th>연락받을 전화번호 :
-								<td><input type="text" value=""></td>
-							</th>
-						</tr>
-					</table>
-				<% }else{ %>
-					<table class="singupT">
-						<tr> 
-							<th>이름 : 
-								<td><input type="text" value="<%= loginHospital.getNH_NAME() %>"></td>
-							</th>
-						</tr>
-						<tr> 
-							<th>회사명 :
-								<td><input type="text" value="<%= loginHospital.getCOMPANY_NAME() %>"></td>
+							<th>회사명 : 
+								<td>
+									<input type="text" value="<%= loginHospital.getCOMPANY_NAME() %>">
+								</td>
 							</th>
 						</tr>
 						<tr> 
 							<th>연락받을 이메일 :
-								<td><input type="email" value="<%= loginHospital.getNH_EMAIL() %>"></td>
+								<td>
+									<input type="email" value="<%= loginHospital.getNH_EMAIL() %>">
+								</td>
 							</th>
 						</tr>
 						<tr> 
 							<th>연락받을 전화번호 :
-								<td><input type="text" value="<%= loginHospital.getNH_PHONE() %>"></td>
+								<td>
+									<input type="text" value="<%= loginHospital.getNH_PHONE() %>">
+								</td>
 							</th>
 						</tr>
-					</table>
-				<% } %>
+				</table>
 				<table id="selectTable">
-				<tr>
-					<td>가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차</td>
-					<td>가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차</td>
-					<td>가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차</td>
-				</tr>
-				<tr>
-					<td>경량화 <br>
-						<input type="radio" name="selectType" value="basic" style="width:25px;height:25px;">
+					<tr>
+						<td>가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차</td>
+						<td>가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차</td>
+						<td>가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차</td>
+					</tr>
+					<tr>
+						<td>경량화 <br>
+							<input type="radio" name="selectType" value="basic"
+										style="width:25px;height:25px;">
 					</td>
-					<td>고급형 <br>
-						<input type="radio" name="selectType" value="Advanced" style="width:25px;height:25px;">
-					</td>
-					<td>프리미엄 <br>
-						<input type="radio" name="selectType" value="premium" style="width:25px;height:25px;">
-					</td>
+						<td>고급형 <br>
+							<input type="radio" name="selectType" value="Advanced"
+										style="width:25px;height:25px;">
+						</td>
+						<td>프리미엄 <br>
+							<input type="radio" name="selectType" value="premium"
+										style="width:25px;height:25px;">
+						</td>
 				</tr>
 				</table>
 				<div class="Sbtn">
@@ -281,15 +270,18 @@
 					<input type="submit" value="신청하기" style="margin-right:10px;">
 					<input type="reset" value="취소" style="margin-left:10px;">
 				</div>
+			
 			</div>
 		</form>
-		<% }else if(loginHospital.getNH_SERVICE_CODE().equals("GS1")) { %>
-			<h1 align="center">서비스 승인 대기중...</h1>
-		<% }else { %>
-			<h1 align="center">이미 서비스를 이용중입니다.</h1>
+			<% }else if(loginHospital.getNH_SERVICE_CODE().equals("GS1")) { %>
+					<h1 align="center">서비스 승인 대기중...</h1>
+			<% }else { %>
+					<h1 align="center">이미 서비스를 이용중입니다.</h1>
+			<% } %>
 		<% } %>
+		
 	</section>
-
+	
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
 		<div class="container">
 			<div class="row mb-5"></div>
