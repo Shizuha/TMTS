@@ -21,6 +21,7 @@ public class NursingHospital implements Serializable{
 	private String GENDER;
 	private String COMPANY_NAME;
 	private String COMPANY_NO;
+	private String NH_SERVICE_CODE;
 	private String AUTHORITY_CODE;
 
 	
@@ -40,9 +41,20 @@ public class NursingHospital implements Serializable{
 
 
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+
+
+
 	public int getNH_ID() {
 		return NH_ID;
 	}
+
+
+
 
 
 	public String getNH_NAME() {
@@ -50,9 +62,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public java.sql.Date getNH_DATE() {
 		return NH_DATE;
 	}
+
+
+
 
 
 	public java.sql.Date getNH_RSN_DATE() {
@@ -60,9 +78,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public String getNH_NO() {
 		return NH_NO;
 	}
+
+
+
 
 
 	public String getNH_ADRESS() {
@@ -70,9 +94,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public String getNH_ITNAL_FOR() {
 		return NH_ITNAL_FOR;
 	}
+
+
+
 
 
 	public String getNH_AD_TEL() {
@@ -80,9 +110,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public String getNH_PHONE() {
 		return NH_PHONE;
 	}
+
+
+
 
 
 	public String getNH_EMAIL() {
@@ -90,9 +126,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public String getNH_USERID() {
 		return NH_USERID;
 	}
+
+
+
 
 
 	public String getNH_USERPWD() {
@@ -100,9 +142,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public String getNH_ETC() {
 		return NH_ETC;
 	}
+
+
+
 
 
 	public String getNH_IMG() {
@@ -110,9 +158,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public String getGENDER() {
 		return GENDER;
 	}
+
+
+
 
 
 	public String getCOMPANY_NAME() {
@@ -120,9 +174,23 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public String getCOMPANY_NO() {
 		return COMPANY_NO;
 	}
+
+
+
+
+
+	public String getNH_SERVICE_CODE() {
+		return NH_SERVICE_CODE;
+	}
+
+
+
 
 
 	public String getAUTHORITY_CODE() {
@@ -130,9 +198,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public void setNH_ID(int nH_ID) {
 		NH_ID = nH_ID;
 	}
+
+
+
 
 
 	public void setNH_NAME(String nH_NAME) {
@@ -140,9 +214,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public void setNH_DATE(java.sql.Date nH_DATE) {
 		NH_DATE = nH_DATE;
 	}
+
+
+
 
 
 	public void setNH_RSN_DATE(java.sql.Date nH_RSN_DATE) {
@@ -150,9 +230,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public void setNH_NO(String nH_NO) {
 		NH_NO = nH_NO;
 	}
+
+
+
 
 
 	public void setNH_ADRESS(String nH_ADRESS) {
@@ -160,9 +246,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public void setNH_ITNAL_FOR(String nH_ITNAL_FOR) {
 		NH_ITNAL_FOR = nH_ITNAL_FOR;
 	}
+
+
+
 
 
 	public void setNH_AD_TEL(String nH_AD_TEL) {
@@ -170,9 +262,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public void setNH_PHONE(String nH_PHONE) {
 		NH_PHONE = nH_PHONE;
 	}
+
+
+
 
 
 	public void setNH_EMAIL(String nH_EMAIL) {
@@ -180,9 +278,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public void setNH_USERID(String nH_USERID) {
 		NH_USERID = nH_USERID;
 	}
+
+
+
 
 
 	public void setNH_USERPWD(String nH_USERPWD) {
@@ -190,9 +294,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public void setNH_ETC(String nH_ETC) {
 		NH_ETC = nH_ETC;
 	}
+
+
+
 
 
 	public void setNH_IMG(String nH_IMG) {
@@ -200,9 +310,15 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public void setGENDER(String gENDER) {
 		GENDER = gENDER;
 	}
+
+
+
 
 
 	public void setCOMPANY_NAME(String cOMPANY_NAME) {
@@ -210,14 +326,31 @@ public class NursingHospital implements Serializable{
 	}
 
 
+
+
+
 	public void setCOMPANY_NO(String cOMPANY_NO) {
 		COMPANY_NO = cOMPANY_NO;
 	}
 
 
+
+
+
+	public void setNH_SERVICE_CODE(String nH_SERVICE_CODE) {
+		NH_SERVICE_CODE = nH_SERVICE_CODE;
+	}
+
+
+
+
+
 	public void setAUTHORITY_CODE(String aUTHORITY_CODE) {
 		AUTHORITY_CODE = aUTHORITY_CODE;
 	}
+
+
+
 
 
 	@Override
@@ -226,9 +359,15 @@ public class NursingHospital implements Serializable{
 				+ NH_RSN_DATE + ", NH_NO=" + NH_NO + ", NH_ADRESS=" + NH_ADRESS + ", NH_ITNAL_FOR=" + NH_ITNAL_FOR
 				+ ", NH_AD_TEL=" + NH_AD_TEL + ", NH_PHONE=" + NH_PHONE + ", NH_EMAIL=" + NH_EMAIL + ", NH_USERID="
 				+ NH_USERID + ", NH_USERPWD=" + NH_USERPWD + ", NH_ETC=" + NH_ETC + ", NH_IMG=" + NH_IMG + ", GENDER="
-				+ GENDER + ", COMPANY_NAME=" + COMPANY_NAME + ", COMPANY_NO=" + COMPANY_NO + ", AUTHORITY_CODE="
-				+ AUTHORITY_CODE + "]";
+				+ GENDER + ", COMPANY_NAME=" + COMPANY_NAME + ", COMPANY_NO=" + COMPANY_NO + ", NH_SERVICE_CODE="
+				+ NH_SERVICE_CODE + ", AUTHORITY_CODE=" + AUTHORITY_CODE + "]";
 	}
+
+
+
+
+
+	
 	
 	
 

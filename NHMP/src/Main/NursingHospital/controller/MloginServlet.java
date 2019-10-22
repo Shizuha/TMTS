@@ -40,6 +40,7 @@ public class MloginServlet extends HttpServlet {
 		System.out.println("userpwd : " + userpwd);
 				
 		NursingHospital loginHospital = new NHService().loginCheck(userid, userpwd);
+		System.out.println(loginHospital.getNH_SERVICE_CODE());;
 		
 		if(loginHospital != null) {
 			HttpSession session = request.getSession();
