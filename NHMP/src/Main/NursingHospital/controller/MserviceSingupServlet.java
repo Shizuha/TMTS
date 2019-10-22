@@ -26,9 +26,11 @@ public class MserviceSingupServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 
+		// 서비스 신청 처리용 컨트롤러  
 		String service = request.getParameter("selectType");
 		System.out.println("service : "+service);
+		
+		
 	}
 
 	/**
