@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="Main.NursingHospital.model.ov.NursingHospital"%>
 <!DOCTYPE html>
+<%
+	NursingHospital loginAdmin = (NursingHospital)session.getAttribute("loginHospital");
+%>
 <html lang="ko">
 
 <head>
@@ -8,6 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMTS</title>
+<script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
 <script> 
 
       document.addEventListener('DOMContentLoaded', function() {
@@ -38,7 +42,36 @@
 
           calendar.render();
       });
-
+	
+$(function(){    
+      $.ajax({
+  		url : "/NHMP/ntop",
+  		type : "get",
+  		dataType : "json",
+  		success : function(data){
+  			var jsonStr = JSON.stringify(data);
+  			var json = JSON.parse(jsonStr);
+  			var values = "";
+  			
+  			for(var i in json.list){
+  				<% if(loginAdmin != null){ %>
+  				values += "<tr><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].no + 
+  				"</td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
+  				+ "</a></td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].date + "</td></tr>";
+  				/* <a href='/frist/ndetail?no= */
+  			<% } else { %>
+  				values += "<tr><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].no + "</td><td>" + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
+  				+ "</td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].date + "</td></tr>";
+  			<% } %>
+  			}
+  			/* <td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd; */
+  			$("#newNotice").html($("#newNotice").html() + values);
+  		},
+  		error : function(jqXHR, textStatus, errorThrown){
+  			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+  		}
+  	});
+});
     </script>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
@@ -62,7 +95,6 @@
 <script src='/NHMP/resources/ERP/FullCaldendar/core/main.js'></script>
 <script src='/NHMP/resources/ERP/FullCaldendar/daygrid/main.js'></script>
 <script src='/NHMP/resources/ERP/FullCaldendar/core/locales/ko.js'></script>
-<script src='/NHMP/resources/ERP/FullCaldendar/interaction/main.js'></script>
 </head>
 
 <body>
@@ -563,51 +595,12 @@
                                     <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">
-								<table style="width: 500px; border-top: 1px solid #444444; border-collapse: collapse;">
-									<thead>
+								<table id="newNotice" style="width: 500px; border-top: 1px solid #444444; border-collapse: collapse;">
 										<tr>
+											<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">번호</th>
 											<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">내용</th>
 											<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">등록일</th>
 										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">운영방침 개정안내</td>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">2019-09-25</td>
-										</tr>
-										<tr>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">개인정보 처리 안내</td>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">2019-05-04</td>
-										</tr>
-										<tr>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">통합 약관 안내</td>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">2019-03-15</td>
-										</tr>
-										<tr>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">위치기반 서비스 안내</td>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">2019-01-19</td>
-										</tr>
-										<tr>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">결제 서비스 안내</td>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">2018-11-23</td>
-										</tr>
-										<tr>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">간편 이용 사항 안내</td>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">2018-09-03</td>
-										</tr>
-										<tr>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">비용 관련 안내</td>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">2018-06-15</td>
-										</tr>
-										<tr>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">직원 관련 사항</td>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">2018-03-24</td>
-										</tr>
-										<tr>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">인원 관련 사항</td>
-											<td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;">2018-01-23</td>
-										</tr>
-									</tbody>
 								</table>
 							</h4>
                                     <div id="morris-bar-chart"></div>
@@ -728,7 +721,7 @@
 
                 </div>
                 -->
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-lg-12">
 						<div class="card">
 							<div class="card-body">
@@ -819,7 +812,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!--
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6">
