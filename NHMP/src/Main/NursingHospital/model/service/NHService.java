@@ -38,6 +38,13 @@ public class NHService {
 		close(conn);
 		return result;
 	}
+
+	public int serviceUpdate(String service, NursingHospital loginHospital) {
+		Connection conn = getConnection();
+		int result = ndao.serviceUpdate(conn, service, loginHospital);
+		close(conn);
+		return result;
+	}
 	
 	
 }

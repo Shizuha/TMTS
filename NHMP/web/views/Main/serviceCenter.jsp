@@ -256,7 +256,7 @@
 										style="width:25px;height:25px;">
 					</td>
 						<td>고급형 <br>
-							<input type="radio" name="selectType" value="Advanced"
+							<input type="radio" name="selectType" value="advanced"
 										style="width:25px;height:25px;">
 						</td>
 						<td>프리미엄 <br>

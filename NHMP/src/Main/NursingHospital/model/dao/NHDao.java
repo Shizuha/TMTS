@@ -1,6 +1,6 @@
 package Main.NursingHospital.model.dao;
 
-import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,6 +48,7 @@ public class NHDao {
 				nh.setCOMPANY_NO(rset.getString("COMPANY_NO"));
 				nh.setNH_SERVICE_CODE(rset.getString("NH_SERVICE_CODE"));
 				nh.setAUTHORITY_CODE(rset.getString("NH_AUTHORITY_CODE"));
+				nh.setNH_SERVICE_HISTORY(rset.getString("NH_SERVICE_HISTORY"));
 			}
 			
 		} catch (SQLException e) {
@@ -65,7 +66,7 @@ public class NHDao {
 		
 		PreparedStatement pstmt = null;
 		
-		String query = "INSERT INTO NURSING_HOSPITAL VALUES((select max(NH_ID)+1 from nursing_hospital), ?, DEFAULT, DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, 'null', 'null', ?, ?, ?,DEFAULT)";
+		String query = "INSERT INTO NURSING_HOSPITAL VALUES((select max(NH_ID)+1 from nursing_hospital), ?, DEFAULT, DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, 'null', 'null', ?, ?, ?,DEFAULT,DEFAULT,DEFAULT)";
 		//이름, 주민번호, 주소, 내/외, 회사 전화번호, 폰, 이메일, 아이디, 패스워드, 성별, 회사명 , 사업자 등록번호 
 		
 		try {
@@ -115,6 +116,36 @@ public class NHDao {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int serviceUpdate(Connection conn, String service, NursingHospital loginHospital) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String query = "update nursing_hospital set nh_service_history = (select service_code from service where service_name = ?), nh_service_code = 'GS1' where nh_id = ?";
+		System.out.println("dao : "+service);
+		System.out.println("dao : "+loginHospital.getNH_ID());
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, service);
+			pstmt.setInt(2, loginHospital.getNH_ID());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		return result;
 	}
 	
