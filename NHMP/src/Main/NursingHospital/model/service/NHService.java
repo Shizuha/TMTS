@@ -1,6 +1,7 @@
 package Main.NursingHospital.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import Main.NursingHospital.model.dao.NHDao;
 import Main.NursingHospital.model.ov.NursingHospital;
@@ -42,6 +43,19 @@ public class NHService {
 	public int serviceUpdate(String service, NursingHospital loginHospital) {
 		Connection conn = getConnection();
 		int result = ndao.serviceUpdate(conn, service, loginHospital);
+		close(conn);
+		return result;
+	}
+
+	public ArrayList<NursingHospital> selectList() {
+		Connection conn = getConnection();
+		ArrayList<NursingHospital> list = ndao.selectList(conn);
+		return list;
+	}
+
+	public int UpdateAuthority(String nHch, String authch) {
+		Connection conn = getConnection();
+		int result = ndao.UpdateAuthority(conn, nHch, authch);
 		close(conn);
 		return result;
 	}

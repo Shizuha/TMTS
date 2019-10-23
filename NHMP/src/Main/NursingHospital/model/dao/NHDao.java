@@ -1,12 +1,15 @@
 package Main.NursingHospital.model.dao;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import Main.NursingHospital.model.ov.NursingHospital;
 
@@ -34,7 +37,7 @@ public class NHDao {
 				nh.setNH_ID(rset.getInt("NH_ID"));
 				nh.setNH_NAME(rset.getString("NH_NAME"));
 				nh.setNH_NO(rset.getString("NH_NO"));
-				nh.setNH_ADRESS(rset.getString("NH_ADDRESS"));
+				nh.setNH_ADDRESS(rset.getString("NH_ADDRESS"));
 				nh.setNH_ITNAL_FOR(rset.getString("NH_ITNAL_FOR"));
 				nh.setNH_AD_TEL(rset.getString("NH_AD_TEL"));
 				nh.setNH_PHONE(rset.getString("NH_PHONE"));
@@ -57,7 +60,7 @@ public class NHDao {
 			close(rset);
 			close(pstmt);
 		}
-		
+		System.out.println(nh);
 		return nh;
 	}
 
@@ -73,7 +76,7 @@ public class NHDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, hospital.getNH_NAME());			//이름
 			pstmt.setString(2, hospital.getNH_NO());			//주민번호
-			pstmt.setString(3, hospital.getNH_ADRESS());		//주소
+			pstmt.setString(3, hospital.getNH_ADDRESS());		//주소
 			pstmt.setString(4, hospital.getNH_ITNAL_FOR());		//내/외국인
 			pstmt.setString(5, hospital.getNH_AD_TEL());		//회사 전화번호 AD
 			pstmt.setString(6, hospital.getNH_PHONE());			//폰
@@ -148,6 +151,82 @@ public class NHDao {
 		}
 		return result;
 	}
+
+	public ArrayList<NursingHospital> selectList(Connection conn) {
+		ArrayList<NursingHospital> list = new ArrayList<NursingHospital>();
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from NURSING_HOSPITAL where NH_ID > 1 order by nh_id asc";
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				NursingHospital NH = new NursingHospital();
+				
+				NH.setNH_ID(rset.getInt("NH_ID"));
+				NH.setNH_NAME(rset.getString("NH_NAME"));
+				NH.setNH_DATE(rset.getDate("NH_DATE"));
+				NH.setNH_RSN_DATE(rset.getDate("NH_RSN_DATE"));
+				NH.setNH_NO(rset.getString("NH_NO"));
+				NH.setNH_ADDRESS(rset.getString("NH_ADDRESS"));
+				NH.setNH_ITNAL_FOR(rset.getString("NH_ITNAL_FOR"));
+				NH.setNH_AD_TEL(rset.getString("NH_AD_TEL"));
+				NH.setNH_PHONE(rset.getString("NH_PHONE"));
+				NH.setNH_EMAIL(rset.getString("NH_EMAIL"));
+				NH.setNH_USERID(rset.getString("NH_USERID"));
+				NH.setNH_USERPWD(rset.getString("NH_USERPWD"));
+				NH.setNH_ETC(rset.getString("NH_ETC"));
+				NH.setNH_IMG(rset.getString("NH_IMG"));
+				NH.setGENDER(rset.getString("GENDER"));
+				NH.setCOMPANY_NAME(rset.getString("COMPANY_NAME"));
+				NH.setCOMPANY_NO(rset.getString("COMPANY_NO"));
+				NH.setNH_SERVICE_CODE(rset.getString("NH_SERVICE_CODE"));
+				NH.setAUTHORITY_CODE(rset.getString("NH_AUTHORITY_CODE"));
+				NH.setNH_SERVICE_HISTORY(rset.getString("NH_SERVICE_HISTORY"));
+			
+				list.add(NH);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+		
+	}
+
+	public int UpdateAuthority(Connection conn, String nHch, String authch) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String query = "update nursing_hospital set nh_authority_code = ?, nh_service_code = 'GS2' where nh_id = ?";
+		
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, authch);
+			pstmt.setInt(2, Integer.parseInt(nHch));
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 	
 	
 	

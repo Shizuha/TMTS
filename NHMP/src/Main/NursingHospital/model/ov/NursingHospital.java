@@ -9,7 +9,7 @@ public class NursingHospital implements Serializable{
 	private java.sql.Date NH_DATE;
 	private java.sql.Date NH_RSN_DATE;
 	private String NH_NO;
-	private String NH_ADRESS;
+	private String NH_ADDRESS;
 	private String NH_ITNAL_FOR;
 	private String NH_AD_TEL;
 	private String NH_PHONE;
@@ -57,8 +57,8 @@ public class NursingHospital implements Serializable{
 		return NH_NO;
 	}
 
-	public String getNH_ADRESS() {
-		return NH_ADRESS;
+	public String getNH_ADDRESS() {
+		return NH_ADDRESS;
 	}
 
 	public String getNH_ITNAL_FOR() {
@@ -137,8 +137,8 @@ public class NursingHospital implements Serializable{
 		NH_NO = nH_NO;
 	}
 
-	public void setNH_ADRESS(String nH_ADRESS) {
-		NH_ADRESS = nH_ADRESS;
+	public void setNH_ADDRESS(String nH_ADDRESS) {
+		NH_ADDRESS = nH_ADDRESS;
 	}
 
 	public void setNH_ITNAL_FOR(String nH_ITNAL_FOR) {
@@ -200,7 +200,7 @@ public class NursingHospital implements Serializable{
 	@Override
 	public String toString() {
 		return "NursingHospital [NH_ID=" + NH_ID + ", NH_NAME=" + NH_NAME + ", NH_DATE=" + NH_DATE + ", NH_RSN_DATE="
-				+ NH_RSN_DATE + ", NH_NO=" + NH_NO + ", NH_ADRESS=" + NH_ADRESS + ", NH_ITNAL_FOR=" + NH_ITNAL_FOR
+				+ NH_RSN_DATE + ", NH_NO=" + NH_NO + ", NH_ADDRESS=" + NH_ADDRESS + ", NH_ITNAL_FOR=" + NH_ITNAL_FOR
 				+ ", NH_AD_TEL=" + NH_AD_TEL + ", NH_PHONE=" + NH_PHONE + ", NH_EMAIL=" + NH_EMAIL + ", NH_USERID="
 				+ NH_USERID + ", NH_USERPWD=" + NH_USERPWD + ", NH_ETC=" + NH_ETC + ", NH_IMG=" + NH_IMG + ", GENDER="
 				+ GENDER + ", COMPANY_NAME=" + COMPANY_NAME + ", COMPANY_NO=" + COMPANY_NO + ", NH_SERVICE_CODE="

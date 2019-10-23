@@ -21,6 +21,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>NHMP</title>
+    
+    <script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript">
+	
+	function logincheck(){
+		var re = /^[A-Za-z0-9]/
+		if(!(re.test($("input[type=text]").val())) || !(re.test($("input[type=password]").val()))){
+			alert("아이디와 패스워드를 화인해주세요");
+			return false;
+		}
+	}
+	
+	</script>
+    
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/NHMP/resources/ERP/images/assets/favicon.png">
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
@@ -75,7 +89,7 @@
                              	      	<div class="form-group">
                               	        	<input type="password" name="userpwd"class="form-control" placeholder="Password">
                              	      	</div>
-                           	        	<button class="btn login-form__btn submit w-100">로그인</button>
+                           	        	<button class="btn login-form__btn submit w-100" onclick="return logincheck()">로그인</button>
                           	     	</form>
 	                                <div align="right">
 	                                	비밀번호 몰라?<a href="page-register.html" class="text-primary">여기로</a> 이동~
