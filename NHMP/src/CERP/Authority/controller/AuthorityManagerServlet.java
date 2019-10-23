@@ -1,6 +1,7 @@
-package Main.NursingHospital.controller;
+package CERP.Authority.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,22 +9,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import ERP.Cauthority.model.service.CauthorityService;
+import ERP.Cauthority.model.vo.Cauthority;
 import Main.NursingHospital.model.ov.NursingHospital;
 import Main.NursingHospital.model.service.NHService;
 
 /**
- * Servlet implementation class MloginServlet
+ * Servlet implementation class AuthorityManagerServlet
  */
-@WebServlet("/login")
-public class MloginServlet extends HttpServlet {
+@WebServlet("/Cauthmanager")
+public class AuthorityManagerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MloginServlet() {
+    public AuthorityManagerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,39 +33,23 @@ public class MloginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//메인 로그인 처리용 서블릿
-		String userid = request.getParameter("userid");
-		String userpwd = request.getParameter("userpwd");
+		// 권한 적용 컨트롤러
+		ArrayList<NursingHospital> list = new NHService().selectList();
+		ArrayList<Cauthority> Alist = new CauthorityService().selectList();
 		
-		System.out.println("userid : " + userid);
-		System.out.println("userpwd : " + userpwd);
-				
-		NursingHospital loginHospital = new NHService().loginCheck(userid, userpwd);
-		
-		if( loginHospital != null ) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginHospital", loginHospital);
-			response.sendRedirect("/NHMP/views/Main/login.jsp");
+		RequestDispatcher view = null;
+		System.out.println(Alist);
+		if(list.size() > 0) {
 			
-		}else{
-			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "로그인 실패!!");
-			view.forward(request, response);
-		
+			view = request.getRequestDispatcher("views/ERP/NH/CauthorityManager.jsp");
+			request.setAttribute("list", list);
+			request.setAttribute("Alist", Alist);
+		}else {
+			view = request.getRequestDispatcher("views/common/Error.jsp");
+			request.setAttribute("message", "사용자 조회 실패");
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		view.forward(request, response);
 	}
 
 	/**

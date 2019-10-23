@@ -122,8 +122,8 @@
 		<tr>
 			<th>주민번호 *</th>
 			<td>
-				<input type="text" name="before" maxlength="7">-
-				<input type="password" name="after" maxlength="8">
+				<input type="text" name="before" maxlength="6">-
+				<input type="password" name="after" maxlength="7">
 			</td>
 		</tr>
 		<tr>
