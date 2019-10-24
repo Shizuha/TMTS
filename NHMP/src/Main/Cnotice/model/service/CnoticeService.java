@@ -1,6 +1,6 @@
 package Main.Cnotice.model.service;
 
-import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -11,27 +11,61 @@ import Main.Cnotice.model.vo.Cnotice;
 public class CnoticeService {
 	private CnoticeDao CADao = new CnoticeDao();
 
-	public Cnotice deleteNotice() {
+	public int deleteNotice(int noticeno) {
 		Connection conn = getConnection();
-		CADao.deleteNotice();
-		return null;
+		int result = CADao.deleteNotice(conn, noticeno);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
-	public Cnotice insertNotice() {
+	public int insertNotice(Cnotice c) {
 		Connection conn = getConnection();
-		CADao.insertNotice();
-		return null;
+		int result = CADao.insertNotice(conn, c);
+		if(result > 0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
-	public ArrayList<Cnotice> selectList() {
+	public ArrayList<Cnotice> selectList(int startRow, int endRow) {
 		Connection conn = getConnection();
-		CADao.selectList();
-		return null;
+		ArrayList<Cnotice> list = CADao.selectList(conn, startRow, endRow);
+		close(conn);
+		return list;
 	}
 
-	public Cnotice updatetNotice() {
+	public int updatetNotice(Cnotice n) {
 		Connection conn = getConnection();
-		CADao.updateNotice();
-		return null;
+		int result = CADao.updateNotice(conn, n);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int getListCount() {
+		Connection conn = getConnection();
+		int listCount = CADao.getListCount(conn);
+		close(conn);
+		return listCount;
+	}
+
+	public Cnotice selectOne(int noticeno) {
+		Connection conn = getConnection();
+		Cnotice notice = CADao.SelectOne(conn, noticeno);
+		close(conn);
+		return notice;
 	}
 }

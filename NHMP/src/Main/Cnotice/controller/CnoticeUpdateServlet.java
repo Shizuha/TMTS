@@ -1,6 +1,9 @@
 package Main.Cnotice.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,17 +30,35 @@ public class CnoticeUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 공지사항 수정 컨트롤러
-		Cnotice notice = new CnoticeService().updatetNotice();
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		// 공지사항 수정 컨트롤러
+		request.setCharacterEncoding("utf-8");
+		
+		Cnotice n = new Cnotice();
+		System.out.println(request.getParameter("noticeno"));
+		n.setNOTICE_NO(Integer.parseInt(request.getParameter("noticeno")));
+		n.setNOTICE_TITLE(request.getParameter("title"));
+		n.setNH_NAME(request.getParameter("writer"));
+		n.setNOTICE_DATE(Date.valueOf(request.getParameter("date")));
+		n.setNOTICE_CONTENT(request.getParameter("content"));
+		n.setNOTICE_TYPE(request.getParameter("category"));
+	
+		
+		int result = new CnoticeService().updatetNotice(n);
+		RequestDispatcher view = null;
+		if (result > 0) {
+			response.sendRedirect("/NHMP/Cdetail?no="+request.getParameter("noticeno")+"&update=complete");
+		} else {
+			view = request.getRequestDispatcher("views/common/Error.jsp");
+			request.setAttribute("message", n.getNOTICE_NO() + "번 공지사항 글 수정 실패했습니다.");
+			view.forward(request, response);
+		}
 	}
 
 }

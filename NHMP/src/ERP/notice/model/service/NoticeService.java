@@ -75,6 +75,13 @@ public class NoticeService {
 		return result;
 	}
 	
+	public ArrayList<Notice> selectTop3() {
+		Connection conn = getConnection();
+		ArrayList<Notice> list = ndao.selectTop3(conn);
+		close(conn);
+		return list;
+	}
+	
 	
 	
 	
