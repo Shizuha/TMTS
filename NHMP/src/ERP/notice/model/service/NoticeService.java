@@ -81,6 +81,18 @@ public class NoticeService {
 		close(conn);
 		return list;
 	}
+
+	public int updateNotice(Notice notice) {
+		Connection conn = getConnection();
+		int result = ndao.updateNotice(conn, notice);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	
 	
 	

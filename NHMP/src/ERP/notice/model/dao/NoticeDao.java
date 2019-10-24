@@ -235,6 +235,31 @@ public class NoticeDao {
 			
 			return list;
 		}
+
+		public int updateNotice(Connection conn, Notice notice) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String query = "update notice set notice_title = ?, "
+					  + "notice_content = ? "
+					  + "where notice_no = ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, notice.getNoticeTitle());
+				pstmt.setString(2, notice.getNoticeContent());
+				pstmt.setInt(3, notice.getNoticeNo());
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
 }
 
 

@@ -561,7 +561,7 @@ function callFunction(){
 <% for(Notice n : list){ %>
 <tr >
 	<th><%= n.getNoticeNo() %></th>
-	<td><a href="/NHMP/ndetail.ad?no=<%= n.getNoticeNo() %>"><%= n.getNoticeTitle() %></a></td>
+	<td><a href="/NHMP/ndetail.ad?no=<%= n.getNoticeNo() %>&page=<%=currentPage%>"><%= n.getNoticeTitle() %></a></td>
 	<td><%= n.getNoticeWriter() %></td>
 	<td align="center">
 		<%= n.getNoticeDate() %>

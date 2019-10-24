@@ -1,8 +1,6 @@
 package ERP.notice.controller;
 
-
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,25 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
-
 import ERP.notice.model.service.NoticeService;
 import ERP.notice.model.vo.Notice;
-import Main.NursingHospital.model.*;
-
 
 /**
- * Servlet implementation class NoticeWriteServlet
+ * Servlet implementation class NoticeAdminUpdateViewServlet
  */
-@WebServlet("/nwrite.ad")
-public class NoticeWriteServlet extends HttpServlet {
+@WebServlet("/nupview")
+public class NoticeAdminUpdateViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeWriteServlet() {
+    public NoticeAdminUpdateViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,34 +31,29 @@ public class NoticeWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 관리자용 공지글 등록 처리용 컨트롤러 : 파일 업로드 없음 오로지 관리자만 사용가능함
+		// 수정페이지로 이동 처리하는 컨트롤러
+		// 인코딩 필요없음
 		
-		//로그인유무 확인?
+		// 전송온 값 변수에 담기
+		int noticeNo = Integer.parseInt(request.getParameter("no"));
+		int currentPage = Integer.parseInt(request.getParameter("page"));
 		
-		//1.인코딩처리
-		request.setCharacterEncoding("utf-8");
+		//패이지 지정 수정할 내용 출력
+		Notice notice = new NoticeService().selectOne(noticeNo);
 		
-		//5. 전송온 값 꺼내서 객체에 저장하기
-		Notice notice = new Notice();
-		
-		notice.setNoticeTitle(request.getParameter("title"));
-		notice.setNoticeContent(request.getParameter("content"));
-		notice.setNoticeWriter(request.getParameter("writer"));
-		
-		
-		
-		//6.모델 서비스로 전달하고, 결과받기
-		int result = new NoticeService().insertNotice(notice);
-		
-		
+		//전달할 정보 출력
 		RequestDispatcher view = null;
-		//7 받은 결과로 성공/실패 패이지 내보내기
-		if (result > 0) {
-			response.sendRedirect("/NHMP/nlist.ad");
-			
+		
+		//성공 실패 판단하기
+		if (notice != null) {
+			view = request.getRequestDispatcher("views/ERP/Notice/ErpAdminNoticeUpdataView.jsp");
+			request.setAttribute("notice", notice);
+			//패이지 왔다갔다처리
+			request.setAttribute("currentPage", currentPage);
+			view.forward(request, response);
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "새 공지글 등록 실패!");
+			request.setAttribute("message", noticeNo + "번 게시글 수정페이지 이동 실패");
 			view.forward(request, response);
 		}
 	}
