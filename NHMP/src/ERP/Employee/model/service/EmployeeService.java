@@ -48,9 +48,9 @@ public class EmployeeService {
 		return memList;
 	}
 	
-	public int updateEmployee(String empNo) {
+	public int updateEmployee(Employee emp) {
 		Connection conn = getConnection();
-		int result = eDao.updateEmployee(conn, empNo);
+		int result = eDao.updateEmployee(conn, emp);
 		if(result > 0)
 			commit(conn);
 		else
@@ -92,24 +92,54 @@ public class EmployeeService {
 		return memList;
 	}
 
-	public int empNewPwdUpdate(int empId, String newPwd) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int empNewPwdUpdate(String newPwd, String empId) {
+		Connection conn = getConnection();
+		int result = eDao.empNewPwdUpdate(conn, newPwd, empId);
+		
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
 	}
 
 	public int insertEmp(Employee emp) {
 		Connection conn = getConnection();
 		int result = eDao.insertEmp(conn, emp);
+		
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
 		close(conn);
 		return result;
 	}
 
-	
-	public Employee selectIDOne(String empid) {
+	public Employee selectEmpId(String empId) {
 		Connection conn = getConnection();
-		Employee emp = eDao.selectIDOne(conn, empid);
+		Employee emp = eDao.selectEmpId(conn, empId);
 		close(conn);
 		return emp;
+	}
+
+	public int selectCheckId(String userId) {
+		Connection conn = getConnection();
+		int result = eDao.selectCheckId(conn, userId);
+		
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public String selectEmpName(String userName) {
+		Connection conn = getConnection();
+		String empName = eDao.selectEmpName(conn, userName);
+		close(conn);
+		return empName;
 	}
 
 	
