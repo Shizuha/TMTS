@@ -31,16 +31,16 @@ import ERP.Empsalary.model.service.EmpSalaryService;
 import ERP.Empsalary.model.vo.EmpSalary;
 
 /**
- * Servlet implementation class EmployeeInsertServlet
+ * Servlet implementation class EmployeeUpdateServlet
  */
-@WebServlet("/empin")
-public class EmployeeInsertServlet extends HttpServlet {
+@WebServlet("/empup")
+public class EmployeeUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmployeeInsertServlet() {
+    public EmployeeUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -75,17 +75,21 @@ public class EmployeeInsertServlet extends HttpServlet {
 		emp.setEmpName(mrequest.getParameter("empname"));
 		emp.setEmpNo(mrequest.getParameter("empno1") + "-" + mrequest.getParameter("empno2"));
 		String address1 = mrequest.getParameter("address1");
-		if(address1 != null)
-			address1 += ",";
+		
+		if(address1 == null)
+			address1 = " ";
 		String address2 = mrequest.getParameter("address2");
-		if(address2 != null)
-			address2 += ",";
+		
+		if(address2 == null)
+			address2 = " ";
 		String address3 = mrequest.getParameter("address3");
-		if(address3 != null)
-			address3 += ",";
+		
+		if(address3 == null)
+			address3 = " ";
 		String address4 = mrequest.getParameter("address4");
-		if(address4 != null)
-			address4 += " ";
+		
+		if(address4 == null)
+			address4 = " ";
 		
 		emp.setAddress(address1 + address2 + address3 + address4);
 		String itfor = mrequest.getParameter("itfornal");
@@ -106,28 +110,28 @@ public class EmployeeInsertServlet extends HttpServlet {
 		if(empment.equals("0") != true) {
 			emp.setEmpmentCode(empment);
 		}else {
-			empment = null;
+			empment = "0";
 			emp.setEmpmentCode(empment);
 		}
 		String dept = mrequest.getParameter("dept");
 		if(dept.equals("0") != true) 
 			emp.setDeptCode(dept);
 		else {
-			dept = null;
+			dept = "0";
 			emp.setDeptCode(dept);
 		}
 		String team = mrequest.getParameter("team");
 		if(team.equals("0") != true) 
 			emp.setTeamCode(team);
 		else {
-			team = null;
+			team = "0";
 			emp.setTeamCode(team);
 		}
 		String job = mrequest.getParameter("job");
 		if(job.equals("job") != true)
 			emp.setPosCode(job);
 		else {
-			job = null;
+			job = "0";
 			emp.setPosCode(job);
 		}
 		emp.setAuthorityCode(mrequest.getParameter("author"));
@@ -135,18 +139,19 @@ public class EmployeeInsertServlet extends HttpServlet {
 		if(ward.equals("0") != true)
 			emp.setWardCode(ward);
 		else {
-			ward = null;
+			ward = "0";
 			emp.setWardCode(ward);
 		}
 		String hold = mrequest.getParameter("hold");
+		System.out.println(hold);
 		if(hold.equals("0") != true)
 			emp.setHoldOffice(hold);
 		else {
-			hold = null;
+			hold = "0";
 			emp.setHoldOffice(hold);
 		}
 		String originalImgFileName = mrequest.getFilesystemName("upfiles");
-		System.out.println(originalImgFileName);
+		
 		
 		if(originalImgFileName != null) {
 			
@@ -182,24 +187,28 @@ public class EmployeeInsertServlet extends HttpServlet {
 				originalFile.delete();
 			}
 			emp.setEmpRenameFilename(reNameImgFileName);
+			new File(savePath + "\\" + mrequest.getParameter("rfile")).delete();
 			
-		}
-		System.out.println(emp);
-		int result = new EmployeeService().insertEmp(emp);
-		System.out.println(result);
-		Employee emp2 = null;
-		if(result > 0) {
-			 emp2 = new EmployeeService().selectName(emp.getEmpName());
 		}else {
+			emp.setEmpImgOriginalFilename(mrequest.getParameter("ofile"));
+			emp.setEmpRenameFilename(mrequest.getParameter("rfile"));
+		}
+		String empId = mrequest.getParameter("empid"); 
+		emp.setEmpId(empId);
+		
+		int result = new EmployeeService().updateEmployee(emp);
+		
+		
+		if(result == 0) {
 			pw.println("<script >");
-			pw.println("alert('정상적인 발송방식이 아닙니다 확인하세요.')");
+			pw.println("alert('사원기본 정보 등록 실패.')");
 			pw.println("history.back()");
 			pw.println("</script>");
 			pw.flush();
 			pw.close();
 			
 		}
-		System.out.println(emp2);
+		
 		
 		//사원 급여정보란
 		EmpSalary empSal = new EmpSalary();
@@ -218,7 +227,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 		String etcIncome = mrequest.getParameter("earner4");
 		String earBsnIncome = mrequest.getParameter("earner5");
 		
-		empSal.setEmpId(emp2.getEmpId());
+		empSal.setEmpId(empId);
 		empSal.setNatPension(natPension);
 		empSal.setHealInrance(healInrance);
 		empSal.setHealRdc(healRdc);
@@ -233,27 +242,35 @@ public class EmployeeInsertServlet extends HttpServlet {
 		empSal.setBsnIncome(bsnIncome);
 		System.out.println(empSal);
 		
-		result = new EmpSalaryService().insertEmpSalary(empSal);
-		
+		result = new EmpSalaryService().updateEmpSalary(empSal);
+		int inserResult = 0;
 		if(result == 0) {
-			pw.println("<script >");
-			pw.println("alert('기본정보 등록실패!')");
-			pw.println("history.back()");
-			pw.println("</script>");
-			pw.flush();
-			pw.close();
+			inserResult = new EmpSalaryService().insertEmpSalary(empSal);
+			if(inserResult == 0) {
+				pw.println("<script >");
+				pw.println("alert('기본정보 등록실패!')");
+				pw.println("history.back()");
+				pw.println("</script>");
+				pw.flush();
+				pw.close();
+			}else {
+				
+			}
 		}
-		int result2 = 0;
+			
+		
 		
 		
 		String[] rship = mrequest.getParameterValues("rship");
 		String[] fyname = mrequest.getParameterValues("fyname");
 		String[] fyitfornal = mrequest.getParameterValues("fyitfornal");
-		String[] DIBILITY = mrequest.getParameterValues("DIBILITY");
-		String[] hISC = mrequest.getParameterValues("H_ISC");
-		String[] iTOGETHER = mrequest.getParameterValues("I_TOGETHER");
+		System.out.println(fyitfornal);
+		String[] dibility = mrequest.getParameterValues("DIBILITY");
+		String[] hIsc = mrequest.getParameterValues("H_ISC");
+		String[] iTogether = mrequest.getParameterValues("I_TOGETHER");
 		String[] mChild = mrequest.getParameterValues("M_CHILD");
-		
+		if(rship != null && fyname != null && fyitfornal != null && dibility != null && 
+				hIsc != null && iTogether != null && mChild != null) {
 		ArrayList<Dependents> drr = new ArrayList<Dependents>();
 		
 		for(int i = 0; i < rship.length; i++) {
@@ -261,39 +278,50 @@ public class EmployeeInsertServlet extends HttpServlet {
 			String rrship = rship[i];
 			String rfyname = fyname[i];
 			String rfyitfornal = fyitfornal[i];
-			String rDIBILITY = DIBILITY[i];
-			String rhISC = hISC[i];
-			String riTOGETHER = iTOGETHER[i];
+			String rDIBILITY = dibility[i];
+			String rhISC = hIsc[i];
+			String riTOGETHER = iTogether[i];
 			String rmChild = mChild[i];
 			
-			
-			drr.add(new Dependents(rrship, rfyname, rfyitfornal, rDIBILITY, rhISC, riTOGETHER, rmChild, emp2.getEmpId()));
+		drr.add(new Dependents(rrship, rfyname, rfyitfornal, rDIBILITY, rhISC, riTOGETHER, rmChild, empId));
 			}
 		System.out.println(drr);
+		int result2 = 0;
+		String[] fyNo = new String[drr.size()];
+		String fyno1 = null;
+		fyNo = new DependentsService().selectDepenCode(empId, fyNo.length);
 		
+		int i = 0;
 		for(Dependents d : drr) {
-		
-		result2 = new DependentsService().insertDependent(d);
-		
+			fyno1 = fyNo[i]; 
+			result2 = new DependentsService().updateDependent(d, fyno1);
+			i++;
+			
 		}
 		System.out.println(result2);
 		if(result2 == 0) {
 			pw.println("<script >");
-			pw.println("alert('정상적인 발송방식이 아닙니다 확인하세요.')");
+			pw.println("alert('부양가족수정실패!')");
 			pw.println("history.back()");
 			pw.println("</script>");
 			pw.flush();
 			pw.close();
+				}
+			
 		}
 		
 		String[] itforNal = mrequest.getParameterValues("shcool");
+		if(itforNal.equals("0") == true) {
+			itforNal = null;
+		}
 		String[] adDate = mrequest.getParameterValues("AD_DATE");
 		String[] grDate = mrequest.getParameterValues("GR_DATE");
 		String[] schName = mrequest.getParameterValues("SCH_NAME");
 		String[] major = mrequest.getParameterValues("MAJOR");
 		String[] taking = mrequest.getParameterValues("TAKING");
 		
-		
+		if(adDate != null && grDate != null && schName != null && 
+				major != null && taking != null) {
 		ArrayList<Education> eduList = new ArrayList<Education>();
 		
 		for(int i = 0; i < itforNal.length; i++) {
@@ -307,25 +335,32 @@ public class EmployeeInsertServlet extends HttpServlet {
 			
 			
 			
-			eduList.add(new Education(itforNal1, adDate1, grDate1, schName1, major1, taking1, emp2.getEmpId()));
+			eduList.add(new Education(itforNal1, adDate1, grDate1, schName1, major1, taking1, empId));
 			}
+			String[] eduCode = new String[eduList.size()];
+			String eduCode1 = null;
+			eduCode = new EducationService().selectEduCode(empId, eduCode.length);
 		
+			int b = 0;
 			int result3 = 0;
 			for(Education e : eduList) {
-				
-			 result3 = new EducationService().insertEdu(e);
-			
+				eduCode1 = eduCode[b];
+			 result3 = new EducationService().updateEdu(e, eduCode1);
+			 b++;
 			}
-		System.out.println(eduList);
+		
 		 if(result3 == 0) {
 			 pw.println("<script >");
-				pw.println("alert('정상적인 발송방식이 아닙니다 확인하세요.')");
+				pw.println("alert('학력정보등록실패')");
 				pw.println("history.back()");
 				pw.println("</script>");
 				pw.flush();
 				pw.close();
-		 }
+			 }
+			 
 		 	
+		}
+		
 		 	String[] comName = mrequest.getParameterValues("COM_NAME");
 			String[] hireDate = mrequest.getParameterValues("HIRE_DATE");
 			String[] lastDate = mrequest.getParameterValues("LAST_DATE");
@@ -334,7 +369,8 @@ public class EmployeeInsertServlet extends HttpServlet {
 			String[] resBilties = mrequest.getParameterValues("RES_BILTIES");
 			String[] leaveReason = mrequest.getParameterValues("LEAVE_REASON");
 			
-			
+			if(comName != null && hireDate != null && lastDate != null && workTeam != null && 
+					lastPosition != null && resBilties != null && leaveReason != null) {
 			ArrayList<Career> carList = new ArrayList<Career>();
 			
 			for(int i = 0; i < comName.length; i++) {
@@ -355,24 +391,32 @@ public class EmployeeInsertServlet extends HttpServlet {
 				System.out.println(leaveReason1);
 				
 				
-				carList.add(new Career(emp2.getEmpId(), comName1, hireDate1, lastDate1, workTeam1, lastPosition1, resBilties1, leaveReason1));
+				carList.add(new Career(empId, comName1, hireDate1, lastDate1, workTeam1, lastPosition1, resBilties1, leaveReason1));
 				}
 			System.out.println(carList);
+			String[] car = new String[carList.size()];
+			String car2 = null;
+			
+			car = new CareerService().selectCarCode(empId, car.length);
 			
 			for(Career c : carList) {
-			int result4 = new CareerService().inserCar(c);
+				int result4 = new CareerService().updateCar(c);
+			
 			}
 			if(result == carList.size()) {
 				response.sendRedirect("/lp/list");
 				
-			}else {
-				pw.println("<script >");
-				pw.println("alert('error')");
-				pw.println("history.back()");
-				pw.println("</script>");
-				pw.flush();
-				pw.close();
-			}
+			}else{
+					pw.println("<script >");
+					pw.println("alert('error')");
+					pw.println("history.back()");
+					pw.println("</script>");
+					pw.flush();
+					pw.close();
+				}
+				
+			
+		}
 	}
 
 	/**
