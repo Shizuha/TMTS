@@ -155,6 +155,7 @@ public class EmployeeDao {
 				emp.setAdTel(rs.getString("ad_tel"));
 				emp.setPhone(rs.getString("phone"));
 				emp.setEmail(rs.getString("email"));
+				emp.setSalary(rs.getInt("salary"));
 				emp.setUserId(rs.getString("userid"));
 				emp.setUserpwd(rs.getString("userpwd"));
 				emp.setEmpEtc(rs.getString("emp_etc"));
@@ -169,7 +170,8 @@ public class EmployeeDao {
 				emp.setAllowanceCode(rs.getString("allowance_code"));
 				emp.setAuthorityCode(rs.getString("authority_code"));
 				emp.setWardCode(rs.getString("ward_code"));
-				System.out.println(emp);
+				emp.setHoldOffice(rs.getString("hode_code"));
+
 				memList.add(emp);
 			}
 
@@ -315,6 +317,7 @@ public class EmployeeDao {
 				emp.setAdTel(rs.getString("ad_tel"));
 				emp.setPhone(rs.getString("phone"));
 				emp.setEmail(rs.getString("email"));
+				emp.setSalary(rs.getInt("salary"));
 				emp.setUserId(rs.getString("userid"));
 				emp.setUserpwd(rs.getString("userpwd"));
 				emp.setEmpEtc(rs.getString("emp_etc"));
@@ -329,6 +332,7 @@ public class EmployeeDao {
 				emp.setAllowanceCode(rs.getString("allowance_code"));
 				emp.setAuthorityCode(rs.getString("authority_code"));
 				emp.setWardCode(rs.getString("ward_code"));
+				emp.setHoldOffice(rs.getString("hode_code"));
 				
 				empList.add(emp);
 			}
@@ -372,6 +376,7 @@ public class EmployeeDao {
 				emp.setAdTel(rs.getString("ad_tel"));
 				emp.setPhone(rs.getString("phone"));
 				emp.setEmail(rs.getString("email"));
+				emp.setSalary(rs.getInt("salary"));
 				emp.setUserId(rs.getString("userid"));
 				emp.setUserpwd(rs.getString("userpwd"));
 				emp.setEmpEtc(rs.getString("emp_etc"));
@@ -386,6 +391,7 @@ public class EmployeeDao {
 				emp.setAllowanceCode(rs.getString("allowance_code"));
 				emp.setAuthorityCode(rs.getString("authority_code"));
 				emp.setWardCode(rs.getString("ward_code"));
+				emp.setHoldOffice(rs.getString("hode_code"));
 			}
 
 		} catch (SQLException e) {
@@ -398,9 +404,48 @@ public class EmployeeDao {
 		return emp;
 	}
 
-	public int updateEmployee(Connection conn, String empNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateEmployee(Connection conn, Employee emp) {
+		int result= 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "update employee set emp_name= ?, empment_code = ?, dept_code =?, "
+				+ "pos_code = ?, ITNAL_FOR = ?, EMP_NO = ?, AD_TEL = ?, PHONE = ?, address =? ,"
+				+ "EMAIL = ?, SALARY = ?, EMP_ETC = ?, EMP_IMG_ORIGINAL_FILENAME = ?, "
+				+ "EMP_IMG_RENAME_FILENAME = ?, GENDER = ?, TEAM_CODE = ?, WARD_CODE = ?, HODE_CODE = ? "
+				+ "where emp_id = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, emp.getEmpName());
+			pstmt.setString(2, emp.getEmpmentCode());
+			pstmt.setString(3, emp.getDeptCode());
+			pstmt.setString(4, emp.getPosCode());
+			pstmt.setString(5, emp.getItnalFor());
+			pstmt.setString(6, emp.getEmpNo());
+			pstmt.setString(7, emp.getAdTel());
+			pstmt.setString(8, emp.getPhone());
+			pstmt.setString(9, emp.getAddress());
+			pstmt.setString(10, emp.getEmail());
+			pstmt.setInt(11, emp.getSalary());
+			pstmt.setString(12, emp.getEmpEtc());
+			pstmt.setString(13, emp.getEmpImgOriginalFilename());
+			pstmt.setString(14, emp.getEmpRenameFilename());
+			pstmt.setString(15, emp.getGender());
+			pstmt.setString(16, emp.getTeamCode());
+			pstmt.setString(17, emp.getWardCode());
+			pstmt.setString(18, emp.getHoldOffice());
+			pstmt.setString(19, emp.getEmpId());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;
 	}
 
 	public int insertEmp(Connection conn, Employee emp) {
@@ -449,24 +494,49 @@ public class EmployeeDao {
 		return result;
 	}
 
-	public Employee selectIDOne(Connection conn, String empid) {
+	public int empNewPwdUpdate(Connection conn, String newPwd, String empId) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String query = "update employee set USERPWD = ? where emp_id = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, empId);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public Employee selectEmpId(Connection conn, String empId) {
 		Employee emp = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String query = "select * from employee where emp_id = ?";
+		String query = "select * from employee where emp_Id = ?";
 
 		try {
 
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, empid);
+			pstmt.setString(1, empId);
 
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 
 				emp = new Employee();
-				
+
 				emp.setEmpId(rs.getString("emp_id"));
 				emp.setEmpName(rs.getString("emp_name"));
 				emp.setHireDate(rs.getDate("hire_date"));
@@ -492,7 +562,7 @@ public class EmployeeDao {
 				emp.setAllowanceCode(rs.getString("allowance_code"));
 				emp.setAuthorityCode(rs.getString("authority_code"));
 				emp.setWardCode(rs.getString("ward_code"));
-				
+				emp.setHoldOffice(rs.getString("hode_code"));
 			}
 
 		} catch (SQLException e) {
@@ -504,6 +574,60 @@ public class EmployeeDao {
 
 		return emp;
 	}
+
+	public int selectCheckId(Connection conn, String userId) {
+		int rowCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "select count(userid) from employee where userid = ?";
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				rowCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return rowCount;
+	}
+
+	public String selectEmpName(Connection conn, String userName) {
+		String empName= null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "select emp_name from employee where emp_name like ?";
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + userName + "%");
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				empName = rs.getString("emp_name");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return empName;
+	}
+
+	
 
 	
 
