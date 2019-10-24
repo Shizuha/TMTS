@@ -38,7 +38,10 @@
 <!-- Custom Stylesheet -->
 <link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
 
+<!-- rpNoticeDetailView.jsp 추가분 -->
 
+
+<!-- rpNoticeDetailView.jsp 추가분 끝 -->
 
 
 </head>
@@ -451,7 +454,7 @@
                         </ul>
                     </li>-->
 						</ul>
-					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
+					<li><a href="/NHMP/nlist.ad" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
 					<li><a href="javascript:void()" aria-expanded="false"> <i
@@ -469,9 +472,10 @@
 	<tr><th>작성자</th><td colspan="3"><%= notice.getNoticeWriter() %></td></tr>
 	<tr><th>등록날짜</th><td colspan="3"><%= notice.getNoticeDate() %></td></tr>
 	<tr><th>내용</th><td colspan="3"><%= notice.getNoticeContent() %></td></tr>
-	<tr><th colspan="4"><a href="/NHMP/nlist">목록으로 이동</a></th></tr>
+	<tr><th colspan="4"><a href="/NHMP/nlist.ad">목록으로 이동</a></th></tr>
 	</table>
 	
+
 </center>
 <!-- ErpNoticeListView.jsp 추가분 끝-->
 

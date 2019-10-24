@@ -15,14 +15,14 @@ import ERP.notice.model.vo.Notice;
 /**
  * Servlet implementation class NoticeDatailServlet
  */
-@WebServlet("/ndetail")
-public class NoticeDatailServlet extends HttpServlet {
+@WebServlet("/ndetail.ad")
+public class NoticeAdminDatailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDatailServlet() {
+    public NoticeAdminDatailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,14 +44,14 @@ public class NoticeDatailServlet extends HttpServlet {
 				
 				RequestDispatcher view = null;
 				if (notice != null) {
-					view = request.getRequestDispatcher("views/ERP/Notice/ErpNoticeDetailView.jsp");
+					view = request.getRequestDispatcher("views/ERP/Notice/ErpAdminNoticeDetailView.jsp");
 					request.setAttribute("notice", notice);
 					request.setAttribute("noticeno", noticeNo);
-					System.out.println("noticeNo servlet옴 : " + noticeNo );	
+					
 					
 				}else {
 					view = request.getRequestDispatcher("views/common/Error.jsp");
-					request.setAttribute("message", noticeNo + "번 공지 상세보기 실패!");
+					request.setAttribute("message", noticeNo + "번 관리자 공지 상세보기 실패!");
 				}
 				
 				view.forward(request, response);

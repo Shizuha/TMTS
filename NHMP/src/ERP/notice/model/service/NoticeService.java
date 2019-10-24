@@ -42,6 +42,7 @@ public class NoticeService {
 					rollback(conn);
 				}
 				close(conn);
+				
 				return result;
 	}
 	
@@ -61,11 +62,17 @@ public class NoticeService {
 		return list;
 	}
 
-	public ArrayList<Notice> selectTop3() {
+	//글쓰기
+	public int insertNotice(Notice notice) {
 		Connection conn = getConnection();
-		ArrayList<Notice> list = ndao.selectTop3(conn);
+		int result = ndao.insertNotice(conn, notice);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
 		close(conn);
-		return list;
+		
+		return result;
 	}
 	
 	

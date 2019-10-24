@@ -7,7 +7,7 @@ import java.sql.Date;
 import java.util.*;
 
 import ERP.notice.model.vo.Notice;
-
+import ERP.Employee.model.vo.*;
 
 public class NoticeDao {
 
@@ -90,10 +90,9 @@ public class NoticeDao {
 	public int updateReadCount(Connection conn, int noticeNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		ResultSet rset = null; 
 		
 		String query ="update notice "
-				+ " set notice_count = notice_count + 1 "
+				+ "set notice_count = notice_count + 1 "
 				+ "where notice_no = ?";
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -110,7 +109,7 @@ public class NoticeDao {
 		return result;
 	}
 	
-	//조회수 페이징
+		//조회수 페이징
 		public int getListCount(Connection conn) {
 			int listCount = 0;
 			Statement stmt = null;
@@ -135,7 +134,7 @@ public class NoticeDao {
 		}
 	
 
-//페이징 처리
+		//페이징 처리
 		public ArrayList<Notice> selectList(Connection conn, int startRow, int endRow) {
 			ArrayList<Notice> list = new ArrayList<Notice>();
 			PreparedStatement pstmt = null;
@@ -176,37 +175,33 @@ public class NoticeDao {
 			
 			return list;
 		}
-
-		public ArrayList<Notice> selectTop3(Connection conn) {
-			ArrayList<Notice> list = new ArrayList<Notice>();
-			Statement stmt = null;
-			ResultSet rset = null;
+		
+		//글 추가 dao
+		public int insertNotice(Connection conn, Notice notice) {
+			int result = 0;
+			PreparedStatement pstmt = null;
 			
-			String query = "SELECT * FROM (SELECT ROWNUM RNUM, NOTICE_NO, NOTICE_TITLE, NOTICE_DATE " + 
-					"FROM (SELECT * FROM NOTICE ORDER BY NOTICE_DATE DESC)) WHERE RNUM >= 1 AND RNUM <= 8";
+			String query = "INSERT INTO NOTICE VALUES(NOTICE_SEQ.NEXTVAL, ?, " + 
+					"?, default, SYSDATE, ?)";
 			
 			try {
-				stmt = conn.createStatement();
-				rset = stmt.executeQuery(query);
+				pstmt = conn.prepareStatement(query);
 				
-				while(rset.next()) {
-					Notice n = new Notice();
-					
-					n.setNoticeNo(rset.getInt("notice_no"));
-					n.setNoticeTitle(rset.getString("notice_title"));
-					n.setNoticeDate(rset.getDate("notice_date"));
-		
-					list.add(n);
-				}
+				pstmt.setString(1, notice.getNoticeTitle());
+				pstmt.setString(2, notice.getNoticeContent());
+				pstmt.setString(3, notice.getNoticeWriter());
+			
+				
+				
+				
+				result = pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
-			} finally {
-				close(rset); 
-				close(stmt);
+			}finally {
+				close(pstmt);
 			}
-			
-			return list;
+			return result;
 		}
 }
 

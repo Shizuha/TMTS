@@ -1,25 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+<%@page import="Main.NursingHospital.model.ov.*"%>
 
-<%@
-	page import="Main.NursingHospital.model.ov.NursingHospital"%>
 
 <%
-	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
-%>
+NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
+%> 
 
 <%@ page import="ERP.notice.model.vo.Notice, java.util.ArrayList" %>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.If"%>
 <%@page import="ERP.notice.model.vo.Notice" %> 
 <%
 	Notice notice = (Notice)request.getAttribute("notice");
-%>   
-
+%> 
+   
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMTS</title>
@@ -37,12 +35,14 @@
 	href="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css?after">
 <!-- Custom Stylesheet -->
 <link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
-
-
-
-
+<script type="text/javascript">
+function moveList(){
+	location.href = "/NHMP/nlist.ad";
+	return false; 	//이벤트 전달 막기
+	
+}
+</script>
 </head>
-
 <body>
 
 
@@ -460,19 +460,25 @@
 			</div>
 			</ul>
 		</div>
-<!-- ErpNoticeListView.jsp 추가분 -->		
-<center>		
-		
-	<table align="center" width="500" border="1" cellspacing="0" cellpadding="5">
-	<tr><th colspan="4"><%= notice.getNoticeNo() %>번 공지사항 화면</th></tr>
-	<tr><th >제목</th><td><%= notice.getNoticeTitle() %></td><th>조회수</th><td><%= notice.getNoticeCount() %></td></tr>
-	<tr><th>작성자</th><td colspan="3"><%= notice.getNoticeWriter() %></td></tr>
-	<tr><th>등록날짜</th><td colspan="3"><%= notice.getNoticeDate() %></td></tr>
-	<tr><th>내용</th><td colspan="3"><%= notice.getNoticeContent() %></td></tr>
-	<tr><th colspan="4"><a href="/NHMP/nlist">목록으로 이동</a></th></tr>
-	</table>
-	
+<!-- ErpAdminNoticeWriteForm.jsp 추가분 -->		
+<h1 align="center">관리자용 공지 등록 페이지</h1>
+<br>
+<center>
+<form action="/NHMP/nwrite.ad" method="post">
+<table align="center" width="500" border="1" cellspacing="0" cellspacing="5">
+<tr><th>제목</th><td><input type="text" name="title" size="50"></td></tr>
+<tr><th>작성자</th><td><input type="text" name="writer" readonly value="<%= loginHospital.getNH_NAME() %>"></td></tr>
+<tr><th>내용</th><td><textarea name="content" rows="5" cols="50"></textarea></td></tr>
+<tr><th colspan="2">
+	<input type="submit" value="등록하기"> &nbsp;
+	<input type="reset" value="취소하기"> &nbsp;
+	<input type="button" value="목록이동" onclick="moveList();">
+</th></tr>
+</table>
+</form>
+
 </center>
+
 <!-- ErpNoticeListView.jsp 추가분 끝-->
 
 
