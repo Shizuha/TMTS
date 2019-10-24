@@ -140,7 +140,7 @@ public class NoticeDao {
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
 			
-			///쿼리문 모르겠음
+			//
 			String query = "select * from ("
 					+ "select rownum rnum, notice_no, notice_title, notice_content,"
 					+ "notice_count, notice_writer,"
