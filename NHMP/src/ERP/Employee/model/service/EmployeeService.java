@@ -142,6 +142,13 @@ public class EmployeeService {
 		return empName;
 	}
 
+	public Employee selectIDOne(String empid) {
+		Connection conn = getConnection();
+		Employee emp = eDao.selectEmpId(conn, empid);
+		close(conn);
+		return emp;
+	}
+
 	
 	
 	
