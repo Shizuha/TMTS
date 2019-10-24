@@ -203,6 +203,38 @@ public class NoticeDao {
 			}
 			return result;
 		}
+
+		public ArrayList<Notice> selectTop3(Connection conn) {
+			ArrayList<Notice> list = new ArrayList<Notice>();
+			Statement stmt = null;
+			ResultSet rset = null;
+			
+			String query = "SELECT * FROM (SELECT ROWNUM RNUM, NOTICE_NO, NOTICE_TITLE, NOTICE_DATE " + 
+					"FROM (SELECT * FROM NOTICE ORDER BY NOTICE_DATE DESC)) WHERE RNUM >= 1 AND RNUM <= 8";
+			
+			try {
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(query);
+				
+				while(rset.next()) {
+					Notice n = new Notice();
+					
+					n.setNoticeNo(rset.getInt("notice_no"));
+					n.setNoticeTitle(rset.getString("notice_title"));
+					n.setNoticeDate(rset.getDate("notice_date"));
+		
+					list.add(n);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset); 
+				close(stmt);
+			}
+			
+			return list;
+		}
 }
 
 

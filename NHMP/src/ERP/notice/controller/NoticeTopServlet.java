@@ -38,7 +38,6 @@ public class NoticeTopServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 게시글 조회수 많은 순 상위 3개 조회 처리용 컨트롤러 : ajax 요청 처리
 		ArrayList<Notice> list = new NoticeService().selectTop3();
 
 		// 전송용 json 객체 생성
@@ -53,7 +52,7 @@ public class NoticeTopServlet extends HttpServlet {
 			JSONObject job = new JSONObject();
 			job.put("no", n.getNoticeNo());
 			// JSON에서 한글 깨짐 막으려면, java.net.URLEncoder.encode() 메소드로 인코딩 처리
-			job.put("title", URLEncoder.encode(n.getNoticeTitle(), "UTF-8"));
+			job.put("title", n.getNoticeTitle());
 			job.put("date", String.valueOf(n.getNoticeDate()));
 
 			jarr.add(job);

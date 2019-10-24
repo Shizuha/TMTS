@@ -208,7 +208,7 @@
 			<ul id="selectUL" style="padding-top: 0px;">
 				<li><a href="/NHMP/views/Main/serviceCenter.jsp">가입하기</a></li>
 				<li><a href="/NHMP/views/Main/serviceQna.jsp">QnA</a></li>
-				<li><a href="/NHMP/views/Main/serviceNotice.jsp">공지사항</a></li>
+				<li><a href="/NHMP/gongall">공지사항</a></li>
 			</ul>
 			<div id="indiv">
 				<% if (loginHospital == null) {	%>

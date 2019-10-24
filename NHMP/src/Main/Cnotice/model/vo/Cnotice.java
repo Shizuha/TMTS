@@ -76,6 +76,11 @@ public class Cnotice implements Serializable{
 				+ ", NOTICE_CONTENT=" + NOTICE_CONTENT + ", NOTICE_COUNT=" + NOTICE_COUNT + ", NOTICE_DATE="
 				+ NOTICE_DATE + ", NH_NAME=" + NH_NAME + "]";
 	}
+
+	public static int getListCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 }

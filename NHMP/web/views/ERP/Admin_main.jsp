@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="Main.NursingHospital.model.ov.NursingHospital"%>
-<!DOCTYPE html>
 <%
 	NursingHospital loginAdmin = (NursingHospital)session.getAttribute("loginHospital");
 %>
+<!DOCTYPE html>
 <html lang="ko">
 
 <head>
@@ -54,15 +54,10 @@ $(function(){
   			var values = "";
   			
   			for(var i in json.list){
-  				if(loginAdmin != null){ 
   				values += "<tr><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].no + 
   				"</td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
   				+ "</a></td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].date + "</td></tr>";
   				/* <a href='/frist/ndetail?no= */
-  			 } else {
-  				values += "<tr><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].no + "</td><td>" + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
-  				+ "</td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].date + "</td></tr>";
-  			 } 
   			}
   			/* <td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd; */
   			$("#newNotice").html($("#newNotice").html() + values);
@@ -314,7 +309,7 @@ $(function(){
 										<hr class="my-2">
 										<li><a href="page-lock.html"><i class="icon-lock"></i>
 												<span>Lock Screen</span></a></li>
-										<li><a href="page-login.html"><i class="icon-key"></i>
+										<li><a href="/NHMP/logout"><i class="icon-key"></i>
 												<span>Logout</span></a></li>
 									</ul>
 								</div>
