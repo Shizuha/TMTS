@@ -6,13 +6,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.http.HttpSession;
+
 public class JDBCTemplate {
 	public static Connection getConnection() {
 		Connection conn = null;
-		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "TMTS", "TMTS");
+			conn.setAutoCommit(false);
+		}
+		catch (ClassNotFoundException e) {
+				e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return conn;
+	}
+	
+	public static Connection getConnection(String id, String pwd) {
+		Connection conn = null;
+		
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", id, pwd);
 			conn.setAutoCommit(false);
 		}
 		catch (ClassNotFoundException e) {

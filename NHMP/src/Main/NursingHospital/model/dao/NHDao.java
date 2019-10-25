@@ -4,6 +4,7 @@ import static common.JDBCTemplate.close;
 import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.rollback;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -127,10 +128,9 @@ public class NHDao {
 		
 		PreparedStatement pstmt = null;
 		
-		String query = "update nursing_hospital set nh_service_history = (select service_code from service where service_name = ?), nh_service_code = 'GS1' where nh_id = ?";
-		System.out.println("dao : "+service);
-		System.out.println("dao : "+loginHospital.getNH_ID());
 		
+		String query = "update nursing_hospital set nh_service_history = (select service_code from service where service_name = ?), nh_service_code = 'GS1' where nh_id = ?";
+				
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, service);
@@ -202,13 +202,12 @@ public class NHDao {
 		
 	}
 
-	public int UpdateAuthority(Connection conn, String nHch, String authch) {
+	public int UpdateAuthority(Connection conn, String nHch, String authch, NursingHospital loginHospital) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
 		
 		String query = "update nursing_hospital set nh_authority_code = ?, nh_service_code = 'GS2' where nh_id = ?";
-		
 		try {
 			
 			pstmt = conn.prepareStatement(query);
@@ -217,16 +216,34 @@ public class NHDao {
 			
 			result = pstmt.executeUpdate();
 			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
-	
+
+	public void newuser(Connection conn, NursingHospital loginHospital) {
+		CallableStatement cstmt = null;
+		
+		String query = "{CALL NEWUSER(?, ?)}";
+		
+		try {
+			cstmt = conn.prepareCall(query);
+			cstmt.setString(1, loginHospital.getNH_USERID());
+			cstmt.setString(2, loginHospital.getNH_USERPWD());
+			
+			cstmt.execute();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(cstmt);
+		}
+		
+	}
+
 	
 	
 	
