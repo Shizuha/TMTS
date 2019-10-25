@@ -4,6 +4,8 @@ import static common.JDBCTemplate.close;
 import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.rollback;
 
+import java.io.File;
+import java.io.FileReader;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,11 +13,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import Main.NursingHospital.model.ov.NursingHospital;
 
 public class NHDao {
-	public NHDao() {}
+	private Properties prop;
+	public NHDao() {
+		prop = new Properties();
+		String currDir = NHDao.class.getResource(".").getPath();
+		System.out.println(currDir+"../../../../../../");
+		try {
+			prop.load(new FileReader(currDir+"../../../../../../properties/tableSample.properties"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public NursingHospital loginCheck(Connection conn, String userid, String userpwd) {
 		NursingHospital nh = null;
@@ -242,6 +255,29 @@ public class NHDao {
 			close(cstmt);
 		}
 		
+	}
+
+	public void sample(Connection conn, NursingHospital loginHospital) {
+		Statement stmt = null;
+		String Str[] = {"EMPMENT", "DEDUCTION", "ALLOWANCE", "WARD", "POSITIONS", "DEPARTMENT", "TEAM", "AUTHORITY", "AUTHORITYSAM", "HOLD_OFFICE", "EMPLOYEE", "SEQ_EMP_ID", "EMPSALARY", "DEPENDENTS", "DPEN_SEQ_CODE", "EDUCATION", "EDU_SEQ_CODE", "CAREER", "CAR_SEQ_CODE", "PATIENT", "PAT_SEQ", "MEDICIENRECORD", "MR_SEQ", "COUNSELINGLOG", "CL_SEQ", "DATAROOM", "DATAROOM_SEQ", "CAUTHORITY", "CAUTHORITYSAM", "SERVICE", "SERVICESAM", "NURSING_HOSPITAL", "NOTICE", "NOTICE_SEQ", "QNA", "SEQ_QNA", "COMMENTS", "CNOTICE", "SEQ_CNOTICE", "CREGISTRATION", "CALENDAR", "SEQ_CAL"};
+		System.out.println("str 크기 : "+Str.length);
+		System.out.println(Str[0]);
+		
+		for(int i = 0; i <= Str.length-1; i++) {
+			String query = prop.getProperty(Str[i]);
+			
+			try {
+				stmt = conn.createStatement();
+				stmt.executeQuery(query);
+				
+				System.out.println(i+"스크립트 작동");
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(stmt);
+			}
+		}
 	}
 
 	

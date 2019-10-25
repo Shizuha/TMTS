@@ -68,6 +68,12 @@ public class NHService {
 				
 	}
 
+	public void sample(NursingHospital loginHospital) {
+		Connection conn = getConnection(loginHospital.getNH_USERID(), loginHospital.getNH_USERPWD());
+		ndao.sample(conn, loginHospital);
+		close(conn);
+	}
+
 	
 	
 	
