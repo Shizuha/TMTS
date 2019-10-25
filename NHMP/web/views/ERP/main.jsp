@@ -274,8 +274,8 @@
 						<i class="fa fa-users"></i><span class="nav-text">인사관리</span> 
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="layout-blank.html">인사정보관리</a></li>
-							<li><a href="layout-one-column.html">인사정보등록</a></li>
+							<li><a href="/NHMP/list">전체사원조회</a></li>
+							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
 							<li><a href="layout-two-column.html">조직도</a></li>
 							<!--
                             <li><a href="layout-compact-nav.html">Compact Nav</a></li>

@@ -33,134 +33,57 @@
 	href="/NHMP/resources/ERP/css/plugins/chartist/css/chartist.min.css?after">
 <link rel="stylesheet"
 	href="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css?after">
-<!-- Custom Stylesheet -->
+<!-- 메인 CSS 처리용 -->
 <link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
-
-
-
-
-
-
-
-
-
-<!-- Favicon icon -->
-<!-- 
-<link rel="icon" type="image/png" sizes="16x16"
-	href="images/favicon.png">
-	 -->
-<!--  메인 css중요한 링크 -->
-<!-- 
-<link href="/NHMP/resources/ERP/css/style.css" rel="stylesheet">
- -->
+<link href="/NHMP/resources/ERP/css/employeeListViewCss.css" rel="stylesheet">
 <!-- 아이콘 처리용 -->
+  <link href="/NHMP/resources/ERP/vender/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-<link href="/NHMP/resources/ERP/vendor/fontawesome-free/css/all.min.css?after"
-	rel="stylesheet" type="text/css">
 	
-<!-- 페이징 밑단 색깔처리용 -->
-<!-- 
-<link href="/NHMP/resources/ERP/css/sb-admin-2.min.css" rel="stylesheet">
-
- -->
-
-
-
-
-
-
-
 
 <!-- 스크립트태그 -->
-<script type="text/javascript"	src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
+  <script type="text/javascript" src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript">
   	$(function(){
   		
   		$(".check-all").click(function(){
   			$(".ad").prop("checked", this.checked);
   		});
   		
-  		$("#usernewpwd").on("click", function(){
-  			if($("input[name=empno]").is(":checked")){
-  	
-  			$.ajax({
-  				url : "/NHMP/newpwd" ,
-  				data : {empno : $("#empno").val()},
-  				type : "post",
-  				
-  				success : function(data){
-  					 var url = "/NHMP/views/Employee/newPwd.jsp";
-  		             var name = "popup test";
-  		             var option = "width = 500, height = 500, top = 100, left = 200, location = no"
-  		             window.open(url, name, option);
-  		             
-  		             return false;
-  					}
-  				});
-  			}
-  			return false;
-  		});
-  		
-         /* $("#newpwd").click(function(){
-        	 
-        	 var url = "/NHMP/views/member/newPwd.jsp";
+          $("#usernewpwd").click(function(){
+        	 if($("input[name=empno]").is(":checked") == true){
+        		var noVal = $("input[name=empno]:checked").val();  
+        	 var url = "/NHMP/newpwd?empno=" + noVal;
              var name = "popup test";
              var option = "width = 500, height = 500, top = 100, left = 200, location = no"
              window.open(url, name, option);
-             
              return false;
-         }); */
+             
+        	 }else{
+        		 alert("선택된사원이 없습니다. 사원을 선택해주세요.");
+        		 return false;
+        	 }
+        	 
+         });
+         
+         
            
   	});
- 
+ 	
+  	function trueAndFalse() {
+  		
+  		var trueAndFalseDel = confirm( '정말로 삭제하시겠습니까?' );
+  		
+        if(trueAndFalseDel != false){
+        	return true;
+        }else
+        	return false;
+        
+        
+        
+  	}
   </script>
-<style>
-body {
-	background: #f4f4f4;
-}
 
-.container-fluid {
-	background: white;
-	box-shadow: 1px 1px 1px 2px #dddddd;
-	width:1000px;
-	margin: 20px;
-}
-
-table, th {
-	background: #dddddd;
-}
-
-table, td {
-	background: white;
-}
-
-.icon {
-	width: 20px;
-	display: inline-block;
-	padding: 2px;
-	border-radius: 5px 0 0 5px;;
-	background: #dddddd;
-}
-
-.search {
-	font-size: 10pt;
-	float: left;
-}
-
-select {
-	height: 27px;
-}
-
-.button {
-	float: right;
-	font-size: 10pt;
-}
-
-.trlist {
-	font-size: 10pt;
-	over-flow: hidden;
-}
-</style>
 </head>
 
 <body>
@@ -316,88 +239,81 @@ select {
         ***********************************-->
 		<div class="content-body" style="padding: 40px;">
 			<div class="container-fluid">
-				<div class="search">
-					<div class="empname">
-						<form action="/NHMP/esel" method="post">
-							사용자명:&nbsp;
-							<div class="icon">
-								<i class="fa fa-search"></i>
-							</div>
-							<input type="search" name="empname" id="sc">&nbsp;
-							부서:&nbsp;<select name="dept">
-								<option>--부서구분--</option>
-								<option value="40">간호과</option>
-								<option value="20">외과</option>
-								<option value="30">한방의학과</option>
-								<option value="60">원무과</option>
-								<option value="50">총무과</option>
-								<option value="10">가정의학과</option>
-							</select> &nbsp;<input type="submit" value="검색">
-						</form>
-					</div>
+			<div class="search">
+				<div class="empname">
+					<form action="/NHMP/esel" method="post" >
+					사용자명:&nbsp; <div class="icon"><i class="fa fa-search"></i></div><input type="search" name="empname" id="sc">&nbsp;
+					부서:&nbsp;<select name="dept">
+							<option>--부서구분--</option>
+							<option value="40">간호과</option>
+							<option value="20">외과</option>
+							<option value="30">한방의학과</option>
+							<option value="60">원무과</option>
+							<option value="50">총무과</option>
+							<option value="10">가정의학과</option>
+						</select>
+						&nbsp;<input type="submit" id="button1" value="검색">
+					</form>	
 				</div>
-				<div class="button">
-					<form action="/NHMP/mdel" method="post">
-						<input type="hidden" name="page" value="<%=currentPage %>">
-						<input type="hidden" name="bpage" value="<%=beginPage %>">
-						<input type="submit" value="삭제">&nbsp;
-						<button id="usernewpwd">비밀번호초기화</button>
-				</div>
-				<br>
-				<table class="table table-bordered" style="margin-top: 10px;"
-					id="dataTable" width="100%" cellspacing="0" border="1">
-
-					<tr class="mainTr">
-						<th width="110px"><input type="checkbox" class="check-all">&nbsp;전체선택</th>
-						<th >사번</th>
-						<th >이름</th>
-						<th >입사일</th>
-						<th >휴대폰</th>
-						<th >이메일</th>
-						<th>주소</th>
-					</tr>
-					<%for(Employee e : empList){ %>
-
-					<tr class="trlist">
-						<td><input type="checkbox" class="ad" name="empno" id="empno"
-							value="<%=e.getEmpNo() %>"></td>
-						<td><%=e.getEmpId()%></td>
-						<td><%=e.getEmpName() %></td>
-						<td><%=e.getHireDate()  %></td>
-						<td><%=e.getPhone()  %></td>
-						<td><%=e.getEmail() %></td>
-						<td><%=e.getAddress() %></td>
-
-					</tr>
-
-					<%} %>
-					<tr>
-						<th>&nbsp;</th>
-						<th>사번</th>
-						<th>이름</th>
-						<th>입사일</th>
-						<th>휴대폰</th>
-						<th>이메일</th>
-						<th>주소</th>
-					</tr>
-				</table>
-				</form>
-				<div id="pagebox" align="right" style="margin-right: 30px;">
-					<a href="/NHMP/list?page=1">시작페이지로<i class="fas fa-angle-left"></i></a>&nbsp;
+			</div>
+			<div class="button">
+			<form action="/NHMP/mdel" method="post" onsubmit="return trueAndFalse();">
+			<input type="hidden" name="page" value="<%=currentPage %>">
+			<input type="hidden" name="bpage" value="<%=beginPage %>">
+			<input type="submit" id="delbutton"value="삭제">&nbsp;
+			<button id="usernewpwd">비밀번호초기화</button></div><br>
+                <table class="table table-bordered" style="margin-top:10px;"id="dataTable" width="100%" cellspacing="0" border="1">
+                  
+                    <tr class="mainTr">
+                      <th><input type="checkbox" class="check-all">&nbsp;전체선택</th>
+                      <th>사번</th>
+                      <th>이름</th>
+                      <th>입사일</th>
+                      <th>휴대폰</th>
+                      <th>이메일</th>
+                      <th>주소</th>
+                    </tr>
+                  <%for(Employee e : empList){ %>
+                  	
+                    <tr class="trlist">
+                      <td><input type="checkbox" class="ad" name="empno" id="empno" value="<%=e.getEmpNo() %>"></td>
+                      <td><a href="/NHMP/minfo?empid=<%=e.getEmpId() %>"><%=e.getEmpId()%></a></td>
+                      <td><a href="/NHMP/minfo?empid=<%=e.getEmpId() %>"><%=e.getEmpName() %></a> </td>
+                      <td><a href="/NHMP/minfo?empid=<%=e.getEmpId() %>"><%=e.getHireDate()  %></a></td>
+                      <td><a href="/NHMP/minfo?empid=<%=e.getEmpId() %>"><%=e.getPhone()  %></a></td>
+                      <td><a href="/NHMP/minfo?empid=<%=e.getEmpId() %>"><%=e.getEmail() %></a></td>
+                      <td><a href="/NHMP/minfo?empid=<%=e.getEmpId() %>"><%=e.getAddress() %></a></td>
+                      
+                    </tr>
+                    
+                    <%} %>
+                    <tr>
+                      <th>&nbsp;</th>
+                      <th>사번</th>
+                      <th>이름</th>
+                      <th>입사일</th>
+                      <th>휴대폰</th>
+                      <th>이메일</th>
+                      <th>주소</th>
+                    </tr>
+                </table>
+                </form>
+				<div id="pagebox" align="center" style="margin-right: 30px;">
+					<a href="/NHMP/list?page=1"><i id="i1" class="fas fa-angle-left"></i></a>&nbsp;
 					<%
 						if (beginPage - 10 < 1) { %>
-
-					<a href="/NHMP/list?page=1"><i class="fas fa-angle-double-left"></i></a>
-
+						
+					<a href="/NHMP/list?page=1"><i id="i2"class="fas fa-angle-double-left"></i></a>
+					
 					<%} else {%>
-
+						
 					<a href="/NHMP/list?page=<%=beginPage - 10%>">◀◀</a>
-
+					
 					<%}%>
 					&nbsp;
 					<% for (int p = beginPage; p <= endPage; p++) {
 							if (p == currentPage) {%>
-
+							
 					<a href="/NHMP/list?page=<%=p%>"><font color="red"><b>[<%=p%>]
 						</b></font></a>
 
@@ -409,18 +325,15 @@ select {
 					<%
 						if ((endPage + 10) > maxPage) {
 					%>
-					<a href="/NHMP/list?page=<%=maxPage%>"><i
-						class="fas fa-angle-double-right"></i></a>
+					<a href="/NHMP/list?page=<%=maxPage%>"><i id="i3"class="fas fa-angle-double-right"></i></a>
 					<%
 						} else {
 					%>
-					<a href="/NHMP/list?page=<%=endPage + 10%>"><i
-						class="fas fa-angle-double-right"></i></a>
+					<a href="/NHMP/list?page=<%=endPage + 10%>"><i id="i3" class="fas fa-angle-double-right"></i></a>
 					<%
 						}
 					%>
-					&nbsp; <a href="/NHMP/list?page=<%=maxPage%>"><i
-						class="fas fa-angle-right">끝 페이지로</i></a>
+					&nbsp; <a href="/NHMP/list?page=<%=maxPage%>"><i id="i4" class="fas fa-angle-right"></i></a>
 				</div>
 			</div>
 		</div>
