@@ -34,16 +34,18 @@ public class MserviceSingupServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 서비스 신청 처리용 컨트롤러  
 		String service = request.getParameter("selectType");
-		System.out.println("service : "+service);
+		System.out.println("service : "+service);//o
 		//로그인 정보를 세션에서 가져옴
 		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
 		//세션에서 가져온 로그인 정보에서 아이디와 비밀번호 추출
-		String userid1 = loginHospital.getNH_USERID();
-		String userpwd1 = loginHospital.getNH_USERPWD();
+		String userid1 = loginHospital.getNH_USERID();//o
+		String userpwd1 = loginHospital.getNH_USERPWD();//o
 		//업데이트 적용 결과 리턴 받음
 		int result = new NHService().serviceUpdate(service, loginHospital);
+		System.out.println("result : " + result);
+		//계정생성
+		new NHService().newuser(loginHospital);
 		
-		System.out.println("if 전 : "+loginHospital);
 		if(result > 0 ) {
 			HttpSession session = request.getSession(false);
 			loginHospital = new NHService().loginCheck(userid1, userpwd1);

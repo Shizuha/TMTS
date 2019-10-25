@@ -53,12 +53,22 @@ public class NHService {
 		return list;
 	}
 
-	public int UpdateAuthority(String nHch, String authch) {
+	public int UpdateAuthority(String nHch, String authch, NursingHospital loginHospital) {
+		
 		Connection conn = getConnection();
-		int result = ndao.UpdateAuthority(conn, nHch, authch);
+		int result = ndao.UpdateAuthority(conn, nHch, authch, loginHospital);
 		close(conn);
 		return result;
 	}
+
+	public void newuser(NursingHospital loginHospital) {
+		Connection conn = getConnection();
+		ndao.newuser(conn, loginHospital);
+		close(conn);
+				
+	}
+
+	
 	
 	
 }
