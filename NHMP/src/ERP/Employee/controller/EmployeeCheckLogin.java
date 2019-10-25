@@ -1,27 +1,29 @@
 package ERP.Employee.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import ERP.Employee.model.service.EmployeeService;
+import ERP.Employee.model.vo.Employee;
 
 /**
- * Servlet implementation class EmployeeDeleteServlet
+ * Servlet implementation class EmployeeCheckLogin
  */
-@WebServlet("/mdel")
-public class EmployeeDeleteServlet extends HttpServlet {
+@WebServlet("/logins")
+public class EmployeeCheckLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmployeeDeleteServlet() {
+    public EmployeeCheckLogin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,31 +32,30 @@ public class EmployeeDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] empNo = request.getParameterValues("empno");
+		String userId = request.getParameter("userid");
+		String userPwd = request.getParameter("userpwd");
 		
+		Employee emp = new EmployeeService().loginCheck(userId, userPwd);
+		System.out.println("mem" + emp);
 		
-		EmployeeService es = new EmployeeService();
-		int result = 0;
-		for(String id : empNo) {
+		/*ArrayList<Notice> noList = new NoticeService().selectList();
+		System.out.println("noList" + noList);*/
+		RequestDispatcher view  = null;
+		
+		 
+		if(emp != null) {
+			HttpSession session = request.getSession();
 			
-			result = es.deleteEmployee(id);
-			
-		}
-		response.setContentType("text/html; charset=utf-8");
-		response.setCharacterEncoding("utf-8");
-		PrintWriter pw = response.getWriter();
-		
-		if(result > 0) {
-			pw.println("<script>");
-			pw.println("alert('정상적으로 삭제 되었습니다.')");
-			pw.println("location.href='/NHMP/list'");
-			pw.println("</script>");
+			session.setAttribute("loginEmployee", emp);
+			/*session.setAttribute("noList", noList);*/
+			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
 		}else {
 			
-			pw.println("<script >");
-			pw.println("alert('삭제가 되지 않았습니다 다시 확인하세요.')");
-			pw.println("history.back()");
-			pw.println("</script>");
+			view = request.getRequestDispatcher("views/common/error.jsp");
+			
+			request.setAttribute("message", "로그인정보 불일치");
+			
+			view.forward(request, response);
 			
 		}
 	}
