@@ -39,7 +39,6 @@ public class PatientDeleteServlet extends HttpServlet {
 		String renameFileName = request.getParameter("rfile");
 		
 		//3.
-		int result = new PatientService().deletePatient(patNum);
 		
 		//아직 구현 안됨
 		

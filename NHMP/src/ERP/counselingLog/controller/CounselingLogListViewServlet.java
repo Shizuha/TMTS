@@ -1,6 +1,7 @@
 package ERP.counselingLog.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,16 +14,16 @@ import ERP.counselingLog.model.service.CounselingLogService;
 import ERP.counselingLog.model.vo.CounselingLog;
 
 /**
- * Servlet implementation class CounselingLogDetailViewServlet
+ * Servlet implementation class CounselingLogListViewServlet
  */
-@WebServlet("/counseldetail")
-public class CounselingLogDetailViewServlet extends HttpServlet {
+@WebServlet("/counsellist")
+public class CounselingLogListViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CounselingLogDetailViewServlet() {
+    public CounselingLogListViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +32,19 @@ public class CounselingLogDetailViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 전송 온 상담일지 번호에 대한 상세보기 처리용 컨트롤러
+		//상담일지 전체 조회 처리용 컨트롤러
+		request.setCharacterEncoding("utf-8");
 		
-		int clNo = Integer.parseInt(request.getParameter("cl_no"));
-		
-		CounselingLogService clservice = new CounselingLogService();
-		clservice.selectOne(clNo);
-		CounselingLog counselingLog = clservice.selectOne(clNo);
+		ArrayList<CounselingLog> list = new CounselingLogService().selectAll();
 		
 		RequestDispatcher view = null;
-		if(counselingLog != null) {
-			view = request.getRequestDispatcher("views/ERP/counselingLog/CounselingLogSelectOne.jsp");
-			request.setAttribute("counselingLog", counselingLog);
+		if(list.size() > 0) {
+			view = request.getRequestDispatcher("views/ERP/counselingLog/CounselingLogListView.jsp");
+			request.setAttribute("list", list);
 			view.forward(request, response);
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", clNo + "번 상담일지 상세조회 실패!");
+			request.setAttribute("message", "상담일지 전체조회 실패!");
 			view.forward(request, response);
 		}
 	}

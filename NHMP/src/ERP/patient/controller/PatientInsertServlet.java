@@ -32,10 +32,8 @@ public class PatientInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 환자 등록 처리용 컨트롤러
-		//1. 한글 있으면 인코딩 처리
 		request.setCharacterEncoding("utf-8");
 		
-		//2. 전송온 값 꺼내서 변수에 담기
 		Patient pat = new Patient();
 		
 		pat.setPatNo(request.getParameter("pat_num"));
@@ -56,7 +54,7 @@ public class PatientInsertServlet extends HttpServlet {
 			response.sendRedirect("views/ERP/main.jsp");
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "환자등록 실패!");
+			request.setAttribute("message", "환자 등록 실패!");
 			view.forward(request, response);
 		}
 		
