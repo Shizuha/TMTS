@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.Allowance.model.service.AllowanceService;
 import ERP.Allowance.model.vo.Allowance;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class AllowanceInsertServlet
@@ -34,7 +35,7 @@ public class AllowanceInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 수당 등록용 컨트롤러
 		request.setCharacterEncoding("utf-8");
-		
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
 		Allowance awna = new Allowance();
 		
 		awna.setALLOWANCE_CODE(request.getParameter("Acode"));
@@ -46,7 +47,7 @@ public class AllowanceInsertServlet extends HttpServlet {
 		int result = new AllowanceService().insertAllowance(awna);
 		RequestDispatcher view = null;
 		if(result > 0 ) {
-			ArrayList<Allowance> list = new AllowanceService().selectList();
+			ArrayList<Allowance> list = new AllowanceService().selectList(loginHospital);
 			view = request.getRequestDispatcher("views/ERP/Allowance/Allowance.jsp");
 			request.setAttribute("list", list);
 		}else {

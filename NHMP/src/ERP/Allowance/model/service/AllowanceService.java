@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import ERP.Allowance.model.dao.AllowanceDao;
 import ERP.Allowance.model.vo.Allowance;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 public class AllowanceService {
 	private AllowanceDao ADao = new AllowanceDao();
@@ -17,8 +18,10 @@ public class AllowanceService {
 		return null;
 	}
 
-	public ArrayList<Allowance> selectList() {
-		Connection conn = getConnection();
+	public ArrayList<Allowance> selectList(NursingHospital loginHospital) {
+		String userid = loginHospital.getNH_USERID();
+		String userpwd = loginHospital.getNH_USERPWD();
+		Connection conn = getConnection(userid, userpwd);
 		ArrayList<Allowance> list = ADao.selectList(conn);
 		close(conn);
 		return list;

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.Cauthority.model.service.CauthorityService;
 import ERP.Cauthority.model.vo.Cauthority;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class CauthorityListServlet
@@ -33,8 +34,8 @@ public class CauthorityListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 권한 전체 목록 조회 컨트롤러
-		System.out.println("서블린연결완료");
-		ArrayList<Cauthority> list = new CauthorityService().selectList();
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		ArrayList<Cauthority> list = new CauthorityService().selectList(loginHospital);
 		
 		RequestDispatcher view = null;
 		

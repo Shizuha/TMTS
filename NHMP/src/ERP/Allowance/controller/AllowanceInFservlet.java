@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.Allowance.model.service.AllowanceService;
 import ERP.Allowance.model.vo.Allowance;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class AllowanceInFservlet
@@ -35,7 +36,8 @@ public class AllowanceInFservlet extends HttpServlet {
 		// 수당 수식 처리용 컨트롤러
 		String Bnum = request.getParameter("Bnum");
 		System.out.println(Bnum);
-		ArrayList<Allowance> list = new AllowanceService().selectList();
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		ArrayList<Allowance> list = new AllowanceService().selectList(loginHospital);
 		RequestDispatcher view = null;
 		if(list.size() > 0) {
 			view = request.getRequestDispatcher("views/ERP/Allowance/insertFormulaA.jsp");

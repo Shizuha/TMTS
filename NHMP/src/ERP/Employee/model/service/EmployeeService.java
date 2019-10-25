@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import ERP.Employee.model.dao.EmployeeDao;
 import ERP.Employee.model.vo.Employee;
+import Main.NursingHospital.model.ov.NursingHospital;
 public class EmployeeService {
 	
 	private EmployeeDao eDao = new EmployeeDao();
@@ -39,9 +40,11 @@ public class EmployeeService {
 		close(conn);
 		return memList;
 	}
-	public ArrayList<Employee> selectAll() {
-		
-		Connection conn = getConnection();
+	//승민이가 손대쑵니다 죄송합니다 ㅠ
+	public ArrayList<Employee> selectAll(NursingHospital loginHospital) {
+		String userid = loginHospital.getNH_USERID();
+		String userpwd = loginHospital.getNH_USERPWD();
+		Connection conn = getConnection(userid, userpwd);
 		ArrayList<Employee> memList = eDao.selectAll(conn);
 		
 		close(conn);
@@ -142,8 +145,10 @@ public class EmployeeService {
 		return empName;
 	}
 
-	public Employee selectIDOne(String empid) {
-		Connection conn = getConnection();
+	public Employee selectIDOne(String empid, NursingHospital loginHospital) {
+		String userid = loginHospital.getNH_USERID();
+		String userpwd = loginHospital.getNH_USERPWD();
+		Connection conn = getConnection(userid, userpwd);
 		Employee emp = eDao.selectEmpId(conn, empid);
 		close(conn);
 		return emp;

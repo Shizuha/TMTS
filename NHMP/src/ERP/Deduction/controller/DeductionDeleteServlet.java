@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ERP.Deduction.model.service.DeductionService;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class DeductionDeleteServlet
@@ -31,10 +32,11 @@ public class DeductionDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 공제 삭제 컨트롤러
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
 		String code = request.getParameter("code");
 		System.out.println(code);
 		if(!code.equals("gong1") && !code.equals("gong2") && !code.equals("gong3") && !code.equals("gong4")) {
-			int reuslt = new DeductionService().deleteDeduction(code);
+			int reuslt = new DeductionService().deleteDeduction(code, loginHospital);
 		}else {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();

@@ -35,8 +35,9 @@ public class AuthorityManagerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 권한 적용 컨트롤러
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
 		ArrayList<NursingHospital> list = new NHService().selectList();
-		ArrayList<Cauthority> Alist = new CauthorityService().selectList();
+		ArrayList<Cauthority> Alist = new CauthorityService().selectList(loginHospital);
 		
 		RequestDispatcher view = null;
 		System.out.println(Alist);

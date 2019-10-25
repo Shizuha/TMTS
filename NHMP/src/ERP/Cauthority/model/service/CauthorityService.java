@@ -7,12 +7,15 @@ import java.util.ArrayList;
 
 import ERP.Cauthority.model.dao.CauthorityDao;
 import ERP.Cauthority.model.vo.Cauthority;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 public class CauthorityService {
 	private CauthorityDao CADao = new CauthorityDao();
 
-	public ArrayList<Cauthority> selectList() {
-		Connection conn = getConnection();
+	public ArrayList<Cauthority> selectList(NursingHospital loginHospital) {
+		String userid = loginHospital.getNH_USERID();
+		String userpwd = loginHospital.getNH_USERPWD();
+		Connection conn = getConnection(userid, userpwd);
 		ArrayList<Cauthority> list = CADao.selectList(conn);
 		close(conn);
 		return list;
