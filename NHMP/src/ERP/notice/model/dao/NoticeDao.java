@@ -260,6 +260,134 @@ public class NoticeDao {
 			
 			return result;
 		}
+		
+		//글 삭제 dao
+		public int deleteNotice(Connection conn, int noticeNo) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String query = "delete from notice where notice_no = ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, noticeNo);
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}		
+			
+			return result;
+		}
+		
+		//제목 검색 dao
+		public ArrayList<Notice> selectTitleSearch(Connection conn, String keyword) {
+			ArrayList<Notice> list = new ArrayList<Notice>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String query = "select * from notice where notice_title like ? order by notice_no desc";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, "%" + keyword + "%");
+				
+				rset = pstmt.executeQuery();
+				
+				//while문으로 객체 옮겨 담기
+				while(rset.next()) {
+					Notice notice = new Notice();
+					
+					notice.setNoticeNo(rset.getInt("notice_no"));
+					notice.setNoticeTitle(rset.getString("notice_title"));
+					notice.setNoticeWriter(rset.getString("notice_writer"));
+					notice.setNoticeDate(rset.getDate("notice_date"));
+					
+					list.add(notice);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return list;
+		}
+		
+		//작성자로 검색
+		public ArrayList<Notice> selectWriterSearch(Connection conn, String keyword) {
+			ArrayList<Notice> list = new ArrayList<Notice>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String query = "select * from notice where notice_writer like ? order by notice_no desc";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, "%" + keyword + "%");
+				
+				rset = pstmt.executeQuery();
+				
+				//while문으로 객체 옮겨 담기
+				while (rset.next()) {
+					Notice notice = new Notice();
+					
+					notice.setNoticeNo(rset.getInt("notice_no"));
+					notice.setNoticeTitle(rset.getString("notice_title"));
+					notice.setNoticeWriter(rset.getString("notice_writer"));
+					notice.setNoticeDate(rset.getDate("notice_date"));
+					
+					list.add(notice);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
+
+		public ArrayList<Notice> selectDateSearch(Connection conn, Date from, Date to) {
+			ArrayList<Notice> list = new ArrayList<Notice>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String query = "select * from notice where notice_date between ? and ? order by notice_no desc";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setDate(1, from);
+				pstmt.setDate(2, to);
+				
+				rset = pstmt.executeQuery();
+				
+				while (rset.next()) {
+					Notice notice = new Notice();
+					
+					notice.setNoticeNo(rset.getInt("notice_no"));
+					notice.setNoticeTitle(rset.getString("notice_title"));
+					notice.setNoticeWriter(rset.getString("notice_writer"));
+					notice.setNoticeDate(rset.getDate("notice_date"));
+					
+					list.add(notice);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return list;
+		}
 }
 
 
