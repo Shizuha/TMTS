@@ -6,6 +6,7 @@
 
 <%
 	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
+	int currentPage = (Integer)request.getAttribute("currentPage");
 %>
 
 <%@ page import="ERP.notice.model.vo.Notice, java.util.ArrayList" %>
@@ -473,6 +474,8 @@
 	<tr><th>등록날짜</th><td colspan="3"><%= notice.getNoticeDate() %></td></tr>
 	<tr><th>내용</th><td colspan="3"><%= notice.getNoticeContent() %></td></tr>
 	<tr><th colspan="4"><a href="/NHMP/nlist.ad">목록으로 이동</a></th></tr>
+	<tr><th colspan="4"><a href="/NHMP/nupview?no=<%=notice.getNoticeNo()%>&page=<%=currentPage%>">수정페이지로 이동</a></th></tr>
+	<tr><th colspan="4"><a href="/NHMP/ndel.ad?no=<%= notice.getNoticeNo() %>">삭제하기</a></th></tr>
 	</table>
 	
 

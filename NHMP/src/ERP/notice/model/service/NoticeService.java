@@ -81,6 +81,50 @@ public class NoticeService {
 		close(conn);
 		return list;
 	}
+
+	public int updateNotice(Notice notice) {
+		Connection conn = getConnection();
+		int result = ndao.updateNotice(conn, notice);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int deleteNotice(int noticeNo) {
+		Connection conn = getConnection();
+		int result = ndao.deleteNotice(conn, noticeNo);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public ArrayList<Notice> selectTitleSearch(String keyword) {
+		Connection conn = getConnection();
+		ArrayList<Notice> list = ndao.selectTitleSearch(conn, keyword);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Notice> selectWriterSearch(String keyword) {
+		Connection conn = getConnection();
+		ArrayList<Notice> list = ndao.selectWriterSearch(conn, keyword);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Notice> selectDateSearch(Date from, Date to) {
+		Connection conn = getConnection();
+		ArrayList<Notice> list = ndao.selectDateSearch(conn, from, to);
+		close(conn);
+		return list;
+	}
 	
 	
 	

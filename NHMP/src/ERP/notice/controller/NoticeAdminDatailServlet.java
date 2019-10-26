@@ -33,7 +33,7 @@ public class NoticeAdminDatailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 공지글 상세보기 처리용 컨트롤러
 				int noticeNo = Integer.parseInt(request.getParameter("no"));
-				
+				int currentPage = Integer.parseInt(request.getParameter("page"));
 				
 				
 				//1증가된 조회수 셀렉트
@@ -46,7 +46,7 @@ public class NoticeAdminDatailServlet extends HttpServlet {
 				if (notice != null) {
 					view = request.getRequestDispatcher("views/ERP/Notice/ErpAdminNoticeDetailView.jsp");
 					request.setAttribute("notice", notice);
-					request.setAttribute("noticeno", noticeNo);
+					request.setAttribute("currentPage", currentPage);//추가
 					
 					
 				}else {
