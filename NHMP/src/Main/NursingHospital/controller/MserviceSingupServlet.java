@@ -45,6 +45,10 @@ public class MserviceSingupServlet extends HttpServlet {
 		System.out.println("result : " + result);
 		//계정생성
 		new NHService().newuser(loginHospital);
+		//샘플 스크립트 생성
+		new NHService().sample(loginHospital);
+		
+		
 		
 		if(result > 0 ) {
 			HttpSession session = request.getSession(false);
