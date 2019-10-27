@@ -1,10 +1,13 @@
+<%@page import="Main.Qna.model.vo.Qna"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="Main.Cnotice.model.vo.Cnotice,
-				Main.NursingHospital.model.ov.NursingHospital" 
+<%@ page import="Main.Comment.model.vo.Comment,
+				Main.NursingHospital.model.ov.NursingHospital,
+				java.util.ArrayList" 
 %>
 <%
-	Cnotice notice = (Cnotice)request.getAttribute("notice");
+	ArrayList<Comment> list = (ArrayList<Comment>) request.getAttribute("list");
+	Qna q = (Qna)request.getAttribute("qna");
 	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
 %>
 <!DOCTYPE html>
@@ -240,51 +243,108 @@
 <title>공지사항 자세히 보기</title>
 </head>
 <body>
-<% if(loginHospital != null && loginHospital.getAUTHORITY_CODE().equals("G1")){ %>
+
+<!-- 여기는 글작성자가 글을 보는 경우  -->
+<% if(loginHospital != null && loginHospital.getNH_NAME().equals(q.getNH_NAME()) ){ %>
 <div class="card border-primary mb-3" style="max-width: 45rem; text-align: center;  position: center; top:30%; left:30%;">
-  <div class="card-header"><%= notice.getNOTICE_NO() %>번 공지사항</div>
+  <div class="card-header"><%= q.getQNA_NO() %>번 QNA 글</div>
   <div class="card-body">
- 	<form action="/NHMP/gongup" method="post">
-    <h4 class="card-title"><input type="text" name="title" value="<%= notice.getNOTICE_TITLE() %>">
-    <input type="hidden" name="noticeno" value="<%= notice.getNOTICE_NO() %>">
+ 	<form action="/NHMP/oupqna" method="post">
+    <h4 class="card-title"><input type="text" name="title" value="<%= q.getQNA_TITLE() %>">
+    <input type="hidden" name="qnano" value="<%= q.getQNA_NO() %>">
     </h4>
-    <table class="card-text">
-    <tr><th>작성자</th><td><input type="text" name="writer" value="<%= notice.getNH_NAME() %>" readonly></td></tr>
+    <table class="card-text" border=1;>
+    <tr><th>작성자</th><td><input type="text" name="writer" value="<%= q.getNH_NAME() %>" readonly></td></tr>
     <tr><th>카테고리</th><td>
 	<select name="category">
-	<option value="이벤트">이벤트</option>
-	<option value="정기점검">정기점검</option>
-	<option value="긴급점검">긴급점검</option>
-	<option value="임시점검">임시점검</option>
-	<option value="알림">알림</option>
+	<option value="이용관련">이용관련</option>
+	<option value="서비스관련">서비스관련</option>
+	<option value="결제관련">결제관련</option>
+	<option value="기타">기타</option>
 	</select>
 	</td></tr>
-	<tr><th>등록날짜</th><td><input type="date" name="date" value="<%= notice.getNOTICE_DATE() %>"></td></tr>
-	<tr><th>내용</th><td><textarea name="content" cols="70" rows="5"><%= notice.getNOTICE_CONTENT() %></textarea></td></tr>
-	<tr><th><a href="/NHMP/gongall">목록으로 이동</a>
+	<tr><th>등록날짜</th><td><input type="date" name="date" value="<%= q.getQNA_DATE() %>"></td></tr>
+	<tr><th>내용</th><td><textarea name="content" cols="70" rows="5"><%= q.getQNA_CONTENT() %></textarea></td></tr>
+	<tr><th><a href="/NHMP/allqna">목록으로 이동</a>
 		<input type="submit" value="수정하기">
 		<input type="reset" value="취소">
-		<a href="/NHMP/gongdel?no=<%= notice.getNOTICE_NO() %>">삭제하기</a>
+		<a href="/NHMP/odelqna?no=<%= q.getQNA_NO() %>">삭제하기</a>
 	</th></tr>
     </table>
     </form>
   </div>
 </div>
+<!-- 작성자가 아닌 다른사람이 글을 보는 경우 ? -->
 <% }else{ %>
 <div class="card border-primary mb-3" style="max-width: 45rem; text-align: center;  position: center; top:30%; left:30%;">
-  <div class="card-header"><%= notice.getNOTICE_NO() %>번 공지사항</div>
+  <div class="card-header"><%= q.getQNA_NO() %>번 공지사항</div>
   <div class="card-body">
-    <h4 class="card-title"><%= notice.getNOTICE_TITLE() %></h4>
-    <table class="card-text">
-    <tr><th>제목</th><td><%= notice.getNOTICE_TITLE() %></td></tr>
-    <tr><th>작성자</th><td><%= notice.getNH_NAME() %></td></tr>
-    <tr><th>카테고리</th><td><%= notice.getNOTICE_TYPE() %></td></tr>
-	<tr><th>등록날짜</th><td><%= notice.getNOTICE_DATE() %></td></tr>
-	<tr><th>내용</th><td><%= notice.getNOTICE_CONTENT() %></td></tr>
-	<tr><th><a href="/NHMP/gongall">목록으로 이동</a></th></tr>
+    <h4 class="card-title"><%= q.getQNA_TITLE() %></h4>
+    <table class="card-text" style="text-align: center;">
+    <tr><th>제목</th><td><%= q.getQNA_TITLE() %></td></tr>
+    <tr><th>작성자</th><td><%= q.getNH_NAME() %></td></tr>
+    <tr><th>카테고리</th><td><%= q.getQNA_TYPE() %></td></tr>
+	<tr><th>등록날짜</th><td><%= q.getQNA_DATE() %></td></tr>
+	<tr><th>내용</th><td><%= q.getQNA_CONTENT() %></td></tr>
+	<tr><th><a href="/NHMP/detailqna">목록으로 이동</a></th></tr>
     </table>
   </div>
-</div>
+  <hr>
+  <form action="/NHMP/dinqna" method="post">
+  <table>
 <%} %>
+  <% if(loginHospital.getCOMPANY_NAME().equals("TMTS") && list.isEmpty()){ %>
+	<tr>
+		<th>내용</th>
+		<td>
+			<textarea name="comments" cols="70" rows="5"></textarea>
+			<input type="hidden" name="qnano" value="<%= q.getQNA_NO() %>">
+			<input type="hidden" name="writer" value="<%= loginHospital.getNH_NAME() %>">
+			<input type="submit" value="등록하기" style="position: absolute;">
+			<input type="reset" value="취소">
+		</td>
+	</tr>
+</table>
+  <% } %>
+ </form> 
+  <% if(!list.isEmpty()) {%>
+  <form action="/NHMP/dupqna" method="post">
+	<table class="qna-comment-table">
+	<tbody>
+	<%for(Comment cv : list){ %>
+		<tr>
+			<th width="10%">
+			<input type="hidden" name="commqnano" value="<%= q.getQNA_NO() %>">
+			<input type="hidden" name="commno" value="<%= cv.getCOMMENT_NO() %>">
+			<input type="hidden" name="commname"value="<%= loginHospital.getNH_NAME() %>"><%= loginHospital.getNH_NAME() %></th>
+			<td><textarea name="commetc" cols="70" rows="2"><%=cv.getCOMMENT_ETC() %></textarea></td>
+			<td width="15%"> <input type="submit" value="수정하기"><br>
+			<!-- A 태그 안에는 가져가야할 값을 적어줘야한다. -->
+			<a href="/NHMP/ddelqna?no=<%= cv.getCOMMENT_NO() %>&qnano=<%=q.getQNA_NO()%>">삭제</a></td>
+		</tr>
+		<%} %>
+	</tbody>
+</table>
+</form>
+<%}%>
+</div>
+<style>
+	.qna-comment-wrap{
+		width: 800px;
+		margin: auto;
+	}
+	.qna-comment-table{
+		width: 700px;
+		margin: auto;
+	}
+	.qna-comment-table,
+	.qna-comment-table td,
+	.qna-comment-table th{
+		border: 1px solid black;
+		border-collapse: collapse;
+	}	
+	
+</style>
+<!-- 댓글 영역 -->
 </body>
 </html>

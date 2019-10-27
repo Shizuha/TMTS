@@ -1,6 +1,7 @@
-package Main.Qna.controller;
+package Main.Comment.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,21 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Main.Cnotice.model.service.CnoticeService;
-import Main.Qna.model.service.QnaService;
+import Main.Cnotice.model.vo.Cnotice;
+import Main.Comment.model.service.CommentService;
+import Main.Comment.model.vo.Comment;
 import Main.Qna.model.vo.Qna;
 
 /**
- * Servlet implementation class QnaDeleteServlet
+ * Servlet implementation class CommentListServlet
  */
-@WebServlet("/odelqna")
-public class QnaDeleteServlet extends HttpServlet {
+@WebServlet("/comlist")
+public class CommentListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaDeleteServlet() {
+    public CommentListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,18 +34,23 @@ public class QnaDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Qna 삭제용 컨트롤러
-		request.setCharacterEncoding("UTF-8");
-		int qnano = Integer.parseInt(request.getParameter("no"));
+		Qna q = (Qna)request.getSession().getAttribute("qna");
 		
-		int result = new QnaService().deleteQna(qnano);
-		if(result > 0) {
-			response.sendRedirect("/NHMP/allqna");
+		int qnano = Integer.parseInt(request.getParameter(String.valueOf(q.getQNA_NO())));
+		ArrayList<Comment> list = new CommentService().selectList(qnano);
+		
+
+		RequestDispatcher view = null;
+		
+		if (list.size() > 0) {
+			view = request.getRequestDispatcher("views/Main/detailqna?no=" + q.getQNA_NO());
+			request.setAttribute("list", list);
 		} else {
-			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", qnano + "번 공지글 삭제 실패!");
-			view.forward(request, response);
+			view = request.getRequestDispatcher("views/common/Error.jsp");
+			request.setAttribute("message", "공지사항 목록 조회 실패했습니다.");
 		}
+			view.forward(request, response);
+		
 	}
 
 	/**
