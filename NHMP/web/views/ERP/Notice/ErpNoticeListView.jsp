@@ -11,6 +11,8 @@
 <%@ page import="ERP.notice.model.vo.Notice, java.util.ArrayList" %>
 <% //스크립트릿(scriptlet) 태그라고 함
 	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+%>
+<%
 	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
 	int beginPage = ((Integer)request.getAttribute("beginPage")).intValue();
 	int endPage = ((Integer)request.getAttribute("endPage")).intValue();
