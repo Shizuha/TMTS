@@ -1,10 +1,15 @@
 package ERP.Ward.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static common.JDBCTemplate.close;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import ERP.Ward.model.vo.Ward;
 
 public class WardDao {
 	
@@ -35,5 +40,38 @@ public class WardDao {
 		}
 		
 		return wardName;
+	}
+
+	public ArrayList<Ward> selectAll(Connection conn) {
+		ArrayList<Ward> wList = new ArrayList<Ward>();
+		Ward ward = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		String query = "select * from ward";
+		
+		try {
+			stmt = conn.createStatement();
+			
+			
+			rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				ward = new Ward();
+				ward.setWardCode(rs.getString("ward_code"));
+				ward.setWardName(rs.getString("ward_name"));
+				
+				wList.add(ward);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(stmt);
+		}
+		
+		return wList;
 	}
 }

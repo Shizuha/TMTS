@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="ERP.Department.model.vo.Department,ERP.Team.model.vo.Team, ERP.Employee.model.vo.Employee, ERP.Ward.model.vo.Ward
+				,ERP.Position.model.vo.Position, java.util.ArrayList" %>
+<%
+ArrayList<Employee> mList = (ArrayList<Employee>)request.getAttribute("mList");
+ArrayList<Department> dList = (ArrayList<Department>)request.getAttribute("dList");
+/* ArrayList<Team> tList = (ArrayList<Team>)request.getAttribute("tList");
+ArrayList<Ward> wList = (ArrayList<Ward>)request.getAttribute("wList");
+ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); */
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,12 +34,116 @@
 <!-- 폰트 링크 추후 확인후 삭제 -->
 <link href="/NHMP/resources/ERP/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
+	<!-- 트리뷰 린크 -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+  <link href="/NHMP/resources/ERP/css/file-explore.css" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
+ <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> 
+<script src="/NHMP/resources/ERP/js/file-explore.js"></script> 
+<script>
+	$(document).ready(function() {
+            $(".file-tree1").filetree();
+				 });
+</script>
+<script type="text/javascript">
+					
+		var _gaq = _gaq || [];
+		 _gaq.push(['_setAccount', 'UA-36251023-1']);
+		 _gaq.push(['_setDomainName', 'jqueryscript.net']);
+		_gaq.push(['_trackPageview']);
+					
+		(function() {
+		  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+					    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		 })();
+					
+</script>
+<style type="text/css">
+
+.organMain{
+	
+	margin:50px;
+	background:white;
+	border-radius:5px;
+	display:inline-block;
+	padding:20px;
+	overflow:auto;
+	
+}
+.organHeader{
+	width:100%;
+	display:inline-block;
+		
+}
+ .organHeader-left{
+	width:450px;
+	float:left;
+	
+	
+}
+.organHeader-right{
+	
+	display:inline-block;
+	float:right;
+}
+h3{
+	margin: 0px 0px 0px 0px;	
+}
+.h3{
+	float:left;
+	margin:0px 350px 0px 0px;
+} 
+.dept{
+	
+	border:1px solid gray;
+	width:100%;
+	height:470px;
+	padding:5px;
+	
+	
+}
+
+.dept-left{
+	border: 1px solid gray;
+	float:left;
+	width:430px;
+	padding:10px;
+	height:460px;
+	overflow:auto;
+}
+.dept-right{
+	border: 1px solid gray;
+	float:right;
+	width:550px;
+	height:460px;
+	padding:10px;
+}
+ input[type="checkbox"]:checked~ul {
+        display:none;
+        transition:1.5s;
+    }  
+ input[type="checkbox"]{
+        display:none;
+    } 
+ul {
+	list-style:none;
+}
+.dept li{
+	margin-left:20px;
+	width:80px
+}
+.organ{
+	border-radius:3px;
+	padding:20px;
+	border:1px solid gray;
+}
+</style>
 </head>
 <body>
 <!--*******************
@@ -339,7 +452,102 @@
           	컨텐츠 바디
         ***********************************-->
 		<div class="content-body">
-			
+			<div class="organMain">
+			<div class="organHeader">
+				<div class="organHeader-left">
+					<h3>부서정보</h3>
+				</div>
+				<div class="organHeader-right">
+					<h3 class="h3">기본정보</h3>
+						<button class="organ-Button">신규</button>
+						<button class="organ-Button">저장</button>
+						<button class="organ-Button">삭제</button>
+				</div>
+			</div>
+				<div class="dept">
+					<div class="dept-left">
+						<div class="organ">
+						<ul class="file-tree1">
+					    <li><a href="#">간호과</a>
+					      <ul>
+					        <li><a href="#">New York</a>
+					          <ul>
+					            <li><a href="#">Corporation</a>
+					              <ul>
+					                <li> <a href="#link5">Link 5</a> </li>
+					                <li> <a href="#link6">Link 6</a> </li>
+					                <li> <a href="#link7">Link 7</a> </li>
+					                <li> <a href="#link8">Link 8</a> </li>
+					                <li> <a href="#">Deeper</a>
+					                  <ul>
+					                    <li><a href="#">Link 1</a> </li>
+					                    <li><a href="#">Link 2</a> </li>
+					                    <li><a href="#">Link 3</a> </li>
+					                    <li><a href="#">Link 4</a> </li>
+					                  </ul>
+					                </li>
+					              </ul>
+					            </li>
+					            <li><a href="#">LLC</a>
+					              <ul>
+					                <li> <a href="#link5">Link 5</a> </li>
+					                <li> <a href="#link6">Link 6</a> </li>
+					                <li> <a href="#link7">Link 7</a> </li>
+					                <li> <a href="#link8">Link 8</a> </li>
+					                <li> <a href="#">Deeper</a>
+					                  <ul>
+					                    <li><a href="#">Link 1</a> </li>
+					                    <li><a href="#">Link 2</a> </li>
+					                    <li><a href="#">Link 3</a> </li>
+					                    <li><a href="#">Link 4</a> </li>
+					                  </ul>
+					                </li>
+					              </ul>
+					            </li>
+					          </ul>
+					        </li>
+					        <li><a href="#link2">Link 2</a> </li>
+					        <li><a href="#link3">Link 3</a> </li>
+					        <li><a href="#link4">Link 4</a> </li>
+					      </ul>
+					    </li>
+					    <li><a href="#">Canada</a>
+					      <ul>
+					        <li><a href="#">Link 1</a> </li>
+					        <li><a href="#">Link 2</a> </li>
+					        <li><a href="#">Link 3</a> </li>
+					        <li><a href="#">Link 4</a> </li>
+					      </ul>
+					    </li>
+					  </ul>
+					  </div>
+					</div>
+					<div class="dept-right">
+					<table>
+						<tr>
+						<th>상위병원</th>
+						<td><input type="text"></td>
+						</tr>
+						<tr>
+						<th>부서</th>
+						<td><input type="text"></td>
+						</tr>
+						<tr>
+						<th>부서코드</th>
+						<td><input type="text"></td>
+						</tr>
+						<tr>
+						<th>부서명</th>
+						<td><input type="text"></td>
+						</tr>
+						<tr>
+						<th>병동</th>
+						<td><input type="text"></td>
+						</tr>
+					</table>
+					</div>
+				</div>
+			</div>
 			</div>
 			<!--**********************************
          	 컨텐츠바디 종료

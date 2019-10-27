@@ -45,10 +45,10 @@ public class EmployeeService {
 		String userid = loginHospital.getNH_USERID();
 		String userpwd = loginHospital.getNH_USERPWD();
 		Connection conn = getConnection(userid, userpwd);
-		ArrayList<Employee> memList = eDao.selectAll(conn);
+		ArrayList<Employee> empList = eDao.selectAll(conn);
 		
 		close(conn);
-		return memList;
+		return empList;
 	}
 	
 	public int updateEmployee(Employee emp) {
@@ -152,6 +152,14 @@ public class EmployeeService {
 		Employee emp = eDao.selectEmpId(conn, empid);
 		close(conn);
 		return emp;
+	}
+
+	public ArrayList<Employee> selectEmployeeList() {
+		Connection conn = getConnection();
+		ArrayList<Employee> empList = eDao.selectAll(conn);
+		
+		close(conn);
+		return empList;
 	}
 
 	
