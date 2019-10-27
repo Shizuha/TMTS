@@ -1,8 +1,11 @@
 package ERP.Ward.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import ERP.Ward.model.dao.WardDao;
+import ERP.Ward.model.vo.Ward;
+
 import static common.JDBCTemplate.*;
 public class WardService {
 	
@@ -17,5 +20,14 @@ public class WardService {
 		
 		close(conn);
 		return wardName;
+	}
+
+
+	public ArrayList<Ward> selectAll() {
+		Connection conn = getConnection();
+		ArrayList<Ward> wList = wDao.selectAll(conn);
+		close(conn);
+		
+		return wList;
 	}
 }

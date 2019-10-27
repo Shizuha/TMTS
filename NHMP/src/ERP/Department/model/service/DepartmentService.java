@@ -13,8 +13,10 @@ public class DepartmentService {
 	public DepartmentService() {}
 	
 public ArrayList<Department> selectAll() {
-	// TODO Auto-generated method stub
-	return null;
+	Connection conn = getConnection();
+	ArrayList<Department> dList = dDao.selectAll(conn);
+	close(conn);
+	return dList;
 }
 
 public String selectDeptName(String deptCode) {

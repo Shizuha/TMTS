@@ -1,9 +1,12 @@
 package ERP.Position.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+
 import static common.JDBCTemplate.close;
 import static common.JDBCTemplate.getConnection;
 import ERP.Position.model.dao.PositionDao;
+import ERP.Position.model.vo.Position;
 
 public class PositionService {
 private PositionDao pDao = new PositionDao();
@@ -16,5 +19,12 @@ private PositionDao pDao = new PositionDao();
 		
 		close(conn);
 		return posName;
+	}
+
+	public ArrayList<Position> selectAll() {
+		Connection conn = getConnection();
+		ArrayList<Position> pList = pDao.selectAll(conn);
+		close(conn);
+		return pList;
 	}
 }
