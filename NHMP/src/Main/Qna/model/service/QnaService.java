@@ -5,36 +5,71 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import Main.Cnotice.model.vo.Cnotice;
 import Main.Qna.model.dao.QnaDao;
 import Main.Qna.model.vo.Qna;
 
 public class QnaService {
 	private QnaDao QDao = new QnaDao();
 	
-	public Qna updateQna() {
+	public int updateQna(Qna q) {
 		Connection conn = getConnection();
-		QDao.updateQna();
-		return null;
+		int result = QDao.updateQna(conn, q);
+		if(result > 0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
-	public ArrayList<Qna> selectList() {
-		QDao.selectList();
-		return null;
+	public ArrayList<Qna> selectList(int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Qna> list = QDao.selectList(conn, startRow, endRow);
+		close(conn);
+		return list;
 	}
 
-	public Qna insertQna() {
-		QDao.insertQna();
-		return null;
+	public int insertQna(Qna q) {
+		Connection conn = getConnection();
+		int result = QDao.insertQna(conn, q);
+		if(result > 0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
-	public Qna detailQna() {
-		QDao.detailQna();
-		return null;
+	public Qna detailQna(int qnano) {
+		Connection conn = getConnection();
+		Qna q = QDao.detailQna(conn, qnano);
+		close(conn);
+		return q;
 	}
 
-	public Qna deleteQna() {
-		QDao.deleteQna();
-		return null;
+	public int deleteQna(int qnano) {
+		Connection conn = getConnection();
+		int result = QDao.deleteQna(conn, qnano);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public int getListCount() {
+		Connection conn = getConnection();
+		int listCount = QDao.getListCount(conn);
+		close(conn);
+		return listCount;
 	}
 
 }
