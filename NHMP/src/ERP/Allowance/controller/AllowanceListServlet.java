@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.Allowance.model.service.AllowanceService;
 import ERP.Allowance.model.vo.Allowance;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class AllowanceListServlet
@@ -33,7 +34,8 @@ public class AllowanceListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 수당 전체 조회용 컨트롤러
-		ArrayList<Allowance> list = new AllowanceService().selectList();
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		ArrayList<Allowance> list = new AllowanceService().selectList(loginHospital);
 		
 		RequestDispatcher view = null;
 		

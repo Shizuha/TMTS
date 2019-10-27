@@ -48,7 +48,7 @@ public class NHAuthorityUpdateServlet extends HttpServlet {
 		
 		RequestDispatcher view = null;
 		if(result > 0 ) {
-			ArrayList<Cauthority> Alist = new CauthorityService().selectList();
+			ArrayList<Cauthority> Alist = new CauthorityService().selectList(loginHospital);
 			ArrayList<NursingHospital> list = new NHService().selectList();
 			view = request.getRequestDispatcher("views/ERP/NH/CauthorityManager.jsp");
 			request.setAttribute("list", list);

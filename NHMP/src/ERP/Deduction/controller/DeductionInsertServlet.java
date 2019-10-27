@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.Deduction.model.service.DeductionService;
 import ERP.Deduction.model.vo.Deduction;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class DeductionInsertServlet
@@ -33,6 +34,7 @@ public class DeductionInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 공제 추가 컨트롤러
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
 		request.setCharacterEncoding("utf-8");
 		
 		Deduction deduction = new Deduction();
@@ -45,10 +47,10 @@ public class DeductionInsertServlet extends HttpServlet {
 		deduction.setDEDUCTION_ETC(request.getParameter("Detc"));
 		
 		System.out.println(deduction);
-		int result = new DeductionService().insertDeduction(deduction);
+		int result = new DeductionService().insertDeduction(deduction,loginHospital);
 		RequestDispatcher view = null;
 		if(result > 0) {
-			ArrayList<Deduction> list = new DeductionService().selectList();
+			ArrayList<Deduction> list = new DeductionService().selectList(loginHospital);
 			view = request.getRequestDispatcher("views/ERP/Deduction/Deduction.jsp");
 			request.setAttribute("list", list);
 			view.forward(request, response);

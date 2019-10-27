@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.Deduction.model.service.DeductionService;
 import ERP.Deduction.model.vo.Deduction;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class DeductionListServlet
@@ -33,7 +34,8 @@ public class DeductionListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 공제 전체 조회 컨트롤러
-		ArrayList<Deduction> list = new DeductionService().selectList();
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		ArrayList<Deduction> list = new DeductionService().selectList(loginHospital);
 		RequestDispatcher view = null;
 		
 		if(list.size() > 0) {

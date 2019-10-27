@@ -16,6 +16,7 @@ import ERP.Deduction.model.service.DeductionService;
 import ERP.Deduction.model.vo.Deduction;
 import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class PaysumListServlet
@@ -37,9 +38,11 @@ public class PaysumListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 급여 계산에 사용될 공제 및 수당 리스트 처리용 컨트롤러
-		ArrayList<Deduction> Dlist = new DeductionService().selectList();
-		ArrayList<Allowance> Alist = new AllowanceService().selectList();
-		ArrayList<Employee> Elist = new EmployeeService().selectAll();
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		System.out.println(loginHospital);
+		ArrayList<Deduction> Dlist = new DeductionService().selectList(loginHospital);
+		ArrayList<Allowance> Alist = new AllowanceService().selectList(loginHospital);
+		ArrayList<Employee> Elist = new EmployeeService().selectAll(loginHospital);
 		System.out.println(Elist);
 		RequestDispatcher view = null;
 		

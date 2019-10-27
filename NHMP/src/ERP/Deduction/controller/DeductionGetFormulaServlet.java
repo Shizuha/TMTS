@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.Deduction.model.service.DeductionService;
 import ERP.Deduction.model.vo.Deduction;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class DeductionGetFormulaServlet
@@ -32,10 +33,11 @@ public class DeductionGetFormulaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 급여 계산의 공제 수식 처리용 컨트롤러
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
 		String Dcode = request.getParameter("Dcode");
 		System.out.println(Dcode);
 		
-		String dformula = new DeductionService().selectFormula(Dcode);
+		String dformula = new DeductionService().selectFormula(Dcode, loginHospital);
 		
 		System.out.println(dformula);
 		
