@@ -1,15 +1,11 @@
 package ERP.medicienRecord.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import ERP.counselingLog.model.service.CounselingLogService;
-import ERP.counselingLog.model.vo.CounselingLog;
 
 /**
  * Servlet implementation class MedicienRecordDetailViewServlet
@@ -30,7 +26,8 @@ public class MedicienRecordDetailViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//투약일지 상세보기 처리용 컨트롤러
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

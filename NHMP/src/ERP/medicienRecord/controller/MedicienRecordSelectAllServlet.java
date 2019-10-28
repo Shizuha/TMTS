@@ -1,4 +1,4 @@
-package ERP.counselingLog.controller;
+package ERP.medicienRecord.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CounselingLogSearchServlet
+ * Servlet implementation class MedicienRecordSelectAllServlet
  */
-@WebServlet("/counselsearch")
-public class CounselingLogSearchServlet extends HttpServlet {
+@WebServlet("/recordall")
+public class MedicienRecordSelectAllServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CounselingLogSearchServlet() {
+    public MedicienRecordSelectAllServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,8 @@ public class CounselingLogSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 상담일지 검색 처리용 컨트롤러
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
