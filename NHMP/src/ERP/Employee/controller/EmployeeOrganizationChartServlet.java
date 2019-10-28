@@ -20,6 +20,7 @@ import ERP.Team.model.service.TeamService;
 import ERP.Team.model.vo.Team;
 import ERP.Ward.model.service.WardService;
 import ERP.Ward.model.vo.Ward;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class EmployeeOrganizationChartServlet
@@ -40,8 +41,22 @@ public class EmployeeOrganizationChartServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Employee> mList = new EmployeeService().selectEmployeeList();
-		ArrayList<Department> dList = new DepartmentService().selectAll();
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		System.out.println(emp);
+		System.out.println(loginHospital);
+		if(emp != null) {
+		
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
+		ArrayList<Employee> mList = new EmployeeService().selectEmployeeList(hostId, hostPwd);
+		ArrayList<Department> dList = new DepartmentService().selectAll(hostId, hostPwd);
 		/*ArrayList<Team> tList = new TeamService().selectAll();
 		ArrayList<Ward> wList = new WardService().selectAll();
 		ArrayList<Position> pList = new PositionService().selectAll();*/

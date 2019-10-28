@@ -15,8 +15,8 @@ private EducationDao eDao = new EducationDao();
 	public EducationService () {}
 
 
-	public int insertEdu(Education e) {
-		Connection conn = getConnection();
+	public int insertEdu(Education e, String hostId, String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		int result = eDao.insertEdu(conn, e);
 		if(result > 0) 
 			commit(conn);
@@ -26,16 +26,16 @@ private EducationDao eDao = new EducationDao();
 	}
 
 
-	public ArrayList<Education> selectList(String empId) {
-		Connection conn = getConnection();
+	public ArrayList<Education> selectList(String empId,String hostId, String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		ArrayList<Education> eduList = eDao.selectList(conn, empId);
 		close(conn);
 		return eduList;
 	}
 
 
-	public int updateEdu(Education e, String eduCode) {
-		Connection conn = getConnection();
+	public int updateEdu(Education e, String eduCode,String hostId, String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		int result = eDao.updateEdu(conn, e, eduCode);
 		if(result > 0) 
 			commit(conn);
@@ -45,8 +45,8 @@ private EducationDao eDao = new EducationDao();
 	}
 
 
-	public String[] selectEduCode(String empId, int length) {
-		Connection conn = getConnection();
+	public String[] selectEduCode(String empId, int length,String hostId, String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		String[] dCode = eDao. selectEduCode(conn, empId, length);
 		close(conn);
 		return dCode;

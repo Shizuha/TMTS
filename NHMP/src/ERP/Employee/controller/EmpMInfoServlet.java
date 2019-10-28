@@ -21,6 +21,7 @@ import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
 import ERP.Empsalary.model.service.EmpSalaryService;
 import ERP.Empsalary.model.vo.EmpSalary;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class EmpMInfoServlet
@@ -42,21 +43,34 @@ public class EmpMInfoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String empId = request.getParameter("empid");
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp1 = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		System.out.println(emp1);
+		System.out.println(loginHospital);
+		if(emp1 != null) {
 		
-		Employee emp = new EmployeeService().selectEmpId(empId);
-		System.out.println(emp);
-		EmpSalary empSal = new EmpSalaryService().selectOne(empId);
+		hostId = emp1.getHostId();
+		hostPwd = emp1.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
+		Employee emp = new EmployeeService().selectEmpId(empId,hostId, hostPwd);
+		
+		EmpSalary empSal = new EmpSalaryService().selectOne(empId,hostId, hostPwd);
 		System.out.println(empSal);
-		ArrayList<Dependents> dpenList = new DependentsService().selectOne(empId);
+		ArrayList<Dependents> dpenList = new DependentsService().selectOne(empId,hostId, hostPwd);
 		System.out.println(dpenList);
 		if(dpenList.size() == 0)
 			dpenList = null;
 			
-		ArrayList<Career> carList = new CareerService().selectList(empId);
+		ArrayList<Career> carList = new CareerService().selectList(empId,hostId, hostPwd);
 		if(carList.size() == 0)
 			carList = null;
 		
-		ArrayList<Education> eduList = new EducationService().selectList(empId);
+		ArrayList<Education> eduList = new EducationService().selectList(empId,hostId, hostPwd);
 		if(eduList.size() == 0)
 			eduList = null;
 		System.out.println(eduList);

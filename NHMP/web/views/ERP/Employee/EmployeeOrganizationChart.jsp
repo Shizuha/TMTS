@@ -21,34 +21,32 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
 	href="/NHMP/resources/ERP/images/common/favicon.png">
 <!-- Pignose Calender -->
 <link
-	href="/NHMP/resources/ERP/css/plugins/pg-calendar/css/pignose.calendar.min.css?after"
+	href="/NHMP/resources/ERP/css/plugins/pg-calendar/css/pignose.calendar.min.css"
 	rel="stylesheet">
 <!-- Chartist -->
 <link rel="stylesheet"
-	href="/NHMP/resources/ERP/css/plugins/chartist/css/chartist.min.css?after">
+	href="/NHMP/resources/ERP/css/plugins/chartist/css/chartist.min.css">
 <link rel="stylesheet"
-	href="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css?after">
+	href="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
 <!-- 메인 css 링크 -->
 <link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
 <link href="/NHMP/resources/ERP/css/insertEmployee.css" rel="stylesheet">
+<link href="/NHMP/resources/ERP/css/EmployeeOrganizationChart.css">
 <!-- 폰트 링크 추후 확인후 삭제 -->
 <link href="/NHMP/resources/ERP/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<!-- 트리뷰 린크 -->
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<!-- 트리뷰 링크 -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
   <link href="/NHMP/resources/ERP/css/file-explore.css" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> 
 <script src="/NHMP/resources/ERP/js/file-explore.js"></script> 
-<script>
-	$(document).ready(function() {
-            $(".file-tree1").filetree();
-				 });
+<script type="text/javascript">
+$(document).ready(function() {
+	
+     $(".file-tree").filetree();
+
+ });
 </script>
 <script type="text/javascript">
 					
@@ -66,83 +64,7 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
 </script>
 <style type="text/css">
 
-.organMain{
-	
-	margin:50px;
-	background:white;
-	border-radius:5px;
-	display:inline-block;
-	padding:20px;
-	overflow:auto;
-	
-}
-.organHeader{
-	width:100%;
-	display:inline-block;
-		
-}
- .organHeader-left{
-	width:450px;
-	float:left;
-	
-	
-}
-.organHeader-right{
-	
-	display:inline-block;
-	float:right;
-}
-h3{
-	margin: 0px 0px 0px 0px;	
-}
-.h3{
-	float:left;
-	margin:0px 350px 0px 0px;
-} 
-.dept{
-	
-	border:1px solid gray;
-	width:100%;
-	height:470px;
-	padding:5px;
-	
-	
-}
 
-.dept-left{
-	border: 1px solid gray;
-	float:left;
-	width:430px;
-	padding:10px;
-	height:460px;
-	overflow:auto;
-}
-.dept-right{
-	border: 1px solid gray;
-	float:right;
-	width:550px;
-	height:460px;
-	padding:10px;
-}
- input[type="checkbox"]:checked~ul {
-        display:none;
-        transition:1.5s;
-    }  
- input[type="checkbox"]{
-        display:none;
-    } 
-ul {
-	list-style:none;
-}
-.dept li{
-	margin-left:20px;
-	width:80px
-}
-.organ{
-	border-radius:3px;
-	padding:20px;
-	border:1px solid gray;
-}
 </style>
 </head>
 <body>
@@ -467,7 +389,7 @@ ul {
 				<div class="dept">
 					<div class="dept-left">
 						<div class="organ">
-						<ul class="file-tree1">
+						<ul class="file-tree">
 					    <li><a href="#">간호과</a>
 					      <ul>
 					        <li><a href="#">New York</a>

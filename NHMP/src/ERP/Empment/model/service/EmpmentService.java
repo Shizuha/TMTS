@@ -13,8 +13,8 @@ public class EmpmentService {
 	public EmpmentService () {}
 
 
-	public String selectEmpmentName(String empmentCode) {
-		Connection conn = getConnection();
+	public String selectEmpmentName(String empmentCode,String hostId, String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		String empmentName = emDao.selectEmpId(conn, empmentCode);
 		close(conn);
 		return empmentName;

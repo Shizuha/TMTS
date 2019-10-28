@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class EmployeeSearchServlet
@@ -42,6 +43,20 @@ public class EmployeeSearchServlet extends HttpServlet {
 		 
 		String empName = request.getParameter("empname");
 		String deptName = request.getParameter("dept");
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp1 = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		System.out.println(emp1);
+		System.out.println(loginHospital);
+		if(emp1 != null) {
+		
+		hostId = emp1.getHostId();
+		hostPwd = emp1.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
 		System.out.println(empName + "," + deptName);
 		ArrayList<Employee> empList = null;
 		
@@ -51,12 +66,12 @@ public class EmployeeSearchServlet extends HttpServlet {
 		//나이구분 도 같이 날아와서 처리함.
 		if(deptName.equals("--부서구분--") == true) {
 			empList = new ArrayList<Employee>();
-			emp = new EmployeeService().selectName(empName);
+			emp = new EmployeeService().selectName(empName,hostId, hostPwd);
 			System.out.println(emp);
 			empList.add(emp);
 		}else {
 			
-			empList = new EmployeeService().selectEMPOne(empName, deptName);
+			empList = new EmployeeService().selectEMPOne(empName, deptName,hostId, hostPwd);
 		}
 				
 		

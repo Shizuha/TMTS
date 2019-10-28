@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="ERP.Employee.model.vo.Employee, java.util.ArrayList"%>
 <%
+	Employee emp = (Employee)session.getAttribute("loginEmployee");
 	ArrayList<Employee> empList = (ArrayList<Employee>)request.getAttribute("empList");
 	int listCount = (Integer)request.getAttribute("listCount");
 	int currentPage = (Integer)request.getAttribute("currentPage");

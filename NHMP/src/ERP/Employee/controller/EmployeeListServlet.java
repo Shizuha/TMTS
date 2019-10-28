@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class EmployeeListServlet
@@ -34,7 +35,21 @@ public class EmployeeListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		System.out.println(emp);
+		System.out.println(loginHospital);
+		if(emp != null) {
+		
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
+		System.out.println(hostId + hostPwd);
 		// 댓글게시글 전체목록 조회 처리용 컨트롤러 : 페이징 처리됨
 		int currentPage = 1;
 		if (request.getParameter("page") != null) {
@@ -44,7 +59,8 @@ public class EmployeeListServlet extends HttpServlet {
 		int limit = 10; // 한 페이지에 출력할 목록갯수
 		EmployeeService eservice = new EmployeeService();
 
-		int listCount = eservice.getListCount();// 현재 테이블의 전체 목록 갯수 조회
+		int listCount = eservice.getListCount(hostId, hostPwd);// 현재 테이블의 전체 목록 갯수 조회
+		 System.out.println(listCount);
 		// 총 페이지수 계산
 		int maxPage = listCount / limit;
 		if (listCount % limit > 0) {
@@ -62,8 +78,8 @@ public class EmployeeListServlet extends HttpServlet {
 		int endRow = currentPage * limit;
 
 		// 조회할 목록의 시작행과 끝행 번호 전달하고 결과받기
-		ArrayList<Employee> empList = eservice.selectList(startRow, endRow);
-
+		ArrayList<Employee> empList = eservice.selectList(startRow, endRow, hostId, hostPwd);
+		System.out.println(empList);
 		RequestDispatcher view = null;
 		if (empList.size() > 0) {
 

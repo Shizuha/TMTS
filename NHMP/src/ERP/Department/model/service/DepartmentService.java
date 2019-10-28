@@ -12,15 +12,15 @@ public class DepartmentService {
 	
 	public DepartmentService() {}
 	
-public ArrayList<Department> selectAll() {
-	Connection conn = getConnection();
+public ArrayList<Department> selectAll(String hostId, String hostPwd) {
+	Connection conn = getConnection(hostId, hostPwd);
 	ArrayList<Department> dList = dDao.selectAll(conn);
 	close(conn);
 	return dList;
 }
 
-public String selectDeptName(String deptCode) {
-	Connection conn = getConnection();
+public String selectDeptName(String deptCode, String hostId, String hostPwd) {
+	Connection conn = getConnection(hostId, hostPwd);
 	String deptName = dDao.selectDeptName(conn, deptCode);
 	
 	close(conn);

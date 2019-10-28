@@ -1,5 +1,6 @@
 .file-list, .file-list ul{
-    list-style-type: none;
+	width:150px;
+	list-style-type: none;
     font-size:1em;
     line-height:1.8em;
     margin-left:20px;

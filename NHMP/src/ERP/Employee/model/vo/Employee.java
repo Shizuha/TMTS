@@ -7,6 +7,8 @@ public class Employee implements Serializable{
 	private static final long serialVersionUID = 5555L;
 	
 	private String empId;
+	private String hostId;
+	private String hostPwd;
 	private String empName;
 	private java.sql.Date hireDate;
 	private java.sql.Date rsnDate;
@@ -34,13 +36,19 @@ public class Employee implements Serializable{
 	private String holdOffice;
 	public Employee() {}
 	
-	public Employee(String empId, String empName, Date hireDate, Date rsnDate, String empNo, String address,
-			String itnalFor, String adTel, String phone, String email, int salary, String userId, String userpwd, String empEtc,
-			String empImgOriginalFilename, String empRenameFilename, String gender, String empmentCode, String deptCode,
-			String teamCode, String posCode, String deductionCode, String allowanceCode, String authorityCode,
-			String wardCode, String holdOffice) {
+	
+	
+	
+
+	public Employee(String empId, String hostId, String hostPwd, String empName, Date hireDate, Date rsnDate,
+			String empNo, String address, String itnalFor, String adTel, String phone, String email, int salary,
+			String userId, String userpwd, String empEtc, String empImgOriginalFilename, String empRenameFilename,
+			String gender, String empmentCode, String deptCode, String teamCode, String posCode, String deductionCode,
+			String allowanceCode, String authorityCode, String wardCode, String holdOffice) {
 		super();
 		this.empId = empId;
+		this.hostId = hostId;
+		this.hostPwd = hostPwd;
 		this.empName = empName;
 		this.hireDate = hireDate;
 		this.rsnDate = rsnDate;
@@ -67,8 +75,42 @@ public class Employee implements Serializable{
 		this.wardCode = wardCode;
 		this.holdOffice = holdOffice;
 	}
-	
-	
+
+
+
+
+
+	public String getHostId() {
+		return hostId;
+	}
+
+
+
+
+
+	public void setHostId(String hostId) {
+		this.hostId = hostId;
+	}
+
+
+
+
+
+	public String getHostPwd() {
+		return hostPwd;
+	}
+
+
+
+
+
+	public void setHostPwd(String hostPwd) {
+		this.hostPwd = hostPwd;
+	}
+
+
+
+
 
 	public String getHoldOffice() {
 		return holdOffice;
@@ -279,18 +321,24 @@ public class Employee implements Serializable{
 		this.wardCode = wardCode;
 	}
 
+
+
+
+
 	@Override
 	public String toString() {
-		return "Employee [empId=" + empId + ", empName=" + empName + ", hireDate=" + hireDate + ", rsnDate=" + rsnDate
-				+ ", empNo=" + empNo + ", address=" + address + ", itnalFor=" + itnalFor + ", adTel=" + adTel
-				+ ", phone=" + phone + ", email=" + email + ", salary=" + salary + ", userId=" + userId + ", userpwd="
-				+ userpwd + ", empEtc=" + empEtc + ", empImgOriginalFilename=" + empImgOriginalFilename
-				+ ", empRenameFilename=" + empRenameFilename + ", gender=" + gender + ", empmentCode=" + empmentCode
-				+ ", deptCode=" + deptCode + ", teamCode=" + teamCode + ", posCode=" + posCode + ", deductionCode="
-				+ deductionCode + ", allowanceCode=" + allowanceCode + ", authorityCode=" + authorityCode
-				+ ", wardCode=" + wardCode + ", holdOffice=" + holdOffice + "]";
+		return "Employee [empId=" + empId + ", hostId=" + hostId + ", hostPwd=" + hostPwd + ", empName=" + empName
+				+ ", hireDate=" + hireDate + ", rsnDate=" + rsnDate + ", empNo=" + empNo + ", address=" + address
+				+ ", itnalFor=" + itnalFor + ", adTel=" + adTel + ", phone=" + phone + ", email=" + email + ", salary="
+				+ salary + ", userId=" + userId + ", userpwd=" + userpwd + ", empEtc=" + empEtc
+				+ ", empImgOriginalFilename=" + empImgOriginalFilename + ", empRenameFilename=" + empRenameFilename
+				+ ", gender=" + gender + ", empmentCode=" + empmentCode + ", deptCode=" + deptCode + ", teamCode="
+				+ teamCode + ", posCode=" + posCode + ", deductionCode=" + deductionCode + ", allowanceCode="
+				+ allowanceCode + ", authorityCode=" + authorityCode + ", wardCode=" + wardCode + ", holdOffice="
+				+ holdOffice + "]";
 	}
 
+	
 	
 
 	
