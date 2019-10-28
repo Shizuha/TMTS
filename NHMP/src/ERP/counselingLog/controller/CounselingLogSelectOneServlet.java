@@ -1,4 +1,4 @@
-package ERP.patient.controller;
+package ERP.counselingLog.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class PatientSearchServlet
+ * Servlet implementation class CounselingLogSelectOneServlet
  */
-@WebServlet("/patientsearch")
-public class PatientSearchServlet extends HttpServlet {
+@WebServlet("/counselone")
+public class CounselingLogSelectOneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PatientSearchServlet() {
+    public CounselingLogSelectOneServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -380,10 +380,10 @@ $(function(){
 					</a>
 
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/patientall">전체환자 조회</a></li>
-							<li><a href="/NHMP/patientinsert">환자 입원 등록</a></li>
-							<li><a href="/NHMP/counselinsert">상담일지 등록</a></li>
-							<li><a href="/NHMP/recordinsert">투약일지 등록</a></li>
+							<li><a href="app-profile.html">전체환자 조회</a></li>
+							<li><a href="app-calender.html">환자 입원 등록</a></li>
+							<li><a href="app-calender.html">상담일지 등록</a></li>
+							<li><a href="app-calender.html">투약일지 등록</a></li>
 						</ul></li>
 					<!--
                     <li>

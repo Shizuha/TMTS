@@ -14,23 +14,15 @@ public class Patient implements java.io.Serializable{
 	private String family;
 	private String email;
 	private String patPhone;
+	private String phone;
 	private String ward;
 	private String patDoc;
 	
 	public Patient() {}
 	
-	public Patient(String patName, String address, String family, String email, String patPhone) {
-		super();
-		this.patName = patName;
-		this.address = address;
-		this.family = family;
-		this.email = email;
-		this.patPhone = patPhone;
-	}
-	
 	public Patient(int patNum, String patName, String patType, java.sql.Date patEntDate, java.sql.Date patOutDate,
 						String patGender, String patNo, String address, String family, String email, String patPhone,
-						String ward, String patDoc) {
+						String phone, String ward, String patDoc) {
 		super();
 		this.patNum = patNum;
 		this.patName = patName;
@@ -43,10 +35,11 @@ public class Patient implements java.io.Serializable{
 		this.family = family;
 		this.email = email;
 		this.patPhone = patPhone;
+		this.phone = phone;
 		this.ward = ward;
 		this.patDoc = patDoc;
 	}
-	
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -93,6 +86,10 @@ public class Patient implements java.io.Serializable{
 
 	public String getPatPhone() {
 		return patPhone;
+	}
+
+	public String getPhone() {
+		return phone;
 	}
 	
 	public String getWard() {
@@ -147,6 +144,10 @@ public class Patient implements java.io.Serializable{
 		this.patPhone = patPhone;
 	}
 
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
 	public void setWard(String ward) {
 		this.ward = ward;
 	}
@@ -160,7 +161,7 @@ public class Patient implements java.io.Serializable{
 		return "Patient [patNum=" + patNum + ", patName=" + patName + ", patType=" + patType + ", patEntDate="
 				+ patEntDate + ", patOutDate=" + patOutDate + ", patGender=" + patGender + ", patNo=" + patNo
 				+ ", address=" + address + ", family=" + family + ", email=" + email + ", patPhone=" + patPhone
-				+ ", ward=" + ward + ", patDoc=" + patDoc + "]";
+				+ ", phone=" + phone + ", ward=" + ward + ", patDoc=" + patDoc + "]";
 	}
 	
 	

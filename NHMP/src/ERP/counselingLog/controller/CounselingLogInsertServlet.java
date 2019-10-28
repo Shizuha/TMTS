@@ -26,7 +26,7 @@ import ERP.counselingLog.model.vo.CounselingLog;
  */
 @WebServlet("/counselinsert")
 public class CounselingLogInsertServlet extends HttpServlet {
-	private static final long serialVersionUID = 6001L;
+	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -46,30 +46,29 @@ public class CounselingLogInsertServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		if(!ServletFileUpload.isMultipartContent(request)) {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "form 태그의 enctype 속성 사용 안됨");
+			request.setAttribute("message", "form 태그에 enctype  속성 사용이 되지 않았습니다. 다시 입력 고고씽");
 			view.forward(request, response);
 		}
 		
 		int maxSize = 1024 * 1024 * 50;
 		
-		String savePath = request.getSession().getServletContext().getRealPath("/resources/ERP/cl_upfiles");
+		String savePath = request.getSession().getServletContext().getRealPath("resources/ERP/cl_upfiles");
 		
 		MultipartRequest mrequest = new MultipartRequest(request,
 						savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 		
-		CounselingLog counselingLog = new CounselingLog();
-		counselingLog.setClNo(Integer.parseInt(mrequest.getParameter("cl_no")));
-		counselingLog.setClTitle(mrequest.getParameter("cl_title"));
-		counselingLog.setClContents(mrequest.getParameter("cl_contents"));
-		counselingLog.setClPhone(mrequest.getParameter("cl_phone"));
-		counselingLog.setClComment(mrequest.getParameter("cl_comment"));
-		counselingLog.setClPatName(mrequest.getParameter("cl_pat_name"));
-		counselingLog.setClEmpName(mrequest.getParameter("cl_emp_name"));
-		System.out.println(counselingLog);
-		String originalFileName = mrequest.getFilesystemName("cl_upfile");
-		System.out.println(originalFileName);
+		CounselingLog cl = new CounselingLog();
+		cl.setClNo(Integer.parseInt(mrequest.getParameter("cl_no")));
+		cl.setClName(mrequest.getParameter("cl_name"));
+		cl.setClType(mrequest.getParameter("cl_type"));
+		cl.setClComment(mrequest.getParameter("cl_comment"));
+		cl.setClPatName(mrequest.getParameter("cl_pat_name"));
+		cl.setClEmpName(mrequest.getParameter("cl_emp_name"));
+		
+		String originalFileName = mrequest.getFilesystemName("clupfile");
+		
 		if(originalFileName != null) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
 			
 			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis()))
 					+ "." + originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
@@ -93,17 +92,17 @@ public class CounselingLogInsertServlet extends HttpServlet {
 				originFile.delete();
 			}
 			
-			counselingLog.setClOriginalFileName(originalFileName);
-			counselingLog.setClRenameFileName(renameFileName);
+			cl.setClOriginalFileName(originalFileName);
+			cl.setClRenameFileName(renameFileName);
 		}
 		
-		int result = new CounselingLogService().insertCounselingLog(counselingLog);
+		int result = new CounselingLogService().insertCounselingLog(cl);
 		
 		if(result > 0) {
-			response.sendRedirect("/NHMP/views/ERP/main.jsp");
+			response.sendRedirect("/NHMP/main.jsp");
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "상담일지 등록 실패!");
+			request.setAttribute("message", "새 상담일지 등록 실패!");
 			view.forward(request, response);
 		}
 	}
