@@ -74,7 +74,7 @@ public class MsingupServlet extends HttpServlet {
 		
 		if(result > 0 ) {
 			//성공 화면 넘기기
-			response.sendRedirect("/NHMP/views/Main/login.jsp");			
+			response.sendRedirect("/NHMP/MLogPage");			
 		}else {
 			//실패
 			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
