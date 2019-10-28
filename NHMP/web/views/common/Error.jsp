@@ -25,7 +25,7 @@
 	<h2 align="center"><a href = "/NHMP/views/ERP/main.jsp">시스템 관리로 이동</a></h2>
 <% }else { %>
 	<h2 align="center"><a href = "/NHMP/index.jsp">홈으로 이동</a></h2>
-	<h2 align="center"><a href = "/NHMP/views/Main/login.jsp">로그인 페이지로 이동</a></h2>
+	<h2 align="center"><a href = "/NHMP/MLogPage">로그인 페이지로 이동</a></h2>
 <% } %>
 
 

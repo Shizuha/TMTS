@@ -88,6 +88,7 @@
 
 
 <h1 align="center">회원가입</h1>
+<h3 align="center">모두 필수 입력 사항입니다.</h3>
 <br>
 <form action="/NHMP/singup" method="post" onsubmit="return validation();" id="target">
 	<table align="center" width="600" cellspacing="0" cellpadding="5" border="1">
@@ -147,7 +148,7 @@
 			</td>
 		</tr>
 		<tr>
-			<th>이메일</th>
+			<th>이메일 *</th>
 			<td>
 				<!-- <input type="text"> &nbsp; @ &nbsp; -->
 				<input type="email" name="email">
@@ -166,7 +167,7 @@
 			</td>
 		</tr>
 		<tr>
-			<th>회사 전화번호</th>
+			<th>회사 전화번호 *</th>
 			<td>
 				<input type="tel" name="fcomnum" maxlength="3" size="3">-
 				<input type="tel" name="mcomnum" maxlength="3" size="3">-
@@ -182,7 +183,7 @@
 			</td>
 		</tr>
 		<tr>
-			<th>상호명</th>
+			<th>상호명 *</th>
 			<td>
 				<input id=""  name="chkBsnsNM"  value="" type="text" style="width:194px;" >
 			</td>
@@ -209,7 +210,7 @@
 		});
 	</script> -->
 		<tr>
-			<th>회사 주소</th>
+			<th>회사 주소 *</th>
 			
 			<!-- 주소와 우편번호를 입력할 <input>들을 생성하고 적당한 name과 class를 부여한다 -->
 			<td>
@@ -232,7 +233,7 @@
 			</td> -->
 		</tr>
 		<tr>
-			<th>기타사항</th>
+			<th>기타사항 *</th>
 			<td>
 				<textarea name="etc" rows="5" cols="60"></textarea>
 			</td>

@@ -278,6 +278,55 @@ public class NHDao {
 		}
 	}
 
+	public ArrayList<NursingHospital> selectAllList(Connection conn) {
+		ArrayList<NursingHospital> list = new ArrayList<NursingHospital>();
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from NURSING_HOSPITAL order by nh_id asc";
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				NursingHospital NH = new NursingHospital();
+				
+				NH.setNH_ID(rset.getInt("NH_ID"));
+				NH.setNH_NAME(rset.getString("NH_NAME"));
+				NH.setNH_DATE(rset.getDate("NH_DATE"));
+				NH.setNH_RSN_DATE(rset.getDate("NH_RSN_DATE"));
+				NH.setNH_NO(rset.getString("NH_NO"));
+				NH.setNH_ADDRESS(rset.getString("NH_ADDRESS"));
+				NH.setNH_ITNAL_FOR(rset.getString("NH_ITNAL_FOR"));
+				NH.setNH_AD_TEL(rset.getString("NH_AD_TEL"));
+				NH.setNH_PHONE(rset.getString("NH_PHONE"));
+				NH.setNH_EMAIL(rset.getString("NH_EMAIL"));
+				NH.setNH_USERID(rset.getString("NH_USERID"));
+				NH.setNH_USERPWD(rset.getString("NH_USERPWD"));
+				NH.setNH_ETC(rset.getString("NH_ETC"));
+				NH.setNH_IMG(rset.getString("NH_IMG"));
+				NH.setGENDER(rset.getString("GENDER"));
+				NH.setCOMPANY_NAME(rset.getString("COMPANY_NAME"));
+				NH.setCOMPANY_NO(rset.getString("COMPANY_NO"));
+				NH.setNH_SERVICE_CODE(rset.getString("NH_SERVICE_CODE"));
+				NH.setAUTHORITY_CODE(rset.getString("NH_AUTHORITY_CODE"));
+				NH.setNH_SERVICE_HISTORY(rset.getString("NH_SERVICE_HISTORY"));
+			
+				list.add(NH);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+
 	
 	
 	

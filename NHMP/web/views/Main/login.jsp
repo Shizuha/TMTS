@@ -32,7 +32,7 @@
 			alert("아이디와 패스워드를 화인해주세요");
 			return false;
 		}
-		if(!($("#selecname").val()=="기업을 선택하세요")){
+		if(($("#selecname").val()=="기업을 선택하세요")){
 			alert("회사를 선택해 주세요!");
 			return false;
 		}
@@ -90,7 +90,7 @@
         							<form class="mt-5 mb-5 login-input" action="/NHMP/login" method="post">
                                  	  	<div class="form-group">
                                  	  		<select id="selecname">
-                                 	  			<option value="기업을 선택하세요"></option>
+                                 	  			<option value="기업을 선택하세요">병원을 선택하세요</option>
                                  	  			<% for( NursingHospital NH : list ) { %>
                                  	  				<option value="<%= NH.getCOMPANY_NAME() %>" name="company_name"><%= NH.getCOMPANY_NAME() %></option>
                                  	  			<% } %>

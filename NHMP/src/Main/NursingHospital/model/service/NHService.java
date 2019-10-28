@@ -74,6 +74,12 @@ public class NHService {
 		close(conn);
 	}
 
+	public ArrayList<NursingHospital> selectAllList() {
+		Connection conn = getConnection();
+		ArrayList<NursingHospital> list = ndao.selectAllList(conn);
+		return list;
+	}
+
 	
 	
 	

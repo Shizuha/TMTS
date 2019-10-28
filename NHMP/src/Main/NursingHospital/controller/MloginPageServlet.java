@@ -33,8 +33,8 @@ public class MloginPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 로그인 시 요양병원 목록 처리용 컨트롤러
-		ArrayList<NursingHospital> list = new NHService().selectList();
-		System.out.println(list);
+		ArrayList<NursingHospital> list = new NHService().selectAllList();
+		System.out.println("List : "+list);
 		
 		RequestDispatcher view = null;
 		if(list.size() > 0) {
