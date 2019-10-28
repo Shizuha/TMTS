@@ -29,6 +29,7 @@ import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
 import ERP.Empsalary.model.service.EmpSalaryService;
 import ERP.Empsalary.model.vo.EmpSalary;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class EmployeeUpdateServlet
@@ -70,8 +71,27 @@ public class EmployeeUpdateServlet extends HttpServlet {
 		MultipartRequest mrequest = new MultipartRequest(request , savePath, maxSize, "utf-8", new DefaultFileRenamePolicy());
 		
 		
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp1 = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		System.out.println(emp1);
+		System.out.println(loginHospital);
+		if(emp1 != null) {
+		
+		hostId = emp1.getHostId();
+		hostPwd = emp1.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
+		
+		
+		
 		Employee emp = new Employee();
 		//사원 기본정보 담기
+		emp.setHostId(hostId);
+		emp.setHostPwd(hostPwd);
 		emp.setEmpName(mrequest.getParameter("empname"));
 		emp.setEmpNo(mrequest.getParameter("empno1") + "-" + mrequest.getParameter("empno2"));
 		String address1 = mrequest.getParameter("address1");
@@ -242,10 +262,10 @@ public class EmployeeUpdateServlet extends HttpServlet {
 		empSal.setBsnIncome(bsnIncome);
 		System.out.println(empSal);
 		
-		result = new EmpSalaryService().updateEmpSalary(empSal);
+		result = new EmpSalaryService().updateEmpSalary(empSal,hostId, hostPwd);
 		int inserResult = 0;
 		if(result == 0) {
-			inserResult = new EmpSalaryService().insertEmpSalary(empSal);
+			inserResult = new EmpSalaryService().insertEmpSalary(empSal, hostId,hostPwd);
 			if(inserResult == 0) {
 				pw.println("<script >");
 				pw.println("alert('기본정보 등록실패!')");
@@ -289,12 +309,12 @@ public class EmployeeUpdateServlet extends HttpServlet {
 		int result2 = 0;
 		String[] fyNo = new String[drr.size()];
 		String fyno1 = null;
-		fyNo = new DependentsService().selectDepenCode(empId, fyNo.length);
+		fyNo = new DependentsService().selectDepenCode(empId, fyNo.length,hostId, hostPwd);
 		
 		int i = 0;
 		for(Dependents d : drr) {
 			fyno1 = fyNo[i]; 
-			result2 = new DependentsService().updateDependent(d, fyno1);
+			result2 = new DependentsService().updateDependent(d, fyno1,hostId, hostPwd);
 			i++;
 			
 		}
@@ -339,13 +359,13 @@ public class EmployeeUpdateServlet extends HttpServlet {
 			}
 			String[] eduCode = new String[eduList.size()];
 			String eduCode1 = null;
-			eduCode = new EducationService().selectEduCode(empId, eduCode.length);
+			eduCode = new EducationService().selectEduCode(empId, eduCode.length,hostId, hostPwd);
 		
 			int b = 0;
 			int result3 = 0;
 			for(Education e : eduList) {
 				eduCode1 = eduCode[b];
-			 result3 = new EducationService().updateEdu(e, eduCode1);
+			 result3 = new EducationService().updateEdu(e, eduCode1,hostId, hostPwd);
 			 b++;
 			}
 		
@@ -397,10 +417,10 @@ public class EmployeeUpdateServlet extends HttpServlet {
 			String[] car = new String[carList.size()];
 			String car2 = null;
 			
-			car = new CareerService().selectCarCode(empId, car.length);
+			car = new CareerService().selectCarCode(empId, car.length,hostId, hostPwd);
 			
 			for(Career c : carList) {
-				int result4 = new CareerService().updateCar(c);
+				int result4 = new CareerService().updateCar(c,hostId, hostPwd);
 			
 			}
 			if(result == carList.size()) {

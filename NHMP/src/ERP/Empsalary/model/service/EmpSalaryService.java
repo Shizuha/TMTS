@@ -18,8 +18,8 @@ public EmpSalaryService() {}
 	private EmpSalaryDao eDao = new EmpSalaryDao();
 
 
-	public int insertEmpSalary(EmpSalary empSal) {
-		Connection conn = getConnection();
+	public int insertEmpSalary(EmpSalary empSal,String hostId, String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		int result = eDao.insertEmpSalary(conn, empSal);
 		if(result > 0)
 			commit(conn);
@@ -30,16 +30,16 @@ public EmpSalaryService() {}
 	}
 
 
-	public EmpSalary selectOne(String empId) {
-		Connection conn = getConnection();
+	public EmpSalary selectOne(String empId,String hostId,String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		EmpSalary empSal = eDao.selectOne(conn, empId);
 		close(conn);
 		return empSal;
 	}
 
 
-	public int updateEmpSalary(EmpSalary empSal) {
-		Connection conn = getConnection();
+	public int updateEmpSalary(EmpSalary empSal,String hostId,String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		int result = eDao.updateEmpSalary(conn, empSal);
 		if(result > 0)
 			commit(conn);

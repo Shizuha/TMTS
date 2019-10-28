@@ -29,6 +29,7 @@ import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
 import ERP.Empsalary.model.service.EmpSalaryService;
 import ERP.Empsalary.model.vo.EmpSalary;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class EmployeeInsertServlet
@@ -72,6 +73,23 @@ public class EmployeeInsertServlet extends HttpServlet {
 		
 		Employee emp = new Employee();
 		//사원 기본정보 담기
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp1 = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		System.out.println(emp);
+		System.out.println(loginHospital);
+		if(emp1 != null) {
+		
+		hostId = emp1.getHostId();
+		hostPwd = emp1.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
+		
+		emp.setHostId(hostId);
+		emp.setHostPwd(hostPwd);
 		emp.setEmpName(mrequest.getParameter("empname"));
 		emp.setEmpNo(mrequest.getParameter("empno1") + "-" + mrequest.getParameter("empno2"));
 		String address1 = mrequest.getParameter("address1");
@@ -186,10 +204,10 @@ public class EmployeeInsertServlet extends HttpServlet {
 		}
 		System.out.println(emp);
 		int result = new EmployeeService().insertEmp(emp);
-		System.out.println(result);
+		
 		Employee emp2 = null;
 		if(result > 0) {
-			 emp2 = new EmployeeService().selectName(emp.getEmpName());
+			 emp2 = new EmployeeService().selectName(emp.getEmpName(),hostId, hostPwd);
 		}else {
 			pw.println("<script >");
 			pw.println("alert('정상적인 발송방식이 아닙니다 확인하세요.')");
@@ -233,7 +251,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 		empSal.setBsnIncome(bsnIncome);
 		System.out.println(empSal);
 		
-		result = new EmpSalaryService().insertEmpSalary(empSal);
+		result = new EmpSalaryService().insertEmpSalary(empSal, hostId, hostPwd);
 		
 		if(result == 0) {
 			pw.println("<script >");
@@ -273,7 +291,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 		
 		for(Dependents d : drr) {
 		
-		result2 = new DependentsService().insertDependent(d);
+		result2 = new DependentsService().insertDependent(d,hostId, hostPwd);
 		
 		}
 		System.out.println(result2);
@@ -313,7 +331,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 			int result3 = 0;
 			for(Education e : eduList) {
 				
-			 result3 = new EducationService().insertEdu(e);
+			 result3 = new EducationService().insertEdu(e, hostId, hostPwd);
 			
 			}
 		System.out.println(eduList);
@@ -360,10 +378,10 @@ public class EmployeeInsertServlet extends HttpServlet {
 			System.out.println(carList);
 			
 			for(Career c : carList) {
-			int result4 = new CareerService().inserCar(c);
+			int result4 = new CareerService().inserCar(c, hostId, hostPwd);
 			}
 			if(result == carList.size()) {
-				response.sendRedirect("/lp/list");
+				response.sendRedirect("/NHMP/list");
 				
 			}else {
 				pw.println("<script >");

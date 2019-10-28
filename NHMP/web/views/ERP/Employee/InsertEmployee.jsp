@@ -12,23 +12,19 @@
 	href="/NHMP/resources/ERP/images/common/favicon.png">
 <!-- Pignose Calender -->
 <link
-	href="/NHMP/resources/ERP/css/plugins/pg-calendar/css/pignose.calendar.min.css?after"
+	href="/NHMP/resources/ERP/css/plugins/pg-calendar/css/pignose.calendar.min.css"
 	rel="stylesheet">
-<!-- Chartist -->
-<link rel="stylesheet"
-	href="/NHMP/resources/ERP/css/plugins/chartist/css/chartist.min.css?after">
+
 <link rel="stylesheet"
 	href="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css?after">
 <!-- 메인 css 링크 -->
-<link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
+<link href="/NHMP/resources/ERP/css/style.css" rel="stylesheet">
 <link href="/NHMP/resources/ERP/css/insertEmployee.css" rel="stylesheet">
 <!-- 폰트 링크 추후 확인후 삭제 -->
 <link href="/NHMP/resources/ERP/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+   
 <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
@@ -88,36 +84,38 @@
 </script>
     <!-- 스크립트 영역~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <script type="text/javascript" src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
+
 <script type="text/javascript">
 function idCheck(){
 	if($("input[name=empids]").val() != ""){
-	$.ajax({
-		url: "/NHMP/idchk",
-		type: "post",
-		data: { userid : $("input[name=empids]").val()},
-		success: function(data){
-			console.log("success :" + data.length);
-			
-			if(data.trim() == "ok"){
-				$(".errorIdCheck").css("display", "inline-block");
-				$(".succesIdCheck").css("display", "none");
-				$("#userId").select();
-				return false;
-			}else{
-				$(".succesIdCheck").css("display", "inline-block");
-				$("#userPwd").focus();
-				$(".errorIdCheck").css("display", "none");
-				return false;
-			}
-			
-		},error : function(jqXHR,  textStatus,  errorThrown){//자료형은 자바스크립트에서 붙여주지 않는다.
-	         console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
-	      }
-		});
-	}else
+		
+		$.ajax({
+			url: "/NHMP/idchk",
+			type: "post",
+			data: { userid : $("input[name=empids]").val()},
+			success: function(data){
+				console.log("success :" + data.length);
+				
+				if(data.trim() == "ok"){
+					$(".errorIdCheck").css("display", "inline-block");
+					$(".succesIdCheck").css("display", "none");
+					$("#userId").select();
+					return false;
+				}else{
+					$(".succesIdCheck").css("display", "inline-block");
+					$("#userPwd").focus();
+					$(".errorIdCheck").css("display", "none");
+					return false;
+				}
+				
+			},error : function(jqXHR,  textStatus,  errorThrown){//자료형은 자바스크립트에서 붙여주지 않는다.
+		         console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		      }
+			});
+		
+	}else	
 		return false;
-	return false;
-	}//아이디 체크 이벤트 close
+}//아이디 체크 이벤트 close
 function chkName(str){
 	 var reg_name = /^[가-힣a-zA-Z]{2,9}$/;
 
@@ -725,7 +723,7 @@ $(function(){
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/list">전체사원조회</a></li>
 							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
-							<li><a href="layout-two-column.html">조직도</a></li>
+							<li><a href="/NHMP/ochart">조직도</a></li>
 							<!--
                             <li><a href="layout-compact-nav.html">Compact Nav</a></li>
                             <li><a href="layout-vertical.html">Vertical</a></li>
@@ -883,7 +881,7 @@ $(function(){
 		<div class="content-body">
 			<div class="insertbox">
         	<h2>기본정보</h2>
-        	<form action="/lp/empin" method="post" onsubmit="return formCheck();" enctype="multipart/form-data">
+        	<form action="/NHMP/empin" method="post" onsubmit="return formCheck();" enctype="multipart/form-data">
 			<table class="insertemp" cellpadding="5" cellspacing="0" >
 				<tr>
 					<th>성명(한글)</th>
@@ -944,7 +942,7 @@ $(function(){
 					<th>주소</th>
 					<td colspan="3">
 						<input type="text" id="sample4_postcode" placeholder="우편번호">
-						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">&nbsp;
+						<input type="button" onclick="sample4_execDaumPostcode();" value="우편번호 찾기">&nbsp;
 						<input type="text" id="sample4_roadAddress"name="address1" placeholder="도로명주소">
 						<input type="text" id="sample4_jibunAddress"name="address2" placeholder="지번주소"><br>
 						<input type="text" id="sample4_detailAddress"name="address3" placeholder="상세주소">

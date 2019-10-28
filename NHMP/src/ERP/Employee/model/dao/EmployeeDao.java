@@ -454,33 +454,34 @@ public class EmployeeDao {
 		PreparedStatement pstmt = null;
 		
 		String query = "insert into employee values("
-				+ "seq_emp_id.nextval,?,sysdate, null, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
+				+ "seq_emp_id.nextval,?,?,?,sysdate, null, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
 				+ "?, ?, ?, ?, ?, ?, ?, ?, default, default, ?, ?, ?)";
 		try {
 			
 			pstmt = conn.prepareStatement(query);
-			
-			pstmt.setString(1, emp.getEmpName());
-			pstmt.setString(2, emp.getEmpNo());
-			pstmt.setString(3, emp.getAddress());
-			pstmt.setString(4, emp.getItnalFor());
-			pstmt.setString(5, emp.getAdTel());
-			pstmt.setString(6, emp.getPhone());
-			pstmt.setString(7, emp.getEmail());
-			pstmt.setInt(8, emp.getSalary());
-			pstmt.setString(9, emp.getUserId());
-			pstmt.setString(10, emp.getUserpwd());
-			pstmt.setString(11, emp.getEmpEtc());
-			pstmt.setString(12, emp.getEmpImgOriginalFilename());
-			pstmt.setString(13, emp.getEmpRenameFilename());
-			pstmt.setString(14, emp.getGender());
-			pstmt.setString(15, emp.getEmpmentCode());
-			pstmt.setString(16, emp.getDeptCode());
-			pstmt.setString(17, emp.getTeamCode());
-			pstmt.setString(18, emp.getPosCode());
-			pstmt.setString(19, emp.getAuthorityCode());
-			pstmt.setString(20, emp.getWardCode());
-			pstmt.setString(21, emp.getHoldOffice());
+			pstmt.setString(1, emp.getHostId());
+			pstmt.setString(2, emp.getHostPwd());
+			pstmt.setString(3, emp.getEmpName());
+			pstmt.setString(4, emp.getEmpNo());
+			pstmt.setString(5, emp.getAddress());
+			pstmt.setString(6, emp.getItnalFor());
+			pstmt.setString(7, emp.getAdTel());
+			pstmt.setString(8, emp.getPhone());
+			pstmt.setString(9, emp.getEmail());
+			pstmt.setInt(10, emp.getSalary());
+			pstmt.setString(11, emp.getUserId());
+			pstmt.setString(12, emp.getUserpwd());
+			pstmt.setString(13, emp.getEmpEtc());
+			pstmt.setString(14, emp.getEmpImgOriginalFilename());
+			pstmt.setString(15, emp.getEmpRenameFilename());
+			pstmt.setString(16, emp.getGender());
+			pstmt.setString(17, emp.getEmpmentCode());
+			pstmt.setString(18, emp.getDeptCode());
+			pstmt.setString(19, emp.getTeamCode());
+			pstmt.setString(20, emp.getPosCode());
+			pstmt.setString(21, emp.getAuthorityCode());
+			pstmt.setString(22, emp.getWardCode());
+			pstmt.setString(23, emp.getHoldOffice());
 			
 			result = pstmt.executeUpdate();
 			

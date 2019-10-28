@@ -13,8 +13,8 @@ private CareerDao cDao = new CareerDao();
 	
 	public CareerService() {}
 
-	public int inserCar(Career c) {
-		Connection conn = getConnection();
+	public int inserCar(Career c,String hostId, String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		int result = cDao.insertCar(conn, c);
 		if(result > 0)
 			commit(conn);
@@ -24,15 +24,15 @@ private CareerDao cDao = new CareerDao();
 		return result;
 	}
 
-	public ArrayList<Career> selectList(String empId) {
-		Connection conn = getConnection();
+	public ArrayList<Career> selectList(String empId,String hostId,String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		ArrayList<Career> carList = cDao.selectList(conn, empId);
 		close(conn);
 		return carList;
 	}
 
-	public int updateCar(Career c) {
-		Connection conn = getConnection();
+	public int updateCar(Career c,String hostId,String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		int result = cDao.updateCar(conn, c);
 		if(result > 0)
 			commit(conn);
@@ -42,8 +42,8 @@ private CareerDao cDao = new CareerDao();
 		return result;
 	}
 
-	public String[] selectCarCode(String empId, int length) {
-		Connection conn = getConnection();
+	public String[] selectCarCode(String empId, int length,String hostId,String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		String[] carCode = cDao.selectCarCode(empId, length, conn);
 		close(conn);
 		return carCode;

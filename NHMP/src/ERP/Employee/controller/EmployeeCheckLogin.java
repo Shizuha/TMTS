@@ -34,8 +34,10 @@ public class EmployeeCheckLogin extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userid");
 		String userPwd = request.getParameter("userpwd");
+		String hostId = request.getParameter("hostid");
+		String hostPwd = request.getParameter("hostpwd");
 		
-		Employee emp = new EmployeeService().loginCheck(userId, userPwd);
+		Employee emp = new EmployeeService().loginCheck(userId, userPwd,hostId, hostPwd);
 		System.out.println("mem" + emp);
 		
 		/*ArrayList<Notice> noList = new NoticeService().selectList();

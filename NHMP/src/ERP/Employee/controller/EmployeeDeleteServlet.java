@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ERP.Employee.model.service.EmployeeService;
+import ERP.Employee.model.vo.Employee;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class EmployeeDeleteServlet
@@ -31,13 +33,26 @@ public class EmployeeDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] empNo = request.getParameterValues("empno");
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		System.out.println(emp);
+		System.out.println(loginHospital);
+		if(emp != null) {
 		
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
 		
 		EmployeeService es = new EmployeeService();
 		int result = 0;
 		for(String id : empNo) {
 			
-			result = es.deleteEmployee(id);
+			result = es.deleteEmployee(id,hostId, hostPwd);
 			
 		}
 		response.setContentType("text/html; charset=utf-8");

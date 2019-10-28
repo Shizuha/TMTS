@@ -13,6 +13,7 @@ import ERP.Department.model.service.DepartmentService;
 import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
 import ERP.Position.model.service.PositionService;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class EmployeeNewPwdServlet
@@ -33,15 +34,28 @@ public class EmployeeNewPwdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-String empNo = request.getParameter("empno");
+		String empNo = request.getParameter("empno");
 		
-		System.out.println("아이디:" + empNo);
 		
-		Employee emp = new EmployeeService().selectOne(empNo);
-		System.out.println(emp);
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp1 = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		System.out.println(emp1);
+		System.out.println(loginHospital);
+		if(emp1 != null) {
 		
-		String deptName = new DepartmentService().selectDeptName(emp.getDeptCode());
-		String posName = new PositionService().selectPositionName(emp.getPosCode());
+		hostId = emp1.getHostId();
+		hostPwd = emp1.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
+		
+		Employee emp = new EmployeeService().selectOne(empNo,hostId, hostPwd);
+		
+		String deptName = new DepartmentService().selectDeptName(emp.getDeptCode(),hostId, hostPwd);
+		String posName = new PositionService().selectPositionName(emp.getPosCode(),hostId, hostPwd);
 		
 		RequestDispatcher view = null;
 		
