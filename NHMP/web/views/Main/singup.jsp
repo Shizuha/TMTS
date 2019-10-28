@@ -41,10 +41,9 @@
 			}
 			
 		});
-	});
+	
 
-	//패스워드 확인
-	$(function() {
+		//패스워드 확인
 		$("#target").submit(function(event) {
 			var pwd1 = $("#userpwd").val();
 			var pwd2 = $("#userpwd2").val();
@@ -59,6 +58,7 @@
 			
 		});
 	});
+	
 	
  	function validation(){
 		
@@ -151,7 +151,7 @@
 			<th>이메일 *</th>
 			<td>
 				<!-- <input type="text"> &nbsp; @ &nbsp; -->
-				<input type="email" name="email">
+				<input type="email" name="email" required>
 				<!-- <select>
 					
 					<option value="">직접입력</option>
@@ -169,9 +169,9 @@
 		<tr>
 			<th>회사 전화번호 *</th>
 			<td>
-				<input type="tel" name="fcomnum" maxlength="3" size="3">-
-				<input type="tel" name="mcomnum" maxlength="3" size="3">-
-				<input type="tel" name="lcomnum" maxlength="4" size="4">
+				<input type="tel" name="fcomnum" maxlength="3" size="3" required>-
+				<input type="tel" name="mcomnum" maxlength="3" size="3" required>-
+				<input type="tel" name="lcomnum" maxlength="4" size="4" required>
 			</td>
 		</tr>
 		<tr>
@@ -185,7 +185,7 @@
 		<tr>
 			<th>상호명 *</th>
 			<td>
-				<input id=""  name="chkBsnsNM"  value="" type="text" style="width:194px;" >
+				<input id=""  name="chkBsnsNM"  value="" type="text" style="width:194px;" required>
 			</td>
 		</tr>
 		
@@ -214,10 +214,10 @@
 			
 			<!-- 주소와 우편번호를 입력할 <input>들을 생성하고 적당한 name과 class를 부여한다 -->
 			<td>
-				우편번호  &nbsp;&nbsp;&nbsp; <input type="text" name="comaddrnum" class="postcodify_postcode5"  style="text-align:left; width:60px; "> 
+				우편번호  &nbsp;&nbsp;&nbsp; <input type="text" name="comaddrnum" class="postcodify_postcode5"  style="text-align:left; width:60px; "required> 
 				<input type="button" id="postcodify_search_button" value="검색" style="text-align:right;"> <br>
-				도로명 주소  <input type="text" name="comaddrmain" class="postcodify_address"   style="text-align:left; width:200px; ">  <br>
-				상세 주소  &nbsp;&nbsp;&nbsp;<input type="text" name="comaddrdetail" class="postcodify_details"  style="text-align:left; width:200px; ">  <br>
+				도로명 주소  <input type="text" name="comaddrmain" class="postcodify_address"   style="text-align:left; width:200px; "required>  <br>
+				상세 주소  &nbsp;&nbsp;&nbsp;<input type="text" name="comaddrdetail" class="postcodify_details"  style="text-align:left; width:200px; "required>  <br>
 				
 				
 				<!-- jQuery와 Postcodify를 로딩한다 -->
@@ -235,7 +235,7 @@
 		<tr>
 			<th>기타사항 *</th>
 			<td>
-				<textarea name="etc" rows="5" cols="60"></textarea>
+				<textarea name="etc" rows="5" cols="60" ></textarea>
 			</td>
 		</tr>
 		<tr>
