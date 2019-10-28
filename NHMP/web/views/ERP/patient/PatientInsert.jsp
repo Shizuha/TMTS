@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" %>
+	pageEncoding="UTF-8"%>
+
+<%@
+	page import="Main.NursingHospital.model.ov.NursingHospital"%>
+
+<%
+	NursingHospital loginHospital = (NursingHospital) session.getAttribute("loginHospital");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,15 +20,15 @@
 	href="/NHMP/resources/ERP/images/common/favicon.png">
 <!-- Pignose Calender -->
 <link
-	href="/NHMP/resources/ERP/css/plugins/pg-calendar/css/pignose.calendar.min.css"
+	href="/NHMP/resources/ERP/css/plugins/pg-calendar/css/pignose.calendar.min.css?after"
 	rel="stylesheet">
 <!-- Chartist -->
 <link rel="stylesheet"
-	href="/NHMP/resources/ERP/css/plugins/chartist/css/chartist.min.css">
+	href="/NHMP/resources/ERP/css/plugins/chartist/css/chartist.min.css?after">
 <link rel="stylesheet"
-	href="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+	href="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css?after">
 <!-- Custom Stylesheet -->
-<link href="/NHMP/resources/ERP/css/style.css" rel="stylesheet">
+<link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
 
 </head>
 
@@ -53,7 +60,7 @@
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
-				<a href="index.html"> <b class="logo-abbr"><img
+				<a href="/NHMP/views/ERP/main.jsp"> <b class="logo-abbr"><img
 						src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> <span
 					class="logo-compact"><img
 						src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
@@ -262,21 +269,9 @@
 		<div class="nk-sidebar">
 			<div class="nk-nav-scroll">
 				<ul class="metismenu" id="menu">
-
-					<!--    <li class="nav-label">Dashboard</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="index.html">Home 1</a></li>
-                            <li><a href="./index-2.html">Home 2</a></li>
-                        </ul>
-                    </li>
-                    -->
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
 						href="javascript:void()" aria-expanded="false"> <i
-							class="fa fa-users"></i><span class="nav-text">인사관리</span> <!-- <i class="icon-globe-alt menu-icon"></i><span class="nav-text">인사설정</span>-->
+							class="fa fa-users"></i><span class="nav-text">인사관리</span>
 					</a>
 						<ul aria-expanded="false">
 							<li><a href="layout-blank.html">인사정보관리</a></li>
@@ -299,24 +294,28 @@
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-id-card"></i> <span
 							class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
-					</a>
+					</a> <%
+ 	if (loginHospital != null) {
+ %>
 						<ul aria-expanded="false">
-							<li><a href="email-inbox.html">권한부여관리</a></li>
+							<li><a href="/NHMP/authall">권한부여관리</a></li>
 							<!--
                             <li><a href="email-read.html">수당항목등록</a></li>
                             <li><a href="email-compose.html">급여계산</a></li>
                             -->
-						</ul></li>
+						</ul> <%
+ 	}
+ %></li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
 							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
 					</a>
 
 						<ul aria-expanded="false">
-							<li><a href="patient/PatientListView.jsp">전체환자 조회</a></li>
+							<li><a href="/NHMP/patientall">전체환자 조회</a></li>
 							<li><a href="patient/PatientEnroll.jsp">환자 입원 등록</a></li>
-							<li><a href="counselingLog/CounselingLogEnroll.jsp">상담일지 등록</a></li>
-							<li><a href="medicienRecord/MedicienRecordEnroll.jsp">투약일지 등록</a></li>
+							<li><a href="/NHMP/counselinsert">상담일지 등록</a></li>
+							<li><a href="/NHMP/recordinsert">투약일지 등록</a></li>
 						</ul></li>
 					<!--
                     <li>
@@ -349,9 +348,9 @@
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="ui-accordion.html">공제항목등록</a></li>
-							<li><a href="ui-alert.html">수당항목등록</a></li>
-							<li><a href="ui-badge.html">급여계산</a></li>
+							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
+							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
+							<li><a href="/NHMP/paylist">급여계산</a></li>
 							<!--
                             <li><a href="ui-button.html">Button</a></li>
                             <li><a href="ui-button-group.html">Button Group</a></li>
@@ -458,115 +457,291 @@
 		<div class="content-body">
 
 			<div class="container-fluid mt-3">
-				<h1 align="center">환자 등록 페이지</h1>
-				<form acion="/NHMP/patientinsert" method="post">
-					<table class="table table-xs mb-0" align="center" width="600"
-						cellspacing="0" cellpadding="5" border="1">
-						<tr>
-							<th>병록번호</th>
-							<td><input type="number" name="patNum" id="patNum" required value="<%-- <%= patient.getPatNum() %> --%>"readonly></td>
-						</tr>
+				<!--    <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body pb-0 d-flex justify-content-between">
+                                        <div>
+                                            <h4 class="mb-1">Product Sales</h4>
+                                            <p>Total Earnings of the Month</p>
+                                            <h3 class="m-0">$ 12,555</h3>
+                                        </div>
+                                        <div>
+                                            <ul>
+                                                <li class="d-inline-block mr-3"><a class="text-dark" href="#">Day</a></li>
+                                                <li class="d-inline-block mr-3"><a class="text-dark" href="#">Week</a></li>
+                                                <li class="d-inline-block"><a class="text-dark" href="#">Month</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="chart-wrapper">
+                                        <canvas id="chart_widget_2"></canvas>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="w-100 mr-2">
+                                                <h6>Pixel 2</h6>
+                                                <div class="progress" style="height: 6px">
+                                                    <div class="progress-bar bg-danger" style="width: 40%"></div>
+                                                </div>
+                                            </div>
+                                            <div class="ml-2 w-100">
+                                                <h6>iPhone X</h6>
+                                                <div class="progress" style="height: 6px">
+                                                    <div class="progress-bar bg-primary" style="width: 80%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
 
-						<tr>
-							<th>환자명</th>
-							<td><input type="text" name="patName" id="patName" required>
-								&nbsp;</td>
-						</tr>
+				<!--   <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Order Summary</h4>
+                                    <div id="morris-bar-chart"></div>
+                                </div>
+                            </div>
 
-						<tr>
-							<th>구 분</th>
-							<td><input type="checkbox" name="patType" value="enter">입원
-								&nbsp;</td>
-						</tr>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card card-widget">
+                                <div class="card-body">
+                                    <h5 class="text-muted">Order Overview </h5>
+                                    <h2 class="mt-4">5680</h2>
+                                    <span>Total Revenue</span>
+                                    <div class="mt-4">
+                                        <h4>30</h4>
+                                        <h6>Online Order <span class="pull-right">30%</span></h6>
+                                        <div class="progress mb-3" style="height: 7px">
+                                            <div class="progress-bar bg-primary" style="width: 30%;" role="progressbar"><span class="sr-only">30% Order</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <h4>50</h4>
+                                        <h6 class="m-t-10 text-muted">Offline Order <span class="pull-right">50%</span></h6>
+                                        <div class="progress mb-3" style="height: 7px">
+                                            <div class="progress-bar bg-success" style="width: 50%;" role="progressbar"><span class="sr-only">50% Order</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <h4>20</h4>
+                                        <h6 class="m-t-10 text-muted">Cash On Develery <span class="pull-right">20%</span></h6>
+                                        <div class="progress mb-3" style="height: 7px">
+                                            <div class="progress-bar bg-warning" style="width: 20%;" role="progressbar"><span class="sr-only">20% Order</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+             -->
+				<!--            <div class="col-lg-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body px-0">
+                                    <h4 class="card-title px-4 mb-3">Todo</h4>
+                                    <div class="todo-list">
+                                        <div class="tdl-holder">
+                                            <div class="tdl-content">
+                                                <ul id="todo_list">
+                                                    <li><label><input type="checkbox"><i></i><span>Get up</span><a href='#' class="ti-trash"></a></label></li>
+                                                    <li><label><input type="checkbox" checked><i></i><span>Stand up</span><a href='#' class="ti-trash"></a></label></li>
+                                                    <li><label><input type="checkbox"><i></i><span>Don't give up the fight.</span><a href='#' class="ti-trash"></a></label></li>
+                                                    <li><label><input type="checkbox" checked><i></i><span>Do something else</span><a href='#' class="ti-trash"></a></label></li>
+                                                </ul>
+                                            </div>
+                                            <div class="px-4">
+                                                <input type="text" class="tdl-new form-control" placeholder="Write new item and hit 'Enter'...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            -->
+				<!--     <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <img src="./images/users/8.jpg" class="rounded-circle" alt="">
+                                    <h5 class="mt-3 mb-1">Ana Liem</h5>
+                                    <p class="m-0">Senior Manager</p>
+                                    <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
 
-						<tr>
-							<th>입원날짜</th>
-							<td><input type="text" name="pat_ent_date"></td>
-						</tr>
+				<!--    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <img src="./images/users/5.jpg" class="rounded-circle" alt="">
+                                    <h5 class="mt-3 mb-1">John Abraham</h5>
+                                    <p class="m-0">Store Manager</p>
+                                    <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <img src="./images/users/7.jpg" class="rounded-circle" alt="">
+                                    <h5 class="mt-3 mb-1">John Doe</h5>
+                                    <p class="m-0">Sales Man</p>
+                                    <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <img src="./images/users/1.jpg" class="rounded-circle" alt="">
+                                    <h5 class="mt-3 mb-1">Mehedi Titas</h5>
+                                    <p class="m-0">Online Marketer</p>
+                                    <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-						<tr>
-							<th>성 별</th>
-							<td><input type="radio" name="patGender" value="M" required>
-								남자 &nbsp; <input type="radio" name="patGender" value="F"
-								required> 여자</td>
-						</tr>
+                </div>
+                -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="active-member">
+									<h1 align="center">환자 등록 페이지</h1>
+									<form acion="/NHMP/patientinsert" method="post"
+										onsubmit="return validation();">
+										<table class="table table-xs mb-0" align="center" width="600"
+											cellspacing="0" cellpadding="5">
+											<tr>
+												<th>병록번호</th>
+												<td><input type="number" name="patNum" id="patNum"
+													required></td>
+											</tr>
 
-						<tr>
-							<th>주민번호</th>
-							<td><input type="text" name="before" maxlength="7">-
-								<input type="password" name="after" maxlength="8"></td>
-						</tr>
+											<tr>
+												<th>환자명</th>
+												<td><input type="text" name="patName" id="patName"
+													required> &nbsp;</td>
+											</tr>
 
-						<tr>
-							<th>주 소</th>
-							<td>API 적용</td>
-						</tr>
+											<tr>
+												<th>구 분</th>
+												<td><input type="radio" name="patType" value="enter">입원
+													&nbsp; <input type="radio" name="patType" value="outer">퇴원
+													&nbsp;</td>
+											</tr>
 
-						<tr>
-							<th>보호자명</th>
-							<td><input type="text" name="Family" id="Family" requried></td>
-						</tr>
+											<tr>
+												<th>입원날짜</th>
+												<td><input type="date" name="patEntDate"></td>
+											</tr>
 
-						<tr>
-							<th>이메일</th>
-							<td><input type="text"> &nbsp; @ &nbsp; <select>
-									<option value="">직접입력</option>
-									<option value="naver.com">naver.com</option>
-									<option value="hanmail.net">hanmail.net</option>
-									<option value="nate.com">nate.com</option>
-									<option value="gmail.com">gmail.com</option>
-									<option value="hotmail.com">hotmail.com</option>
-									<option value="lycos.co.kr">lycos.co.kr</option>
-									<option value="empal.com">empal.com</option>
-									<option value="korea.com">korea.com</option>
-							</select></td>
-						</tr>
+											<tr>
+												<th>퇴원날짜</th>
+												<td><input type="date" name="patOutDate"></td>
+											</tr>
 
-						<tr>
-							<th>전화번호</th>
-							<td><select>
-									<option value="010" name="fphone">010
-									<option value="011" name="fphone">011
-									<option value="016" name="fphone">016
-									<option value="019" name="fphone">019
-							</select> <input type="tel" name="mphone" maxlength="4">- <input
-								type="tel" name="lphone" maxlength="4"></td>
-						</tr>
+											<tr>
+												<th>성 별</th>
+												<td><input type="radio" name="patGender" value="M"
+													required> 남자 &nbsp; <input type="radio"
+													name="patGender" value="F" required> 여자</td>
+											</tr>
 
-						<tr>
-							<th>병 동</th>
-							<td><select>
-									<option value="KH1병동" name="khward">KH1병동
-									<option value="KH2병동" name="khward">KH2병동
-									<option value="KH3병동" name="khward">KH3병동
-							</select></td>
-						</tr>
+											<tr>
+												<th>주민번호</th>
+												<td><input type="text" name="before" maxlength="7">-
+													<input type="password" name="after" maxlength="8"></td>
+											</tr>
 
-						<tr>
-							<th>담당의사</th>
-							<td><input type="text" name="patDoc" id="patDoc" required>
-							</td>
-						</tr>
+											<tr>
+												<th>주 소</th>
+												<td>API 적용</td>
+											</tr>
 
-						<tr>
-							<th colspan="2"><input type="submit" value="등록하기">
-								&nbsp; <input type="reset" value="등록취소"> &nbsp; <a
-								href="javascript:history.go(-1)">이전 페이지로 이동</a>
-					</table>
-				</form>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="card">
-						<div class="card-body">
-							<div class="active-member">
-								<div class="table-responsive"></div>
+											<tr>
+												<th>보호자명</th>
+												<td><input type="text" name="Family" id="Family"
+													requried></td>
+											</tr>
+
+											<tr>
+												<th>이메일</th>
+												<td><input type="text"> &nbsp; @ &nbsp; <select>
+														<option value="">직접입력</option>
+														<option value="naver.com">naver.com</option>
+														<option value="hanmail.net">hanmail.net</option>
+														<option value="nate.com">nate.com</option>
+														<option value="gmail.com">gmail.com</option>
+														<option value="hotmail.com">hotmail.com</option>
+														<option value="lycos.co.kr">lycos.co.kr</option>
+														<option value="empal.com">empal.com</option>
+														<option value="korea.com">korea.com</option>
+												</select></td>
+											</tr>
+
+											<tr>
+												<th>전화번호</th>
+												<td><select>
+														<option value="010" name="fphone">010
+														<option value="011" name="fphone">011
+														<option value="016" name="fphone">016
+														<option value="019" name="fphone">019
+												</select> <input type="tel" name="mphone" maxlength="4">- <input
+													type="tel" name="lphone" maxlength="4"></td>
+											</tr>
+
+											<tr>
+												<th>병 동</th>
+												<td><select>
+														<option value="KH1병동" name="khward">KH1병동
+														<option value="KH2병동" name="khward">KH2병동
+														<option value="KH3병동" name="khward">KH3병동
+												</select></td>
+											</tr>
+
+											<tr>
+												<th>담당의사</th>
+												<td><input type="text" name="patDoc" id="patDoc"
+													required></td>
+											</tr>
+
+											<tr>
+												<th colspan="2" align="center"><input type="submit"
+													value="등록하기"> &nbsp; <input type="reset"
+													value="등록취소"> &nbsp; <a
+													href="javascript:history.go(-1)">이전 페이지로 이동</a>
+												</th>
+										</table>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!--
+				<!--
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6">
 
@@ -676,7 +851,7 @@
 
                 -->
 
-			<!--
+				<!--
                 <div class="row">
                         <div class="col-lg-3 col-sm-6">
                             <div class="card">
@@ -765,71 +940,68 @@
                     </div>
             </div>
                 -->
-			<!-- #/ container -->
-
-		</div>
-		<!--**********************************
+				<!-- #/ container -->
+			</div>
+			<!--**********************************
             Content body end
         ***********************************-->
 
 
-		<!--**********************************
+			<!--**********************************
             Footer start
         ***********************************-->
-		<div class="footer">
-			<div class="copyright">
-				<p>
-					Copyright &copy; Designed & Developed by <a
-						href="https://themeforest.net/user/quixlab">이민삼수</a> 2018
-				</p>
+			<div class="footer">
+				<div class="copyright">
+					<p>
+						Copyright &copy; Designed & Developed by <a
+							href="https://themeforest.net/user/quixlab">이민삼수</a> 2018
+					</p>
+				</div>
 			</div>
-		</div>
-		<!--**********************************
+			<!--**********************************
             Footer end
         ***********************************-->
-	</div>
-	<!--**********************************
+		</div>
+		<!--**********************************
         Main wrapper end
     ***********************************-->
 
-	<!--**********************************
+		<!--**********************************
         Scripts
     ***********************************-->
-	<script src="/NHMP/resources/ERP/css/plugins/common/common.min.js"></script>
-	<script src="/NHMP/resources/ERP/js/custom.min.js"></script>
-	<script src="/NHMP/resources/ERP/js/settings.js"></script>
-	<script src="/NHMP/resources/ERP/js/gleek.js"></script>
-	<script src="/NHMP/resources/ERP/js/styleSwitcher.js"></script>
+		<script src="/NHMP/resources/ERP/css/plugins/common/common.min.js"></script>
+		<script src="/NHMP/resources/ERP/js/custom.min.js"></script>
+		<script src="/NHMP/resources/ERP/js/settings.js"></script>
+		<script src="/NHMP/resources/ERP/js/gleek.js"></script>
+		<script src="/NHMP/resources/ERP/js/styleSwitcher.js"></script>
 
-	<!-- Chartjs -->
-	<script
-		src="/NHMP/resources/ERP/css/plugins/chart.js/Chart.bundle.min.js"></script>
-	<!-- Circle progress -->
-	<script
-		src="/NHMP/resources/ERP/css/plugins/circle-progress/circle-progress.min.js"></script>
-	<!-- Datamap -->
-	<script src="/NHMP/resources/ERP/css/plugins/d3v3/index.js"></script>
-	<script src="/NHMP/resources/ERP/css/plugins/topojson/topojson.min.js"></script>
-	<script
-		src="/NHMP/resources/ERP/css/plugins/datamaps/datamaps.world.min.js"></script>
-	<!-- Morrisjs -->
-	<script src="/NHMP/resources/ERP/css/plugins/raphael/raphael.min.js"></script>
-	<script src="/NHMP/resources/ERP/css/plugins/morris/morris.min.js"></script>
-	<!-- Pignose Calender -->
-	<script src="/NHMP/resources/ERP/css/plugins/moment/moment.min.js"></script>
-	<script
-		src="/NHMP/resources/ERP/css/plugins/pg-calendar/js/pignose.calendar.min.js"></script>
-	<!-- ChartistJS -->
-	<script
-		src="/NHMP/resources/ERP/css/plugins/chartist/js/chartist.min.js"></script>
-	<script
-		src="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
-
-
-
-	<script src="/NHMP/resources/ERP/js/dashboard/dashboard-1.js"></script>
+		<!-- Chartjs -->
+		<script
+			src="/NHMP/resources/ERP/css/plugins/chart.js/Chart.bundle.min.js"></script>
+		<!-- Circle progress -->
+		<script
+			src="/NHMP/resources/ERP/css/plugins/circle-progress/circle-progress.min.js"></script>
+		<!-- Datamap -->
+		<script src="/NHMP/resources/ERP/css/plugins/d3v3/index.js"></script>
+		<script src="/NHMP/resources/ERP/css/plugins/topojson/topojson.min.js"></script>
+		<script
+			src="/NHMP/resources/ERP/css/plugins/datamaps/datamaps.world.min.js"></script>
+		<!-- Morrisjs -->
+		<script src="/NHMP/resources/ERP/css/plugins/raphael/raphael.min.js"></script>
+		<script src="/NHMP/resources/ERP/css/plugins/morris/morris.min.js"></script>
+		<!-- Pignose Calender -->
+		<script src="/NHMP/resources/ERP/css/plugins/moment/moment.min.js"></script>
+		<script
+			src="/NHMP/resources/ERP/css/plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+		<!-- ChartistJS -->
+		<script
+			src="/NHMP/resources/ERP/css/plugins/chartist/js/chartist.min.js"></script>
+		<script
+			src="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
 
 
+
+		<script src="/NHMP/resources/ERP/js/dashboard/dashboard-1.js"></script>
 </body>
 
 </html>

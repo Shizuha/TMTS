@@ -26,7 +26,7 @@ public class CounselingLogSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 상담일지 
+		// 상담일지 검색 처리용 컨트롤러
 	}
 
 	/**

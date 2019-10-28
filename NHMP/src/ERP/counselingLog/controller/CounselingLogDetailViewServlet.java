@@ -31,22 +31,20 @@ public class CounselingLogDetailViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 전송 온 상담일지 번호에 대한 상세보기 처리용 컨트롤러
+		// 전송 온 상담일지 상담일지번호에 대한 상세조회 처리용 컨트롤러
 		
 		int clNo = Integer.parseInt(request.getParameter("cl_no"));
-		
-		CounselingLogService clservice = new CounselingLogService();
-		clservice.selectOne(clNo);
-		CounselingLog counselingLog = clservice.selectOne(clNo);
+		System.out.println(clNo);
+		CounselingLog counselingLog = new CounselingLogService().DetailView(clNo);
 		
 		RequestDispatcher view = null;
 		if(counselingLog != null) {
-			view = request.getRequestDispatcher("views/ERP/counselingLog/CounselingLogSelectOne.jsp");
+			view = request.getRequestDispatcher("views/ERP/counselingLog/CounselingLogDetailView.jsp");
 			request.setAttribute("counselingLog", counselingLog);
 			view.forward(request, response);
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", clNo + "번 상담일지 상세조회 실패!");
+			request.setAttribute("message", clNo + "번의 환자정보 상세보기 실패!");
 			view.forward(request, response);
 		}
 	}

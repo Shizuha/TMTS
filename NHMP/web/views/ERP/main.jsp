@@ -313,10 +313,10 @@
 					</a>
 
 						<ul aria-expanded="false">
-							<li><a href="app-profile.html">전체환자 조회</a></li>
-							<li><a href="app-calender.html">환자 입원 등록</a></li>
-							<li><a href="app-calender.html">상담일지 등록</a></li>
-							<li><a href="app-calender.html">투약일지 등록</a></li>
+							<li><a href="/NHMP/patientlist">전체환자 조회</a></li>
+							<li><a href="patient/PatientInsert.jsp">환자 입원 등록</a></li>
+							<li><a href="/NHMP/counsellist">상담일지 등록</a></li>
+							<li><a href="medicienRecord/MedicienRecordEnroll.jsp">투약일지 등록</a></li>
 						</ul></li>
 					<!--
                     <li>

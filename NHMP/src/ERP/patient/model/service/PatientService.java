@@ -13,20 +13,20 @@ public class PatientService {
 	
 	public PatientService() {}
 	
-	public ArrayList<Patient> selectAll() {
+	public ArrayList<Patient> selectAll(){
 		Connection conn = getConnection();
 		ArrayList<Patient> list = pdao.selectAll(conn);
 		close(conn);
 		return list;
 	}
 	
-	public Patient selectOne(int patNum) {
+	public Patient selectOne(String patName) {
 		Connection conn = getConnection();
-		Patient patient = pdao.selectOne(conn, patNum);
+		Patient patient = pdao.selectOne(conn, patName);
 		close(conn);
 		return patient;
 	}
-	
+
 	public int insertPatient(Patient patient) {
 		Connection conn = getConnection();
 		int result = pdao.insertPatient(conn, patient);
@@ -34,11 +34,10 @@ public class PatientService {
 			commit(conn);
 		else
 			rollback(conn);
-		
 		close(conn);
 		return result;
 	}
-	
+
 	public int updatePatient(Patient patient) {
 		Connection conn = getConnection();
 		int result = pdao.updatePatient(conn, patient);
@@ -46,24 +45,11 @@ public class PatientService {
 			commit(conn);
 		else
 			rollback(conn);
-		
 		close(conn);
 		return result;
 	}
 	
 	
-	public int deletePatient(int patNum) {
-		Connection conn = getConnection();
-		int result = pdao.deletePatient(conn, patNum);
-		if(result > 0) 
-			commit(conn);
-		else
-			rollback(conn);
-		
-		close(conn);
-		return result;
-	}
-
 
 	
 }

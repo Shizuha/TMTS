@@ -60,8 +60,8 @@ public class CounselingLogInsertServlet extends HttpServlet {
 		CounselingLog counselingLog = new CounselingLog();
 		counselingLog.setClNo(Integer.parseInt(mrequest.getParameter("cl_no")));
 		counselingLog.setClTitle(mrequest.getParameter("cl_title"));
-		counselingLog.setClName(mrequest.getParameter("cl_name"));
-		counselingLog.setClType(mrequest.getParameter("cl_type"));
+		counselingLog.setClContents(mrequest.getParameter("cl_contents"));
+		counselingLog.setClPhone(mrequest.getParameter("cl_phone"));
 		counselingLog.setClComment(mrequest.getParameter("cl_comment"));
 		counselingLog.setClPatName(mrequest.getParameter("cl_pat_name"));
 		counselingLog.setClEmpName(mrequest.getParameter("cl_emp_name"));
