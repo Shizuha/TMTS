@@ -1,7 +1,9 @@
-package ERP.medicienRecord.controller;
+package ERP.counselingLog.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +14,16 @@ import ERP.counselingLog.model.service.CounselingLogService;
 import ERP.counselingLog.model.vo.CounselingLog;
 
 /**
- * Servlet implementation class MedicienRecordDetailViewServlet
+ * Servlet implementation class CounselingLogListViewServlet
  */
-@WebServlet("/recorddetail")
-public class MedicienRecordDetailViewServlet extends HttpServlet {
+@WebServlet("/counsellist")
+public class CounselingLogListViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MedicienRecordDetailViewServlet() {
+    public CounselingLogListViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,7 +32,21 @@ public class MedicienRecordDetailViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//투약일지 상세보기 처리용 컨트롤러
+		//상담일지 전체 조회 처리용 컨트롤러
+		request.setCharacterEncoding("utf-8");
+		
+		ArrayList<CounselingLog> list = new CounselingLogService().selectAll();
+		
+		RequestDispatcher view = null;
+		if(list.size() > 0) {
+			view = request.getRequestDispatcher("views/ERP/counselingLog/CounselingLogListView.jsp");
+			request.setAttribute("list", list);
+			view.forward(request, response);
+		}else {
+			view = request.getRequestDispatcher("views/common/Error.jsp");
+			request.setAttribute("message", "상담일지 전체조회 실패!");
+			view.forward(request, response);
+		}
 	}
 
 	/**
