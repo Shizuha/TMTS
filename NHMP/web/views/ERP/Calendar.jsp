@@ -3,7 +3,7 @@
 <%
 	NursingHospital loginAdmin = (NursingHospital)session.getAttribute("loginHospital");
 %>
-<% if(loginAdmin != null && loginAdmin.getAUTHORITY_CODE().equals("G1")){ %>
+<% if(loginAdmin != null && loginAdmin.getNH_SERVICE_CODE().equals("GS2")){ %>
 <!DOCTYPE html>
 <html>
 <head>
