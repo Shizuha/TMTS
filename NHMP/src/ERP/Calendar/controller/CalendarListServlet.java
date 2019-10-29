@@ -17,6 +17,7 @@ import org.json.simple.parser.ParseException;
 
 import ERP.Calendar.Model.Service.CalendarService;
 import ERP.Calendar.Model.vo.Calendar;
+import ERP.Employee.model.vo.Employee;
 import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
@@ -43,45 +44,86 @@ public class CalendarListServlet extends HttpServlet {
 		// 캘린더 값 가져오는 서블릿
 		try {
 			NursingHospital nh = (NursingHospital) request.getSession().getAttribute("loginHospital"); // 유효성 검사
+			Employee emp = (Employee) request.getSession().getAttribute("loginEmployee");
 			
 			String jsondata = request.getParameter("jsondata");
-			String adminid = nh.getNH_USERID();
-			
+			System.out.println(jsondata);
 			JSONParser parser = new JSONParser();
 
 			Object obj = parser.parse(jsondata);
 
 			JSONObject sendJson = (JSONObject) obj;
 			
-			ArrayList<Calendar> list = new CalendarService().listCalendar(nh, sendJson, adminid);
-			JSONArray jarr = new JSONArray();
-			
-			// list를 jarr로 옮기기
-			for (Calendar c : list) {
-				JSONObject job = new JSONObject();
-				job.put("_id", c.getCalnum()); 
-				job.put("title",c.getTitle());
-				job.put("description", c.getDescription());
-				job.put("start", c.getStartdate());
-				job.put("end", String.valueOf(c.getEnddate()));
-				job.put("type", c.getCategory());
-				job.put("username", c.getUsername());
-				job.put("backgroundColor", c.getBackgroundcolor());
-				job.put("textColor", c.getTextcolor());
-				job.put("allDay", "false");
+			if(nh != null && emp == null) {
+				String adminid = nh.getNH_USERID();
+				System.out.println(adminid);
+				JSONArray jarr = new JSONArray();
+				
+				ArrayList<Calendar> list = new CalendarService().listCalendar(nh, sendJson, adminid);
+				
+				// list를 jarr로 옮기기
+				for (Calendar c : list) {
+					JSONObject job = new JSONObject();
+					job.put("_id", c.getCalnum()); 
+					job.put("title",c.getTitle());
+					job.put("description", c.getDescription());
+					job.put("start", c.getStartdate());
+					job.put("end", String.valueOf(c.getEnddate()));
+					job.put("type", c.getCategory());
+					job.put("username", c.getUsername());
+					job.put("backgroundColor", c.getBackgroundcolor());
+					job.put("textColor", c.getTextcolor());
+					job.put("allDay", "false");
 
-				jarr.add(job);
+					jarr.add(job);
+				}
+				
+				
+				// json 배열을 전송용 json 객체에 저장한다.
+				sendJson.put("list", jarr);
+				
+				// 요청한 뷰로 응답처리한다.
+				response.setContentType("application/json; charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.write(sendJson.toJSONString());
+				out.flush();
+				out.close();
+				
+			} else {
+				String empname = emp.getEmpName();
+				
+				JSONArray jarr = new JSONArray();
+				
+				ArrayList<Calendar> list = new CalendarService().EmployeelistCalendar(sendJson, empname);
+				
+				// list를 jarr로 옮기기
+				for (Calendar c : list) {
+					JSONObject job = new JSONObject();
+					job.put("_id", c.getCalnum()); 
+					job.put("title",c.getTitle());
+					job.put("description", c.getDescription());
+					job.put("start", c.getStartdate());
+					job.put("end", String.valueOf(c.getEnddate()));
+					job.put("type", c.getCategory());
+					job.put("username", c.getempname());
+					job.put("backgroundColor", c.getBackgroundcolor());
+					job.put("textColor", c.getTextcolor());
+					job.put("allDay", "false");
+
+					jarr.add(job);
+				}
+				
+				// json 배열을 전송용 json 객체에 저장한다.
+				sendJson.put("list", jarr);
+				
+				// 요청한 뷰로 응답처리한다.
+				response.setContentType("application/json; charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.write(sendJson.toJSONString());
+				out.flush();
+				out.close();
 			}
-
-			// json 배열을 전송용 json 객체에 저장한다.
-			sendJson.put("list", jarr);
 			
-			// 요청한 뷰로 응답처리한다.
-			response.setContentType("application/json; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.write(sendJson.toJSONString());
-			out.flush();
-			out.close();
 
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block

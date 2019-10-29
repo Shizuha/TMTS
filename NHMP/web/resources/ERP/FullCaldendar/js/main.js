@@ -193,6 +193,7 @@ var calendar = $('#calendar').fullCalendar({
           events.push(evt);
         }
         callback(events);
+        console.log(events);
       }
     });
   },

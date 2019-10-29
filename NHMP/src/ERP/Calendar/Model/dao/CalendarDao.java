@@ -133,4 +133,76 @@ public class CalendarDao {
 		
 	}
 
+	public ArrayList<Calendar> EmployeelistCalendar(Connection conn, JSONObject sendJson, String empname) {
+		ArrayList<Calendar> list = new ArrayList<Calendar>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rest = null; 
+
+		String query = "select cal_num, emp_name, title, description, " + 
+				" to_char(start_date, 'yyyy-mm-dd')||'T'||to_char(start_date, 'HH24:MM') as start_date, " + 
+				" to_char(end_date, 'yyyy-mm-dd')||'T'||to_char(end_date, 'HH24:MM') as end_date, " + 
+				" cate_gory, backgroundcolor, textcolor from calendar where emp_name = ?";
+		
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, empname);
+			
+			rest = pstmt.executeQuery();
+			
+			while(rest.next()) {
+				Calendar cal = new Calendar();
+				cal.setCalnum(rest.getInt("cal_num"));
+				cal.setTitle(rest.getString("title"));
+				cal.setDescription(rest.getString("description"));
+				cal.setStartdate(rest.getString("start_date"));
+				cal.setEnddate(rest.getString("end_date"));
+				cal.setCategory(rest.getString("cate_gory"));
+				cal.setBackgroundcolor(rest.getString("backgroundcolor"));
+				cal.setTextcolor(rest.getString("textcolor"));
+				cal.setempname(rest.getString("emp_name"));
+				list.add(cal);
+				System.out.println(cal);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public void EmployeeInsertCalendar(Connection conn, JSONObject sendJson, String empname) {
+		PreparedStatement pstmt = null;
+		String query = "INSERT INTO CALENDAR VALUES (seq_cal.nextval, "
+				+ "?, ?, ?, ?, to_date(?, 'yyyy-mm-dd hh24:mi'), "
+				+ "to_date(?, 'yyyy-mm-dd hh24:mi'), "
+				+ "?, ?, DEFAULT)";
+//		String query = "insert into calendar(cal_num, title, description, start, end, type, backgrouondColor ) values(seq_cal.nextval,?,?,?,?,?)";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "");
+			pstmt.setString(2, empname);
+			pstmt.setString(3, String.valueOf(sendJson.get("title")));
+			pstmt.setString(4, String.valueOf(sendJson.get("description")));
+			pstmt.setString(5, String.valueOf(sendJson.get("start")));
+			pstmt.setString(6, String.valueOf(sendJson.get("end")));
+			pstmt.setString(7, String.valueOf(sendJson.get("type")));
+			pstmt.setString(8, String.valueOf(sendJson.get("backgroundColor")));
+			
+			pstmt.execute();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return;
+		
+	}
+
 }

@@ -12,13 +12,14 @@ public class Calendar implements java.io.Serializable {
 	private String category;
 	private String username;
 	private String backgroundcolor;
-	private String textcolor; 
+	private String textcolor;
+	private String empname;
 
 	
 	public Calendar() {}
 
 	public Calendar(int calnum, String title, String description, String startdate, String enddate,
-			String category, String username, String backgroundcolor, String textcolor) {
+			String category, String username, String backgroundcolor, String textcolor, String empname) {
 		super();
 		this.calnum = calnum;
 		this.title = title;
@@ -29,6 +30,7 @@ public class Calendar implements java.io.Serializable {
 		this.username = username;
 		this.backgroundcolor = backgroundcolor;
 		this.textcolor = textcolor;
+		this.empname = empname;
 	}
 
 	public int getCalnum() {
@@ -101,12 +103,20 @@ public class Calendar implements java.io.Serializable {
 	public void setTextcolor(String textcolor) {
 		this.textcolor = textcolor;
 	}
+	
+	public String getempname() {
+		return empname;
+	}
+
+	public void setempname(String empname) {
+		this.empname = empname;
+	}
 
 	@Override
 	public String toString() {
 		return "Calendar [calnum=" + calnum + ", title=" + title + ", description=" + description
 				+ ", startdate=" + startdate + ", enddate=" + enddate + ", category=" + category + ", username="
-				+ username + ", backgroundcolor=" + backgroundcolor + ", textcolor=" + textcolor + "]";
+				+ username + ", backgroundcolor=" + backgroundcolor + ", textcolor=" + textcolor + ", empname=" + empname + "]";
 	}
 	
 }

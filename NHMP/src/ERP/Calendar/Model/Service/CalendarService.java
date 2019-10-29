@@ -44,6 +44,22 @@ public class CalendarService {
 		close(conn);
 		
 	}
+
+	public ArrayList<Calendar> EmployeelistCalendar(JSONObject sendJson, String empname) {
+		Connection conn = getConnection();
+		ArrayList<Calendar> list = cdao.EmployeelistCalendar(conn, sendJson, empname);
+		close(conn);
+		return list;
+	}
+
+	public void EmployeeInsertCalendar(JSONObject sendJson, String empname) {
+		Connection conn = getConnection();
+		cdao.EmployeeInsertCalendar(conn, sendJson, empname);
+		commit(conn);
+		close(conn);
+		
+	}
+
 	
 	
 
