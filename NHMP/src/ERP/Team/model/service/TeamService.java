@@ -17,11 +17,19 @@ public class TeamService {
 		return null;
 	}
 
-	public String selectTeamName(String teamCode) {
-		Connection conn = getConnection();
+	public String selectTeamName(String teamCode, String hostId, String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		String deptName = tDao.selectTeamName(conn, teamCode);
 		
 		close(conn);
 		return deptName;
+	}
+
+	public String[] selectOrganTeamName(String deptName, String hostId, String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
+		String[] teamName = tDao.selectOrganTeamName(conn, deptName);
+		
+		close(conn);
+		return teamName;
 	}
 }
