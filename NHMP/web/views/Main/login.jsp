@@ -38,6 +38,23 @@
 		}
 	}
 	
+	function getHost(){
+		$.ajax({
+			url : "/NHMP/hostinfo",
+			type : "post",
+			data : {Cname : $("#selecname").val()},
+			dataType : "json",
+			success : function(data){
+				$("#hostid").val(data.hostid);
+				$("#hostpwd").val(data.hostpwd);
+				alert($("#hostid").val());
+				alert($("#hostpwd").val());
+			}, error : function(jqXHR, textStatus, errorThrown ){
+				console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
+			}
+		});
+	}
+	
 	</script>
     
     <!-- Favicon icon -->
@@ -88,12 +105,15 @@
 									</div>
         						<% }else {%>
         							<form class="mt-5 mb-5 login-input" action="/NHMP/login" method="post">
+        								<input type="hidden" name="hostid" value="" id="hostid">
+        								<input type="hidden" name="hostpwd" value="" id="hostpwd">
                                  	  	<div class="form-group">
-                                 	  		<select id="selecname">
-                                 	  			<option value="기업을 선택하세요">병원을 선택하세요</option>
+                                 	  		<select id="selecname" onchange="getHost()">
+	                                 	  			<option value="기업을 선택하세요">병원을 선택하세요</option>
                                  	  			<% for( NursingHospital NH : list ) { %>
-                                 	  				<option value="<%= NH.getCOMPANY_NAME() %>" name="company_name"><%= NH.getCOMPANY_NAME() %></option>
+	                                 	  			<option value="<%= NH.getCOMPANY_NAME() %>" name="company_name"><%= NH.getCOMPANY_NAME() %></option>
                                  	  			<% } %>
+                                 	  			<%-- onchange="getHost('<%= NH.getNH_ID() %>')"  --%>
                                  	  		</select>
                                  	  	</div>
                                  	  	<div class="form-group">

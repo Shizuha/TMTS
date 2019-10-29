@@ -80,6 +80,12 @@ public class NHService {
 		return list;
 	}
 
+	public NursingHospital selectOne(String cname) {
+		Connection conn = getConnection();
+		NursingHospital NH = ndao.selectOne(conn, cname);
+		return NH;
+	}
+
 	
 	
 	

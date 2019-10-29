@@ -327,6 +327,38 @@ public class NHDao {
 		return list;
 	}
 
+	public NursingHospital selectOne(Connection conn, String cname) {
+		NursingHospital NH = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select nh_userid, nh_userpwd from nursing_hospital where company_name = ?";
+		System.out.println(cname);
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cname);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				NH = new NursingHospital();
+				
+				NH.setNH_USERID(rset.getString("NH_USERID"));
+				NH.setNH_USERPWD(rset.getString("NH_USERPWD"));
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return NH;
+	}
+
 	
 	
 	
