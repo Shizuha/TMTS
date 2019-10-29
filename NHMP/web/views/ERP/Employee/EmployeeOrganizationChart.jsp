@@ -19,53 +19,135 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="/NHMP/resources/ERP/images/common/favicon.png">
-<!-- Pignose Calender -->
-<link
-	href="/NHMP/resources/ERP/css/plugins/pg-calendar/css/pignose.calendar.min.css"
-	rel="stylesheet">
-<!-- Chartist -->
-<link rel="stylesheet"
-	href="/NHMP/resources/ERP/css/plugins/chartist/css/chartist.min.css">
-<link rel="stylesheet"
-	href="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+
+
 <!-- 메인 css 링크 -->
-<link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
+<link href="/NHMP/resources/ERP/css/style.css" rel="stylesheet">
 <link href="/NHMP/resources/ERP/css/insertEmployee.css" rel="stylesheet">
-<link href="/NHMP/resources/ERP/css/EmployeeOrganizationChart.css">
 <!-- 폰트 링크 추후 확인후 삭제 -->
-<link href="/NHMP/resources/ERP/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-	<!-- 트리뷰 링크 -->
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-  <link href="/NHMP/resources/ERP/css/file-explore.css" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> 
-<script src="/NHMP/resources/ERP/js/file-explore.js"></script> 
-<script type="text/javascript">
-$(document).ready(function() {
-	
-     $(".file-tree").filetree();
-
- });
-</script>
-<script type="text/javascript">
-					
-		var _gaq = _gaq || [];
-		 _gaq.push(['_setAccount', 'UA-36251023-1']);
-		 _gaq.push(['_setDomainName', 'jqueryscript.net']);
-		_gaq.push(['_trackPageview']);
-					
-		(function() {
-		  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-					    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		 })();
-					
-</script>
+ <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+   <script type="text/javascript">
+        $(document).ready(function () {
+            //[1] 리스트의 기본 모양 지정 : <ul>를 자식으로 가지지 않는 li의 블릿기호는 기본 모양
+            $('.organ li:not(:has(ul))').css({ cursor: 'default', 'list-style-image':'none'});
+           
+            //[2] 자식 요소를 갖는 li에 대해서는 블릿이미지를 plus.gif를 지정
+            $('.organ li:has(ul)') //자식 요소(ul)를 갖는 요소(li)에 대해서
+                .css({cursor: 'pointer', 'list-style-image':'url(/NHMP/resources/ERP/images/folder-closed.gif)'})//+기호로 설정
+                .children().hide(); //자식요소 숨기기
+               
+            //[3] +로 설정된 항목에 대해서 click이벤트 적용
+            $('.organ li:has(ul)').click(function(event){
+            	
+                //this == event.target으로 현재 선택된 개체에 대해서 처리
+                if(this == event.target){
+                    //숨겨진 상태면 보이고 -기호로 설정 그렇지 않으면 숨기고 + 기호로 설정
+                      if ($(this).children().is(':hidden')) {
+                    	  
+                        // 보이기
+                        $(this).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder.gif)').children().slideDown();
+                        
+                    }
+                    else {
+                        // 숨기기
+                        $(this).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder-closed.gif)').children().slideUp();
+                    }
+ 
+                }
+                return false;          
+            });
+             
+                
+        });
+    </script>
 <style type="text/css">
+.organMain{
+	
+	margin:50px;
+	background:white;
+	border-radius:5px;
+	display:inline-block;
+	padding:20px;
+	overflow:auto;
+	box-shadow:1px 1px 1px 2px #dddddd;
+	
+}
+.organHeader{
+	width:100%;
+	display:inline-block;
+		
+}
+ .organHeader-left{
+	width:450px;
+	float:left;
+	
+	
+}
+.organHeader-right{
+	
+	display:inline-block;
+	float:right;
+}
+h3{
+	margin: 0px 0px 0px 0px;	
+}
+.h3{
+	float:left;
+	margin:0px 350px 0px 0px;
+} 
+.dept{
+	
+	border:1px solid gray;
+	width:100%;
+	height:470px;
+	padding:5px;
+	
+	
+}
 
+.dept-left{
+	border: 1px solid gray;
+	float:left;
+	width:430px;
+	padding:30px;
+	height:460px;
+	
+}
+.dept-right{
+	border: 1px solid gray;
+	float:right;
+	width:550px;
+	height:460px;
+	padding:10px;
+}
 
+/*  input[type="checkbox"]:checked~ul {
+        display:none;
+        transition:1.5s;
+    }  */ 
+input[type="checkbox"]{
+        display:none;
+    } 
+ul {
+	list-style:none;
+}
+.dept li{
+	margin-left:20px;
+	width:80px
+}
+.organ{
+	border-radius:3px;
+	padding:50px;
+	border:1px solid gray;
+	height:400px;
+	overflow:auto;
+}
+ .organ li{
+	width:150px;
+} 
 </style>
+
 </head>
 <body>
 <!--*******************
@@ -310,7 +392,8 @@ $(document).ready(function() {
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/list">전체사원조회</a></li>
 							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
-							<li><a href="layout-two-column.html">조직도</a></li>
+							<li><a href="/NHMP/ochart">조직도</a></li>
+							<li><a href="/NHMP/views/ERP/Employee/test.jsp">트리뷰테스트</a></li>
 
 						</ul>
 					</li>
@@ -388,62 +471,60 @@ $(document).ready(function() {
 			</div>
 				<div class="dept">
 					<div class="dept-left">
+					<%if(dList != null){ %>
 						<div class="organ">
-						<ul class="file-tree">
-					    <li><a href="#">간호과</a>
-					      <ul>
-					        <li><a href="#">New York</a>
-					          <ul>
-					            <li><a href="#">Corporation</a>
-					              <ul>
-					                <li> <a href="#link5">Link 5</a> </li>
-					                <li> <a href="#link6">Link 6</a> </li>
-					                <li> <a href="#link7">Link 7</a> </li>
-					                <li> <a href="#link8">Link 8</a> </li>
-					                <li> <a href="#">Deeper</a>
-					                  <ul>
-					                    <li><a href="#">Link 1</a> </li>
-					                    <li><a href="#">Link 2</a> </li>
-					                    <li><a href="#">Link 3</a> </li>
-					                    <li><a href="#">Link 4</a> </li>
-					                  </ul>
-					                </li>
-					              </ul>
-					            </li>
-					            <li><a href="#">LLC</a>
-					              <ul>
-					                <li> <a href="#link5">Link 5</a> </li>
-					                <li> <a href="#link6">Link 6</a> </li>
-					                <li> <a href="#link7">Link 7</a> </li>
-					                <li> <a href="#link8">Link 8</a> </li>
-					                <li> <a href="#">Deeper</a>
-					                  <ul>
-					                    <li><a href="#">Link 1</a> </li>
-					                    <li><a href="#">Link 2</a> </li>
-					                    <li><a href="#">Link 3</a> </li>
-					                    <li><a href="#">Link 4</a> </li>
-					                  </ul>
-					                </li>
-					              </ul>
-					            </li>
-					          </ul>
-					        </li>
-					        <li><a href="#link2">Link 2</a> </li>
-					        <li><a href="#link3">Link 3</a> </li>
-					        <li><a href="#link4">Link 4</a> </li>
-					      </ul>
-					    </li>
-					    <li><a href="#">Canada</a>
-					      <ul>
-					        <li><a href="#">Link 1</a> </li>
-					        <li><a href="#">Link 2</a> </li>
-					        <li><a href="#">Link 3</a> </li>
-					        <li><a href="#">Link 4</a> </li>
-					      </ul>
-					    </li>
-					  </ul>
-					  </div>
+							<ul>
+							<%for(Department d : dList){ %>
+								<li><%= d.getDeptName() %>
+					                <ul id="deptList">
+					                	<li>a</li>
+					                	<li>a</li>
+					                	<li>a</li>
+					                </ul> 
+					           </li>
+					           <%} %>
+					        </ul>
+						</div>
 					</div>
+					<%}else{ %>
+						<div class="organ">
+							<ul>
+					            <li>간호과
+					                <ul>
+					                    <li>dd</li>
+					                    <li>dd</li>
+					                    <li>dd</li>
+					                </ul> 
+					           </li>
+					           <li>가정의학과
+					                <ul>
+					                   
+					                </ul>
+					            </li>
+					            <li>외과
+					                <ul>
+					                   
+					                </ul>
+					            </li>
+					            <li>원무과
+					                <ul>
+					                   
+					                </ul>
+					            </li>
+					            <li>총무과
+					                <ul>
+					                   
+					                </ul>
+					            </li>
+					            <li>한방과
+					                <ul>
+					                   
+					                </ul>
+					            </li>
+					        </ul>
+						</div>
+					</div>
+					<%} %>
 					<div class="dept-right">
 					<table>
 						<tr>
@@ -498,18 +579,12 @@ $(document).ready(function() {
 		<!--**********************************
         Scripts
     ***********************************-->
+  
 		<script src="/NHMP/resources/ERP/css/plugins/common/common.min.js"></script>
 		<script src="/NHMP/resources/ERP/js/custom.min.js"></script>
 		<script src="/NHMP/resources/ERP/js/settings.js"></script>
 		<script src="/NHMP/resources/ERP/js/gleek.js"></script>
-		<script src="/NHMP/resources/ERP/js/styleSwitcher.js"></script>
 
-		<!-- Chartjs -->
-		<script
-			src="/NHMP/resources/ERP/css/plugins/chart.js/Chart.bundle.min.js"></script>
-		<!-- Circle progress -->
-		<script
-			src="/NHMP/resources/ERP/css/plugins/circle-progress/circle-progress.min.js"></script>
 		<!-- Datamap -->
 		<script src="/NHMP/resources/ERP/css/plugins/d3v3/index.js"></script>
 		<script src="/NHMP/resources/ERP/css/plugins/topojson/topojson.min.js"></script>
