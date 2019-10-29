@@ -53,7 +53,7 @@ public class CalendarListServlet extends HttpServlet {
 
 			JSONObject sendJson = (JSONObject) obj;
 			
-			ArrayList<Calendar> list = new CalendarService().listCalendar(sendJson, adminid);
+			ArrayList<Calendar> list = new CalendarService().listCalendar(nh, sendJson, adminid);
 			JSONArray jarr = new JSONArray();
 			
 			// list를 jarr로 옮기기

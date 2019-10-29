@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 import ERP.Calendar.Model.dao.CalendarDao;
 import ERP.Calendar.Model.vo.Calendar;
 import static common.JDBCTemplate.*;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 public class CalendarService {
 	
@@ -20,8 +21,10 @@ public class CalendarService {
 		close(conn);
 	}
 
-	public ArrayList<Calendar> listCalendar(JSONObject sendJson, String adminid) {
-		Connection conn = getConnection();
+	public ArrayList<Calendar> listCalendar(NursingHospital loginHospital, JSONObject sendJson, String adminid) {
+		String userid = loginHospital.getNH_USERID();
+		String userpwd = loginHospital.getNH_USERPWD();
+		Connection conn = getConnection(userid, userpwd);
 		ArrayList<Calendar> list = cdao.listCalendar(conn, sendJson, adminid);
 		close(conn);
 		return list;

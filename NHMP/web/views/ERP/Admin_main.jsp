@@ -1037,7 +1037,7 @@ $(function(){
         Scripts
     ***********************************-->
 		<script src="/NHMP/resources/ERP/css/plugins/common/common.min.js"></script>
-<script src="/NHMP/resources/ERP/js/custom.min.js"></script>
+		<script src="/NHMP/resources/ERP/js/custom.min.js"></script>
 		<script src="/NHMP/resources/ERP/js/settings.js"></script>
 		<script src="/NHMP/resources/ERP/js/gleek.js"></script>
 		<script src="/NHMP/resources/ERP/js/styleSwitcher.js"></script>
