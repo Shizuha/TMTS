@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="Main.NursingHospital.model.ov.NursingHospital"%>
+    pageEncoding="UTF-8" import="Main.NursingHospital.model.ov.NursingHospital,
+    							 ERP.Employee.model.vo.Employee"%>
 <%
 	NursingHospital loginAdmin = (NursingHospital)session.getAttribute("loginHospital");
+	Employee emp = (Employee)session.getAttribute("loginEmployee");
 %>
-<% if(loginAdmin != null && loginAdmin.getNH_SERVICE_CODE().equals("GS2")){ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -172,12 +173,6 @@
         <!-- /.filter panel -->
     </div>
     <!-- /.container -->
-<%} else {%>
-<script>
-      alert("접근 권한이 없습니다!");
-      self.close();
-</script>
-<% } %>
     <script src="/NHMP/resources/ERP/FullCaldendar/vendor/js/jquery.min.js"></script>
     <script src="/NHMP/resources/ERP/FullCaldendar/vendor/js/bootstrap.min.js"></script>
     <script src="/NHMP/resources/ERP/FullCaldendar/vendor/js/moment.min.js"></script>

@@ -21,6 +21,7 @@ import com.oracle.jrockit.jfr.RequestableEvent;
 
 import ERP.Calendar.Model.Service.CalendarService;
 import ERP.Calendar.Model.vo.Calendar;
+import ERP.Employee.model.vo.Employee;
 import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
@@ -46,9 +47,10 @@ public class CalendarInsertServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// 캘린더 등록 서블릿
 		try {
-		
+		Employee emp = (Employee) request.getSession().getAttribute("loginEmployee");
 		NursingHospital nh = (NursingHospital) request.getSession().getAttribute("loginHospital");
 		
+		if(nh != null && emp == null) {
 		String adminid = nh.getNH_USERID();
 		String jsoncal = request.getParameter("jsondata");
 
@@ -61,6 +63,21 @@ public class CalendarInsertServlet extends HttpServlet {
 		JSONObject sendJson = (JSONObject) obj;
 		CalendarService calendarService = new CalendarService();
 		calendarService.InsertCalendar(sendJson, adminid);
+		} else {
+			String empname = emp.getEmpName();
+			String jsoncal = request.getParameter("jsondata");
+
+			response.setCharacterEncoding("utf-8");
+
+			JSONParser parser = new JSONParser();
+
+			Object obj = parser.parse(jsoncal);
+			
+			JSONObject sendJson = (JSONObject) obj;
+			CalendarService calendarService = new CalendarService();
+			calendarService.EmployeeInsertCalendar(sendJson, empname);
+		}
+		
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
