@@ -205,4 +205,39 @@ public class CalendarDao {
 		
 	}
 
+	public ArrayList<Calendar> EmployeeSelectList(Connection conn, String empname) {
+		ArrayList<Calendar> list = new ArrayList<Calendar>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rest = null; 
+
+		String query = "select title, description, start_date " + 
+				" from calendar where emp_name = ? and to_char( start_date, 'yyyymmdd' ) = to_char( sysdate, 'yyyymmdd')";
+		
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, empname);
+			
+			rest = pstmt.executeQuery();
+			
+			while(rest.next()) {
+				Calendar cal = new Calendar();
+				cal.setTitle(rest.getString("title"));
+				cal.setDescription(rest.getString("description"));
+				cal.setStartdate(rest.getString("start_date"));
+
+				list.add(cal);
+				System.out.println(cal);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
 }

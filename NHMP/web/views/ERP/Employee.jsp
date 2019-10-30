@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="ERP.Employee.model.vo.Employee"%>
-<%@ page import="java.util.ArrayList" %>
+    pageEncoding="UTF-8"%>
+<%@ page import="ERP.Employee.model.vo.Employee,
+				 java.util.ArrayList,
+				 ERP.Calendar.Model.vo.Calendar" %>
 
 <%//스크립트 립 태그라고 함 //위에 페이지있는건 디렉트 태그라고 함.
-
-Employee emp = (Employee)session.getAttribute("loginEmployee");
+	Employee emp = (Employee)session.getAttribute("loginEmployee");
+	ArrayList<Calendar> list = (ArrayList<Calendar>)session.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,36 +41,59 @@ Employee emp = (Employee)session.getAttribute("loginEmployee");
 
 <script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
 <script> 
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar3');
 
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar3');
-	
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-        	plugins: [ 'dayGrid', 'interaction', 'list'],
-        	defaultView: 'dayGridMonth',
-        	selectable: true,
-        	locales : 'ko',
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+  	plugins: [ 'dayGrid', 'interaction', 'list'],
+  	defaultView: 'dayGridMonth',
+  	selectable: true,
+  	locales : 'ko',
 
-            header: {
-              left: 'prev,next today',
-              center: 'title',
-              right: 'dayGridMonth,addEventButton'
-            },
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,addEventButton'
+      },
 
-            displayEventTime: false, // don't show the time column in list view
-            customButtons: {
-                addEventButton: {
-                  text: '일정 보기',
-                  click: function() {
-                	 window.open("/NHMP/views/ERP/Calendar.jsp");
-                  }
-                }
+      displayEventTime: false, // don't show the time column in list view
+      customButtons: {
+          addEventButton: {
+            text: '일정 보기',
+            click: function() {
+          	 window.open("/NHMP/views/ERP/Calendar.jsp");
             }
-          });
+          }
+      }
+    });
 
-          calendar.render();
-      });
-	
+    calendar.render();
+});
+
+$(function(){    
+    $.ajax({
+		url : "/NHMP/ntop",
+		type : "get",
+		dataType : "json",
+		success : function(data){
+			var jsonStr = JSON.stringify(data);
+			var json = JSON.parse(jsonStr);
+			var values = "";
+			
+			for(var i in json.list){
+				values += "<tr><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].no + 
+				"</td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
+				+ "</a></td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].date + "</td></tr>";
+				/* <a href='/frist/ndetail?no= */
+			}
+			/* <td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd; */
+			$("#newNotice").html($("#newNotice").html() + values);
+		},
+		error : function(jqXHR, textStatus, errorThrown){
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+	});
+});
 </script>
 <!-- 스타일영역 -->
 
@@ -675,12 +700,12 @@ thead td {
 					<%}else{ %>
 					<center><img alt="" src="/NHMP/resources/ERP/images/testimonial2.jpg"></center><br><br>
 					<%} %>
-					<ul id="header_list">
-						<li>사원코드:<%=emp.getUserId() %></li><br>
-						<li>부서:<%=emp.getDeptCode() %> </li>
-						<li style="font-size: 10pt;"><%=emp.getTeamCode() %></li><br>
-						<li>이름:<%=emp.getEmpName() %></li><br>
-						<li>담당병동:<%=emp.getWardCode() %></li>
+					<ul id="header_list" style="border: 1px soild;">
+						<li>사원코드 :<%=emp.getUserId() %></li><br>
+						<li>부서 :<%=emp.getDeptCode() %> </li>
+						<li style="font-size: 10pt;">팀 코드 :<%=emp.getTeamCode() %></li><br>
+						<li>이름 :<%=emp.getEmpName() %></li><br>
+						<li>담당병동 :<%=emp.getWardCode() %></li>
 					</ul><br>
 				</div>
 				<% }else{ %>
@@ -698,27 +723,42 @@ thead td {
 				<div class="calendar1">
 				<h2 style="background: rgb(117, 113, 249, 0.5);
       			color:rgba(0, 0, 0, 1); border-radius:3px; margin:3px;">금일일정</h2>
+      			<% for(Calendar c : list){ %>
+      			<table style="border: 1px #000 solid; border-collapse: collapse;">
+      			<tr style="border: 1px #000 solid; border-collapse: collapse; ">
+      				<th style="border: 1px #000 solid; border-collapse: collapse; padding:10px 30px; text-align: center; background-color: #bbdefb;">날짜</th>
+      				<th style="border: 1px #000 solid; border-collapse: collapse; padding:10px 30px; text-align: center; background-color: #bbdefb;">일정명</th>
+      				<th style="border: 1px #000 solid; border-collapse: collapse; padding:10px 30px; text-align: center; background-color: #bbdefb;">내용</th>
+      			</tr>
+      			<tr style="border: 1px #000 solid; border-collapse: collapse;">
+      				<td style="border: 1px #000 solid; border-collapse: collapse; padding:10px 30px; background-color: #e3f2fd;"><%=c.getStartdate()%></td>
+      				<td style="border: 1px #000 solid; border-collapse: collapse; padding:10px 30px; background-color: #e3f2fd;"><%=c.getTitle()%></td>
+      				<td style="border: 1px #000 solid; border-collapse: collapse; padding:10px 30px; background-color: #e3f2fd;"><%=c.getDescription()%></td>
+      			</tr>
+      			</table>
+      			<%} %>
 				</div>
 			</div>
 		<div class="calendar2">
-			<div class="calendar">
+			<div class="calendar" style="overflow:hidden;">
 			<div id='calendar3'></div>
 		</div>
         	<div class="notice">
         		<div class="panel-heading" >
 			<h3 style="font-size:13pt; font-weight:600; background: rgb(117, 113, 249, 0.5);
       			color:rgba(0, 0, 0, 1); height:30px; padding:3px; border-radius:4px;">공지사항</h3><div>
-				<a href="#" title="공지사항"style="color:rgba(0, 0, 0, 1);">더보기 <i class="fa fa-angle-right"></i></a>
+				<a href="/NHMP/nlist" title="공지사항"style="color:rgba(0, 0, 0, 1);">더보기 <i class="fa fa-angle-right"></i></a>
+				
 			</div>
 		</div>
 		<!-- Table -->
-		<div class="table-responsive">
-			<table class="table table-hover">
-			<thead>
-				<tr id="title">
-					<th style="text-align:center; color:rgba(0, 0, 0, 1);">제목</th><th style="text-align:center; color:rgba(0, 0, 0, 1);">날짜</th>
+		<table id="newNotice" style="width: 100%; border-top: 1px solid #444444; border-collapse: collapse;">
+				<tr>
+					<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">번호</th>
+					<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">내용</th>
+					<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">등록일</th>
 				</tr>
-			</thead>
+			</table>
 			<%-- <% for(Notice no : noList){ %>
 				<tbody>
 					<tr> 

@@ -60,6 +60,13 @@ public class CalendarService {
 		
 	}
 
+	public ArrayList<Calendar> EmployeeSelectList(String empname) {
+		Connection conn = getConnection();
+		ArrayList<Calendar> list = cdao.EmployeeSelectList(conn, empname);
+		close(conn);
+		return list;
+	}
+
 	
 	
 

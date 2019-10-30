@@ -1,6 +1,7 @@
 package ERP.Employee.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ERP.Calendar.Model.Service.CalendarService;
+import ERP.Calendar.Model.vo.Calendar;
 import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
 
@@ -40,14 +43,19 @@ public class EmployeeCheckLogin extends HttpServlet {
 		Employee emp = new EmployeeService().loginCheck(userId, userPwd,hostId, hostPwd);
 		System.out.println("mem" + emp);
 		
+		
+		
 		/*ArrayList<Notice> noList = new NoticeService().selectList();
 		System.out.println("noList" + noList);*/
 		RequestDispatcher view  = null;
 		
 		 
 		if(emp != null) {
-			HttpSession session = request.getSession();
+			String empname = emp.getEmpName();
+			ArrayList<Calendar> list = new CalendarService().EmployeeSelectList(empname);
 			
+			HttpSession session = request.getSession();
+			session.setAttribute("list", list);
 			session.setAttribute("loginEmployee", emp);
 			/*session.setAttribute("noList", noList);*/
 			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
