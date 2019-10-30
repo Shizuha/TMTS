@@ -1,20 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" %>
-	
-<%@
-	page import="Main.NursingHospital.model.ov.NursingHospital, 
-				java.util.ArrayList, 
-				Main.NursingHospital.model.ov.NursingHospital,
-				ERP.Cauthority.model.vo.Cauthority"
+	pageEncoding="UTF-8" 
+%>
+
+<%@ 
+	page import="Main.NursingHospital.model.ov.NursingHospital, java.util.ArrayList, Main.NursingHospital.model.ov.NursingHospital"
 %>	
- 
 <%
 	NursingHospital loginAdmin = (NursingHospital)session.getAttribute("loginHospital");
 	ArrayList<NursingHospital> list = (ArrayList<NursingHospital>)request.getAttribute("list");
-	ArrayList<Cauthority> Alist = (ArrayList<Cauthority>)request.getAttribute("Alist");
 %>
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="ko">
 
 <head>
@@ -23,115 +19,18 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMTS</title>
 <style type="text/css">
-	input[type=checkbox]{
-		margin-left:8px;
-		vertical-align: middle; 
-		width: 1.0rem; 
-		height: 1.0rem
-	}
-	.root{
+	#rootdiv{
+		width:70%;
 		margin-left:50px;
-		margin-top:50px;
-		align:center;
-		text-align:center;
-		width:1100px;
-		border: 1px solid blue;
 	}
-	.root .NH_list{
+	#rootdiv .NHlist_talbe{
+		width:100%;
 		float:left;
 		text-align:center;
-		width:500px;
-		height:250px;
-		color:rgba(0, 0, 0, 1);
-		border: 1px solid red;
+		background:#f4f4f4;
+		color:#000;
 	}
-	.root .NH_list table{
-		width:500px;
-		background: rgb(136, 214, 241, 0.4);
-	}
-	
-	.root .NH_list table th{
-		background: rgb(117, 113, 249, 0.5);
-    	color:rgba(0, 0, 0, 1);
-    	text-align:center;
-	}
-	
-	.root .Authlist{
-		float:right;
-		text-align:center;
-		width:500px;
-		height:250px;
-		color:rgba(0, 0, 0, 1);
-		border: 1px solid red;
-	}
-	.root .Authlist table{
-		float:right;
-		width:500px;
-		background: rgb(136, 214, 241, 0.4);
-	}
-	.root .Authlist table th{
-		background: rgb(117, 113, 249, 0.5);
-    	color:rgba(0, 0, 0, 1);
-    	text-align:center;
-	}
-	.root .btnlist input{
-		width:100px;
-		background-color: #7571f9;
-		border: none;
-		color:#fff;
-		border-radius:3px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 15px;
-		margin: 4px;
-		cursor: pointer;
-	}
-	
-	
 </style>
-
-<script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
-<script> 
-$(function(){	
-	$(".NHbtn").click(function(){		//NH는 1명만 선택
-		if($(this).prop("checked")){
-			$(".NHbtn").prop("checked", false);
-			$(".AUTHbtn").prop("checked", false);
-			$(this).prop("checked", true);
-		}else{
-			$(".NHbtn").prop("checked", false);
-			$(".AUTHbtn").prop("checked", false);
-		}
-	});
-	
-	$(".AUTHbtn").click(function(){		//authority는 1명만 선택
-		if($(this).prop("checked")){
-			$(".AUTHbtn").prop("checked", false);
-			$(this).prop("checked", true);
-		}else{
-			$(".AUTHbtn").prop("checked", false);
-		}
-	});
-	
-});
-
-function check(){
-	if($(".NHbtn").is(":checked")){	//NH체크 확인
-		if($(".AUTHbtn").is(":checked")){ //권한체크 확인
-			return true;
-		}else{
-			alert("권한을 체크해주세요");
-			return false;
-		}
-	}else{
-		alert("직원을 체크해주세요");
-		return false;
-	}
-}
-
-
-</script>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="/NHMP/resources/ERP/images/common/favicon.png">
@@ -398,9 +297,7 @@ function check(){
 							class="fa fa-users"></i><span class="nav-text">인사관리</span> <!-- <i class="icon-globe-alt menu-icon"></i><span class="nav-text">인사설정</span>-->
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/list">인사정보관리</a></li>
-							<li><a href="layout-one-column.html">인사정보등록</a></li>
-							<li><a href="layout-two-column.html">조직도</a></li>
+							<li><a href="/NHMP/allNH">전체고객조회</a></li>
 						</ul></li>
 					<!-- <li class="nav-label">Apps</li> -->
 					<li><a class="has-arrow" href="javascript:void()"
@@ -411,33 +308,7 @@ function check(){
 							<li><a href="/NHMP/Cautholist">권한관리</a></li>
 							<li><a href="/NHMP/Cauthmanager">권한부여관리</a></li>
 						</ul></li>
-					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
-							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
-					</a>
-
-						<ul aria-expanded="false">
-							<li><a href="app-profile.html">전체환자 조회</a></li>
-							<li><a href="app-calender.html">환자 입원 등록</a></li>
-							<li><a href="app-calender.html">상담일지 등록</a></li>
-							<li><a href="app-calender.html">투약일지 등록</a></li>
-						</ul></li>
-					<!--   <li class="nav-label">UI Components</li>  -->
-					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> <i class="fa fa-usd"></i><span
-							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
-					</a>
-						<ul aria-expanded="false">
-							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
-							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
-							<li><a href="/NHMP/paylist">급여계산</a></li>
-						</ul>
-					<li><a href="javascript:void()" aria-expanded="false"> <i
-							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
-					</a></li>
-					<li><a href="javascript:void()" aria-expanded="false"> <i
-							class="fa fa-download"></i> <span class="nav-text">자료실</span>
-					</a></li>
+					
 			</div>
 			</ul>
 		</div>
@@ -450,56 +321,31 @@ function check(){
             Content body start
         ***********************************-->
 		<div class="content-body">
-			<form action="NHupauthority" onsubmit="return check()">
-				<div class="root">
-					<div class="NH_list">
-						<table border="1px solid red">
-							<tr>
-								<th>선택</th>
-								<th>순번</th>
-								<th>이름</th>
-								<th>병원명</th>
-								<th>사업자등록번호</th>
-								<th>현재 권한</th>
-								<th>신청 권한</th>
-							</tr>
-							<% for( NursingHospital NH : list ) { %>
-								<tr>
-									<td><input type="checkbox" class="NHbtn" name="NHch" value="<%= NH.getNH_ID() %>" ></td>
-									<td><%= NH.getNH_ID() %></td>
-									<td><%= NH.getNH_NAME() %></td>
-									<td><%= NH.getCOMPANY_NAME() %></td>
-									<td><%= NH.getCOMPANY_NO() %></td>
-									<td><%= NH.getAUTHORITY_CODE() %></td>
-									<td><%= NH.getNH_SERVICE_HISTORY() %></td>
-								</tr>
-							<% } %>
-						</table>
-					</div>
-					<div class="Authlist">
-						<table border="1px solid red">
-							<tr>
-								<th>선택</th>
-								<th>코드</th>
-								<th>권한명</th>
-								<th>설명</th>
-							</tr>
-							<% for( Cauthority A : Alist ) { %>
-								<tr>
-									<td><input type="checkbox" class="AUTHbtn" name="AUch" value="<%= A.getAUTHORITY_CODE() %>" ></td>
-									<td><%= A.getAUTHORITY_CODE() %></td>
-									<td><%= A.getAUTHORITY_NAME() %></td>
-									<td><%= A.getAUTHORITY_ETC() %></td>
-								</tr>
-							<% } %>
-						</table>
-					</div>
-					<div class="btnlist">
-						<input type="submit" value="적용">
-						<input type="button" value="초기화">
-					</div>
-				</div>
-			</form>
+			<div id="rootdiv">
+				<table width="1000" cellspacing="0" cellpadding="5" border="1" id="NHlist_talbe" style="float: left; ">
+					<tr>
+						<th align="center">고객번호</th>
+						<th align="center">이름</th>
+						<th align="center">가입일</th>
+						<th align="center">연락처</th>
+						<th align="center">이메일</th>
+						<th align="center">회사명</th>
+						<th align="center">사업자등록번호</th>
+						<th align="center">권한코드</th>
+					</tr>
+					<% for(NursingHospital NH : list){%>
+					<tr align="center">
+						<td><input type="text" value="<%= NH.getNH_ID() %>" readonly></td>
+						<td><input type="text" value="<%= NH.getNH_NAME() %>" readonly></td>
+						<td><input type="text" value="<%= NH.getNH_DATE() %>" readonly></td>
+						<td><input type="text" value="<%= NH.getNH_PHONE() %>" readonly></td>
+						<td><input type="text" value="<%= NH.getNH_EMAIL() %>" readonly></td>
+						<td><input type="text" value="<%= NH.getCOMPANY_NAME() %>" readonly></td>
+						<td><input type="text" value="<%= NH.getCOMPANY_NO() %>" readonly></td>
+						<td><input type="text" value="<%= NH.getAUTHORITY_CODE() %>" readonly></td>
+					<% } %>
+				</table>
+			</div>
 				<!-- #/ container -->
 		</div>
 			<!--**********************************
