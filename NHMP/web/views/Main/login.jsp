@@ -47,8 +47,6 @@
 			success : function(data){
 				$("#hostid").val(data.hostid);
 				$("#hostpwd").val(data.hostpwd);
-				alert($("#hostid").val());
-				alert($("#hostpwd").val());
 			}, error : function(jqXHR, textStatus, errorThrown ){
 				console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
 			}
