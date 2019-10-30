@@ -59,11 +59,17 @@ public class CounselingLogService {
 		close(conn);
 		return result;
 	}
-	
-	public CounselingLog search(String clPatName) {
+	public ArrayList<CounselingLog> selectTitleSearch(String clTitle) {
 		Connection conn = getConnection();
-		CounselingLog counselingLog = cldao.search(conn, clPatName);
+		ArrayList<CounselingLog> list = cldao.selectTitleSearch(conn, clTitle);
 		close(conn);
-		return counselingLog;
+		return list;
+	}
+
+	public ArrayList<CounselingLog> selectClEmpNameSearch(String clEmpName) {
+		Connection conn = getConnection();
+		ArrayList<CounselingLog> list = cldao.selectClEmpNameSearch(conn, clEmpName);
+		close(conn);
+		return list;
 	}
 }
