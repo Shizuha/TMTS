@@ -26,4 +26,12 @@ public String selectDeptName(String deptCode, String hostId, String hostPwd) {
 	close(conn);
 	return deptName;
 }
+
+public Department selectDeptCode(String deptName, String hostId, String hostPwd) {
+	Connection conn = getConnection(hostId, hostPwd);
+	Department dp = dDao.selectDeptCode(conn, deptName);
+	
+	close(conn);
+	return dp;
+}
 }

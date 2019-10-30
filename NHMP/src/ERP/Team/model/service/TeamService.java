@@ -25,11 +25,11 @@ public class TeamService {
 		return deptName;
 	}
 
-	public String[] selectOrganTeamName(String deptName, String hostId, String hostPwd) {
+	public ArrayList<Team> selectOrganTeamName(String deptName, String hostId, String hostPwd) {
 		Connection conn = getConnection(hostId, hostPwd);
-		String[] teamName = tDao.selectOrganTeamName(conn, deptName);
+		ArrayList<Team> team = tDao.selectOrganTeamName(conn, deptName);
 		
 		close(conn);
-		return teamName;
+		return team;
 	}
 }

@@ -60,8 +60,9 @@ public class EmployeeOrganizationChartServlet extends HttpServlet {
 		/*ArrayList<Team> tList = new TeamService().selectAll();
 		ArrayList<Ward> wList = new WardService().selectAll();
 		ArrayList<Position> pList = new PositionService().selectAll();*/
-		System.out.println(mList);
-		System.out.println(dList);
+		
+		
+		
 		RequestDispatcher view = null;
 		if(mList != null && dList != null /*&& tList != null && wList != null && pList != null*/) {
 			view = request.getRequestDispatcher("views/ERP/Employee/EmployeeOrganizationChart.jsp");
