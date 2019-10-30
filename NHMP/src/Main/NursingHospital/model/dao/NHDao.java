@@ -22,7 +22,6 @@ public class NHDao {
 	public NHDao() {
 		prop = new Properties();
 		String currDir = NHDao.class.getResource(".").getPath();
-		System.out.println(currDir+"../../../../../../");
 		try {
 			prop.load(new FileReader(currDir+"../../../../../../properties/tableSample.properties"));
 		} catch (Exception e) {

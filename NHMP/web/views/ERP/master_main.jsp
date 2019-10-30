@@ -125,7 +125,7 @@ $(function(){
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
-				<a href="/NHMP/views/ERP/Admin_main.jsp"> <b class="logo-abbr"><img
+				<a href="/NHMP/views/ERP/master_main.jsp"> <b class="logo-abbr"><img
 						src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> <span
 					class="logo-compact"><img
 						src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>

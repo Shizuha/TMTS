@@ -20,7 +20,6 @@ public class EmployeeDao {
 		Employee emp= null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
 		String query = "select * from employee where userid =? and userpwd = ?";
 
 		try {

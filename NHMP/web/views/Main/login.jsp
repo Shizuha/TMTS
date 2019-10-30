@@ -2,18 +2,14 @@
     pageEncoding="UTF-8"%>
 
 <%@
-	page import="Main.NursingHospital.model.ov.NursingHospital, Main.NursingHospital.model.ov.NursingHospital, java.util.ArrayList"
+	page import="Main.NursingHospital.model.ov.NursingHospital, Main.NursingHospital.model.ov.NursingHospital, java.util.ArrayList, ERP.Employee.model.vo.Employee"
 %>
 
 <%
 	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
 	ArrayList<NursingHospital> list = (ArrayList<NursingHospital>)request.getAttribute("list");
+	Employee loginEmployee = (Employee)session.getAttribute("loginEmployee");
 %>
-
-
-
-
-
 <!DOCTYPE html>
 <html class="h-100">
 
@@ -39,18 +35,22 @@
 	}
 	
 	function getHost(){
-		$.ajax({
-			url : "/NHMP/hostinfo",
-			type : "post",
-			data : {Cname : $("#selecname").val()},
-			dataType : "json",
-			success : function(data){
-				$("#hostid").val(data.hostid);
-				$("#hostpwd").val(data.hostpwd);
-			}, error : function(jqXHR, textStatus, errorThrown ){
-				console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
-			}
-		});
+		if($("#selecname").val()!="관리자"){//선택된 값이 관리자가 아니면
+			$.ajax({
+				url : "/NHMP/hostinfo",
+				type : "post",
+				data : {Cname : $("#selecname").val()},
+				dataType : "json",
+				success : function(data){
+					$("#hostid").val(data.hostid);
+					$("#hostpwd").val(data.hostpwd);
+				}, error : function(jqXHR, textStatus, errorThrown ){
+					console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
+				}
+			});
+		}else{
+			alert("관리자 선택");
+		}
 	}
 	
 	</script>
@@ -90,12 +90,12 @@
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5">
                                 <a class="text-center" href="/NHMP/index.jsp"> <h4>NHMP</h4></a>
-        						<% if(loginHospital != null) {%>
+        						<% if(loginHospital != null) {%> <!-- 관리자 로그인 -->
         							<div align="center">
 										<%= loginHospital.getNH_NAME() %>님,<br>
 										메일 0 개&nbsp; &nbsp; &nbsp; 쪽지 0 개<br>
 										<!-- 쿼리스트링을 이용하여 값을 전달 (?이름=값) -->
-										<a href="/NHMP/myinfo?userid=<%= loginHospital.getNH_USERID() %>">상세정보</a>
+										<a href="/NHMP/myinfo?userid=<%= loginHospital.getNH_USERID() %>">상세정보</a> <!-- 연결없음 -->
 										&nbsp; &nbsp; &nbsp; &nbsp; 
 										<a href="/NHMP/index.jsp">홈으로</a> 
 										&nbsp; &nbsp; &nbsp; &nbsp; 
@@ -106,12 +106,12 @@
         								<input type="hidden" name="hostid" value="" id="hostid">
         								<input type="hidden" name="hostpwd" value="" id="hostpwd">
                                  	  	<div class="form-group">
-                                 	  		<select id="selecname" onchange="getHost()">
+                                 	  		<select id="selecname" onchange="getHost()" name="Cname">
 	                                 	  			<option value="기업을 선택하세요">병원을 선택하세요</option>
+	                                 	  			<option value="관리자">관리자</option>
                                  	  			<% for( NursingHospital NH : list ) { %>
-	                                 	  			<option value="<%= NH.getCOMPANY_NAME() %>" name="company_name"><%= NH.getCOMPANY_NAME() %></option>
+	                                 	  			<option value="<%= NH.getCOMPANY_NAME() %>"> <%= NH.getCOMPANY_NAME() %> </option>
                                  	  			<% } %>
-                                 	  			<%-- onchange="getHost('<%= NH.getNH_ID() %>')"  --%>
                                  	  		</select>
                                  	  	</div>
                                  	  	<div class="form-group">
