@@ -166,33 +166,34 @@ public class CounselingLogDao {
 		}
 		return result;
 	}
-	
-	public CounselingLog search(Connection conn, String clPatName) {
-		CounselingLog counselingLog = null;
+
+	public ArrayList<CounselingLog> selectTitleSearch(Connection conn, String clTitle) {
+		ArrayList<CounselingLog> list = new ArrayList<CounselingLog>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from counselinglog where cl_pat_Name like? order by cl_no desc";
+		String query = "select * from counselinglog where cl_title like ? order by cl_no desc";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, clPatName);
+			pstmt.setString(1, "%" + clTitle + "%");
 			
 			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				counselingLog = new CounselingLog();
+			while(rset.next()) {
+				CounselingLog counselingLog = new CounselingLog();
 				
 				counselingLog.setClNo(rset.getInt("cl_no"));
 				counselingLog.setClTitle(rset.getString("cl_title"));
 				counselingLog.setClDate(rset.getDate("cl_date"));
-				counselingLog.setClComment(rset.getString("cl_contents"));
+				counselingLog.setClContents(rset.getString("cl_contents"));
 				counselingLog.setClPhone(rset.getString("cl_phone"));
 				counselingLog.setClComment(rset.getString("cl_comment"));
 				counselingLog.setClPatName(rset.getString("cl_pat_name"));
 				counselingLog.setClEmpName(rset.getString("cl_emp_name"));
 				counselingLog.setClOriginalFileName(rset.getString("cl_original_filename"));
 				counselingLog.setClRenameFileName(rset.getString("cl_rename_filename"));
+				
+				list.add(counselingLog);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -200,6 +201,43 @@ public class CounselingLogDao {
 			close(rset);
 			close(pstmt);
 		}
-		return counselingLog;
+		return list;
+	}
+
+	public ArrayList<CounselingLog> selectClEmpNameSearch(Connection conn, String clEmpName) {
+		ArrayList<CounselingLog> list = new ArrayList<CounselingLog>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from counselinglog where cl_emp_name like ? order by cl_no desc";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + clEmpName + "%");
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				CounselingLog counselingLog = new CounselingLog();
+				
+				counselingLog.setClNo(rset.getInt("cl_no"));
+				counselingLog.setClTitle(rset.getString("cl_title"));
+				counselingLog.setClDate(rset.getDate("cl_date"));
+				counselingLog.setClContents(rset.getString("cl_contents"));
+				counselingLog.setClPhone(rset.getString("cl_phone"));
+				counselingLog.setClComment(rset.getString("cl_comment"));
+				counselingLog.setClPatName(rset.getString("cl_pat_name"));
+				counselingLog.setClEmpName(rset.getString("cl_emp_name"));
+				counselingLog.setClOriginalFileName(rset.getString("cl_original_filename"));
+				counselingLog.setClRenameFileName(rset.getString("cl_rename_filename"));
+				
+				list.add(counselingLog);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 }
