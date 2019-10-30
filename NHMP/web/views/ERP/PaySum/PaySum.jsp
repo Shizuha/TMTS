@@ -233,7 +233,7 @@ function Acheckbox(Acode, Ano){
 				var pay = $("#pay").val();
 				var resultformula = data.replace("T01", pay);
 				var resultA = Math.floor(eval(resultformula)/10)*10;
-				if($("#"+Aid).prop('checked')){
+				if($("#"+s).prop('checked')){
 					totalresultA = eval(eval(totalresultA)+eval(resultA));
 					$(payresult).val(resultA);
 					$("#totalA").val(totalresultA);

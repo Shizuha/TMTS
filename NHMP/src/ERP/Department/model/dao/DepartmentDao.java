@@ -76,4 +76,36 @@ public class DepartmentDao {
 		
 		return dList;
 	}
+
+	public Department selectDeptCode(Connection conn, String deptName) {
+		
+		Department dp = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String query = "select dept_code from department where dept_name like ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + deptName + "%");
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dp = new Department();
+				
+				dp.setDeptCode(rs.getString("dept_code"));
+			
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return dp;
+	}
 }

@@ -26,42 +26,108 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
 <link href="/NHMP/resources/ERP/css/insertEmployee.css" rel="stylesheet">
 <!-- 폰트 링크 추후 확인후 삭제 -->
 <title>Insert title here</title>
- <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
    <script type="text/javascript">
-        $(document).ready(function () {
-            //[1] 리스트의 기본 모양 지정 : <ul>를 자식으로 가지지 않는 li의 블릿기호는 기본 모양
-            $('.organ li:not(:has(ul))').css({ cursor: 'default', 'list-style-image':'none'});
-           
+
+ $(document).ready(function () {
+            
             //[2] 자식 요소를 갖는 li에 대해서는 블릿이미지를 plus.gif를 지정
             $('.organ li:has(ul)') //자식 요소(ul)를 갖는 요소(li)에 대해서
                 .css({cursor: 'pointer', 'list-style-image':'url(/NHMP/resources/ERP/images/folder-closed.gif)'})//+기호로 설정
                 .children().hide(); //자식요소 숨기기
+              $(".teamList").click(function(){
+            	  e.stopPropagation();
+            	  alert("dd");
+              });
+               
                
             //[3] +로 설정된 항목에 대해서 click이벤트 적용
-            $('.organ li:has(ul)').click(function(event){
+            $('.deptList').click(function(event){
+            	var index = $(this).index();
+            	
+            	$.ajax({
+      				url : "organlist",
+      				data : { deptName : $(this).text() },
+      				type : "post",
+      				dataType : "json",
+      				success : function(data){
+      					//전송 온 object 를 string 으로 바꿈
+      					var jsonStr = JSON.stringify(data);
+      					//string 을 json 객체로 바꿈
+      					var json = JSON.parse(jsonStr);
+      					//json 안에 list 가 들어있음.
+      					
+      					for(var i in json.list){
+      						var li = $("<li class='teamList'>" + 
+      								decodeURIComponent(json.list[i].teamname).replace(/\+/gi, " ") +  "<ul></ul></li>");
+      						$('.deptList').eq(index).children().append(li);
+      						$('.teamList').css({'list-style-image':'url(/NHMP/resources/ERP/images/folder-closed.gif)'});
+      					}
+      	
+      					
+      				},
+      				error :function(jqXHR, textStatus, errorThrown){
+      					console.log("error : " + textStatus);
+      				}
+      			});
             	
                 //this == event.target으로 현재 선택된 개체에 대해서 처리
                 if(this == event.target){
                     //숨겨진 상태면 보이고 -기호로 설정 그렇지 않으면 숨기고 + 기호로 설정
-                      if ($(this).children().is(':hidden')) {
+                      if ($(this).children("ul").is(':hidden')) {
                     	  
-                        // 보이기
-                        $(this).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder.gif)').children().slideDown();
+                    	// 보이기
+                          $(this).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder.gif)').children().slideDown();
+                    	  
                         
-                    }
-                    else {
+                    }else {
                         // 숨기기
+                       
+                      
                         $(this).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder-closed.gif)').children().slideUp();
                     }
  
                 }
                 return false;          
             });
-             
+              
+            
                 
         });
-    </script>
+</script> 
+<script type="text/javascript" src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+});
+</script>
 <style type="text/css">
+.organ-Button{
+	width:50px;
+
+    background-color: #7571f9;
+
+    border: none;
+
+    color:#fff;
+
+	border-radius:3px;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    display: inline-block;
+
+    font-size: 15px;
+
+    margin: 4px;
+
+    cursor: pointer;
+    
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
 .organMain{
 	
 	margin:50px;
@@ -94,7 +160,7 @@ h3{
 }
 .h3{
 	float:left;
-	margin:0px 350px 0px 0px;
+	margin:0px 280px 0px 0px;
 } 
 .dept{
 	
@@ -121,6 +187,7 @@ h3{
 	height:460px;
 	padding:10px;
 }
+
 
 /*  input[type="checkbox"]:checked~ul {
         display:none;
@@ -471,18 +538,14 @@ ul {
 			</div>
 				<div class="dept">
 					<div class="dept-left">
-					<%if(dList != null){ %>
+					<%if(dList != null){ int i = 0;%>
 						<div class="organ">
 							<ul>
 							<%for(Department d : dList){ %>
-								<li><%= d.getDeptName() %>
-					                <ul id="deptList">
-					                	<li>a</li>
-					                	<li>a</li>
-					                	<li>a</li>
-					                </ul> 
-					           </li>
-					           <%} %>
+								<li class="deptList" value="<%= d.getDeptName()%>"><%= d.getDeptName()%>
+								<ul></ul>
+								</li>
+					           <% i++;} %>
 					        </ul>
 						</div>
 					</div>

@@ -3,6 +3,7 @@ package ERP.Employee.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import ERP.Department.model.service.DepartmentService;
+import ERP.Department.model.vo.Department;
 import ERP.Employee.model.vo.Employee;
 import ERP.Team.model.service.TeamService;
+import ERP.Team.model.vo.Team;
 import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
@@ -38,7 +42,7 @@ public class EmployeeOrganizationChartListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String deptName = request.getParameter("deptName").trim();
-		System.out.println(deptName);
+		System.out.println("서블릿에서 받은 부서 이름 :" + deptName);
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
@@ -52,19 +56,24 @@ public class EmployeeOrganizationChartListServlet extends HttpServlet {
 			hostPwd = loginHospital.getNH_USERPWD();
 		}
 		
-		String[] teamName = new TeamService().selectOrganTeamName(deptName, hostId, hostPwd);
-		System.out.println(teamName[0]);
-		System.out.println(teamName[2]);
+		ArrayList<Team> team = new TeamService().selectOrganTeamName(deptName, hostId, hostPwd);
+		System.out.println("조회해온 팀이름:" + team);
+		Department dp = new DepartmentService().selectDeptCode(deptName, hostId, hostPwd);
+		
+		for(Team t : team) {
+			
+		}
+		
 		
 		JSONObject sendJson = new JSONObject();
 		
 		JSONArray jarr = new JSONArray();
-		if(teamName != null) {
+		if(team != null) {
 			
-			for(String t : teamName) {
+			for(Team t : team) {
 				JSONObject tn = new JSONObject();
 				
-				tn.put("teamname",URLEncoder.encode(t, "utf-8"));
+				tn.put("teamname",URLEncoder.encode(t.getTeamName(), "utf-8"));
 				
 				jarr.add(tn);
 			}
