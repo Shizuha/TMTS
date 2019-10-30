@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
@@ -52,20 +53,24 @@ public class CounselingLogInsertServlet extends HttpServlet {
 		
 		int maxSize = 1024 * 1024 * 50;
 		
-		String savePath = request.getSession().getServletContext().getRealPath("resources/ERP/cl_upfiles");
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/ERP/cl_upfiles");
 		
 		MultipartRequest mrequest = new MultipartRequest(request,
 						savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 		
-		CounselingLog cl = new CounselingLog();
-		cl.setClNo(Integer.parseInt(mrequest.getParameter("cl_no")));
-		cl.setClName(mrequest.getParameter("cl_name"));
-		cl.setClType(mrequest.getParameter("cl_type"));
-		cl.setClComment(mrequest.getParameter("cl_comment"));
-		cl.setClPatName(mrequest.getParameter("cl_pat_name"));
-		cl.setClEmpName(mrequest.getParameter("cl_emp_name"));
+		CounselingLog counselingLog = new CounselingLog();
+		counselingLog.setClNo(Integer.parseInt(mrequest.getParameter("cl_no")));
+		counselingLog.setClTitle(mrequest.getParameter("cl_title"));
+		counselingLog.setClDate(Date.valueOf(mrequest.getParameter("cl_date")));
+		counselingLog.setClContents(mrequest.getParameter("cl_contents"));
+		counselingLog.setClPhone(mrequest.getParameter("cl_phone"));
+		counselingLog.setClComment(mrequest.getParameter("cl_comment"));
+		counselingLog.setClPatName(mrequest.getParameter("cl_pat_name"));
+		counselingLog.setClEmpName(mrequest.getParameter("cl_emp_name"));
+		counselingLog.setClOriginalFileName(mrequest.getParameter("cl_original_filename"));
+		counselingLog.setClRenameFileName(mrequest.getParameter("cl_rename_filename"));
 		
-		String originalFileName = mrequest.getFilesystemName("clupfile");
+		String originalFileName = mrequest.getFilesystemName("cl_original_filename");
 		
 		if(originalFileName != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
@@ -92,14 +97,14 @@ public class CounselingLogInsertServlet extends HttpServlet {
 				originFile.delete();
 			}
 			
-			cl.setClOriginalFileName(originalFileName);
-			cl.setClRenameFileName(renameFileName);
+			counselingLog.setClOriginalFileName(originalFileName);
+			counselingLog.setClRenameFileName(renameFileName);
 		}
 		
-		int result = new CounselingLogService().insertCounselingLog(cl);
+		int result = new CounselingLogService().insertCounselingLog(counselingLog);
 		
 		if(result > 0) {
-			response.sendRedirect("/NHMP/main.jsp");
+			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
 			request.setAttribute("message", "새 상담일지 등록 실패!");
