@@ -339,9 +339,7 @@ $(function(){
 							class="fa fa-users"></i><span class="nav-text">인사관리</span> <!-- <i class="icon-globe-alt menu-icon"></i><span class="nav-text">인사설정</span>-->
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/list">인사정보관리</a></li>
-							<li><a href="layout-one-column.html">인사정보등록</a></li>
-							<li><a href="layout-two-column.html">조직도</a></li>
+							<li><a href="/NHMP/allNH">전체고객조회</a></li>
 						</ul></li>
 					<!-- <li class="nav-label">Apps</li> -->
 					<li><a class="has-arrow" href="javascript:void()"
@@ -352,34 +350,7 @@ $(function(){
 							<li><a href="/NHMP/Cautholist">권한관리</a></li>
 							<li><a href="/NHMP/Cauthmanager">권한부여관리</a></li>
 						</ul></li>
-					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
-							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
-					</a>
-
-						<ul aria-expanded="false">
-							<li><a href="app-profile.html">전체환자 조회</a></li>
-							<li><a href="app-calender.html">환자 입원 등록</a></li>
-							<li><a href="app-calender.html">상담일지 등록</a></li>
-							<li><a href="app-calender.html">투약일지 등록</a></li>
-						</ul></li>
-
-					<!--   <li class="nav-label">UI Components</li>  -->
-					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> <i class="fa fa-usd"></i><span
-							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
-					</a>
-						<ul aria-expanded="false">
-							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
-							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
-							<li><a href="/NHMP/paylist">급여계산</a></li>
-						</ul>
-					<li><a href="javascript:void()" aria-expanded="false"> <i
-							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
-					</a></li>
-					<li><a href="javascript:void()" aria-expanded="false"> <i
-							class="fa fa-download"></i> <span class="nav-text">자료실</span>
-					</a></li>
+					
 			</div>
 			</ul>
 		</div>

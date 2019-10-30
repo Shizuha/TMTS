@@ -48,7 +48,7 @@
 	.root .Authlist table{
 		float:center;
 		width:1100px;
-		background:#f4f4f4;
+		background: rgb(241, 33, 104, 0.25);
 	}
 	.root .Authlist table th{
 		background: rgb(117, 113, 249, 0.5);

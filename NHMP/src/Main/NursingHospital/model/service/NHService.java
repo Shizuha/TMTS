@@ -86,6 +86,11 @@ public class NHService {
 		return NH;
 	}
 
+	public ArrayList<NursingHospital> selectAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 	
