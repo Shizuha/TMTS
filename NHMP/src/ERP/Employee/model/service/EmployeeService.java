@@ -80,9 +80,9 @@ public class EmployeeService {
 		return emp;
 	}
 
-	public Employee selectName(String empName,String hostId, String hostPwd) {
+	public ArrayList<Employee> selectName(String empName,String hostId, String hostPwd) {
 		Connection conn = getConnection(hostId, hostPwd);
-		Employee emp = eDao.selectName(conn, empName);
+		ArrayList<Employee> emp = eDao.selectName(conn, empName);
 		close(conn);
 		return emp;
 	}
@@ -160,6 +160,21 @@ public class EmployeeService {
 		
 		close(conn);
 		return empList;
+	}
+
+	public ArrayList<Employee> selectOrganEmpList(String hostId, String hostPwd, String teamName) {
+		Connection conn = getConnection(hostId, hostPwd);
+		ArrayList<Employee> empList = eDao.selectOrganEmpList(conn, teamName);
+		
+		close(conn);
+		return empList;
+	}
+
+	public Employee inSelectEmpName(String empName, String hostId, String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
+		Employee emp = eDao.inSelectEmpName(conn, empName);
+		close(conn);
+		return emp;
 	}
 
 	
