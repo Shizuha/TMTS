@@ -62,20 +62,31 @@ public class EmployeeSearchServlet extends HttpServlet {
 		
 		
 		
-		Employee emp = null;
+		
 		//나이구분 도 같이 날아와서 처리함.
 		if(deptName.equals("--부서구분--") == true) {
-			empList = new ArrayList<Employee>();
-			emp = new EmployeeService().selectName(empName,hostId, hostPwd);
-			System.out.println(emp);
-			empList.add(emp);
+			empList = new EmployeeService().selectName(empName,hostId, hostPwd);
+			
+			
 		}else {
 			
 			empList = new EmployeeService().selectEMPOne(empName, deptName,hostId, hostPwd);
 		}
-				
 		
-			System.out.println(empList);
+		System.out.println(empList);
+		if(empList == null) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter pw = response.getWriter();
+
+			pw.println("<script >");
+			pw.println("alert('해당 사원이 없습니다.')");
+			pw.println("location.href='/NHMP/list'");
+			pw.println("</script>");
+			pw.flush();
+			pw.close();
+		}	
+		
+			
 			 
 		
 		
@@ -94,7 +105,7 @@ public class EmployeeSearchServlet extends HttpServlet {
 		
 		
 		RequestDispatcher view = null;
-		if(empList.size() > 0) {
+		if(empList.size() > 0 && empList != null) {
 			
 			view = request.getRequestDispatcher("views/ERP/Employee/EmployeeListView.jsp");
 			request.setAttribute("empList", empList);
@@ -110,7 +121,7 @@ public class EmployeeSearchServlet extends HttpServlet {
 			
 				pw.println("<script >");
 				pw.println("alert('해당 정보가 없습니다.')");
-				pw.println("location.href='/lp/list'");
+				pw.println("location.href='/NHMP/list'");
 				pw.println("</script>");
 				pw.flush();
 				pw.close();

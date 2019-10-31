@@ -205,19 +205,18 @@ public class EmployeeInsertServlet extends HttpServlet {
 		System.out.println(emp);
 		int result = new EmployeeService().insertEmp(emp);
 		
-		Employee emp2 = null;
-		if(result > 0) {
-			 emp2 = new EmployeeService().selectName(emp.getEmpName(),hostId, hostPwd);
-		}else {
+		
+		if(result == 0) {
 			pw.println("<script >");
 			pw.println("alert('정상적인 발송방식이 아닙니다 확인하세요.')");
 			pw.println("history.back()");
 			pw.println("</script>");
 			pw.flush();
 			pw.close();
+		}else {
+			
 			
 		}
-		System.out.println(emp2);
 		
 		//사원 급여정보란
 		EmpSalary empSal = new EmpSalary();
@@ -236,7 +235,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 		String etcIncome = mrequest.getParameter("earner4");
 		String earBsnIncome = mrequest.getParameter("earner5");
 		
-		empSal.setEmpId(emp2.getEmpId());
+		empSal.setEmpId(emp.getEmpId());
 		empSal.setNatPension(natPension);
 		empSal.setHealInrance(healInrance);
 		empSal.setHealRdc(healRdc);
@@ -285,7 +284,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 			String rmChild = mChild[i];
 			
 			
-			drr.add(new Dependents(rrship, rfyname, rfyitfornal, rDIBILITY, rhISC, riTOGETHER, rmChild, emp2.getEmpId()));
+			drr.add(new Dependents(rrship, rfyname, rfyitfornal, rDIBILITY, rhISC, riTOGETHER, rmChild, emp.getEmpId()));
 			}
 		System.out.println(drr);
 		
@@ -325,7 +324,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 			
 			
 			
-			eduList.add(new Education(itforNal1, adDate1, grDate1, schName1, major1, taking1, emp2.getEmpId()));
+			eduList.add(new Education(itforNal1, adDate1, grDate1, schName1, major1, taking1, emp.getEmpId()));
 			}
 		
 			int result3 = 0;
@@ -373,7 +372,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 				System.out.println(leaveReason1);
 				
 				
-				carList.add(new Career(emp2.getEmpId(), comName1, hireDate1, lastDate1, workTeam1, lastPosition1, resBilties1, leaveReason1));
+				carList.add(new Career(emp.getEmpId(), comName1, hireDate1, lastDate1, workTeam1, lastPosition1, resBilties1, leaveReason1));
 				}
 			System.out.println(carList);
 			

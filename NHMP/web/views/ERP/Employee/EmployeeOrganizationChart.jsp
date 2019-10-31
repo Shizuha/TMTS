@@ -9,6 +9,7 @@ ArrayList<Department> dList = (ArrayList<Department>)request.getAttribute("dList
 ArrayList<Ward> wList = (ArrayList<Ward>)request.getAttribute("wList");
 ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); */
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,23 +29,25 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
 <title>Insert title here</title>
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
    <script type="text/javascript">
-
  $(document).ready(function () {
             
             //[2] 자식 요소를 갖는 li에 대해서는 블릿이미지를 plus.gif를 지정
             $('.organ li:has(ul)') //자식 요소(ul)를 갖는 요소(li)에 대해서
                 .css({cursor: 'pointer', 'list-style-image':'url(/NHMP/resources/ERP/images/folder-closed.gif)'})//+기호로 설정
                 .children().hide(); //자식요소 숨기기
-              $(".teamList").click(function(){
-            	  e.stopPropagation();
-            	  alert("dd");
-              });
+                
+             
                
                
             //[3] +로 설정된 항목에 대해서 click이벤트 적용
             $('.deptList').click(function(event){
             	var index = $(this).index();
+            	if($(event.target).is(".deptList")){
+            	//클릭된 해당부서 기본정보 부서명에 추가
+            	$("#deptname").val($(this).text());
             	
+            	//자식요소 유무 이프문
+            	if($(this).eq(index).children().hasClass("teamList") === false){
             	$.ajax({
       				url : "organlist",
       				data : { deptName : $(this).text() },
@@ -56,10 +59,13 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
       					//string 을 json 객체로 바꿈
       					var json = JSON.parse(jsonStr);
       					//json 안에 list 가 들어있음.
-      					
       					for(var i in json.list){
-      						var li = $("<li class='teamList'>" + 
-      								decodeURIComponent(json.list[i].teamname).replace(/\+/gi, " ") +  "<ul></ul></li>");
+      						
+      						$("#deptcode").val(json.list[i].deptcode);
+      						$("#deptcount").val(json.list[i].count);
+      						var teamName = decodeURIComponent(json.list[i].teamname).replace(/\+/gi, " ");
+      						var li = $("<li class='teamList' id='t" + teamName + "'  onclick='team(this.id, " + i + ");'>" + 
+      								teamName +  "<ul></ul></li>");
       						$('.deptList').eq(index).children().append(li);
       						$('.teamList').css({'list-style-image':'url(/NHMP/resources/ERP/images/folder-closed.gif)'});
       					}
@@ -70,7 +76,8 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
       					console.log("error : " + textStatus);
       				}
       			});
-            	
+            		}//자식요소 유무 close
+            	}
                 //this == event.target으로 현재 선택된 개체에 대해서 처리
                 if(this == event.target){
                     //숨겨진 상태면 보이고 -기호로 설정 그렇지 않으면 숨기고 + 기호로 설정
@@ -82,52 +89,96 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
                         
                     }else {
                         // 숨기기
-                       
-                      
                         $(this).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder-closed.gif)').children().slideUp();
+                        $('.teamList').css('list-style-image', 'url(/NHMP/resources/ERP/images/folder-closed.gif)').children().slideUp();
+                        
                     }
  
                 }
                 return false;          
             });
-              
-            
                 
         });
-</script> 
-<script type="text/javascript" src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
-$(function(){
+function team(id, index){
 	
-});
-</script>
+	 var value = $("#"+id).text();
+	 
+	 if($(".teamList").children("ul") != null){
+	 $.ajax({
+			url : "teamlist",
+			data : { teamName : value },
+			type : "post",
+			dataType : "json",
+			success : function(data){
+				
+				//전송 온 object 를 string 으로 바꿈
+				var jsonStr = JSON.stringify(data);
+				//string 을 json 객체로 바꿈
+				var json = JSON.parse(jsonStr);
+				//json 안에 list 가 들어있음.
+				if(json != null){
+				for(var i in json.list){
+					var empName = decodeURIComponent(json.list[i].empname).replace(/\+/gi, " ");
+					
+					var li = $("<li class='emp'><i class='mdi mdi-account'></i>&nbsp;<a href='#'>" + 
+							empName +  "</a></li>");
+					$("#"+id).children().append(li);
+					}
+				}
+				
+			},
+			error :function(jqXHR, textStatus, errorThrown){
+				console.log("error : " + textStatus);
+			}
+		});
+	 }
+	 
+	 if ($("#"+id).children("ul").is(':hidden')) {
+		 $("#"+id).children().slideDown();
+		 $("#"+id).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder.gif)');
+	     }else{
+	    	 $("#"+id).children().slideUp();
+	    	 $("#"+id).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder-closed.gif)')
+	     }
+	return false;  
+ 
+	
+	
+ }
+</script> 
+
 <style type="text/css">
+.empList{
+	width:510px;
+	border: 1px solid gray;
+	height:290px;
+	margin-top:10px;
+	
+}
+
+
+body{
+	color:black;
+	
+}
+ a{
+ 	color:black;
+ }
 .organ-Button{
 	width:50px;
-
     background-color: #7571f9;
-
     border: none;
-
     color:#fff;
-
 	border-radius:3px;
-
     text-align: center;
-
     text-decoration: none;
-
     display: inline-block;
-
     font-size: 15px;
-
     margin: 4px;
-
     cursor: pointer;
     
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
-
 .organMain{
 	
 	margin:50px;
@@ -171,7 +222,6 @@ h3{
 	
 	
 }
-
 .dept-left{
 	border: 1px solid gray;
 	float:left;
@@ -185,10 +235,8 @@ h3{
 	float:right;
 	width:550px;
 	height:460px;
-	padding:10px;
+	padding:20px;
 }
-
-
 /*  input[type="checkbox"]:checked~ul {
         display:none;
         transition:1.5s;
@@ -198,21 +246,31 @@ input[type="checkbox"]{
     } 
 ul {
 	list-style:none;
+	
 }
 .dept li{
 	margin-left:20px;
-	width:80px
+	width:100px
 }
 .organ{
-	border-radius:3px;
-	padding:50px;
+	border-radius:10px;
+	padding:60px;
 	border:1px solid gray;
 	height:400px;
+	width:300px;
 	overflow:auto;
+	font-weight: bold;
+	margin-left:35px;
 }
  .organ li{
 	width:150px;
+}
+input[type="text"]{
+	text-align:center;
+	margin-left:30px;
+	border:none;
 } 
+
 </style>
 
 </head>
@@ -538,14 +596,14 @@ ul {
 			</div>
 				<div class="dept">
 					<div class="dept-left">
-					<%if(dList != null){ int i = 0;%>
+					<%if(dList != null){%>
 						<div class="organ">
 							<ul>
 							<%for(Department d : dList){ %>
-								<li class="deptList" value="<%= d.getDeptName()%>"><%= d.getDeptName()%>
+								<li class="deptList"><%= d.getDeptName()%>
 								<ul></ul>
 								</li>
-					           <% i++;} %>
+					           <%} %>
 					        </ul>
 						</div>
 					</div>
@@ -589,28 +647,30 @@ ul {
 					</div>
 					<%} %>
 					<div class="dept-right">
-					<table>
+					<table width="100%">
 						<tr>
-						<th>상위병원</th>
-						<td><input type="text"></td>
+						<th>부서명</th><th>부서코드</th><th>부서인원</th>
 						</tr>
 						<tr>
-						<th>부서</th>
-						<td><input type="text"></td>
-						</tr>
-						<tr>
-						<th>부서코드</th>
-						<td><input type="text"></td>
-						</tr>
-						<tr>
-						<th>부서명</th>
-						<td><input type="text"></td>
-						</tr>
-						<tr>
-						<th>병동</th>
-						<td><input type="text"></td>
+						<td><input type="text" name="deptname" id="deptname"></td>
+						<td><input type="text" name="deptcode" id="deptcode"></td>
+						<td><input type="text" name="deptcount" id="deptcount"></td>
 						</tr>
 					</table>
+					<br />
+					<table width="100%">
+						<tr>
+						<th>팀 명&nbsp;</th><th>팀코드&nbsp;</th><th>팀인원&nbsp;</th>
+						</tr>
+						<tr>
+						<td><input type="text" name="teamname" id="teamname"></td>
+						<td><input type="text" name="teamcode" id="teamcode"></td>
+						<td><input type="text" name="teamcount" id="teamcount"></td>
+						</tr>
+					</table>
+					<div class="empList">
+						
+					</div>
 					</div>
 				</div>
 			</div>

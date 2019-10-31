@@ -42,7 +42,8 @@ public class EmployeeCheckLogin extends HttpServlet {
 		
 		Employee emp = new EmployeeService().loginCheck(userId, userPwd,hostId, hostPwd);
 		System.out.println("mem" + emp);
-		
+		emp.setHostId(hostId);
+		emp.setHostPwd(hostPwd);
 		
 		
 		/*ArrayList<Notice> noList = new NoticeService().selectList();

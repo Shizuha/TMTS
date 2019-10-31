@@ -14,25 +14,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import ERP.Department.model.service.DepartmentService;
-import ERP.Department.model.vo.Department;
 import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
-import ERP.Team.model.service.TeamService;
 import ERP.Team.model.vo.Team;
 import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
- * Servlet implementation class EmployeeOrganizationChartListServlet
+ * Servlet implementation class OrganEmployeeListServlet
  */
-@WebServlet("/organlist")
-public class EmployeeOrganizationChartListServlet extends HttpServlet {
+@WebServlet("/teamlist")
+public class OrganEmployeeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmployeeOrganizationChartListServlet() {
+    public OrganEmployeeListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,13 +38,11 @@ public class EmployeeOrganizationChartListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		String deptName = request.getParameter("deptName").trim();
-		System.out.println("서블릿에서 받은 부서 이름 :" + deptName);
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
 		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		
 		if(emp != null) {
 		
 		hostId = emp.getHostId();
@@ -57,27 +52,23 @@ public class EmployeeOrganizationChartListServlet extends HttpServlet {
 			hostPwd = loginHospital.getNH_USERPWD();
 		}
 		
-		ArrayList<Team> team = new TeamService().selectOrganTeamName(deptName, hostId, hostPwd);
-		System.out.println("조회해온 팀이름:" + team);
-		Department dp = new DepartmentService().selectDeptCode(deptName, hostId, hostPwd);
-		int empcount = 0;
+		request.setCharacterEncoding("utf-8");
+		String teamName = request.getParameter("teamName");
+		System.out.println("team이름 서블릿에서 받은값=" + teamName);
 		
-		for(Team t : team) {
-			empcount += new EmployeeService().teamEmpcount(t.getTeamCode(), hostId, hostPwd);
-		}
-		System.out.println(empcount);
+		ArrayList<Employee> empList = new EmployeeService().selectOrganEmpList(hostId, hostPwd, teamName);
+		
 		
 		JSONObject sendJson = new JSONObject();
 		
 		JSONArray jarr = new JSONArray();
-		if(team != null) {
+		if(empList != null) {
 			
-			for(Team t : team) {
+			for(Employee e : empList) {
 				JSONObject tn = new JSONObject();
+				System.out.println("조회해온 사원들=" + e.getEmpName());
+				tn.put("empname",URLEncoder.encode(e.getEmpName(), "utf-8"));
 				
-				tn.put("teamname",URLEncoder.encode(t.getTeamName(), "utf-8"));
-				tn.put("deptcode", dp.getDeptCode());
-				tn.put("count", empcount);
 				jarr.add(tn);
 			}
 			sendJson.put("list", jarr);
@@ -93,6 +84,7 @@ public class EmployeeOrganizationChartListServlet extends HttpServlet {
 			
 			
 		}
+		
 	}
 
 	/**
