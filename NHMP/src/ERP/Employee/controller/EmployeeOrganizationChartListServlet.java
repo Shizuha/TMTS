@@ -58,7 +58,11 @@ public class EmployeeOrganizationChartListServlet extends HttpServlet {
 		
 		ArrayList<Team> team = new TeamService().selectOrganTeamName(deptName, hostId, hostPwd);
 		System.out.println("조회해온 팀이름:" + team);
+		Department dp = new DepartmentService().selectDeptCode(deptName, hostId, hostPwd);
 		
+		for(Team t : team) {
+			
+		}
 		
 		
 		JSONObject sendJson = new JSONObject();
