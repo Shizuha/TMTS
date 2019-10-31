@@ -424,7 +424,7 @@ public class EmployeeUpdateServlet extends HttpServlet {
 			
 			}
 			if(result == carList.size()) {
-				response.sendRedirect("/lp/list");
+				response.sendRedirect("/NHMP/list");
 				
 			}else{
 					pw.println("<script >");
