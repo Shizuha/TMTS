@@ -213,8 +213,7 @@ public class EmployeeUpdateServlet extends HttpServlet {
 			emp.setEmpImgOriginalFilename(mrequest.getParameter("ofile"));
 			emp.setEmpRenameFilename(mrequest.getParameter("rfile"));
 		}
-		String empId = mrequest.getParameter("empid");
-		System.out.println("empID=  " + empId);
+		String empId = mrequest.getParameter("empid"); 
 		emp.setEmpId(empId);
 		
 		int result = new EmployeeService().updateEmployee(emp);
@@ -297,7 +296,6 @@ public class EmployeeUpdateServlet extends HttpServlet {
 		for(int i = 0; i < rship.length; i++) {
 			
 			String rrship = rship[i];
-			System.out.println("부양가족 관계=" + rrship);
 			String rfyname = fyname[i];
 			String rfyitfornal = fyitfornal[i];
 			String rDIBILITY = dibility[i];
@@ -314,16 +312,13 @@ public class EmployeeUpdateServlet extends HttpServlet {
 		fyNo = new DependentsService().selectDepenCode(empId, fyNo.length,hostId, hostPwd);
 		
 		int i = 0;
-		
 		for(Dependents d : drr) {
-			System.out.println("부양가족 식별번호 : " + fyNo[i]);
 			fyno1 = fyNo[i]; 
 			result2 = new DependentsService().updateDependent(d, fyno1,hostId, hostPwd);
-			i ++;
+			i++;
 			
 		}
-		System.out.println("부양가족 증가 값 i=" + i);
-		
+		System.out.println(result2);
 		if(result2 == 0) {
 			pw.println("<script >");
 			pw.println("alert('부양가족수정실패!')");
@@ -401,19 +396,19 @@ public class EmployeeUpdateServlet extends HttpServlet {
 			for(int i = 0; i < comName.length; i++) {
 				
 				String comName1 = comName[i];
-				
+				System.out.println(comName1);
 				String hireDate1 = hireDate[i];
-				
+				System.out.println(hireDate1);
 				String lastDate1 = lastDate[i];
-				
+				System.out.println(lastDate1);
 				String workTeam1 = workTeam[i];
-				
+				System.out.println(workTeam1);
 				String lastPosition1 = lastPosition[i];
-				
+				System.out.println(lastPosition1);
 				String resBilties1 = resBilties[i];
-				
+				System.out.println(resBilties1);
 				String leaveReason1 = leaveReason[i];
-				
+				System.out.println(leaveReason1);
 				
 				
 				carList.add(new Career(empId, comName1, hireDate1, lastDate1, workTeam1, lastPosition1, resBilties1, leaveReason1));
@@ -429,7 +424,7 @@ public class EmployeeUpdateServlet extends HttpServlet {
 			
 			}
 			if(result == carList.size()) {
-				response.sendRedirect("/NHMP/list");
+				response.sendRedirect("/lp/list");
 				
 			}else{
 					pw.println("<script >");

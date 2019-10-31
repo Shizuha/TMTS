@@ -94,12 +94,12 @@ function checkPwd(){
 <table class="uppwd" cellspacing="0"  cellpadding="3" width="100%">
 	<%if(emp.getEmpRenameFilename() != null){ %>
 	<tr>
-		<td colspan="4" rowspan="5"><img alt="xx" src="/NHMP/resources/ERP/emp_Img_file/<%=emp.getEmpRenameFilename() %>"
+		<td colspan="4" rowspan="5"><img alt="xx" src="/lp/resources/emp_Img_file/<%=emp.getEmpRenameFilename() %>"
 			 width="100%"height="200px"></td>
 	</tr>
 	<%}else{ %>
 	<tr>
-		<td rowspan="5"><img alt="xx" src="/NHMP/resources/ERP/images/user/6.jpg" width="100%" height="200px"></td>
+		<td rowspan="5"><img alt="xx" src="/lp/resources/images/testimonial2.jpg" width="100%" height="200px"></td>
 	</tr>
 	<%} %>
 	<tr>
