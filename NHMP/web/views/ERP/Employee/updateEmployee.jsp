@@ -877,7 +877,7 @@ $(function(){
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/list">전체사원조회</a></li>
 							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
-							<li><a href="layout-two-column.html">조직도</a></li>
+							<li><a href="/NHMP/ochart">조직도</a></li>
 							<!--
                             <li><a href="layout-compact-nav.html">Compact Nav</a></li>
                             <li><a href="layout-vertical.html">Vertical</a></li>
