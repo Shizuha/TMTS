@@ -6,10 +6,12 @@ import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import ERP.Deduction.model.dao.DeductionDao;
 import ERP.Deduction.model.vo.Deduction;
+import ERP.Employee.model.vo.Employee;
 import Main.NursingHospital.model.ov.NursingHospital;
 
 public class DeductionService {
@@ -26,6 +28,7 @@ public class DeductionService {
 		String userpwd = loginHospital.getNH_USERPWD();
 		Connection conn = getConnection(userid, userpwd);
 		ArrayList<Deduction> list = DDao.selectList(conn);
+		close(conn);
 		return list;
 	}
 
@@ -61,6 +64,21 @@ public class DeductionService {
 		int result = DDao.deleteDeduction(conn, code);
 		close(conn);
 		return result;
+	}
+
+	public ArrayList<Deduction> EselectList(String hostid, String hostpwd){
+		
+		Connection conn = getConnection(hostid, hostpwd);
+		ArrayList<Deduction> list = DDao.selectList(conn);
+		close(conn);
+		return list;
+	}
+
+	public String EselectFormula(String dcode, Employee loginEmployee) {
+		Connection conn = getConnection(loginEmployee.getHostId(), loginEmployee.getHostPwd());
+		String Formula = DDao.selectFormula(conn, dcode);
+		close(conn);
+		return Formula;
 	}
 
 	

@@ -305,7 +305,7 @@ thead td {
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
-				<a href="/NHMP/views/ERP/main.jsp"> <b class="logo-abbr"><img
+				<a href="/NHMP/views/ERP/Employee.jsp"> <b class="logo-abbr"><img
 						src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> <span
 					class="logo-compact"><img
 						src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
@@ -596,7 +596,7 @@ thead td {
 						<ul aria-expanded="false">
 							<!-- <li><a href="/NHMP/deduclise">공제항목등록</a></li>
 							<li><a href="/NHMP/allowlist">수당항목등록</a></li> -->
-							<li><a href="/NHMP/paylist">급여계산</a></li>
+							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 							<!--
                             <li><a href="ui-button.html">Button</a></li>
                             <li><a href="ui-button-group.html">Button Group</a></li>

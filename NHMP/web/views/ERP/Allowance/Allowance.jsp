@@ -211,14 +211,25 @@
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
-				<a href="/NHMP/views/ERP/main.jsp"> <b class="logo-abbr"><img
-						src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> <span
-					class="logo-compact"><img
-						src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
-					<span class="brand-title"> <img align="middle"
-						src="/NHMP/resources/ERP/images/common/logo-text.png" ailgn="">
-				</span>
-				</a>
+				<% if(loginHospital.getAUTHORITY_CODE().equals("G1")){ %>
+					<a href="/NHMP/views/ERP/master_main.jsp"> <b class="logo-abbr">
+					<img src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> 
+					<span class="logo-compact"><img src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
+					<span class="brand-title"> <img align="middle" src="/NHMP/resources/ERP/images/common/logo-text.png" ailgn=""></span>
+					</a>
+				<% }else if (loginHospital.getAUTHORITY_CODE().equals("G3") || loginHospital.getAUTHORITY_CODE().equals("G4") || loginHospital.getAUTHORITY_CODE().equals("G5")){ %>
+					<a href="/NHMP/views/ERP/Admin_main.jsp"> <b class="logo-abbr">
+					<img src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> 
+					<span class="logo-compact"><img src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
+					<span class="brand-title"> <img align="middle" src="/NHMP/resources/ERP/images/common/logo-text.png" ailgn=""></span>
+					</a>
+				<% }else{ %>
+					<a href="/NHMP/views/ERP/Employee.jsp"> <b class="logo-abbr">
+					<img src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> 
+					<span class="logo-compact"><img src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
+					<span class="brand-title"> <img align="middle" src="/NHMP/resources/ERP/images/common/logo-text.png" ailgn=""></span>
+					</a>
+				<% } %>
 			</div>
 		</div>
 		<!--**********************************
