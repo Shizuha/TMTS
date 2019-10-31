@@ -1,98 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="Main.NursingHospital.model.ov.NursingHospital"%>
+    pageEncoding="UTF-8"%>
+<%@ page import="ERP.notice.model.vo.Notice,Main.NursingHospital.model.ov.NursingHospital" %>
 <%
-	NursingHospital loginAdmin = (NursingHospital)session.getAttribute("loginHospital");
+	Notice notice = (Notice)request.getAttribute("notice");
+	String currentPage = (String)request.getAttribute("currentPage");
+	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
 %>
+    
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMTS</title>
-<script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
-<script> 
-
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-	
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-        	plugins: [ 'dayGrid', 'interaction', 'list'],
-        	defaultView: 'dayGridMonth',
-        	selectable: true,
-        	locales : 'ko',
-
-            header: {
-              left: 'prev,next today',
-              center: 'title',
-              right: 'dayGridMonth,addEventButton'
-            },
-
-            displayEventTime: false, // don't show the time column in list view
-            customButtons: {
-                addEventButton: {
-                  text: '일정 보기',
-                  click: function() {
-                	 window.open("/NHMP/views/ERP/Calendar.jsp");
-                  }
-                }
-            }
-          });
-
-          calendar.render();
-      });
-	
-$(function(){    
-      $.ajax({
-  		url : "/NHMP/ntop",
-  		type : "get",
-  		dataType : "json",
-  		success : function(data){
-  			var jsonStr = JSON.stringify(data);
-  			var json = JSON.parse(jsonStr);
-  			var values = "";
-  			
-  			for(var i in json.list){
-  				values += "<tr><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].no + 
-  				"</td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
-  				+ "</a></td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].date + "</td></tr>";
-  				/* <a href='/frist/ndetail?no= */
-  			}
-  			/* <td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd; */
-  			$("#newNotice").html($("#newNotice").html() + values);
-  		},
-  		error : function(jqXHR, textStatus, errorThrown){
-  			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
-  		}
-  	});
-});
-    </script>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="/NHMP/resources/ERP/images/common/favicon.png">
 <!-- Pignose Calender -->
 <link
-	href="/NHMP/resources/ERP/css/plugins/pg-calendar/css/pignose.calendar.min.css"
+	href="/NHMP/resources/ERP/css/plugins/pg-calendar/css/pignose.calendar.min.css?after"
 	rel="stylesheet">
 <!-- Chartist -->
 <link rel="stylesheet"
-	href="/NHMP/resources/ERP/css/plugins/chartist/css/chartist.min.css">
+	href="/NHMP/resources/ERP/css/plugins/chartist/css/chartist.min.css?after">
 <link rel="stylesheet"
-	href="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+	href="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css?after">
 <!-- Custom Stylesheet -->
 <link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
-<!-- 캘린더 -->
-<link href='/NHMP/resources/ERP/FullCaldendar/core/main.css' rel='stylesheet' />
-<link href='/NHMP/resources/ERP/FullCaldendar/daygrid/main.css' rel='stylesheet' />
-<link href='/NHMP/resources/ERP/FullCaldendar/list/main.css' rel='stylesheet' />
 
-<script src='/NHMP/resources/ERP/FullCaldendar/core/main.js'></script>
-<script src='/NHMP/resources/ERP/FullCaldendar/daygrid/main.js'></script>
-<script src='/NHMP/resources/ERP/FullCaldendar/core/locales/ko.js'></script>
+<!-- Erp.jsp 추가분 -->
+
+<script type="text/javascript">
+function movelist(){
+	location.href = "/NHMP/blist?page=<%= currentPage %>";
+	return false;
+}
+</script>
 </head>
-
 <body>
+
+
 
 	<!--*******************
         Preloader start
@@ -120,7 +69,7 @@ $(function(){
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
-				<a href="/NHMP/views/ERP/Admin_main.jsp"> <b class="logo-abbr"><img
+				<a href="/NHMP/views/ERP/main.jsp"> <b class="logo-abbr"><img
 						src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> <span
 					class="logo-compact"><img
 						src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
@@ -309,7 +258,7 @@ $(function(){
 										<hr class="my-2">
 										<li><a href="page-lock.html"><i class="icon-lock"></i>
 												<span>Lock Screen</span></a></li>
-										<li><a href="/NHMP/logout"><i class="icon-key"></i>
+										<li><a href="page-login.html"><i class="icon-key"></i>
 												<span>Logout</span></a></li>
 									</ul>
 								</div>
@@ -329,26 +278,14 @@ $(function(){
 		<div class="nk-sidebar">
 			<div class="nk-nav-scroll">
 				<ul class="metismenu" id="menu">
-
-					<!--    <li class="nav-label">Dashboard</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="index.html">Home 1</a></li>
-                            <li><a href="./index-2.html">Home 2</a></li>
-                        </ul>
-                    </li>
-                    -->
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
-						href="javascript:void()" aria-expanded="false"> <i
-							class="fa fa-users"></i><span class="nav-text">인사관리</span> <!-- <i class="icon-globe-alt menu-icon"></i><span class="nav-text">인사설정</span>-->
+						href="javascript:void()" aria-expanded="false"> 
+						<i class="fa fa-users"></i><span class="nav-text">인사관리</span> 
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/list">전체사원조회</a></li>
-							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
-							<li><a href="/NHMP/ochart">조직도</a></li>
+							<li><a href="layout-blank.html">인사정보관리</a></li>
+							<li><a href="layout-one-column.html">인사정보등록</a></li>
+							<li><a href="layout-two-column.html">조직도</a></li>
 							<!--
                             <li><a href="layout-compact-nav.html">Compact Nav</a></li>
                             <li><a href="layout-vertical.html">Vertical</a></li>
@@ -361,19 +298,24 @@ $(function(){
                             <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li>
                         -->
 
-						</ul></li>
+						</ul>
+					</li>
 					<!-- <li class="nav-label">Apps</li> -->
 					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> <i class="fa fa-id-card"></i> <span
-							class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
+						aria-expanded="false"> 
+						<i class="fa fa-id-card"></i> 
+						<span class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
 					</a>
+						<% if(loginHospital != null) { %>
 						<ul aria-expanded="false">
-							<li><a href="email-inbox.html">권한부여관리</a></li>
+							<li><a href="/NHMP/authall">권한부여관리</a></li>
 							<!--
                             <li><a href="email-read.html">수당항목등록</a></li>
                             <li><a href="email-compose.html">급여계산</a></li>
                             -->
-						</ul></li>
+						</ul>
+						<% } %>
+					</li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
 							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
@@ -514,7 +456,30 @@ $(function(){
 			</div>
 			</ul>
 		</div>
-
+		
+		<!-- ErpNoticeListView.jsp 추가분 -->
+<center>
+		
+<h2 align="center"><%= notice.getNoticeNo() %>번 게시글 수정 페이지 </h2>
+<table align="center" border="1" cellspacing="0" cellpadding="3">
+<form action="/NHMP/nupdate" method="post">
+<input type="hidden" name="page" value="<%= currentPage %>">
+<input type="hidden" name="no" value="<%= notice.getNoticeNo() %>">
+<tr><th>제목</th><td><input type="text" name="title" value="<%= notice.getNoticeTitle()%>"></td></tr>
+<tr><th>작성자</th>
+<td><input type="text" name="writer" value="<%= notice.getNoticeWriter() %>" readonly></td></tr>
+<tr><th>내용</th>
+<td><textarea rows="5" cols="70" name="content"><%= notice.getNoticeContent() %></textarea></td></tr>
+<tr><th colspan="2"> 
+	<input type="submit" value="글수정" > &nbsp; 
+	<input type="reset" value="작성취소"> &nbsp; 
+	<input type="button" value="목록" onclick="history.go(-1);"> &nbsp;
+	<input type="button" value="이전 페이지로" onclick="history.go(-1); return false;">
+</th></tr>
+</form>
+</table>
+</center>
+<br>
 		<!--**********************************
             Sidebar end
         ***********************************-->
@@ -524,49 +489,48 @@ $(function(){
         ***********************************-->
 		<div class="content-body">
 
-			<div class="container-fluid mt-3">
+			<!-- <div class="container-fluid mt-3">
 				<div class="row">
 					<div class="col-lg-3 col-sm-6">
 						<div class="card gradient-1">
 							<div class="card-body">
-								<h3 class="card-title text-white">직원 수</h3>
+								<h3 class="card-title text-white">즐겨찾기_1</h3>
 								<div class="d-inline-block">
-									<h2 class="text-white">228명</h2>
-									<!--    <p class="text-white mb-0">Jan - March 2019</p> -->
+									<h2 class="text-white">메뉴 명</h2>
+									   <p class="text-white mb-0">Jan - March 2019</p> 
 								</div>
 								<span class="float-right display-5 opacity-5"><i
-									class="fa fa-address-book"></i></span>
+									class="fa fa-question"></i></span>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-3
-					 col-sm-6">
+					<div class="col-lg-3 col-sm-6">
 						<div class="card gradient-2">
 							<div class="card-body">
-								<h3 class="card-title text-white">환자 수</h3>
+								<h3 class="card-title text-white">즐겨찾기_2</h3>
 								<div class="d-inline-block">
-									<h2 class="text-white">523명</h2>
-									<!--    <p class="text-white mb-0">Jan - March 2019</p> -->
+									<h2 class="text-white">메뉴 명</h2>
+									   <p class="text-white mb-0">Jan - March 2019</p>
 								</div>
 								<span class="float-right display-5 opacity-5"><i
-									class="fa fa-wheelchair"></i></span>
+									class="fa fa-question"></i></span>
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-3 col-sm-6">
 						<div class="card gradient-3">
 							<div class="card-body">
-								<h3 class="card-title text-white">남은 병상</h3>
+								<h3 class="card-title text-white">즐겨찾기_3</h3>
 								<div class="d-inline-block">
-									<h2 class="text-white">203개</h2>
-									<!--        <p class="text-white mb-0">Jan - March 2019</p> -->
+									<h2 class="text-white">메뉴 명</h2>
+									       <p class="text-white mb-0">Jan - March 2019</p>
 								</div>
 								<span class="float-right display-5 opacity-5"><i
-									class="fa fa-hospital-o"></i></span>
+									class="fa fa-question"></i></span>
 							</div>
 						</div>
 					</div>
-					<!-- <div class="col-lg-3 col-sm-6">
+					<div class="col-lg-3 col-sm-6">
 						<div class="card gradient-4">
 							<div class="card-body">
 								<h3 class="card-title text-white">즐겨찾기_4</h3>
@@ -577,35 +541,65 @@ $(function(){
 								<span class="float-right display-5 opacity-5"><i
 									class="fa fa-question"></i></span>
 							</div>
-						</div> -->
+						</div>
 					</div>
-				</div>
+				</div> -->
+				<!--    <div class="row">
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-12">
-                             <div class="card-body">
-                                         <div id='calendar'></div>
+                                <div class="card">
+                                    <div class="card-body pb-0 d-flex justify-content-between">
+                                        <div>
+                                            <h4 class="mb-1">Product Sales</h4>
+                                            <p>Total Earnings of the Month</p>
+                                            <h3 class="m-0">$ 12,555</h3>
+                                        </div>
+                                        <div>
+                                            <ul>
+                                                <li class="d-inline-block mr-3"><a class="text-dark" href="#">Day</a></li>
+                                                <li class="d-inline-block mr-3"><a class="text-dark" href="#">Week</a></li>
+                                                <li class="d-inline-block"><a class="text-dark" href="#">Month</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                       </div>
-                                    <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">
-								<table id="newNotice" style="width: 500px; border-top: 1px solid #444444; border-collapse: collapse;">
-										<tr>
-											<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">번호</th>
-											<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">내용</th>
-											<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">등록일</th>
-										</tr>
-								</table>
-							</h4>
-                                    <div id="morris-bar-chart"></div>
-                                </div>
-                            </div>	
-                                     <div class="col-lg-6 col-md-12">
+                                    <div class="chart-wrapper">
+                                        <canvas id="chart_widget_2"></canvas>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="w-100 mr-2">
+                                                <h6>Pixel 2</h6>
+                                                <div class="progress" style="height: 6px">
+                                                    <div class="progress-bar bg-danger" style="width: 40%"></div>
+                                                </div>
+                                            </div>
+                                            <div class="ml-2 w-100">
+                                                <h6>iPhone X</h6>
+                                                <div class="progress" style="height: 6px">
+                                                    <div class="progress-bar bg-primary" style="width: 80%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                       <!-- <div class="col-lg-3 col-md-6">
+                    </div>
+                </div>
+                -->
+
+				<!--   <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Order Summary</h4>
+                                    <div id="morris-bar-chart"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-3 col-md-6">
                             <div class="card card-widget">
                                 <div class="card-body">
                                     <h5 class="text-muted">Order Overview </h5>
@@ -638,7 +632,7 @@ $(function(){
                                 </div>
                             </div>
                         </div>
-              -->
+             -->
 				<!--            <div class="col-lg-3 col-md-6">
                             <div class="card">
                                 <div class="card-body px-0">
@@ -725,80 +719,116 @@ $(function(){
 										<table class="table table-xs mb-0">
 											<thead>
 												<tr>
-													<th>이름</th>
-													<th>부서</th>
-													<th>직책</th>
-													<th>직무</th>
-													<th>출근유무</th>
+													<th>사용자</th>
+													<th>접속기기</th>
+													<th>접속지역</th>
+													<th>지위</th>
+													<th>결제방법</th>
 													<th>활동</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
 													<td><img src="/NHMP/resources/ERP/images/avatar/1.jpg"
-														class=" rounded-circle mr-3" alt="">사라 스밋스</td>
-													<td>가정의학과</td>
-													<td><span>과장</span></td>
-													<td>정규직</td>
+														class=" rounded-circle mr-3" alt="">Sarah Smith</td>
+													<td>iPhone X</td>
+													<td><span>United States</span></td>
+													<td>
+														<div>
+															<div class="progress" style="height: 6px">
+																<div class="progress-bar bg-success" style="width: 50%"></div>
+															</div>
+														</div>
+													</td>
 													<td><i class="fa fa-circle-o text-success  mr-2"></i>
-														출근</td>
-													<td><span>마지막 로그인</span> <span class="m-0 pl-3">10
-															초 전</span></td>
+														Paid</td>
+													<td><span>Last Login</span> <span class="m-0 pl-3">10
+															sec ago</span></td>
 												</tr>
 												<tr>
 													<td><img src="/NHMP/resources/ERP/images/avatar/2.jpg"
-														class=" rounded-circle mr-3" alt="">왈터 알</td>
-													<td>외과</td>
-													<td><span>의사</span></td>
-													<td>계약직</td>
-													<td><i class="fa fa-times-circle mr-2" aria-hidden="true"></i>
-														퇴근</td>
-													<td><span>마지막 로그인</span> <span class="m-0 pl-3">1
-															시간 전</span></td>
+														class=" rounded-circle mr-3" alt="">Walter R.</td>
+													<td>Pixel 2</td>
+													<td><span>Canada</span></td>
+													<td>
+														<div>
+															<div class="progress" style="height: 6px">
+																<div class="progress-bar bg-success" style="width: 50%"></div>
+															</div>
+														</div>
+													</td>
+													<td><i class="fa fa-circle-o text-success  mr-2"></i>
+														Paid</td>
+													<td><span>Last Login</span> <span class="m-0 pl-3">50
+															sec ago</span></td>
 												</tr>
 												<tr>
 													<td><img src="/NHMP/resources/ERP/images/avatar/3.jpg"
-														class=" rounded-circle mr-3" alt="">안드류 디</td>
-													<td>한방과</td>
-													<td><span>레지던트</span></td>
-													<td>임시직</td>
+														class=" rounded-circle mr-3" alt="">Andrew D.</td>
+													<td>OnePlus</td>
+													<td><span>Germany</span></td>
+													<td>
+														<div>
+															<div class="progress" style="height: 6px">
+																<div class="progress-bar bg-warning" style="width: 50%"></div>
+															</div>
+														</div>
+													</td>
 													<td><i class="fa fa-circle-o text-warning  mr-2"></i>
-														출근</td>
-													<td><span>마지막 로그인</span> <span class="m-0 pl-3">5
-															초 전</span></td>
+														Pending</td>
+													<td><span>Last Login</span> <span class="m-0 pl-3">10
+															sec ago</span></td>
 												</tr>
 												<tr>
 													<td><img src="/NHMP/resources/ERP/images/avatar/6.jpg"
-														class=" rounded-circle mr-3" alt=""> 메긴 스</td>
-													<td>간호과</td>
-													<td><span>부장</span></td>
-													<td>파견직</td>
-													<td><i class="fa fa-times-circle mr-2" aria-hidden="true"></i>
-														퇴근</td>
-													<td><span>마지막 로그인</span> <span class="m-0 pl-3">1
-															시간 전</span></td>
+														class=" rounded-circle mr-3" alt=""> Megan S.</td>
+													<td>Galaxy</td>
+													<td><span>Japan</span></td>
+													<td>
+														<div>
+															<div class="progress" style="height: 6px">
+																<div class="progress-bar bg-success" style="width: 50%"></div>
+															</div>
+														</div>
+													</td>
+													<td><i class="fa fa-circle-o text-success  mr-2"></i>
+														Paid</td>
+													<td><span>Last Login</span> <span class="m-0 pl-3">10
+															sec ago</span></td>
 												</tr>
 												<tr>
 													<td><img src="/NHMP/resources/ERP/images/avatar/4.jpg"
-														class=" rounded-circle mr-3" alt=""> 도리스 알</td>
-													<td>총무과</td>
-													<td><span>인턴</span></td>
-													<td>일용직</td>
+														class=" rounded-circle mr-3" alt=""> Doris R.</td>
+													<td>Moto Z2</td>
+													<td><span>England</span></td>
+													<td>
+														<div>
+															<div class="progress" style="height: 6px">
+																<div class="progress-bar bg-success" style="width: 50%"></div>
+															</div>
+														</div>
+													</td>
 													<td><i class="fa fa-circle-o text-success  mr-2"></i>
-														출근</td>
-													<td><span>마지막 로그인</span> <span class="m-0 pl-3">1
-															초 전</span></td>
+														Paid</td>
+													<td><span>Last Login</span> <span class="m-0 pl-3">10
+															sec ago</span></td>
 												</tr>
 												<tr>
 													<td><img src="/NHMP/resources/ERP/images/avatar/5.jpg"
-														class=" rounded-circle mr-3" alt="">엘리자베스 다브류</td>
-													<td>원무과</td>
-													<td><span>팀장</span></td>
-													<td>위촉직</td>
-													<td><i class="fa fa-times-circle mr-2" aria-hidden="true"></i>
-														퇴근</td>
-													<td><span>마지막 로그인</span> <span class="m-0 pl-3">2
-															시간 전</span></td>
+														class=" rounded-circle mr-3" alt="">Elizabeth W.</td>
+													<td>Notebook Asus</td>
+													<td><span>China</span></td>
+													<td>
+														<div>
+															<div class="progress" style="height: 6px">
+																<div class="progress-bar bg-warning" style="width: 50%"></div>
+															</div>
+														</div>
+													</td>
+													<td><i class="fa fa-circle-o text-warning  mr-2"></i>
+														Pending</td>
+													<td><span>Last Login</span> <span class="m-0 pl-3">10
+															sec ago</span></td>
 												</tr>
 											</tbody>
 										</table>
@@ -1012,6 +1042,7 @@ $(function(){
 			<!--**********************************
             Content body end
         ***********************************-->
+   
 
 
 			<!--**********************************
@@ -1068,7 +1099,7 @@ $(function(){
 
 
 
-		<!-- <script src="/NHMP/resources/ERP/js/dashboard/dashboard-1.js"></script> -->
+		<script src="/NHMP/resources/ERP/js/dashboard/dashboard-1.js"></script>
 </body>
 
 </html>

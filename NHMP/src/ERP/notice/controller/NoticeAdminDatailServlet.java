@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.notice.model.service.NoticeService;
 import ERP.notice.model.vo.Notice;
+import Main.NursingHospital.model.ov.*;
 
 /**
  * Servlet implementation class NoticeDatailServlet
@@ -32,21 +33,37 @@ public class NoticeAdminDatailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 공지글 상세보기 처리용 컨트롤러
-				int noticeNo = Integer.parseInt(request.getParameter("no"));
+		// 1. 인코딩처리 필요없음
+				String noticeNo = (String)request.getParameter("no");
+				System.out.println(noticeNo);
+				String currentPage = (String)request.getParameter("page");
+				System.out.println("noticeNo 값 옴 :" + noticeNo);
+				System.out.println("currentPage 값 옴 : " + currentPage);
+				//로그인한 id pwd 가져오기(로그인 정보로 구분짓기 위하여)
+				
+				//코드 & 코드 해석
+				NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+				//널싱하스피럴로 형변환후 리퀘스트로요청 세션에 저장하여 getAttribute에서로그인호스팅값 구함
 				
 				
 				
 				//1증가된 조회수 셀렉트
 				NoticeService noticeservice = new NoticeService();
-				noticeservice.updateReadCount(noticeNo); //조회수 1 증가 처리함
+				noticeservice.updateReadCount(noticeNo,loginHospital); //조회수 1 증가 처리함
 				
-				Notice notice = new NoticeService().selectOne(noticeNo);
+				
+				//로그인정보가 왔는지 확인
+				
+				//로그인 정보 안 NH_USERID, NH_USERPWD 가져오기 ???서비스로 보낼때 loginHospital에 담긴 id, pwd같이 가는건 아닌지?
+				
+				//노티스 정보 서비스로 보내기
+				Notice notice = new NoticeService().selectOne(noticeNo, loginHospital);
 				
 				RequestDispatcher view = null;
 				if (notice != null) {
 					view = request.getRequestDispatcher("views/ERP/Notice/ErpAdminNoticeDetailView.jsp");
 					request.setAttribute("notice", notice);
-					request.setAttribute("noticeno", noticeNo);
+					request.setAttribute("currentPage", currentPage);//추가
 					
 					
 				}else {

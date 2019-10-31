@@ -16,6 +16,7 @@ import org.json.simple.JSONObject;
 
 import ERP.notice.model.service.NoticeService;
 import ERP.notice.model.vo.Notice;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class NoticeTopServlet
@@ -38,8 +39,12 @@ public class NoticeTopServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ArrayList<Notice> list = new NoticeService().selectTop3();
-
+		
+		//nursinghospital 의 로그인정보 받아오기
+				NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		
+		ArrayList<Notice> list = new NoticeService().selectTop3(loginHospital);
+		
 		// 전송용 json 객체 생성
 		JSONObject sendJson = new JSONObject();
 

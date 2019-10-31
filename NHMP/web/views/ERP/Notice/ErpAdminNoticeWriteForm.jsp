@@ -10,9 +10,7 @@ NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHosp
 <%@ page import="ERP.notice.model.vo.Notice, java.util.ArrayList" %>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.If"%>
 <%@page import="ERP.notice.model.vo.Notice" %> 
-<%
-	Notice notice = (Notice)request.getAttribute("notice");
-%> 
+
    
 <!DOCTYPE html>
 <html>
