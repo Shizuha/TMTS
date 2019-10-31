@@ -207,7 +207,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 		
 		Employee emp2 = null;
 		if(result > 0) {
-			 emp2 = new EmployeeService().selectName(emp.getEmpName(),hostId, hostPwd);
+			 emp2 = new EmployeeService().inSelectEmpName(emp.getEmpName(),hostId, hostPwd);
 		}else {
 			pw.println("<script >");
 			pw.println("alert('정상적인 발송방식이 아닙니다 확인하세요.')");
