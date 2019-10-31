@@ -46,6 +46,7 @@ public class EmployeeDao {
 				emp.setAdTel(rs.getString("ad_tel"));
 				emp.setPhone(rs.getString("phone"));
 				emp.setEmail(rs.getString("email"));
+				emp.setSalary(rs.getInt("salary"));
 				emp.setUserId(rs.getString("userid"));
 				emp.setUserpwd(rs.getString("userpwd"));
 				emp.setEmpEtc(rs.getString("emp_etc"));

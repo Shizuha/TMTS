@@ -47,7 +47,8 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
             	$("#deptname").val($(this).text());
             	
             	//자식요소 유무 이프문
-            	if($(this).eq(index).children().hasClass("teamList") === false){
+            	
+            	if($(".deptList .teamList").length == 0){
             	$.ajax({
       				url : "organlist",
       				data : { deptName : $(this).text() },
@@ -119,7 +120,7 @@ function team(id, index){
 				if(json != null){
 				for(var i in json.list){
 					var empName = decodeURIComponent(json.list[i].empname).replace(/\+/gi, " ");
-					
+					$("#teamname").val(value);
 					var li = $("<li class='emp'><i class='mdi mdi-account'></i>&nbsp;<a href='#'>" + 
 							empName +  "</a></li>");
 					$("#"+id).children().append(li);
