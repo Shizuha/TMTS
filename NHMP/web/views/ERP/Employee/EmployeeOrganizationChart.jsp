@@ -9,6 +9,7 @@ ArrayList<Department> dList = (ArrayList<Department>)request.getAttribute("dList
 ArrayList<Ward> wList = (ArrayList<Ward>)request.getAttribute("wList");
 ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); */
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,16 +36,16 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
             $('.organ li:has(ul)') //자식 요소(ul)를 갖는 요소(li)에 대해서
                 .css({cursor: 'pointer', 'list-style-image':'url(/NHMP/resources/ERP/images/folder-closed.gif)'})//+기호로 설정
                 .children().hide(); //자식요소 숨기기
-              $(".teamList").click(function(){
-            	  e.stopPropagation();
-            	  alert("dd");
-              });
+                
+             
                
                
             //[3] +로 설정된 항목에 대해서 click이벤트 적용
             $('.deptList').click(function(event){
             	var index = $(this).index();
-            	
+            	if($(event.target).is(".deptList")){
+            		
+            	if($(this).eq(index).children().hasClass("teamList") === false){
             	$.ajax({
       				url : "organlist",
       				data : { deptName : $(this).text() },
@@ -58,8 +59,9 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
       					//json 안에 list 가 들어있음.
       					
       					for(var i in json.list){
-      						var li = $("<li class='teamList'>" + 
-      								decodeURIComponent(json.list[i].teamname).replace(/\+/gi, " ") +  "<ul></ul></li>");
+      						var teamName = decodeURIComponent(json.list[i].teamname).replace(/\+/gi, " ");
+      						var li = $("<li class='teamList' id='t" + teamName + "'  onclick='team(this.id, " + i + ");'>" + 
+      								teamName +  "<ul></ul></li>");
       						$('.deptList').eq(index).children().append(li);
       						$('.teamList').css({'list-style-image':'url(/NHMP/resources/ERP/images/folder-closed.gif)'});
       					}
@@ -70,7 +72,8 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
       					console.log("error : " + textStatus);
       				}
       			});
-            	
+            		}//자식요소 유무 이프문
+            	}
                 //this == event.target으로 현재 선택된 개체에 대해서 처리
                 if(this == event.target){
                     //숨겨진 상태면 보이고 -기호로 설정 그렇지 않으면 숨기고 + 기호로 설정
@@ -82,26 +85,71 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
                         
                     }else {
                         // 숨기기
-                       
-                      
                         $(this).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder-closed.gif)').children().slideUp();
+                        $('.teamList').children().slideUp();
                     }
  
                 }
                 return false;          
             });
-              
-            
                 
         });
-</script> 
-<script type="text/javascript" src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
-$(function(){
+function team(id, index){
 	
-});
-</script>
+	 var value = $("#"+id).text();
+	 
+	 if($(".teamList").children("ul") != null){
+	 $.ajax({
+			url : "teamlist",
+			data : { teamName : value },
+			type : "post",
+			dataType : "json",
+			success : function(data){
+				
+				//전송 온 object 를 string 으로 바꿈
+				var jsonStr = JSON.stringify(data);
+				//string 을 json 객체로 바꿈
+				var json = JSON.parse(jsonStr);
+				//json 안에 list 가 들어있음.
+				if(json != null){
+				for(var i in json.list){
+					var empName = decodeURIComponent(json.list[i].empname).replace(/\+/gi, " ");
+					
+					var li = $("<li class='emp'><a href='#'>" + 
+							empName +  "</a></li>");
+					$("#"+id).children().append(li);
+					}
+				}
+
+				
+			},
+			error :function(jqXHR, textStatus, errorThrown){
+				console.log("error : " + textStatus);
+			}
+		});
+	 }
+	 
+	 if ($("#"+id).children("ul").is(':hidden')) {
+		 $("#"+id).children().slideDown();
+		 $("#"+id).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder.gif)');
+	     }else{
+	    	 $("#"+id).children().slideUp();
+	    	 $("#"+id).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder-closed.gif)')
+	     }
+	return false;  
+ 
+	
+	
+ }
+</script> 
+
 <style type="text/css">
+body{
+	color:black;
+}
+ a{
+ 	color:black;
+ }
 .organ-Button{
 	width:50px;
 
@@ -545,7 +593,7 @@ ul {
 								<li class="deptList" value="<%= d.getDeptName()%>"><%= d.getDeptName()%>
 								<ul></ul>
 								</li>
-					           <% i++;} %>
+					           <%} %>
 					        </ul>
 						</div>
 					</div>
