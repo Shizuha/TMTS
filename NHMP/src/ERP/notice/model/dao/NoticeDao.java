@@ -48,8 +48,8 @@ public class NoticeDao {
 		return list;
 	}
 
-	public Notice selectOne(Connection conn, int noticeNo) {
-		// 공지사항 클릭시 상세 화면
+	public Notice selectOne(Connection conn, String noticeNo) {
+		// 공지사항 클릭시 수정 화면
 		Notice notice = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null; 
@@ -58,7 +58,7 @@ public class NoticeDao {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, noticeNo);
+			pstmt.setString(1, noticeNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -87,7 +87,7 @@ public class NoticeDao {
 
 
 	// 조회수 처리하는 dao
-	public int updateReadCount(Connection conn, int noticeNo) {
+	public int updateReadCount(Connection conn, String noticeNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
@@ -96,7 +96,7 @@ public class NoticeDao {
 				+ "where notice_no = ?";
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, noticeNo);
+			pstmt.setString(1, noticeNo);
 			
 			result = pstmt.executeUpdate();
 			
@@ -140,7 +140,7 @@ public class NoticeDao {
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
 			
-			///쿼리문 모르겠음
+			//
 			String query = "select * from ("
 					+ "select rownum rnum, notice_no, notice_title, notice_content,"
 					+ "notice_count, notice_writer,"
@@ -181,8 +181,7 @@ public class NoticeDao {
 			int result = 0;
 			PreparedStatement pstmt = null;
 			
-			String query = "INSERT INTO NOTICE VALUES(NOTICE_SEQ.NEXTVAL, ?, " + 
-					"?, default, SYSDATE, ?)";
+			String query = "INSERT INTO NOTICE VALUES(NOTICE_SEQ.NEXTVAL, ?, ?, default, SYSDATE, ?)";
 			
 			try {
 				pstmt = conn.prepareStatement(query);
@@ -190,11 +189,10 @@ public class NoticeDao {
 				pstmt.setString(1, notice.getNoticeTitle());
 				pstmt.setString(2, notice.getNoticeContent());
 				pstmt.setString(3, notice.getNoticeWriter());
-			
-				
-				
 				
 				result = pstmt.executeUpdate();
+				
+				
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -231,6 +229,162 @@ public class NoticeDao {
 			} finally {
 				close(rset); 
 				close(stmt);
+			}
+			
+			return list;
+		}
+
+		public int updateNotice(Connection conn, Notice notice) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String query = "update notice set notice_title = ?, "
+					  + "notice_content = ? "
+					  + "where notice_no = ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, notice.getNoticeTitle());
+				pstmt.setString(2, notice.getNoticeContent());
+				pstmt.setInt(3, notice.getNoticeNo());
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		//글 삭제 dao
+		public int deleteNotice(Connection conn, String noticeNo) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String query = "delete from notice where notice_no = ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, noticeNo);
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}		
+			
+			return result;
+		}
+		
+		//제목 검색 dao
+		public ArrayList<Notice> selectTitleSearch(Connection conn, String keyword) {
+			ArrayList<Notice> list = new ArrayList<Notice>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String query = "select * from notice where notice_title like ? order by notice_no desc";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, "%" + keyword + "%");
+				
+				rset = pstmt.executeQuery();
+				
+				//while문으로 객체 옮겨 담기
+				while(rset.next()) {
+					Notice notice = new Notice();
+					
+					notice.setNoticeNo(rset.getInt("notice_no"));
+					notice.setNoticeTitle(rset.getString("notice_title"));
+					notice.setNoticeWriter(rset.getString("notice_writer"));
+					notice.setNoticeDate(rset.getDate("notice_date"));
+					notice.setNoticeCount(rset.getInt("notice_count"));	
+					
+					list.add(notice);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return list;
+		}
+		
+		//작성자로 검색
+		public ArrayList<Notice> selectWriterSearch(Connection conn, String keyword) {
+			ArrayList<Notice> list = new ArrayList<Notice>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String query = "select * from notice where notice_writer like ? order by notice_no desc";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, "%" + keyword + "%");
+				
+				rset = pstmt.executeQuery();
+				
+				//while문으로 객체 옮겨 담기
+				while (rset.next()) {
+					Notice notice = new Notice();
+					
+					notice.setNoticeNo(rset.getInt("notice_no"));
+					notice.setNoticeTitle(rset.getString("notice_title"));
+					notice.setNoticeWriter(rset.getString("notice_writer"));
+					notice.setNoticeDate(rset.getDate("notice_date"));
+					notice.setNoticeCount(rset.getInt("notice_count"));	
+					
+					list.add(notice);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
+
+		public ArrayList<Notice> selectDateSearch(Connection conn, Date from, Date to) {
+			ArrayList<Notice> list = new ArrayList<Notice>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String query = "select * from notice where notice_date between ? and ? order by notice_no desc";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setDate(1, from);
+				pstmt.setDate(2, to);
+				
+				rset = pstmt.executeQuery();
+				
+				while (rset.next()) {
+					Notice notice = new Notice();
+					
+					notice.setNoticeNo(rset.getInt("notice_no"));
+					notice.setNoticeTitle(rset.getString("notice_title"));
+					notice.setNoticeWriter(rset.getString("notice_writer"));
+					notice.setNoticeDate(rset.getDate("notice_date"));
+					notice.setNoticeCount(rset.getInt("notice_count"));	
+					
+					list.add(notice);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
 			}
 			
 			return list;

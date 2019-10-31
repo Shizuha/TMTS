@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.notice.model.service.NoticeService;
 import ERP.notice.model.vo.Notice;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class NoticeListServlet
@@ -33,16 +34,21 @@ public class NoticeListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 공지사항 전체 목록보기 출력 처리용 컨트롤러 모델서비스로 요청받고 처리(패이징 처리)
-			
+				
+				//nursinghospital 의 로그인정보 받아오기
+				NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		
 				int currentPage = 1;
 				if(request.getParameter("page") != null) {
 					currentPage = Integer.parseInt(request.getParameter("page"));
 				}
 				
 				int limit = 10;  //한 페이지에 출력할 목록 갯수
+				
+				//nservice변수 생성
 				NoticeService nservice = new NoticeService();
 				
-				int listCount = nservice.getListCount();  //테이블의 전체 목록 갯수 조회
+				int listCount = nservice.getListCount(loginHospital);  //테이블의 전체 목록 갯수 조회 + 1
 				//총 페이지 수 계산
 				int maxPage = listCount / limit;
 				if(listCount % limit > 0)
@@ -60,23 +66,24 @@ public class NoticeListServlet extends HttpServlet {
 				int endRow = currentPage * limit;
 				
 				//조회할 목록의 시작행과 끝행 번호 전달하고 결과받기
-				ArrayList<Notice> list = nservice.selectList(startRow, endRow);
+				ArrayList<Notice> list = nservice.selectList(startRow, endRow,loginHospital);
 				
 				RequestDispatcher view = null;
-				if(list.size() > 0) {
+				if(list.size() >= 0) {
 					view = request.getRequestDispatcher("views/ERP/Notice/ErpNoticeListView.jsp");
 					request.setAttribute("list", list);
 					request.setAttribute("maxPage", maxPage);
 					request.setAttribute("currentPage", currentPage);
 					request.setAttribute("beginPage", beginPage);
 					request.setAttribute("endPage", endPage);
-					view.forward(request, response);
+					
+					
 				}else {
 					view = request.getRequestDispatcher("views/common/Error.jsp");
 					request.setAttribute("message", currentPage + "공지사항 전체 목록 조회 실패!");
-					view.forward(request, response);
+					
 				}
-
+				view.forward(request, response);
 				
 			}
 
