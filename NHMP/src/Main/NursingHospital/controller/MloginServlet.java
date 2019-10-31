@@ -1,6 +1,7 @@
 package Main.NursingHospital.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ERP.Calendar.Model.Service.CalendarService;
+import ERP.Calendar.Model.vo.Calendar;
 import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
 import Main.NursingHospital.model.ov.NursingHospital;
@@ -51,7 +54,10 @@ public class MloginServlet extends HttpServlet {
 			loginEmployee = new EmployeeService().loginCheck(userid, userpwd, hostid, hostpwd);
 			if( loginEmployee != null ) {
 				HttpSession session = request.getSession();
-				session.setAttribute("loginHospital", loginEmployee);
+				String empname = loginEmployee.getEmpName();
+				ArrayList<Calendar> list = new CalendarService().EmployeeSelectList(empname);
+				session.setAttribute("list", list);
+				session.setAttribute("loginEmployee", loginEmployee);
 				response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
 					
 			}else{
