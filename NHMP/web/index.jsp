@@ -407,8 +407,8 @@
       <div class="container">
         <div class="row justify-content-center mb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
-            <h2 class="mb-4">Our satisfied customer says</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+            <h2 class="mb-4">만족한 고객사들이 얘기합니다</h2>
+            <p>대부분의 고객사 분들이 저희 ERP에 대하여 우수한 성능을 자랑한다고 만족하셨습니다.</p>
           </div>
         </div>
         <div class="row ftco-animate">
@@ -422,9 +422,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Mark Web</p>
-                    <span class="position">Marketing Manager</span>
+                    <p class="mb-4">사용하기 편리하고 알맞는 기능만 있는 ERP에 대해서 만족스럽습니다.</p>
+                    <p class="name">홍길동</p>
+                    <span class="position">천축요양병원장</span>
                   </div>
                 </div>
               </div>
@@ -436,9 +436,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Mark Web</p>
-                    <span class="position">Interface Designer</span>
+                    <p class="mb-4">편리할 뿐만 아니라 세부적인 기능들도 있어 만족스럽습니다.</p>
+                    <p class="name">조국</p>
+                    <span class="position">열린우리요양병원장</span>
                   </div>
                 </div>
               </div>
@@ -450,9 +450,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Mark Web</p>
-                    <span class="position">UI Designer</span>
+                    <p class="mb-4">일손이 많아지지않고 효율적으로 병원을 운영할 수 있게 되었습니다.</p>
+                    <p class="name">이순신</p>
+                    <span class="position">명량요양병원장</span>
                   </div>
                 </div>
               </div>
@@ -464,9 +464,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Mark Web</p>
-                    <span class="position">Web Developer</span>
+                    <p class="mb-4">긴급한 상황이나 문제가 있을시 대처를 확실하게 하는것이 좋습니다.</p>
+                    <p class="name">제갈량</p>
+                    <span class="position">만두요양병원장</span>
                   </div>
                 </div>
               </div>
@@ -478,9 +478,9 @@
                     </span>
                   </div>
                   <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Mark Web</p>
-                    <span class="position">System Analyst</span>
+                    <p class="mb-4">병동이 많을수록 관리하는사람들이 많이 필요한데 적은 인원수로 돌아가서 좋습니다.</p>
+                    <p class="name">진시황</p>
+                    <span class="position">만리요양병원장</span>
                   </div>
                 </div>
               </div>
@@ -556,18 +556,18 @@
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Ignite</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <h2 class="ftco-heading-2">TMTS</h2>
+              <p>누구보다 빠르고 효율적인 ERP를 추구하는 회사</p>
               <ul class="ftco-footer-social list-unstyled mb-0">
-                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                <li class="ftco-animate"><a href="https://twitter.com/"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="https://www.facebook.com/"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="https://www.instagram.com/"><span class="icon-instagram"></span></a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4 ml-md-5">
-              <h2 class="ftco-heading-2">Unseful Links</h2>
+              <h2 class="ftco-heading-2">여러 서버들</h2>
               <ul class="list-unstyled">
                 <li><a href="#" class="py-2 d-block">Servers</a></li>
                 <li><a href="#" class="py-2 d-block">Windos Hosting</a></li>
@@ -580,25 +580,24 @@
           </div>
           <div class="col-md">
              <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Navigational</h2>
+              <h2 class="ftco-heading-2">네비게이터</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">Home</a></li>
-                <li><a href="#" class="py-2 d-block">Domain</a></li>
-                <li><a href="#" class="py-2 d-block">Hosting</a></li>
-                <li><a href="#" class="py-2 d-block">About</a></li>
-                <li><a href="#" class="py-2 d-block">Blog</a></li>
-                <li><a href="#" class="py-2 d-block">Contact</a></li>
+                <li><a href="/NHMP/index.jsp" class="py-2 d-block">홈</a></li>
+                <li><a href="/NHMP/views/Main/serviceIntro.jsp" class="py-2 d-block">서비스 소개</a></li>
+                <li><a href="/NHMP/views/Main/functionIntro.jsp" class="py-2 d-block">기능소개</a></li>
+                <li><a href="/NHMP/views/Main/serviceCenter.jsp" class="py-2 d-block">온라인 고객센터</a></li>
+                <li><a href="/NHMP/views/Main/introduce.jsp" class="py-2 d-block">이민삼수 소개</a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-                <h2 class="ftco-heading-2">Office</h2>
+                <h2 class="ftco-heading-2">사무실</h2>
                 <div class="block-23 mb-3">
                       <ul>
-                        <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                        <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                        <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                        <li><span class="icon icon-map-marker"></span><span class="text">KH정보교육원 서울특별시 강남구 강남구 테헤란로14길 6</span></li>
+                        <li><a href="#"><span class="icon icon-phone"></span><span class="text">02-1544-9970</span></a></li>
+                        <li><a href="#"><span class="icon icon-envelope"></span><span class="text">rlaghrb123@naver.com</span></a></li>
                       </ul>
                     </div>
             </div>
@@ -608,7 +607,7 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | TMTS <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
           </div>
         </div>

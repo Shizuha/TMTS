@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.notice.model.service.NoticeService;
 import ERP.notice.model.vo.Notice;
 import Main.NursingHospital.model.ov.NursingHospital;
@@ -39,11 +40,12 @@ public class NoticeTopServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		Employee loginEmployee = (Employee)request.getSession().getAttribute("loginEmployee");
 		
-		//nursinghospital 의 로그인정보 받아오기
-				NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		String hostid = loginEmployee.getHostId();
+		String hostpwd = loginEmployee.getHostPwd();
 		
-		ArrayList<Notice> list = new NoticeService().selectTop3(loginHospital);
+		ArrayList<Notice> list = new NoticeService().selectTop3(hostid, hostpwd);
 		
 		// 전송용 json 객체 생성
 		JSONObject sendJson = new JSONObject();

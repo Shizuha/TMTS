@@ -99,7 +99,7 @@
       </div>
     </div>
 
-    <section class="ftco-domain">
+    <!-- <section class="ftco-domain">
     	<div class="container">
     		<div class="row d-flex align-items-center justify-content-center">
     			<div class="col-lg-10 p-5 ftco-wrap ftco-animate">
@@ -131,149 +131,81 @@
     			</div>
     		</div>
     	</div>
-    </section>
+    </section> -->
   
-    <section class="ftco-section">
-    	<div class="container">
-    		<div class="row justify-content-center mb-5">
+    <section class="ftco-section services-section bg-light ftco-no-pb">
+      <div class="container">
+      <div class="row justify-content-center mb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
-            <h2 class="mb-4">Domain Pricing</h2>
-            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+            <h2 class="mb-4">NHMP</h2>
+            <p>Nursing Hospital Management Program</p>
           </div>
         </div>
-    		<div class="row">
-    			<div class="col-md-12 ftco-animate">
-    				<div class="table-responsive">
-	    				<table class="table">
-						    <thead class="thead-primary">
-						      <tr>
-						        <th>TLD</th>
-						        <th>Duration</th>
-						        <th>Registration</th>
-						        <th>Renewal</th>
-						        <th>Transfer</th>
-						        <th>Register</th>
-						      </tr>
-						    </thead>
-						    <tbody>
-						      <tr>
-						        <td class="color">.com</td>
-						        <td>1 Year</td>
-						        <td>$70.00</td>
-						        <td>$5.00</td>
-						        <td>$5.00</td>
-						        <td><a href="#" class="btn btn-primary">Sign Up</a></td>
-						      </tr>
-						      <tr>
-						        <td class="color">.net</td>
-						        <td>1 Year</td>
-						        <td>$75.00</td>
-						        <td>$5.00</td>
-						        <td>$5.00</td>
-						        <td><a href="#" class="btn btn-primary">Sign Up</a></td>
-						      </tr>
-						      <tr>
-						        <td class="color">.org</td>
-						        <td>1 Year</td>
-						        <td>$65.00</td>
-						        <td>$5.00</td>
-						        <td>$5.00</td>
-						        <td><a href="#" class="btn btn-primary">Sign Up</a></td>
-						      </tr>
-						      <tr>
-						        <td class="color">.biz</td>
-						        <td>1 Year</td>
-						        <td>$60.00</td>
-						        <td>$5.00</td>
-						        <td>$5.00</td>
-						        <td><a href="#" class="btn btn-primary">Sign Up</a></td>
-						      </tr>
-						      <tr>
-						        <td class="color">.info</td>
-						        <td>1 Year</td>
-						        <td>$50.00</td>
-						        <td>$5.00</td>
-						        <td>$5.00</td>
-						        <td><a href="#" class="btn btn-primary">Sign Up</a></td>
-						      </tr>
-						      <tr>
-						        <td class="color">.me</td>
-						        <td>1 Year</td>
-						        <td>$45.00</td>
-						        <td>$5.00</td>
-						        <td>$5.00</td>
-						        <td><a href="#" class="btn btn-primary">Sign Up</a></td>
-						      </tr>
-						      <tr>
-						        <td class="color">.asia</td>
-						        <td>1 Year</td>
-						        <td>$45.00</td>
-						        <td>$5.00</td>
-						        <td>$5.00</td>
-						        <td><a href="#" class="btn btn-primary">Sign Up</a></td>
-						      </tr>
-						      <tr>
-						        <td class="color">.mobi</td>
-						        <td>1 Year</td>
-						        <td>$45.00</td>
-						        <td>$5.00</td>
-						        <td>$5.00</td>
-						        <td><a href="#" class="btn btn-primary">Sign Up</a></td>
-						      </tr>
-						      <tr>
-						        <td class="color">.org</td>
-						        <td>1 Year</td>
-						        <td>$45.00</td>
-						        <td>$5.00</td>
-						        <td>$5.00</td>
-						        <td><a href="#" class="btn btn-primary">Sign Up</a></td>
-						      </tr>
-						      <tr>
-						        <td class="color">.us</td>
-						        <td>1 Year</td>
-						        <td>$45.00</td>
-						        <td>$5.00</td>
-						        <td>$5.00</td>
-						        <td><a href="#" class="btn btn-primary">Sign Up</a></td>
-						      </tr>
-						      <tr>
-						        <td class="color">.jp</td>
-						        <td>1 Year</td>
-						        <td>$45.00</td>
-						        <td>$5.00</td>
-						        <td>$5.00</td>
-						        <td><a href="#" class="btn btn-primary">Sign Up</a></td>
-						      </tr>
-						      <tr>
-						        <td class="color">.ph</td>
-						        <td>1 Year</td>
-						        <td>$45.00</td>
-						        <td>$5.00</td>
-						        <td>$5.00</td>
-						        <td><a href="#" class="btn btn-primary">Sign Up</a></td>
-						      </tr>
-						      <tr>
-						        <td class="color">.eu</td>
-						        <td>1 Year</td>
-						        <td>$45.00</td>
-						        <td>$5.00</td>
-						        <td>$5.00</td>
-						        <td><a href="#" class="btn btn-primary">Sign Up</a></td>
-						      </tr>
-						      <tr>
-						        <td class="color">.pro</td>
-						        <td>1 Year</td>
-						        <td>$45.00</td>
-						        <td>$5.00</td>
-						        <td>$5.00</td>
-						        <td><a href="#" class="btn btn-primary">Sign Up</a></td>
-						      </tr>
-						    </tbody>
-						  </table>
-					  </div>
-    			</div>
-    		</div>
-    	</div>
+      	<div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 text-center heading-section ftco-animate">
+            <h2 class="mb-4">그 많은 고객들이 저희를 선택하신 이유</h2>
+            <p>다양한 서비스가 한 곳에서 제공되는 요양병원에 최적화된 업무환경이 필요합니다.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services d-flex align-items-start">
+            	<div class="icon d-flex align-items-center justify-content-center">
+            		<span class="flaticon-cloud"></span>
+            	</div>
+              <div class="media-body pl-4">
+                <h3 class="heading">매우 빠른 서버</h3>
+                <p class="mb-0">Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+              </div>
+            </div>      
+          </div>
+          <div class="col-lg-4 d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services d-flex align-items-start">
+            	<div class="icon d-flex align-items-center justify-content-center">
+            		<span class="flaticon-server"></span>
+            	</div>
+              <div class="media-body pl-4">
+                <h3 class="heading">매일마다 백업</h3>
+                <p class="mb-0">Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+              </div>
+            </div>    
+          </div>
+          <div class="col-lg-4 d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services d-flex align-items-start">
+            	<div class="icon d-flex align-items-center justify-content-center">
+            		<span class="flaticon-customer-service"></span>
+            	</div>
+              <div class="media-body pl-4">
+                <h3 class="heading">전문적인 고객상담</h3>
+                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+              </div>
+            </div>        
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-10 text-center d-flex ftco-animate">
+          	<div class="blog-entry justify-content-end">
+              <a href="blog-single.html" class="block-20 img" style="background-image: url('/NHMP/resources/Main/images/image_4.jpg');">
+              </a>
+              <div class="text pt-4 px-md-5">
+              	<div class="meta mb-3">
+                  <div><a href="#">Aug 05, 2019</a></div>
+                  <div><a href="#">Admin</a></div>
+                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                </div>
+                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                <p><a href="blog-single.html" class="btn-custom">Continue <span class="icon-long-arrow-right"></span></a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -281,18 +213,18 @@
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Ignite</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <h2 class="ftco-heading-2">TMTS</h2>
+              <p>누구보다 빠르고 효율적인 ERP를 추구하는 회사</p>
               <ul class="ftco-footer-social list-unstyled mb-0">
-                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                <li class="ftco-animate"><a href="https://twitter.com/"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="https://www.facebook.com/"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="https://www.instagram.com/"><span class="icon-instagram"></span></a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4 ml-md-5">
-              <h2 class="ftco-heading-2">Unseful Links</h2>
+              <h2 class="ftco-heading-2">여러 서버들</h2>
               <ul class="list-unstyled">
                 <li><a href="#" class="py-2 d-block">Servers</a></li>
                 <li><a href="#" class="py-2 d-block">Windos Hosting</a></li>
@@ -305,27 +237,26 @@
           </div>
           <div class="col-md">
              <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Navigational</h2>
+              <h2 class="ftco-heading-2">네비게이터</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">Home</a></li>
-                <li><a href="#" class="py-2 d-block">Domain</a></li>
-                <li><a href="#" class="py-2 d-block">Hosting</a></li>
-                <li><a href="#" class="py-2 d-block">About</a></li>
-                <li><a href="#" class="py-2 d-block">Blog</a></li>
-                <li><a href="#" class="py-2 d-block">Contact</a></li>
+                <li><a href="/NHMP/index.jsp" class="py-2 d-block">홈</a></li>
+                <li><a href="/NHMP/views/Main/serviceIntro.jsp" class="py-2 d-block">서비스 소개</a></li>
+                <li><a href="/NHMP/views/Main/functionIntro.jsp" class="py-2 d-block">기능소개</a></li>
+                <li><a href="/NHMP/views/Main/serviceCenter.jsp" class="py-2 d-block">온라인 고객센터</a></li>
+                <li><a href="/NHMP/views/Main/introduce.jsp" class="py-2 d-block">이민삼수 소개</a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Office</h2>
-            	<div class="block-23 mb-3">
-	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
-	              </ul>
-	            </div>
+                <h2 class="ftco-heading-2">사무실</h2>
+                <div class="block-23 mb-3">
+                      <ul>
+                        <li><span class="icon icon-map-marker"></span><span class="text">KH정보교육원 서울특별시 강남구 강남구 테헤란로14길 6</span></li>
+                        <li><a href="#"><span class="icon icon-phone"></span><span class="text">02-1544-9970</span></a></li>
+                        <li><a href="#"><span class="icon icon-envelope"></span><span class="text">rlaghrb123@naver.com</span></a></li>
+                      </ul>
+                    </div>
             </div>
           </div>
         </div>
@@ -333,7 +264,7 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | TMTS <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
           </div>
         </div>
