@@ -7,10 +7,10 @@
 				ERP.Allowance.model.vo.Allowance, ERP.Employee.model.vo.Employee"%>
 
 <%
-	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
+ 	Employee loginEmployee = (Employee)session.getAttribute("loginEmployee");
 	ArrayList<Allowance> Alist = (ArrayList<Allowance>)request.getAttribute("Alist");
 	ArrayList<Deduction> Dlist = (ArrayList<Deduction>)request.getAttribute("Dlist");
-	ArrayList<Employee> Elist = (ArrayList<Employee>)request.getAttribute("Elist");
+	Employee emp = (Employee)request.getAttribute("emp");
 	
 %>
 <!DOCTYPE html>
@@ -128,27 +128,13 @@ var Ecnt = 0;
 var totalresult = "0";
 var totalresultA = "0";
 
-function Echeckbox(empid){
+function Echeckbox(empid, salary){
 	var thispuls = "ECheckBtn"+empid;
 	var id = "";
 	totalresult = 0;
 	if( ($("#"+thispuls).prop('checked')) ){
 		if($("#pay").val() == 0 ){
-			Ecnt=1;
-			id = empid;
-			$.ajax({
-				url : "/NHMP/getpay",
-				type: "post",
-				data : {empid : empid},
-				dataType : "json",
-				success : function(data){
-					console.log(data.salary);
-					$("#pay").val(data.salary);
-					
-				}, error : function(jqXHR, textStatus, errorThrown ){
-					console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
-				}
-			})
+			$("#pay").val(salary);
 		}else{
 			Ecnt=1;
 			$('input[type="text"]').val(0);
@@ -156,18 +142,7 @@ function Echeckbox(empid){
 			$('input[type="checkbox"][class="DCheckBtn"]').prop('checked', false);
 			$('input[type="checkbox"][class="ACheckBtn"]').prop('checked', false);
 			$("#"+thispuls).prop('checked',true);
-			$.ajax({
-				url : "/NHMP/getpay",
-				type: "post",
-				data : {empid : empid},
-				dataType : "json",
-				success : function(data){
-					console.log(data.salary);
-					$("#pay").val(data.salary);
-				}, error : function(jqXHR, textStatus, errorThrown ){
-					console.log("error : " + jqXHR + ", " + textStatus + ", " +errorThrown);
-				}
-			})
+			$("#pay").val(0);
 		}
 	}else{
 		$('input[type="checkbox"][class="CECheckBtn"]').prop('checked', false);
@@ -186,7 +161,7 @@ function Dcheckbox(Dcode, Dno){
 		var Did = "DCheckBtn"+Dno;
 		payresult = payD+Dno;
 		$.ajax({
-			url : "/NHMP/getdeduc",
+			url : "/NHMP/Egetdeduc",
 			type: "post",
 			data : {Dcode : Dcode},
 			success : function(data){
@@ -225,7 +200,7 @@ function Acheckbox(Acode, Ano){
 		var Aid = "ACheckBtn"+Ano;
 		payresult = payA+Ano;
 		$.ajax({
-			url : "/NHMP/getallow",
+			url : "/NHMP/Egetallow",
 			type: "post",
 			data : {Acode : Acode},
 			success : function(data){
@@ -311,25 +286,14 @@ function Acheckbox(Acode, Ano){
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
-				<% if(loginHospital.getAUTHORITY_CODE().equals("G1")){ %>
-					<a href="/NHMP/views/ERP/master_main.jsp"> <b class="logo-abbr">
-					<img src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> 
-					<span class="logo-compact"><img src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
-					<span class="brand-title"> <img align="middle" src="/NHMP/resources/ERP/images/common/logo-text.png" ailgn=""></span>
-					</a>
-				<% }else if (loginHospital.getAUTHORITY_CODE().equals("G3") || loginHospital.getAUTHORITY_CODE().equals("G4") || loginHospital.getAUTHORITY_CODE().equals("G5")){ %>
-					<a href="/NHMP/views/ERP/Admin_main.jsp"> <b class="logo-abbr">
-					<img src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> 
-					<span class="logo-compact"><img src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
-					<span class="brand-title"> <img align="middle" src="/NHMP/resources/ERP/images/common/logo-text.png" ailgn=""></span>
-					</a>
-				<% }else{ %>
-					<a href="/NHMP/views/ERP/Employee.jsp"> <b class="logo-abbr">
-					<img src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> 
-					<span class="logo-compact"><img src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
-					<span class="brand-title"> <img align="middle" src="/NHMP/resources/ERP/images/common/logo-text.png" ailgn=""></span>
-					</a>
-				<% } %>
+				<a href="/NHMP/views/ERP/Employee.jsp"> <b class="logo-abbr"><img
+						src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> <span
+					class="logo-compact"><img
+						src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
+					<span class="brand-title"> <img align="middle"
+						src="/NHMP/resources/ERP/images/common/logo-text.png" ailgn="">
+				</span>
+				</a>
 			</div>
 		</div>
 		<!--**********************************
@@ -532,24 +496,42 @@ function Acheckbox(Acode, Ano){
 			<div class="nk-nav-scroll">
 				<ul class="metismenu" id="menu">
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
-						href="javascript:void()" aria-expanded="false"> <i
-							class="fa fa-users"></i><span class="nav-text">인사관리</span> <!-- <i class="icon-globe-alt menu-icon"></i><span class="nav-text">인사설정</span>-->
+						href="javascript:void()" aria-expanded="false"> 
+						<i class="fa fa-users"></i><span class="nav-text">인사관리</span> 
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="layout-blank.html">인사정보관리</a></li>
-							<li><a href="layout-one-column.html">인사정보등록</a></li>
-							<li><a href="layout-two-column.html">조직도</a></li>
+							<li><a href="/NHMP/list">전체사원조회</a></li>
+							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
+							<li><a href="/NHMP/ochart">조직도</a></li>
+							<!--
+                            <li><a href="layout-compact-nav.html">Compact Nav</a></li>
+                            <li><a href="layout-vertical.html">Vertical</a></li>
+                            <li><a href="layout-horizontal.html">Horizontal</a></li>
+                            <li><a href="layout-boxed.html">Boxed</a></li>
+                            <li><a href="layout-wide.html">Wide</a></li>
+
+
+                            <li><a href="layout-fixed-header.html">Fixed Header</a></li>
+                            <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li>
+                        -->
+
 						</ul>
 					</li>
+					<!-- <li class="nav-label">Apps</li> -->
 					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> <i class="fa fa-id-card"></i> <span
-							class="nav-text">권한설정</span>
+						aria-expanded="false"> 
+						<i class="fa fa-id-card"></i> 
+						<span class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
 					</a>
-						<% if(loginHospital != null) { %>
+						
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/authall">권한부여관리</a></li>
+							<!--
+                            <li><a href="email-read.html">수당항목등록</a></li>
+                            <li><a href="email-compose.html">급여계산</a></li>
+                            -->
 						</ul>
-						<% } %>
+					
 					</li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
@@ -559,26 +541,128 @@ function Acheckbox(Acode, Ano){
 						<ul aria-expanded="false">
 							<li><a href="app-profile.html">전체환자 조회</a></li>
 							<li><a href="app-calender.html">환자 입원 등록</a></li>
-							<li><a href="app-calender.html">상담일지 등록</a></li>
+							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
 							<li><a href="app-calender.html">투약일지 등록</a></li>
 						</ul></li>
+					<!--
+                    <li>
+                            <a  href="javascript:void()" aria-expanded="false">
+                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
+                               <i class="icon-graph menu-icon"></i> <span class="nav-text">게시판</span>
+                        </a>
+                        <ul aria-expanded="false">
+
+                            <li><a href="chart-flot.html">공지사항</a></li>
+                            <li><a href="chart-morris.html">자료실</a></li>
+
+                            <li><a href="chart-chartjs.html">Chartjs</a></li>
+                            <li><a href="chart-chartist.html">Chartist</a></li>
+                            <li><a href="chart-sparkline.html">Sparkline</a></li>
+                            <li><a href="chart-peity.html">Peity</a></li>
+
+                        </ul>
+                    </li>
+                    -->
+
+
+
+
+
+					<!--   <li class="nav-label">UI Components</li>  -->
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span
-							class="nav-text">급여 관리</span>
+							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
-							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
-							<li><a href="/NHMP/paylistD">급여계산</a></li>
+							<!-- <li><a href="/NHMP/deduclise">공제항목등록</a></li>
+							<li><a href="/NHMP/allowlist">수당항목등록</a></li> -->
+							<li><a href="/NHMP/Epaylist">급여계산</a></li>
+							<!--
+                            <li><a href="ui-button.html">Button</a></li>
+                            <li><a href="ui-button-group.html">Button Group</a></li>
+                            <li><a href="ui-cards.html">Cards</a></li>
+                            -->
+							<!-- </ul>
+                    </li>
+
+
+
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-layers menu-icon"></i><span class="nav-text">Components</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="uc-nestedable.html">Nestedable</a></li>
+                            <li><a href="uc-noui-slider.html">Noui Slider</a></li>
+                            <li><a href="uc-sweetalert.html">Sweet Alert</a></li>
+                            <li><a href="uc-toastr.html">Toastr</a></li>
+                        </ul>
+
+                    <li>
+                        <a href="widgets.html" aria-expanded="false">
+                            <i class="icon-badge menu-icon"></i><span class="nav-text">Widget</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-label">Forms</li>
+
+                    <li>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-note menu-icon"></i><span class="nav-text">Forms</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="form-basic.html">Basic Form</a></li>
+                            <li><a href="form-validation.html">Form Validation</a></li>
+                            <li><a href="form-step.html">Step Form</a></li>
+                            <li><a href="form-editor.html">Editor</a></li>
+                            <li><a href="form-picker.html">Picker</a></li>
+                        </ul>
+                    </li> -->
+							<!--
+                    <li class="nav-label">Table</li>
+                -->
+							<!--    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">Table</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="table-basic.html" aria-expanded="false">Basic Table</a></li>
+                            <li><a href="table-datatable.html" aria-expanded="false">Data Table</a></li>
+                        </ul>
+                </li> -->
+							<!--
+                    <li class="nav-label">Pages</li>
+                -->
+							<!--  <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-notebook menu-icon"></i><span class="nav-text">Pages</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="page-login.html">Login</a></li>
+                            <li><a href="page-register.html">Register</a></li>
+                            <li><a href="page-lock.html">Lock Screen</a></li>
+                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="page-error-404.html">Error 404</a></li>
+                                    <li><a href="page-error-403.html">Error 403</a></li>
+                                    <li><a href="page-error-400.html">Error 400</a></li>
+                                    <li><a href="page-error-500.html">Error 500</a></li>
+                                    <li><a href="page-error-503.html">Error 503</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>-->
 						</ul>
-					<li><a href="javascript:void()" aria-expanded="false"> <i
+					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
 					<li><a href="javascript:void()" aria-expanded="false"> <i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
+					</ul>
 			</div>
-			</ul>
+			
 		</div>
 
 		<!--**********************************
@@ -600,20 +684,11 @@ function Acheckbox(Acode, Ano){
 									<th>이름</th>
 									<th>사번</th>
 								</tr>
-								<%
-									for (Employee e : Elist) {
-								%>
 								<tr align="center">
-									<td><input type="checkbox" name="ECheckBtn"
-										id="ECheckBtn<%=e.getEmpId()%>" class="CECheckBtn"
-										onclick="Echeckbox('<%=e.getEmpId()%>')"
-										style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
-									<td><%=e.getEmpName()%></td>
-									<td><%=e.getEmpId()%></td>
+									<td><input type="checkbox" name="ECheckBtn"	id="ECheckBtn<%= emp.getEmpId() %>" class="CECheckBtn" onclick="Echeckbox('<%= emp.getEmpId() %>','<%= emp.getSalary() %>')" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
+									<td><%= emp.getEmpName() %></td>
+									<td><%= emp.getEmpId() %></td>
 								</tr>
-								<%
-									}
-								%>
 								<!-- 디비에서 list 받아서 가져오기 -->
 							</table>
 						</div>

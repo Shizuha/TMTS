@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import ERP.Allowance.model.dao.AllowanceDao;
 import ERP.Allowance.model.vo.Allowance;
+import ERP.Employee.model.vo.Employee;
 import Main.NursingHospital.model.ov.NursingHospital;
 
 public class AllowanceService {
@@ -57,5 +58,19 @@ public class AllowanceService {
 		int result = ADao.deleteAllowance(conn, code);
 		close(conn);
 		return result;
+	}
+
+	public ArrayList<Allowance> EselectList(String hostid, String hostpwd) {
+		Connection conn = getConnection(hostid, hostpwd);
+		ArrayList<Allowance> list = ADao.selectList(conn);
+		close(conn);
+		return list;
+	}
+
+	public String EselectFormula(String acode, Employee loginEmployee) {
+		Connection conn = getConnection(loginEmployee.getHostId(), loginEmployee.getHostPwd());
+		String Formula = ADao.selectFormula(conn, acode);
+		close(conn);
+		return Formula;
 	}
 }	
