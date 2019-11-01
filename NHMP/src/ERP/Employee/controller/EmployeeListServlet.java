@@ -35,6 +35,7 @@ public class EmployeeListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//메뉴바에서 전체사원 조회클릭시 전체사원리스트 처리용 컨트롤러
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");

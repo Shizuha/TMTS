@@ -178,12 +178,23 @@ public class EmployeeService {
 	}
 
 	public int teamEmpcount(String teamCode, String hostId, String hostPwd) {
+		
 		Connection conn = getConnection(hostId, hostPwd);
 		int result = eDao.teamEmpcount(conn, teamCode);
 		
 		close(conn);
 		return result;
 	}
+
+	public Employee selectOrganEmpOne(String hostId, String hostPwd, String empName) {
+		//조직도 사원 정보 클릭시 사원정보 1명 조회출력
+		Connection conn = getConnection(hostId, hostPwd);
+		Employee emp = eDao.selectOrganEmpOne(conn, empName);
+		close(conn);
+		return emp;
+	}
+
+	
 
 	
 	

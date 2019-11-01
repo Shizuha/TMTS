@@ -24,10 +24,9 @@
 <link href="/NHMP/resources/ERP/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-   
 <script>
-    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-    function sample4_execDaumPostcode() {
+//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+function sample4_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -82,40 +81,10 @@
         }).open();
     }
 </script>
+
     <!-- 스크립트 영역~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <script type="text/javascript" src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
-
 <script type="text/javascript">
-function idCheck(){
-	if($("input[name=empids]").val() != ""){
-		
-		$.ajax({
-			url: "/NHMP/idchk",
-			type: "post",
-			data: { userid : $("input[name=empids]").val()},
-			success: function(data){
-				console.log("success :" + data.length);
-				
-				if(data.trim() == "ok"){
-					$(".errorIdCheck").css("display", "inline-block");
-					$(".succesIdCheck").css("display", "none");
-					$("#userId").select();
-					return false;
-				}else{
-					$(".succesIdCheck").css("display", "inline-block");
-					$("#userPwd").focus();
-					$(".errorIdCheck").css("display", "none");
-					return false;
-				}
-				
-			},error : function(jqXHR,  textStatus,  errorThrown){//자료형은 자바스크립트에서 붙여주지 않는다.
-		         console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
-		      }
-			});
-		
-	}else	
-		return false;
-}//아이디 체크 이벤트 close
 function chkName(str){
 	 var reg_name = /^[가-힣a-zA-Z]{2,9}$/;
 
@@ -236,7 +205,38 @@ function formCheck(){
 </script>
 <script type="text/javascript">
 $(function(){
-    	
+		$("#empids").on("keyup",function(){
+			
+			if($("input[name=empids]").val() != ""){
+				
+				$.ajax({
+					url: "/NHMP/idchk",
+					type: "post",
+					data: { userid : $("input[name=empids]").val()},
+					success: function(data){
+						console.log("success :" + data.length);
+						
+						if(data.trim() == "ok"){
+							$(".errorIdCheck").css("display", "inline-block");
+							$(".succesIdCheck").css("display", "none");
+							$("#userId").select();
+							return false;
+						}else{
+							$(".succesIdCheck").css("display", "inline-block");
+							$("#userPwd").focus();
+							$(".errorIdCheck").css("display", "none");
+							return false;
+						}
+						
+					},error : function(jqXHR,  textStatus,  errorThrown){//자료형은 자바스크립트에서 붙여주지 않는다.
+				         console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+				      }
+					});
+				
+			}else	
+				return false;
+		});
+		
     	$(".btn3").click(function(){
     		//학력정보 추가시 
     		$(".insertemp4").append(
@@ -322,6 +322,16 @@ $(function(){
            
          });
 		
+		$("input").on("focus",function(){
+			
+			$(this).css({"box-shadow":"0px 0px 5px #7571f9"});
+			
+		});
+		$("input").on("focusout",function(){
+			
+			$(this).css({"box-shadow":"none"});
+			
+		});
 		
 		
     });
@@ -886,12 +896,13 @@ $(function(){
 				<tr>
 					<th>성명(한글)</th>
 						<td>
-						<input type="text" name="empname">&nbsp;
-						<span class="empname" style="color:red; display:none;">이름을 확인하세요.(한글,영어 2~9자 이내)</span>
+						<input type="text" name="empname" id="empname" style="border-radius:5px;">&nbsp;
+						<span class="empname" style="color:red; display:none;">이름이 중복 됩니다.(한글,영어 2~9자 이내)</span>
+						<span class="empname2" style="color:green; display:none;">등록가능합니다.</span>
 						</td>
 					<th>고용형태</th>
 						<td>
-							<select id="empment" name="empment">
+							<select id="empment" name="empment" style="border-radius:5px;">
 								<option value="0">--고용형태--</option> 
 								<option value="EM1">일용직</option>
 								<option value="EM2">위촉직</option>
@@ -906,7 +917,7 @@ $(function(){
 				<tr>
 				<th>부서</th>
 					<td>
-						<select id="dept" name="dept">
+						<select id="dept" name="dept" style="border-radius:5px;">
 							<option value="0">--부서구분--</option> 
 							<option value="10">가정의학과</option>
 							<option value="30">한방과</option>
@@ -918,7 +929,7 @@ $(function(){
 					</td>
 				<th>직위</th>
 					<td>
-						<select id="job" name="job">
+						<select id="job" name="job" style="border-radius:5px;">
 							<option value="0">--선택--</option> 
 							<option value="PO2">과장</option>
 							<option value="PO3">사원</option>
@@ -936,53 +947,53 @@ $(function(){
 							<option value="내국인">내국인</option>
 							<option value="외국인">외국인</option>
 						</select>
-					</td><th>주민번호</th><td><input type="text" name="empno1" required>-<input type="text" name="empno2" required></td>
+					</td><th>주민번호</th><td><input type="text" name="empno1"style="border-radius:5px;" required>-<input type="text"style="border-radius:5px;" name="empno2" required></td>
 				<tr>
 				<tr>
 					<th>주소</th>
 					<td colspan="3">
-						<input type="text" id="sample4_postcode" placeholder="우편번호">
+						<input type="text" id="sample4_postcode"style="border-radius:5px;" placeholder="우편번호">
 						<input type="button" onclick="sample4_execDaumPostcode();" value="우편번호 찾기">&nbsp;
-						<input type="text" id="sample4_roadAddress"name="address1" placeholder="도로명주소">
-						<input type="text" id="sample4_jibunAddress"name="address2" placeholder="지번주소"><br>
-						<input type="text" id="sample4_detailAddress"name="address3" placeholder="상세주소">
-						<input type="text" id="sample4_extraAddress"name="address4" placeholder="참고항목">
+						<input type="text" id="sample4_roadAddress"name="address1" placeholder="도로명주소" style="border-radius:5px;">
+						<input type="text" id="sample4_jibunAddress"name="address2" placeholder="지번주소" style="border-radius:5px;"><br>
+						<input type="text" id="sample4_detailAddress"name="address3" placeholder="상세주소" style="border-radius:5px;">
+						<input type="text" id="sample4_extraAddress"name="address4" placeholder="참고항목" style="border-radius:5px;">
 					
 					</td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
-						<td><input typee="Tel" name="adtel1">-<input typee="Tel" name="adtel2">-<input typee="Tel" name="adtel3"></td>
+						<td><input typee="Tel"style="border-radius:5px;" name="adtel1">-
+						<input typee="Tel"style="border-radius:5px;" name="adtel2">-<input typee="Tel"style="border-radius:5px;" name="adtel3"></td>
 					<th>휴대폰</th>
 						<td>
-							<select name="phone">
+							<select name="phone" style="border-radius:5px;">
 								<option value="010">010</option>
 								<option value="011">011</option>
 								<option value="017">017</option>
 								<option value="016">016</option>
-							</select>&nbsp;-<input type="Tel" name="phone2">-<input type="Tel" name="phone3">
+							</select>&nbsp;-<input type="Tel"style="border-radius:5px;" name="phone2">-<input type="Tel"style="border-radius:5px;" name="phone3">
 						</td>
 				</tr>
 				<tr>
 					<th>아이디</th>
 						<td class="idtd">
-						<input type="text" name="empids">&nbsp;
-						<button onclick="return idCheck();">중복체크</button>&nbsp;
+						<input type="text"style="border-radius:5px;" name="empids" id="empids">&nbsp;
 						<span class="succesIdCheck" style="display:none; color:green; font-size:10pt;">사용가능한 아이디 입니다!</span>
 						&nbsp;<span class="errorIdCheck" style="display:none; color:red;font-size:10pt;">이미 사용중인 아이디 입니다!</span>
 						</td>
 					<th>비밀번호</th>
-						<td><input type="password" id="emppwd"name="emppwds">&nbsp;
-						중복확인<input type="password"id="emppwd2">
+						<td><input type="password"style="border-radius:5px;" id="emppwd"name="emppwds">&nbsp;
+						중복확인<input type="password"style="border-radius:5px;"id="emppwd2">
 						<span class="checkPwd" style="color:red; display:none;">불일치!</span>
 						<span class="checkPwd2" style="color:green; display:none;">일치!</span>
 						</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
-						<td><input type="email" name="email"></td>
+						<td><input type="email" name="email" style="border-radius:5px;"></td>
 					<th>기본급</th>
-						<td><input type="text" name="salary"value="1750000" required></td>
+						<td><input type="text" name="salary"value="1750000"style="border-radius:5px;" required></td>
 				</tr>
 				<tr>
 					<th>성별</th>
@@ -994,7 +1005,7 @@ $(function(){
 				<tr>
 					<th>팀</th>
 						<td>
-							<select id="team" name="team">
+							<select id="team" name="team" style="border-radius:5px;">
 								<option value="0">--팀구분--</option> 
 								<option value="TM1">병원간호팀</option>
 								<option value="TM2">외래간호팀</option>
@@ -1019,7 +1030,7 @@ $(function(){
 							
 					<th>재직형태</th>
 						<td>
-							<select id="hold" name="hold">
+							<select id="hold" name="hold" style="border-radius:5px;">
 								<option value="0">--재직구분--</option> 
 								<option value="HOD1">휴직</option>
 								<option value="HOD2">재직</option>
@@ -1030,7 +1041,7 @@ $(function(){
 				<tr>
 					<th>병동</th>
 						<td>
-							<select id="ward" name="ward">
+							<select id="ward" name="ward" style="border-radius:5px;">
 								<option value="0">--병동구분--</option> 
 								<option value="BD01">1병동</option>
 								<option value="BD02">2병동</option>
@@ -1365,6 +1376,7 @@ $(function(){
 		<!--**********************************
         Scripts
     ***********************************-->
+    
 		<script src="/NHMP/resources/ERP/css/plugins/common/common.min.js"></script>
 		<script src="/NHMP/resources/ERP/js/custom.min.js"></script>
 		<script src="/NHMP/resources/ERP/js/settings.js"></script>

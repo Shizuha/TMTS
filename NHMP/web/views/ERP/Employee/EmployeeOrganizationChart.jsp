@@ -48,10 +48,10 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
             	
             	//자식요소 유무 이프문
             	
-            	if($(".deptList .teamList").length == 0){
+            	
             	$.ajax({
       				url : "organlist",
-      				data : { deptName : $(this).text() },
+      				data : { deptName : $(this).text().trim() },
       				type : "post",
       				dataType : "json",
       				success : function(data){
@@ -64,9 +64,11 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
       						
       						$("#deptcode").val(json.list[i].deptcode);
       						$("#deptcount").val(json.list[i].count);
+      						if(json.list[i].teamname != null){
       						var teamName = decodeURIComponent(json.list[i].teamname).replace(/\+/gi, " ");
       						var li = $("<li class='teamList' id='t" + teamName + "'  onclick='team(this.id, " + i + ");'>" + 
       								teamName +  "<ul></ul></li>");
+      						}
       						$('.deptList').eq(index).children().append(li);
       						$('.teamList').css({'list-style-image':'url(/NHMP/resources/ERP/images/folder-closed.gif)'});
       					}
@@ -77,7 +79,7 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
       					console.log("error : " + textStatus);
       				}
       			});
-            		}//자식요소 유무 close
+            		
             	}
                 //this == event.target으로 현재 선택된 개체에 대해서 처리
                 if(this == event.target){
@@ -116,14 +118,19 @@ function team(id, index){
 				var jsonStr = JSON.stringify(data);
 				//string 을 json 객체로 바꿈
 				var json = JSON.parse(jsonStr);
+				$("#teamname").val(value);
 				//json 안에 list 가 들어있음.
 				if(json != null){
 				for(var i in json.list){
+					
+					$("#teamcode").val(json.list[i].tcode);
+					$("#teamcount").val(json.list[i].count);
 					var empName = decodeURIComponent(json.list[i].empname).replace(/\+/gi, " ");
-					$("#teamname").val(value);
-					var li = $("<li class='emp'><i class='mdi mdi-account'></i>&nbsp;<a href='#'>" + 
-							empName +  "</a></li>");
+					if(empName != null){
+					var li = $("<li class='emp' id='" + empName + "' onclick='empList(this.id," + i + ");'><i class='mdi mdi-account'></i>&nbsp;" + 
+							empName +  "</li>");
 					$("#"+id).children().append(li);
+						}
 					}
 				}
 				
@@ -138,7 +145,7 @@ function team(id, index){
 		 $("#"+id).children().slideDown();
 		 $("#"+id).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder.gif)');
 	     }else{
-	    	 $("#"+id).children().slideUp();
+	    	/* $("#"+id).children().slideUp(); */
 	    	 $("#"+id).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder-closed.gif)')
 	     }
 	return false;  
@@ -146,17 +153,43 @@ function team(id, index){
 	
 	
  }
+ 
+function empList(id, index){
+	$.ajax({
+		url : "emp",
+		data : { empName : id },
+		type : "post",
+		dataType : "json",
+		success : function(data){
+			
+			var jsonStr = JSON.stringify(data);
+			//string 을 json 객체로 바꿈
+			var json = JSON.parse(jsonStr);
+			
+			if(data != null){
+				
+				for(var i in json.list){
+				$("#empImg").prepend("<img alt='' src='/NHMP/resources/ERP/emp_Img_file/" + json.list[i].empimg +"' width='200' height='200'>");
+				$("#name").val(decodeURIComponent(json.list[i].empname).replace(/\+/gi, " "));
+				$("#itfor").val(decodeURIComponent(json.list[i].itfor).replace(/\+/gi, " "));
+				$("#phone").val(json.list[i].phone);
+				$("#address").text(decodeURIComponent(json.list[i].address).replace(/\+/gi, " "));
+				$("#hiredate").val(json.list[i].hiredate); 
+				 $("#email").val(json.list[i].email); 
+				}
+				
+			}
+		},
+		error :function(jqXHR, textStatus, errorThrown){
+			
+			console.log("error : " + textStatus);
+		}
+	});
+	return false;
+}
 </script> 
 
 <style type="text/css">
-.empList{
-	width:510px;
-	border: 1px solid gray;
-	height:290px;
-	margin-top:10px;
-	
-}
-
 
 body{
 	color:black;
@@ -266,11 +299,60 @@ ul {
  .organ li{
 	width:150px;
 }
-input[type="text"]{
+.dp-cp input[type="text"]{
 	text-align:center;
 	margin-left:30px;
 	border:none;
-} 
+}
+.tm-cp input[type="text"]{
+	text-align:center;
+	margin-left:30px;
+	border:none;
+}
+#empOne input[type="text"]{
+	margin-left:0px;
+	border:none;
+	width:160px;
+}
+#bigEmp{
+	display: inline-block;
+	width:500px;
+	height:240px;
+	border: 1px solid gray;
+	padding:10px;
+	border-radius:3px;
+}
+.empList{
+	width:510px;
+	height:290px;
+	margin-top:10px;
+	padding:10px;
+	display:inline-block;
+	
+}
+#empImg{
+	display:inline-block;
+	border:1px solid gray;
+	width:200px;
+	height:200px;
+	float:left;
+	border-radius:3px;
+	
+	
+}
+
+#detailEmp{
+	margin-right:20px;
+	display:inline-block;
+	float:right;
+	width:230px;
+	height:200px;
+	
+}
+#detailEmp li {
+	margin-top:8px;
+	width:250px;
+}
 
 </style>
 
@@ -648,7 +730,7 @@ input[type="text"]{
 					</div>
 					<%} %>
 					<div class="dept-right">
-					<table width="100%">
+					<table class="dp-cp"width="100%">
 						<tr>
 						<th>부서명</th><th>부서코드</th><th>부서인원</th>
 						</tr>
@@ -659,7 +741,7 @@ input[type="text"]{
 						</tr>
 					</table>
 					<br />
-					<table width="100%">
+					<table class="tm-cp"width="100%">
 						<tr>
 						<th>팀 명&nbsp;</th><th>팀코드&nbsp;</th><th>팀인원&nbsp;</th>
 						</tr>
@@ -670,8 +752,24 @@ input[type="text"]{
 						</tr>
 					</table>
 					<div class="empList">
+						<h4>사원상세정보</h4>
+						<div id="bigEmp">
+						<div id="empImg">
 						
-					</div>
+						</div>
+						<div id="detailEmp">
+						<ul id="empOne">
+							<li>이름:<input type="text" id="name" readonly></li>
+							<li>내/외국인:<input type="text" id="itfor" readonly></li>
+							<li>입사일:<input type="text" id="hiredate" readonly></li>
+							<li>이메일:<input type="text" id="email" readonly></li>
+							<li>휴대폰:<input type="text" id="phone" readonly></li>
+							<li>주소<br>
+							<textarea rows="2" cols="30" id="address" readonly></textarea>
+							</li>
+						</ul>
+						</div>
+						</div>
 					</div>
 				</div>
 			</div>
