@@ -41,9 +41,10 @@ public class EmployeeOrganizationChartListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//조직도에서 부서 클릭했을시 부서정보 출력시키는 컨트롤러
 		request.setCharacterEncoding("utf-8");
-		String deptName = request.getParameter("deptName").trim();
-		System.out.println("서블릿에서 받은 부서 이름 :" + deptName);
+		String deptName = request.getParameter("deptName");
+		
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
@@ -57,8 +58,13 @@ public class EmployeeOrganizationChartListServlet extends HttpServlet {
 			hostPwd = loginHospital.getNH_USERPWD();
 		}
 		
+		
+		if(deptName.length() < 13) {
+		
+		
+		
 		ArrayList<Team> team = new TeamService().selectOrganTeamName(deptName, hostId, hostPwd);
-		System.out.println("조회해온 팀이름:" + team);
+		
 		Department dp = new DepartmentService().selectDeptCode(deptName, hostId, hostPwd);
 		int empcount = 0;
 		
@@ -90,7 +96,44 @@ public class EmployeeOrganizationChartListServlet extends HttpServlet {
 			out.print(sendJson.toJSONString());
 			out.flush();
 			out.close();
+			}
+		}else {
+			String renameDeptName = deptName.substring(0, 10);
+			String re2 = renameDeptName.trim();
 			
+			
+			ArrayList<Team> team = new TeamService().selectOrganTeamName(re2, hostId, hostPwd);
+			
+			Department dp = new DepartmentService().selectDeptCode(re2, hostId, hostPwd);
+			int empcount = 0;
+			
+			for(Team t : team) {
+				empcount += new EmployeeService().teamEmpcount(t.getTeamCode(), hostId, hostPwd);
+			}
+			System.out.println(empcount);
+			
+			JSONObject sendJson = new JSONObject();
+			
+			JSONArray jarr = new JSONArray();
+			if(team != null) {
+					JSONObject tn = new JSONObject();
+					
+					
+					tn.put("deptcode", dp.getDeptCode());
+					tn.put("count", empcount);
+					jarr.add(tn);
+				
+				sendJson.put("list", jarr);
+				
+				
+				response.setContentType("application/json");
+				
+				PrintWriter out = response.getWriter();
+				
+				out.print(sendJson.toJSONString());
+				out.flush();
+				out.close();
+				}
 			
 		}
 	}

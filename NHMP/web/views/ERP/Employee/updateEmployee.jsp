@@ -6,7 +6,8 @@
    EmpSalary empSal = (EmpSalary)request.getAttribute("empSal");
    ArrayList<Dependents> dpenList = (ArrayList<Dependents>)request.getAttribute("dpenList");
    ArrayList<Career> carList = (ArrayList<Career>)request.getAttribute("carList");
-   ArrayList<Education> eduList = (ArrayList<Education>)request.getAttribute("eduList"); 
+   ArrayList<Education> eduList = (ArrayList<Education>)request.getAttribute("eduList");
+   
    String[] rship = new String[14];
    String[] fyshcl = new String[7];
    String[] taking = new String[5];
@@ -1387,7 +1388,7 @@ $(function(){
 					</tr>
 					<%if(dpenList != null) {%>
 					<%for(Dependents d : dpenList){ %>
-					<% switch(d.getRship()){
+					<% switch(d.getRship().trim()){
 					
 						case "0" : rship[0] = "selected";break;
 						case "배우자" : rship[1] = "selected";break;
@@ -1410,7 +1411,7 @@ $(function(){
 						<td>
 							<select id="rship" name="rship">
 								<option value="0"<%=rship[0]%>>--관계구분--</option> 
-								<option value="배우자"<%=rship[1] %>>배우자</option>
+								<option value="배우자"<%= rship[1] %>>배우자</option>
 								<option value="아들"<%=rship[2] %>>아들</option>
 								<option value="딸"<%=rship[3] %>>딸</option>
 								<option value="부"<%=rship[4] %>>부</option>

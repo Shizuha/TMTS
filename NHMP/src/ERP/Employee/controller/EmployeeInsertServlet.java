@@ -77,8 +77,6 @@ public class EmployeeInsertServlet extends HttpServlet {
 		String hostPwd = null;
 		Employee emp1 = (Employee)request.getSession().getAttribute("loginEmployee");
 		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
-		System.out.println(emp);
-		System.out.println(loginHospital);
 		if(emp1 != null) {
 		
 		hostId = emp1.getHostId();
@@ -164,7 +162,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 			emp.setHoldOffice(hold);
 		}
 		String originalImgFileName = mrequest.getFilesystemName("upfiles");
-		System.out.println(originalImgFileName);
+		
 		
 		if(originalImgFileName != null) {
 			
@@ -202,7 +200,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 			emp.setEmpRenameFilename(reNameImgFileName);
 			
 		}
-		System.out.println(emp);
+		System.out.println("insert하기전 employee 정보 =" + emp);
 		int result = new EmployeeService().insertEmp(emp);
 		
 		
@@ -213,37 +211,54 @@ public class EmployeeInsertServlet extends HttpServlet {
 			pw.println("</script>");
 			pw.flush();
 			pw.close();
-		}else {
-			
-			
 		}
-		
+		System.out.println("주민번호로 사원 한명 조회해오기전 사원주민번호=" + emp.getEmpNo());
+		Employee emp2 = new EmployeeService().selectOne(emp.getEmpNo(),hostId, hostPwd);
+		System.out.println("insert한뒤 사원주민번호로 사원조회해온 객체=" + emp2);
 		//사원 급여정보란
 		EmpSalary empSal = new EmpSalary();
 		
 		
 		String natPension = mrequest.getParameter("no1");
 		String healInrance = mrequest.getParameter("no2");
-		int healRdc = Integer.parseInt(mrequest.getParameter("no2up"));
+		String healRdc = mrequest.getParameter("no2up");
+		int intHealRdc = 0;
+		if(healRdc != null) {
+			empSal.setHealRdc(Integer.parseInt(healRdc));
+		}else {
+			empSal.setHealRdc(intHealRdc); 
+		}
+		System.out.println(healRdc);
 		String oldInrance = mrequest.getParameter("no3");
-		int oldRdc = Integer.parseInt(mrequest.getParameter("no3up"));
+		
+		String oldRdc2 = mrequest.getParameter("no3up");
+		int oldRdc = 0;
+		if(oldRdc2 != null) {
+			empSal.setOldRdc(Integer.parseInt(mrequest.getParameter("no3up")));
+		}else {
+			empSal.setHealRdc(oldRdc); 
+		}
 		String ementInrance = mrequest.getParameter("no4");
 		String earIncome = mrequest.getParameter("earner1");
-		int earInrance = Integer.parseInt(mrequest.getParameter("earner1up"));//새액퍼센트
+		int earInrance = 0;
+		String earInrance2 = mrequest.getParameter("earner1up");//새액퍼센트
+		if(earInrance2 != null) {
+			empSal.setEarInrance(Integer.parseInt(earInrance2));
+		}else {
+			empSal.setEarInrance(earInrance);
+		}
+		
 		String bsnIncome = mrequest.getParameter("earner2");
 		String dailyJob = mrequest.getParameter("earner3");
 		String etcIncome = mrequest.getParameter("earner4");
 		String earBsnIncome = mrequest.getParameter("earner5");
 		
-		empSal.setEmpId(emp.getEmpId());
+		empSal.setEmpId(emp2.getEmpId());
 		empSal.setNatPension(natPension);
 		empSal.setHealInrance(healInrance);
-		empSal.setHealRdc(healRdc);
 		empSal.setOldInrance(oldInrance);
-		empSal.setOldRdc(oldRdc);
 		empSal.setEmentInrance(ementInrance);
 		empSal.setEarIncome(earIncome);
-		empSal.setEarInrance(earInrance);
 		empSal.setEarBsnIncome(earBsnIncome);
 		empSal.setDailyJob(dailyJob);
 		empSal.setEtcIncome(etcIncome);
@@ -284,9 +299,9 @@ public class EmployeeInsertServlet extends HttpServlet {
 			String rmChild = mChild[i];
 			
 			
-			drr.add(new Dependents(rrship, rfyname, rfyitfornal, rDIBILITY, rhISC, riTOGETHER, rmChild, emp.getEmpId()));
+			drr.add(new Dependents(rrship, rfyname, rfyitfornal, rDIBILITY, rhISC, riTOGETHER, rmChild, emp2.getEmpId()));
 			}
-		System.out.println(drr);
+		
 		
 		for(Dependents d : drr) {
 		
@@ -324,7 +339,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 			
 			
 			
-			eduList.add(new Education(itforNal1, adDate1, grDate1, schName1, major1, taking1, emp.getEmpId()));
+			eduList.add(new Education(itforNal1, adDate1, grDate1, schName1, major1, taking1, emp2.getEmpId()));
 			}
 		
 			int result3 = 0;
@@ -372,14 +387,15 @@ public class EmployeeInsertServlet extends HttpServlet {
 				System.out.println(leaveReason1);
 				
 				
-				carList.add(new Career(emp.getEmpId(), comName1, hireDate1, lastDate1, workTeam1, lastPosition1, resBilties1, leaveReason1));
+				carList.add(new Career(emp2.getEmpId(), comName1, hireDate1, lastDate1, workTeam1, lastPosition1, resBilties1, leaveReason1));
 				}
 			System.out.println(carList);
-			
+			int result4 = 0;
 			for(Career c : carList) {
-			int result4 = new CareerService().inserCar(c, hostId, hostPwd);
+			result4 = new CareerService().inserCar(c, hostId, hostPwd);
 			}
-			if(result == carList.size()) {
+			
+			if(result4 == carList.size()) {
 				response.sendRedirect("/NHMP/list");
 				
 			}else {

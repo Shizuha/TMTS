@@ -16,6 +16,7 @@ import org.json.simple.JSONObject;
 
 import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
+import ERP.Team.model.service.TeamService;
 import ERP.Team.model.vo.Team;
 import Main.NursingHospital.model.ov.NursingHospital;
 
@@ -38,6 +39,7 @@ public class OrganEmployeeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//조직도에서 팀이름 클릭했을때 사원정보 출력처리하는 컨트롤러
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
@@ -54,36 +56,77 @@ public class OrganEmployeeListServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 		String teamName = request.getParameter("teamName");
-		System.out.println("team이름 서블릿에서 받은값=" + teamName);
-		
-		ArrayList<Employee> empList = new EmployeeService().selectOrganEmpList(hostId, hostPwd, teamName);
 		
 		
-		JSONObject sendJson = new JSONObject();
 		
-		JSONArray jarr = new JSONArray();
-		if(empList != null) {
+		if(teamName.length() < 9) {
 			
-			for(Employee e : empList) {
-				JSONObject tn = new JSONObject();
-				System.out.println("조회해온 사원들=" + e.getEmpName());
-				tn.put("empname",URLEncoder.encode(e.getEmpName(), "utf-8"));
+			ArrayList<Employee>	empList = new EmployeeService().selectOrganEmpList(hostId, hostPwd, teamName);
+			Team tcode = new TeamService().selectTeamCode(hostId, hostPwd, teamName);
+			
+			int tCount = new EmployeeService().teamEmpcount(tcode.getTeamCode(),hostId, hostPwd);
+			
+			JSONObject sendJson = new JSONObject();
+			
+			JSONArray jarr = new JSONArray();
+			if(empList != null && tCount > 0) {
 				
-				jarr.add(tn);
-			}
-			sendJson.put("list", jarr);
+				for(Employee e : empList) {
+					JSONObject tn = new JSONObject();
+					
+					tn.put("empname",URLEncoder.encode(e.getEmpName(), "utf-8"));
+					tn.put("tcode", tcode.getTeamCode());
+					tn.put("count", tCount);
+					jarr.add(tn);
+				}
+				sendJson.put("list", jarr);
+				
+				
+				response.setContentType("application/json");
+				
+				PrintWriter out = response.getWriter();
+				
+				out.print(sendJson.toJSONString());
+				out.flush();
+				out.close();
+				}
+		
+		
+		}else {
 			
+			String renameDeptName = teamName.substring(0, 6);
+			String re2 = renameDeptName.trim();
 			
-			response.setContentType("application/json");
+			ArrayList<Employee>	empList = new EmployeeService().selectOrganEmpList(hostId, hostPwd, re2);
 			
-			PrintWriter out = response.getWriter();
+			Team tcode = new TeamService().selectTeamCode(hostId, hostPwd, re2);
+			if(empList != null && tcode != null) {
+			int tCount = new EmployeeService().teamEmpcount(tcode.getTeamCode(),hostId, hostPwd);
 			
-			out.print(sendJson.toJSONString());
-			out.flush();
-			out.close();
+			JSONObject sendJson = new JSONObject();
 			
-			
-		}
+			JSONArray jarr = new JSONArray();
+			if(empList != null && tCount > 0) {
+					JSONObject tn = new JSONObject();
+					
+					
+					tn.put("tcode", tcode.getTeamCode());
+					tn.put("count", tCount);
+					jarr.add(tn);
+				
+				sendJson.put("list", jarr);
+				
+				
+				response.setContentType("application/json");
+				
+				PrintWriter out = response.getWriter();
+				
+				out.print(sendJson.toJSONString());
+				out.flush();
+				out.close();
+				}// 108
+			}//100
+		}//94
 		
 	}
 
