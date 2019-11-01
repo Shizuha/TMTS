@@ -358,6 +358,58 @@ public class NHDao {
 		return NH;
 	}
 
+	public String NHcount(Connection conn) {
+		String result = "0";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select COUNT(*)-1 from nursing_hospital";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getString(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public String NHServiceCount(Connection conn) {
+		String result = "0";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select count(*) from NURSING_HOSPITAL where NH_SERVICE_CODE = 'GS1'";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getString(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
 	
 	
 	

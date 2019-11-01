@@ -17,67 +17,69 @@
 	}
 </style>
 <script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
-<script> 
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		var calendarEl = document.getElementById('calendar');
 
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			plugins : [ 'dayGrid', 'interaction', 'list' ],
+			defaultView : 'dayGridMonth',
+			selectable : true,
+			locales : 'ko',
+
+			header : {
+				left : 'prev,next today',
+				center : 'title',
+				right : 'dayGridMonth,addEventButton'
+			},
+
+			displayEventTime : false, // don't show the time column in list view
+			customButtons : {
+				addEventButton : {
+					text : '일정 보기',
+					click : function() {
+						window.open("/NHMP/views/ERP/Calendar.jsp");
+					}
+				}
+			}
+		});
+
+		calendar.render();
+	});
+
 	
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-        	plugins: [ 'dayGrid', 'interaction', 'list'],
-        	defaultView: 'dayGridMonth',
-        	selectable: true,
-        	locales : 'ko',
+	$(function(){
+		//이용자 수 ajax
+		$.ajax({
+			url : "/NHMP/NHcnt",
+			type : "get",
+			success : function(data) {
+				$("#NHcnt").html(data+" 명");
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+			}
 
-            header: {
-              left: 'prev,next today',
-              center: 'title',
-              right: 'dayGridMonth,addEventButton'
-            },
+		});
+		//신청 대기자 수 
+		$.ajax({
+			url : "/NHMP/NHServicecnt",
+			type : "get",
+			success : function(data) {
+				$("#NHServicecnt").html(data+" 명");
 
-            displayEventTime: false, // don't show the time column in list view
-            customButtons: {
-                addEventButton: {
-                  text: '일정 보기',
-                  click: function() {
-                	 window.open("/NHMP/views/ERP/Calendar.jsp");
-                  }
-                }
-            }
-          });
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+			}
 
-          calendar.render();
-      });
-	
-$(function(){    
-      $.ajax({
-  		url : "/NHMP/ntop",
-  		type : "get",
-  		dataType : "json",
-  		success : function(data){
-  			var jsonStr = JSON.stringify(data);
-  			var json = JSON.parse(jsonStr);
-  			var values = "";
-  			
-  			for(var i in json.list){
-  				if(loginAdmin != null){ 
-  				values += "<tr><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].no + 
-  				"</td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
-  				+ "</a></td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].date + "</td></tr>";
-  				/* <a href='/frist/ndetail?no= */
-  			 } else {
-  				values += "<tr><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].no + "</td><td>" + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
-  				+ "</td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].date + "</td></tr>";
-  			 } 
-  			}
-  			/* <td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd; */
-  			$("#newNotice").html($("#newNotice").html() + values);
-  		},
-  		error : function(jqXHR, textStatus, errorThrown){
-  			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
-  		}
-  	});
-});
-    </script>
+		});
+	});
+			
+
+
+	//신청 대기자 수 ajax
+</script>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="/NHMP/resources/ERP/images/common/favicon.png">
@@ -369,14 +371,14 @@ $(function(){
         ***********************************-->
 		<div class="content-body">
 
-			<div class="container-fluid mt-3" style="width:158%;">
+			<div class="container-fluid mt-3" style="width:155%; margin:30px;">
 				<div class="row">
 					<div class="col-lg-3 col-sm-6">
 						<div class="card gradient-1">
 							<div class="card-body">
 								<h3 class="card-title text-white">이용자 수</h3>
 								<div class="d-inline-block">
-									<h2 class="text-white">228명</h2>
+									<h2 class="text-white" id="NHcnt">명</h2>
 									<!--    <p class="text-white mb-0">Jan - March 2019</p> -->
 								</div>
 								<span class="float-right display-5 opacity-5"><i
@@ -390,7 +392,7 @@ $(function(){
 							<div class="card-body">
 								<h3 class="card-title text-white">신청 대기자 수</h3>
 								<div class="d-inline-block">
-									<h2 class="text-white">523명</h2>
+									<h2 class="text-white" id="NHServicecnt">0 명</h2>
 									<!--    <p class="text-white mb-0">Jan - March 2019</p> -->
 								</div>
 								<span class="float-right display-5 opacity-5"><i
@@ -403,8 +405,9 @@ $(function(){
 			<div class="col-lg-12">
 				<div class="row" >
 					<div class="col-12">
-						<div class="card-body">
-							<div id='calendar'></div>
+						<div class="card-body" style="width:1135px;">
+							<div id='calendar' style="width:1135px;margin-bottom:30px;">
+							</div>
 						</div>
 					</div>
 				</div>
