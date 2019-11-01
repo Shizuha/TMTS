@@ -47,6 +47,10 @@ public class CalendarListServlet extends HttpServlet {
 			NursingHospital nh = (NursingHospital) request.getSession().getAttribute("loginHospital"); // 유효성 검사
 			Employee emp = (Employee) request.getSession().getAttribute("loginEmployee");
 			
+			
+			
+			
+			
 			String jsondata = request.getParameter("jsondata");
 			System.out.println(jsondata);
 			JSONParser parser = new JSONParser();

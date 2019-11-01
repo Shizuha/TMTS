@@ -97,11 +97,8 @@ public class NoticeService {
 		return result;
 	}
 	//top3처리 서비스 
-	public ArrayList<Notice> selectTop3(NursingHospital loginHospital) {
-		
-		String userid = loginHospital.getNH_USERID();
-		String userpwd = loginHospital.getNH_USERPWD();
-		Connection conn = getConnection(userid, userpwd);
+	public ArrayList<Notice> selectTop3(String hostid, String hostpwd) {
+		Connection conn = getConnection(hostid, hostpwd);
 		ArrayList<Notice> list = ndao.selectTop3(conn);
 		close(conn);
 		return list;

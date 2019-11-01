@@ -1056,7 +1056,11 @@ input[type="button"].btn-block {
 			    </li>
 			    <% } %>
 			  </ul>
+			  <% if(loginHospital.getCOMPANY_NAME().equals("TMTS")){ %>
 			  <a href="/NHMP/views/Main/serviceNoticeInsert.jsp"><button type="button" class="btn btn-primary">공지사항 등록</button></a>
+		  	  <%} else{ %>
+		  	  	&nbsp;
+		  	  <%} %>
 		  </div>
 		</div>
 		<% }else if(loginHospital.getNH_SERVICE_CODE().equals("GS1")) { %>
