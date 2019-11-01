@@ -47,8 +47,7 @@ public class EmpMInfoServlet extends HttpServlet {
 		String hostPwd = null;
 		Employee emp1 = (Employee)request.getSession().getAttribute("loginEmployee");
 		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
-		System.out.println(emp1);
-		System.out.println(loginHospital);
+		
 		if(emp1 != null) {
 		
 		hostId = emp1.getHostId();
@@ -60,20 +59,21 @@ public class EmpMInfoServlet extends HttpServlet {
 		Employee emp = new EmployeeService().selectEmpId(empId,hostId, hostPwd);
 		
 		EmpSalary empSal = new EmpSalaryService().selectOne(empId,hostId, hostPwd);
-		System.out.println(empSal);
+		System.out.println("내정보보기 눌렀을때 가져온 사원 급여정보 : " + empSal);
 		ArrayList<Dependents> dpenList = new DependentsService().selectOne(empId,hostId, hostPwd);
-		System.out.println(dpenList);
+		System.out.println("내정보보기 를 눌렀을때 가져온 부양가족 정보:" + dpenList);
 		if(dpenList.size() == 0)
 			dpenList = null;
 			
 		ArrayList<Career> carList = new CareerService().selectList(empId,hostId, hostPwd);
+		System.out.println("내정보보기 눌었을때 가져온 사원 경력사항 정보:" + carList);
 		if(carList.size() == 0)
 			carList = null;
 		
 		ArrayList<Education> eduList = new EducationService().selectList(empId,hostId, hostPwd);
 		if(eduList.size() == 0)
 			eduList = null;
-		System.out.println(eduList);
+		System.out.println("내정보보기 눌렀을때 가져온 사원 학력정보  : " + eduList);
 		
 		response.setContentType("text/html; charset=utf-8");
 		response.setCharacterEncoding("utf-8");

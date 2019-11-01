@@ -730,6 +730,64 @@ public class EmployeeDao {
 		return count;
 	}
 
+	public Employee selectOrganEmpOne(Connection conn, String empName) {
+		Employee emp = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String query = "select * from employee where emp_name like ?";
+
+		try {
+
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + empName + "%");
+
+			rs = pstmt.executeQuery();
+
+				if(rs.next()) {
+
+				emp = new Employee();
+
+				emp.setEmpId(rs.getString("emp_id"));
+				emp.setEmpName(rs.getString("emp_name"));
+				emp.setHireDate(rs.getDate("hire_date"));
+				emp.setRsnDate(rs.getDate("rsn_date"));
+				emp.setEmpNo(rs.getString("emp_no"));
+				emp.setAddress(rs.getString("address"));
+				emp.setItnalFor(rs.getString("itnal_for"));
+				emp.setAdTel(rs.getString("ad_tel"));
+				emp.setPhone(rs.getString("phone"));
+				emp.setEmail(rs.getString("email"));
+				emp.setSalary(rs.getInt("salary"));
+				emp.setUserId(rs.getString("userid"));
+				emp.setUserpwd(rs.getString("userpwd"));
+				emp.setEmpEtc(rs.getString("emp_etc"));
+				emp.setEmpImgOriginalFilename(rs.getString("emp_img_original_filename"));
+				emp.setEmpRenameFilename(rs.getString("emp_img_rename_filename"));
+				emp.setGender(rs.getString("gender"));
+				emp.setEmpmentCode(rs.getString("empment_code"));
+				emp.setDeptCode(rs.getString("dept_code"));
+				emp.setTeamCode(rs.getString("team_code"));
+				emp.setPosCode(rs.getString("pos_code"));
+				emp.setDeductionCode(rs.getString("deduction_code"));
+				emp.setAllowanceCode(rs.getString("allowance_code"));
+				emp.setAuthorityCode(rs.getString("authority_code"));
+				emp.setWardCode(rs.getString("ward_code"));
+				emp.setHoldOffice(rs.getString("hode_code"));
+				
+				
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return emp;
+	}
+
 	
 
 	

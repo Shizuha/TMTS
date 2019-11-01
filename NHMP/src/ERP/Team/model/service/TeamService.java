@@ -33,6 +33,13 @@ public class TeamService {
 		return team;
 	}
 
+	public Team selectTeamCode(String hostId, String hostPwd, String teamName) {
+		Connection conn = getConnection(hostId, hostPwd);
+		Team t = tDao.selectTeamCode(conn, teamName);
+		close(conn);
+		return t;
+	}
+
 	
 	
 }
