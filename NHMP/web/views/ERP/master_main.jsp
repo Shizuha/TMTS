@@ -11,6 +11,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMTS</title>
+<style type="text/css">
+	.container-fluid mt-3 {
+		width:157%;
+	}
+</style>
 <script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
 <script> 
 
@@ -364,12 +369,12 @@ $(function(){
         ***********************************-->
 		<div class="content-body">
 
-			<div class="container-fluid mt-3">
+			<div class="container-fluid mt-3" style="width:158%;">
 				<div class="row">
 					<div class="col-lg-3 col-sm-6">
 						<div class="card gradient-1">
 							<div class="card-body">
-								<h3 class="card-title text-white">직원 수</h3>
+								<h3 class="card-title text-white">이용자 수</h3>
 								<div class="d-inline-block">
 									<h2 class="text-white">228명</h2>
 									<!--    <p class="text-white mb-0">Jan - March 2019</p> -->
@@ -383,7 +388,7 @@ $(function(){
 					 col-sm-6">
 						<div class="card gradient-2">
 							<div class="card-body">
-								<h3 class="card-title text-white">환자 수</h3>
+								<h3 class="card-title text-white">신청 대기자 수</h3>
 								<div class="d-inline-block">
 									<h2 class="text-white">523명</h2>
 									<!--    <p class="text-white mb-0">Jan - March 2019</p> -->
@@ -393,47 +398,18 @@ $(function(){
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-3 col-sm-6">
-						<div class="card gradient-3">
-							<div class="card-body">
-								<h3 class="card-title text-white">남은 병상</h3>
-								<div class="d-inline-block">
-									<h2 class="text-white">203개</h2>
-									<!--        <p class="text-white mb-0">Jan - March 2019</p> -->
-								</div>
-								<span class="float-right display-5 opacity-5"><i
-									class="fa fa-hospital-o"></i></span>
-							</div>
-						</div>
-					</div>
 					</div>
 				</div>
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-12">
-                             <div class="card-body">
-                                         <div id='calendar'></div>
-                                    </div>
-                                       </div>
-                                    <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">
-								<table id="newNotice" style="width: 500px; border-top: 1px solid #444444; border-collapse: collapse;">
-										<tr>
-											<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">번호</th>
-											<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">내용</th>
-											<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">등록일</th>
-										</tr>
-								</table>
-							</h4>
-                                    <div id="morris-bar-chart"></div>
-                                </div>
-                            </div>	
-                                     <div class="col-lg-6 col-md-12">
-                                </div>
-                            </div>
-                        </div>
-				<!-- #/ container -->
+			<div class="col-lg-12">
+				<div class="row">
+					<div class="col-12">
+						<div class="card-body">
+							<div id='calendar'></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- #/ container -->
 			</div>
 			<!--**********************************
             Content body end

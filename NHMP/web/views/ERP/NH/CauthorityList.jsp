@@ -373,7 +373,7 @@
 							class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/Cautholist">권한관리</a></li>
+							<li><a href="/NHMP/Cautholist">전체권한조회</a></li>
 							<li><a href="/NHMP/Cauthmanager">권한부여관리</a></li>
 						</ul></li>
 					
@@ -392,9 +392,6 @@
 			<form action="" >
 				<div class="root">
 					<div id="BLbtn">
-						<input type="button" value="┼" id="btn_add_row" class="btn"> &nbsp;
-						<input type="button" value="─" id="btn_delete_row" class="btn">	
-						<input type="button" id="SDbtn" value="선택삭제" class="btn">
 					</div>
 					<div class="Authlist">
 						<table border="1px solid red">
@@ -413,10 +410,6 @@
 								</tr>
 							<% } %>
 						</table>
-					</div>
-					<div class="btnlist">
-						<input type="submit" value="적용">
-						<input type="button" value="초기화">
 					</div>
 				</div>
 			</form>
