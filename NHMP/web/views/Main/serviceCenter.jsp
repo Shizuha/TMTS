@@ -157,7 +157,7 @@
 					<li class="nav-item"><a href="/NHMP/views/Main/introduce.jsp"
 						class="nav-link">이민삼수 소개</a></li>
 					<% if(loginHospital == null) { //미 로그인%>
-					<li class="nav-item"><a href="/NHMP/views/Main/login.jsp"
+					<li class="nav-item"><a href="/NHMP/MLogPage"
 						class="nav-link"><span>로그인</span></a></li>
 					<% } else if ( loginHospital.getAUTHORITY_CODE().equals("G1") ) {	//관리자 로그인%>
 					<li class="nav-item"><a href="/NHMP/views/Main/login.jsp"

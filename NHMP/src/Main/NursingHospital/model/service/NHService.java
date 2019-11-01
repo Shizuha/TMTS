@@ -91,6 +91,18 @@ public class NHService {
 		return null;
 	}
 
+	public String NHcount(NursingHospital loginHospital) {
+		Connection conn = getConnection(loginHospital.getNH_USERID(), loginHospital.getNH_USERPWD());
+		String result = ndao.NHcount(conn);
+		return result;
+	}
+
+	public String NHServiceCount(NursingHospital loginHospital) {
+		Connection conn = getConnection(loginHospital.getNH_USERID(), loginHospital.getNH_USERPWD());
+		String result = ndao.NHServiceCount(conn);
+		return result;
+	}
+
 	
 	
 	
