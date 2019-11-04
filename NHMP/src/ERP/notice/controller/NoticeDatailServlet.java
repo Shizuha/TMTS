@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.notice.model.service.NoticeService;
 import ERP.notice.model.vo.Notice;
-import Main.NursingHospital.model.ov.NursingHospital;
+import ERP.Employee.model.vo.Employee;
 
 /**
  * Servlet implementation class NoticeDatailServlet
@@ -35,17 +35,17 @@ public class NoticeDatailServlet extends HttpServlet {
 		// 공지글 상세보기 처리용 컨트롤러
 				String noticeNo = (String)request.getParameter("no");
 				
-				//코드 & 코드 해석
-				NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
-				//널싱하스피럴     로그인하스피럴로 지정  = 널싱하스피럴로 형변환후 리퀘스트로요청 세션에 저장하여 getAttribute에서로그인호스팅값 구함
+				//Employee  의 로그인정보(loginEmployee) 받아오기
+				Employee loginEmployee = (Employee)request.getSession().getAttribute("loginEmployee");
+		
 				
 				//1증가된 조회수 셀렉트
 				NoticeService noticeservice = new NoticeService();
-				noticeservice.updateReadCount(noticeNo,loginHospital); //조회수 1 증가 처리함
+				noticeservice.updateReadCount(noticeNo,loginEmployee); //조회수 1 증가 처리함
 				
 				
 				
-				Notice notice = new NoticeService().selectOne(noticeNo, loginHospital);
+				Notice notice = new NoticeService().selectOne(noticeNo, loginEmployee);
 				
 				RequestDispatcher view = null;
 				if (notice != null) {

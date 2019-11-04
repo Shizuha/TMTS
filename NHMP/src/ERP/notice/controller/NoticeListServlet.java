@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.notice.model.service.NoticeService;
 import ERP.notice.model.vo.Notice;
-import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class NoticeListServlet
@@ -35,8 +35,8 @@ public class NoticeListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 공지사항 전체 목록보기 출력 처리용 컨트롤러 모델서비스로 요청받고 처리(패이징 처리)
 				
-				//nursinghospital 의 로그인정보 받아오기
-				NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+				//Employee  의 로그인정보(loginEmployee) 받아오기
+				Employee loginEmployee = (Employee)request.getSession().getAttribute("loginEmployee");
 		
 				int currentPage = 1;
 				if(request.getParameter("page") != null) {
@@ -48,7 +48,7 @@ public class NoticeListServlet extends HttpServlet {
 				//nservice변수 생성
 				NoticeService nservice = new NoticeService();
 				
-				int listCount = nservice.getListCount(loginHospital);  //테이블의 전체 목록 갯수 조회 + 1
+				int listCount = nservice.getListCount(loginEmployee);  //테이블의 전체 목록 갯수 조회 + 1
 				//총 페이지 수 계산
 				int maxPage = listCount / limit;
 				if(listCount % limit > 0)
@@ -66,7 +66,7 @@ public class NoticeListServlet extends HttpServlet {
 				int endRow = currentPage * limit;
 				
 				//조회할 목록의 시작행과 끝행 번호 전달하고 결과받기
-				ArrayList<Notice> list = nservice.selectList(startRow, endRow,loginHospital);
+				ArrayList<Notice> list = nservice.selectList(startRow, endRow,loginEmployee);	//여기부터 수정
 				
 				RequestDispatcher view = null;
 				if(list.size() >= 0) {

@@ -1,15 +1,18 @@
 package ERP.notice.model.service;
 
-import ERP.notice.model.dao.NoticeDao;
-import ERP.notice.model.vo.Notice;
-import Main.NursingHospital.model.ov.NursingHospital;
-
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.*;
+
+import ERP.Employee.model.vo.Employee;
+import ERP.notice.model.dao.NoticeDao;
+import ERP.notice.model.vo.Notice;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 
 public class NoticeService {
@@ -74,6 +77,14 @@ public class NoticeService {
 		String userid = loginHospital.getNH_USERID();
 		String userpwd = loginHospital.getNH_USERPWD();
 		Connection conn = getConnection(userid, userpwd);
+		ArrayList<Notice> list = ndao.selectList(conn, startRow, endRow);
+		close(conn);
+		return list;
+	}
+	public ArrayList<Notice> selectList(int startRow, int endRow, Employee loginEmployee) {
+		String hostid = loginEmployee.getHostId();
+		String hostpwd = loginEmployee.getHostPwd();
+		Connection conn = getConnection(hostid, hostpwd);
 		ArrayList<Notice> list = ndao.selectList(conn, startRow, endRow);
 		close(conn);
 		return list;
@@ -173,7 +184,41 @@ public class NoticeService {
 		return list;
 	}
 	
-	
+
+
+	public int getListCount(Employee loginEmployee) {
+		String hostid = loginEmployee.getHostId();
+		String hostpwd = loginEmployee.getHostPwd();
+		Connection conn = getConnection(hostid, hostpwd);
+		int listCount = ndao.getListCount(conn);
+		close(conn);
+		return listCount;
+	}
+
+	public int updateReadCount(String noticeNo, Employee loginEmployee) {
+		String hostid = loginEmployee.getHostId();
+		String hostpwd = loginEmployee.getHostPwd();
+		Connection conn = getConnection(hostid, hostpwd);
+		int result = ndao.updateReadCount(conn, noticeNo);
+		if (result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public Notice selectOne(String noticeNo, Employee loginEmployee) {
+		String hostid = loginEmployee.getHostId();
+		String hostpwd = loginEmployee.getHostPwd();
+		Connection conn = getConnection(hostid, hostpwd);
+		Notice notice = ndao.selectOne(conn, noticeNo);
+		close(conn);
+		return notice;
+		
+	}
 	
 	
 }
