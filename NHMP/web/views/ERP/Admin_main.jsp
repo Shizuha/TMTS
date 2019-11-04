@@ -67,6 +67,46 @@ $(function(){
   		}
   	});
 });
+
+$(function(){
+	//직원수
+	$.ajax({
+		url : "/NHMP/empcount",
+		type : "get",
+		success : function(data) {
+			$("#empcount").html(data+" 명");
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+
+	});
+	//신청 대기자 수 
+	$.ajax({
+		url : "/NHMP/patientcount",
+		type : "get",
+		success : function(data) {
+			$("#patientcount").html(data+" 명");
+
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+
+	});
+	$.ajax({
+		url : "/NHMP/wardcount",
+		type : "get",
+		success : function(data) {
+			$("#wardcount").html(data+" 개");
+
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+
+	});
+});
     </script>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
@@ -531,7 +571,7 @@ $(function(){
 							<div class="card-body">
 								<h3 class="card-title text-white">직원 수</h3>
 								<div class="d-inline-block">
-									<h2 class="text-white">228명</h2>
+									<h2 class="text-white" id="empcount">명</h2>
 									<!--    <p class="text-white mb-0">Jan - March 2019</p> -->
 								</div>
 								<span class="float-right display-5 opacity-5"><i
@@ -545,7 +585,7 @@ $(function(){
 							<div class="card-body">
 								<h3 class="card-title text-white">환자 수</h3>
 								<div class="d-inline-block">
-									<h2 class="text-white">523명</h2>
+									<h2 class="text-white" id="patientcount">명</h2>
 									<!--    <p class="text-white mb-0">Jan - March 2019</p> -->
 								</div>
 								<span class="float-right display-5 opacity-5"><i
@@ -556,9 +596,9 @@ $(function(){
 					<div class="col-lg-3 col-sm-6">
 						<div class="card gradient-3">
 							<div class="card-body">
-								<h3 class="card-title text-white">남은 병상</h3>
+								<h3 class="card-title text-white">병동</h3>
 								<div class="d-inline-block">
-									<h2 class="text-white">203개</h2>
+									<h2 class="text-white" id="wardcount">개</h2>
 									<!--        <p class="text-white mb-0">Jan - March 2019</p> -->
 								</div>
 								<span class="float-right display-5 opacity-5"><i

@@ -202,6 +202,13 @@ public class EmployeeService {
 		return empList;
 	}
 
+	public String EmployeeCount(NursingHospital loginHospital) {
+		// 어드민 메인 사원 총명수 카운트 조회출력
+		Connection conn = getConnection(loginHospital.getNH_USERID(), loginHospital.getNH_USERPWD());
+		String result = eDao.EmployeeCount(conn);
+		return result;
+	}
+
 	
 
 	

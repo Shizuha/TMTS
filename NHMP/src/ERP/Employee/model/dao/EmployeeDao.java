@@ -864,6 +864,33 @@ public class EmployeeDao {
 		return empList;
 	}
 
+	public String EmployeeCount(Connection conn) {
+		// 사원 총명수 카운트 Dao
+		String result = "0";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select COUNT(*) from employee";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getString(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
 	
 
 	

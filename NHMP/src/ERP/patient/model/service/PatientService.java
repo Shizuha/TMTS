@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import ERP.patient.model.dao.PatientDao;
 import ERP.patient.model.vo.Patient;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 import static common.JDBCTemplate.*;
 
@@ -57,6 +58,13 @@ public class PatientService {
 		else
 			rollback(conn);
 		close(conn);
+		return result;
+	}
+
+	public String PatientCount(NursingHospital loginHospital) {
+		// 환자 총명수 카운트 
+		Connection conn = getConnection(loginHospital.getNH_USERID(), loginHospital.getNH_USERPWD());
+		String result = pdao.PatientCount(conn);
 		return result;
 	}
 
