@@ -177,8 +177,8 @@ public class NoticeService {
 		return list;
 	}
 
-	public ArrayList<Notice> AdminselectTop3() {
-		Connection conn = getConnection();
+	public ArrayList<Notice> AdminselectTop3(String adminid, String adminpwd) {
+		Connection conn = getConnection(adminid, adminpwd);
 		ArrayList<Notice> list = ndao.selectTop3(conn);
 		close(conn);
 		return list;
