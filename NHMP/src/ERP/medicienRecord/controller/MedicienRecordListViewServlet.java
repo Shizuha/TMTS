@@ -1,7 +1,7 @@
 package ERP.medicienRecord.controller;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ERP.medicienRecord.model.service.MedicienRecordService;
-
+import ERP.medicienRecord.model.vo.MedicienRecord;
 
 /**
- * Servlet implementation class MedicienRecordDeleteServlet
+ * Servlet implementation class MedicienRecordListViewServlet
  */
-@WebServlet("/recorddelete")
-public class MedicienRecordDeleteServlet extends HttpServlet {
+@WebServlet("/recordlistview")
+public class MedicienRecordListViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MedicienRecordDeleteServlet() {
+    public MedicienRecordListViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,25 +32,19 @@ public class MedicienRecordDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//투약일지 삭제 처리용 컨트롤러
+		//투약일지 전체조회 처리용 컨트롤러
 		request.setCharacterEncoding("utf-8");
 		
-		int mrNo = Integer.parseInt(request.getParameter("mr_no"));
-		String renameFileName = request.getParameter("rfile");
+		ArrayList<MedicienRecord> list = new MedicienRecordService().ListView();
 		
-		int result = new MedicienRecordService().deleteMedicienRecord(mrNo);
-		
-		if(result > 0) {
-			if(renameFileName != null) {
-				String savePath = request.getSession().getServletContext().getRealPath("/resources/ERP/mr_upfiles");
-				File renameFile = new File(savePath + "\\" + renameFileName);
-				renameFile.delete();
-			}
-			
-			response.sendRedirect("/NHMP/views/ERP/Admin_main.jsp");
+		RequestDispatcher view = null;
+		if(list.size() > 0) {
+			view = request.getRequestDispatcher("views/ERP/medicienRecord/MedicienRecordListView.jsp");
+			request.setAttribute("list", list);
+			view.forward(request, response);
 		}else {
-			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", mrNo + "번 투약일지 삭제 실패!");
+			view = request.getRequestDispatcher("views/common/Error.jsp");
+			request.setAttribute("message", "투약일지 전체조회 실패!");
 			view.forward(request, response);
 		}
 	}
