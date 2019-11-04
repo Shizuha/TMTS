@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Main.NursingHospital.model.ov.NursingHospital;
 import Main.NursingHospital.model.service.NHService;
@@ -33,8 +34,11 @@ public class MloginPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 로그인 시 요양병원 목록 처리용 컨트롤러
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+			session.invalidate();
+		}
 		ArrayList<NursingHospital> list = new NHService().selectAllList();
-		System.out.println("List : "+list);
 		
 		RequestDispatcher view = null;
 		if(list.size() > 0) {

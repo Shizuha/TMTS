@@ -12,8 +12,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMTS</title>
 <style type="text/css">
-	.container-fluid mt-3 {
-		width:157%;
+	div .fc-scroller fc-day-grid-container{
+		height:600px;
+	}
+	.fc-widget-content .fc-scroller.fc-day-grid-container{
+		height:600px;
 	}
 </style>
 <script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
@@ -74,6 +77,9 @@
 			}
 
 		});
+		//캘린더 크기 수정 		
+		$(".fc-scroller.fc-day-grid-container").height('630px');
+		$(".fc-row.fc-week.fc-widget-content").height('100px');
 	});
 			
 
@@ -371,7 +377,7 @@
         ***********************************-->
 		<div class="content-body">
 
-			<div class="container-fluid mt-3" style="width:155%; margin:30px;">
+			<div class="container-fluid mt-3" style="width:125%; margin:30px;">
 				<div class="row">
 					<div class="col-lg-3 col-sm-6">
 						<div class="card gradient-1">
@@ -402,11 +408,11 @@
 					</div>
 					</div>
 				</div>
-			<div class="col-lg-12">
-				<div class="row" >
-					<div class="col-12">
-						<div class="card-body" style="width:1135px;">
-							<div id='calendar' style="width:1135px;margin-bottom:30px;">
+			<div class="col-lg-12" style="height:600px;">
+				<div class="row" style="height:600px;">
+					<div class="col-12" style="height:600px;">
+						<div class="card-body" style="width:104%; height:300px;">
+							<div id='calendar' style="width:1135px;height:300px;margin-bottom:30px;">
 							</div>
 						</div>
 					</div>

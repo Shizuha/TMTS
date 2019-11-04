@@ -9,9 +9,15 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<style type="text/css">
+	input[type=password] {
+		width:200px;
+	}
+</style>
 
 <script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+var cnt = 0;
 	//아이디 중복 확인
 	$(function() {
 		$("#idcheck").click(function(){
@@ -39,7 +45,6 @@
 				/* alert(userid.length); */
 				alert("아이디를 입력하세요");
 			}
-			
 		});
 	
 
@@ -55,7 +60,25 @@
 				return true;
 			}
 			
-			
+		});
+		
+		//패스워드 규칙 확인		
+		$("#userpwd").focusout(function(){
+			if(cnt == 0 && $("#userpwd").val().length > 0){
+				var passRule = /^[a-zA-Z](([a-zA-Z])|([0-9])){5,12}$/gi;
+				if(!passRule.test($("#userpwd").val())){
+					alert("패스워드는 문자로 시작하여 숫자와 문자 포함 형태의 6~12자리로 입력하세요");
+					alert($("#userpwd").val().length);
+					$("#userpwd").select();
+					$("#userpwd").val("");
+					cnt = 0;
+				}else {
+					cnt = 3;
+				}
+				 
+			}else{
+				
+			}
 		});
 	});
 	
@@ -102,12 +125,12 @@
 		
 		<tr>
 			<th>패스워드 *</th>
-			<td><input type="password" name="userpwd" id="userpwd" required></td>
+			<td><input type="password" name="userpwd" id="userpwd" minlength="6" placeholder="첫 글자 문자 포함 6~12글자 " required></td>
 		</tr>
 		
 		<tr>
 			<th>패스워드확인 *</th>
-			<td><input type="password" id="userpwd2" required></td>
+			<td><input type="password" id="userpwd2" placeholder="첫 글자 문자 포함 6~12글자  " required></td>
 		</tr>
 		
 		<tr>

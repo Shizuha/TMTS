@@ -32,13 +32,17 @@ public class MidCheckServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 아이디 중복 확인 컨트롤러(Ajax)
-		int result = 0;
+		
 		String userid = request.getParameter("userid");
 		System.out.println(userid);
 		
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
-		result = new NHService().idCheck(userid);
+		int result1 = new NHService().idCheck(userid);
+		int result2 = new NHService().idCheck2(userid);
+		int result3 = new NHService().idCheck3(userid);
+		int result = result1 + result2 + result3;
+		System.out.println("servlet : "+ result );
 		/*RequestDispatcher view = null;*/
 		if(result > 0 ) {
 			out.append("이미 사용중인 아이디 입니다.");

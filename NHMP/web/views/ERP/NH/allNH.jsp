@@ -22,13 +22,19 @@
 	#rootdiv{
 		width:70%;
 		margin-left:50px;
+		margin-top:50px;
 	}
-	#rootdiv .NHlist_talbe{
+	#rootdiv #NHlist_talbe{
 		width:100%;
 		float:left;
 		text-align:center;
 		background:#f4f4f4;
 		color:#000;
+	}
+	#rootdiv #NHlist_talbe th{
+		background: rgb(117, 113, 249, 0.5);
+    	color:rgba(0, 0, 0, 1);
+    	text-align:center;
 	}
 </style>
 <!-- Favicon icon -->
@@ -335,14 +341,14 @@
 					</tr>
 					<% for(NursingHospital NH : list){%>
 					<tr align="center">
-						<td><input type="text" value="<%= NH.getNH_ID() %>" readonly></td>
-						<td><input type="text" value="<%= NH.getNH_NAME() %>" readonly></td>
-						<td><input type="text" value="<%= NH.getNH_DATE() %>" readonly></td>
-						<td><input type="text" value="<%= NH.getNH_PHONE() %>" readonly></td>
-						<td><input type="text" value="<%= NH.getNH_EMAIL() %>" readonly></td>
-						<td><input type="text" value="<%= NH.getCOMPANY_NAME() %>" readonly></td>
-						<td><input type="text" value="<%= NH.getCOMPANY_NO() %>" readonly></td>
-						<td><input type="text" value="<%= NH.getAUTHORITY_CODE() %>" readonly></td>
+						<td><%= NH.getNH_ID() %></td>
+						<td><%= NH.getNH_NAME() %></td>
+						<td><%= NH.getNH_DATE() %></td>
+						<td><%= NH.getNH_PHONE() %></td>
+						<td><%= NH.getNH_EMAIL() %></td>
+						<td><%= NH.getCOMPANY_NAME() %></td>
+						<td><%= NH.getCOMPANY_NO() %></td>
+						<td><%= NH.getAUTHORITY_CODE() %></td>
 					<% } %>
 				</table>
 			</div>

@@ -114,17 +114,76 @@ public class NHDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from NURSING_HOSPITAL where nh_userid = ?";
+		String query = "SELECT NH_USERID FROM NURSING_HOSPITAL WHERE NH_USERID = ?";
 		
-		try {
+		try {			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, userid);
-			
+			System.out.println(userid);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				result = 1;
+				result += 1;
 			}
+			
+			System.out.println("result : "+result);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int idCheck2(Connection conn, String userid) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "SELECT NH_USERID FROM NURSING_HOSPITAL WHERE NH_USERID = ?";
+		
+		try {			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userid.toUpperCase());
+			System.out.println(userid.toUpperCase());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result += 1;
+			}
+			
+			System.out.println("result : "+result);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int idCheck3(Connection conn, String userid) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "SELECT NH_USERID FROM NURSING_HOSPITAL WHERE NH_USERID = ?";
+		
+		try {			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userid.toLowerCase());
+			System.out.println(userid.toLowerCase());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result += 1;
+			}
+			
+			System.out.println("result : "+result);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -240,7 +299,9 @@ public class NHDao {
 		CallableStatement cstmt = null;
 		
 		String query = "{CALL NEWUSER(?, ?)}";
-		
+		System.out.println("계정 생성 ");
+		System.out.println(loginHospital.getNH_USERID());
+		System.out.println(loginHospital.getNH_USERPWD());
 		try {
 			cstmt = conn.prepareCall(query);
 			cstmt.setString(1, loginHospital.getNH_USERID());
@@ -257,8 +318,9 @@ public class NHDao {
 	}
 
 	public void sample(Connection conn, NursingHospital loginHospital) {
+		System.out.println("기본 테이블 생성 ");
 		Statement stmt = null;
-		String Str[] = {"EMPMENT", "DEDUCTION", "ALLOWANCE", "WARD", "POSITIONS", "DEPARTMENT", "TEAM", "AUTHORITY", "AUTHORITYSAM", "HOLD_OFFICE", "EMPLOYEE", "SEQ_EMP_ID", "EMPSALARY", "DEPENDENTS", "DPEN_SEQ_CODE", "EDUCATION", "EDU_SEQ_CODE", "CAREER", "CAR_SEQ_CODE", "PATIENT", "PAT_SEQ", "MEDICIENRECORD", "MR_SEQ", "COUNSELINGLOG", "CL_SEQ", "DATAROOM", "DATAROOM_SEQ", "CAUTHORITY", "CAUTHORITYSAM", "SERVICE", "SERVICESAM", "NURSING_HOSPITAL", "NOTICE", "NOTICE_SEQ", "QNA", "SEQ_QNA", "COMMENTS", "CNOTICE", "SEQ_CNOTICE", "CREGISTRATION", "CALENDAR", "SEQ_CAL","DEDUCTIONSAM1","DEDUCTIONSAM2","DEDUCTIONSAM3","DEDUCTIONSAM4","ALLOWANCESAM1","ALLOWANCESAM2","ALLOWANCESAM3","ALLOWANCESAM4","ALLOWANCESAM5","WARDSAM1","WARDSAM2","WARDSAM3","DEPARTMENTSAM1","DEPARTMENTSAM2","DEPARTMENTSAM3","DEPARTMENTSAM4","DEPARTMENTSAM5","DEPARTMENTSAM6","TEAMSAM1","TEAMSAM2","TEAMSAM3","TEAMSAM4","TEAMSAM5","TEAMSAM6","TEAMSAM7","TEAMSAM8","TEAMSAM9","TEAMSAM10","TEAMSAM11","TEAMSAM12","TEAMSAM13","TEAMSAM14","TEAMSAM15","TEAMSAM16","TEAMSAM17","TEAMSAM18","POSITIONSSAM1","POSITIONSSAM2","POSITIONSSAM3","POSITIONSSAM4","POSITIONSSAM5","POSITIONSSAM6","EMPMENTSAM1","EMPMENTSAM2","EMPMENTSAM3","EMPMENTSAM4","EMPMENTSAM5","EMPMENTSAM6","EMPMENTSAM7","HOLD_OFFICESAM1","HOLD_OFFICESAM2","HOLD_OFFICESAM3","EMPLOYEESAM1","EMPLOYEESAM2","EMPLOYEESAM3","EMPLOYEESAM4","EMPLOYEESAM5","EMPLOYEESAM6","EMPLOYEESAM7"};
+		String Str[] = {"EMPMENT", "DEDUCTION", "ALLOWANCE", "WARD", "POSITIONS", "DEPARTMENT", "TEAM", "AUTHORITY", "AUTHORITYSAM", "HOLD_OFFICE", "EMPLOYEE", "SEQ_EMP_ID", "EMPSALARY", "DEPENDENTS", "DPEN_SEQ_CODE", "EDUCATION", "EDU_SEQ_CODE", "CAREER", "CAR_SEQ_CODE", "PATIENT", "PAT_SEQ", "MEDICIENRECORD", "MR_SEQ", "COUNSELINGLOG", "CL_SEQ", "SEQ_CNOTICE", "SEQ_QNA", "CAUTHORITY", "CAUTHORITYSAM", "SERVICE", "SERVICESAM", "NURSING_HOSPITAL", "DATAROOM", "DATAROOM_SEQ", "NOTICE", "NOTICE_SEQ", "QNA", "COMMENTS", "CNOTICE", "CREGISTRATION", "CALENDAR", "SEQ_CAL","DEDUCTIONSAM1","DEDUCTIONSAM2","DEDUCTIONSAM3","DEDUCTIONSAM4","ALLOWANCESAM1","ALLOWANCESAM2","ALLOWANCESAM3","ALLOWANCESAM4","ALLOWANCESAM5","WARDSAM1","WARDSAM2","WARDSAM3","DEPARTMENTSAM1","DEPARTMENTSAM2","DEPARTMENTSAM3","DEPARTMENTSAM4","DEPARTMENTSAM5","DEPARTMENTSAM6","TEAMSAM1","TEAMSAM2","TEAMSAM3","TEAMSAM4","TEAMSAM5","TEAMSAM6","TEAMSAM7","TEAMSAM8","TEAMSAM9","TEAMSAM10","TEAMSAM11","TEAMSAM12","TEAMSAM13","TEAMSAM14","TEAMSAM15","TEAMSAM16","TEAMSAM17","TEAMSAM18","POSITIONSSAM1","POSITIONSSAM2","POSITIONSSAM3","POSITIONSSAM4","POSITIONSSAM5","POSITIONSSAM6","EMPMENTSAM1","EMPMENTSAM2","EMPMENTSAM3","EMPMENTSAM4","EMPMENTSAM5","EMPMENTSAM6","EMPMENTSAM7","HOLD_OFFICESAM1","HOLD_OFFICESAM2","HOLD_OFFICESAM3","EMPLOYEESAM1","EMPLOYEESAM2","EMPLOYEESAM3","EMPLOYEESAM4","EMPLOYEESAM5","EMPLOYEESAM6","EMPLOYEESAM7"};
 		System.out.println("Str length : "+Str.length);
 		for(int i = 0; i <= Str.length-1; i++) {
 			String query = prop.getProperty(Str[i]);
@@ -267,7 +329,7 @@ public class NHDao {
 				stmt = conn.createStatement();
 				stmt.executeQuery(query);
 				
-				System.out.println(i+"스크립트 작동");
+				System.out.println(i+"번째 "+Str[i]+"스크립트 작동");
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -363,7 +425,7 @@ public class NHDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select COUNT(*)-1 from nursing_hospital";
+		String query = "select COUNT(*)-1 from nursing_hospital where nh_authority_code != 'G0'";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -409,6 +471,10 @@ public class NHDao {
 		
 		return result;
 	}
+
+
+
+
 
 	
 	

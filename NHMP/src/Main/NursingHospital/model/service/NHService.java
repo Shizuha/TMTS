@@ -39,6 +39,20 @@ public class NHService {
 		close(conn);
 		return result;
 	}
+	
+	public int idCheck2(String userid) {
+		Connection conn = getConnection();
+		int result = ndao.idCheck2(conn, userid);
+		close(conn);
+		return result;
+	}
+
+	public int idCheck3(String userid) {
+		Connection conn = getConnection();
+		int result = ndao.idCheck3(conn, userid);
+		close(conn);
+		return result;
+	}
 
 	public int serviceUpdate(String service, NursingHospital loginHospital) {
 		Connection conn = getConnection();
@@ -102,6 +116,8 @@ public class NHService {
 		String result = ndao.NHServiceCount(conn);
 		return result;
 	}
+
+
 
 	
 	
