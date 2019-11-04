@@ -65,6 +65,8 @@ public class CalendarInsertServlet extends HttpServlet {
 		calendarService.InsertCalendar(sendJson, adminid);
 		} else {
 			String empname = emp.getEmpName();
+			String hostid = emp.getHostId();
+			String hostpwd = emp.getHostPwd();
 			String jsoncal = request.getParameter("jsondata");
 
 			response.setCharacterEncoding("utf-8");
@@ -75,7 +77,7 @@ public class CalendarInsertServlet extends HttpServlet {
 			
 			JSONObject sendJson = (JSONObject) obj;
 			CalendarService calendarService = new CalendarService();
-			calendarService.EmployeeInsertCalendar(sendJson, empname);
+			calendarService.EmployeeInsertCalendar(sendJson, empname, hostid, hostpwd);
 		}
 		
 		} catch (ParseException e) {
