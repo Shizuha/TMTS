@@ -1,6 +1,7 @@
-package ERP.medicienRecord.controller;
+package ERP.patient.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,20 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ERP.medicienRecord.model.service.MedicienRecordService;
-import ERP.medicienRecord.model.vo.MedicienRecord;
+import ERP.patient.model.service.PatientService;
+import ERP.patient.model.vo.Patient;
 
 /**
- * Servlet implementation class MedicienRecordDetailViewServlet
+ * Servlet implementation class PatientListViewServlet
  */
-@WebServlet("/recorddetail")
-public class MedicienRecordDetailViewServlet extends HttpServlet {
+@WebServlet("/patientlistview")
+public class PatientListViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MedicienRecordDetailViewServlet() {
+    public PatientListViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +32,17 @@ public class MedicienRecordDetailViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//투약일지 상세조회 처리용 컨트롤러
+		//환자 전체조회 처리용 컨트롤러
+		ArrayList<Patient> list = new PatientService().ListView();
 		
-		int mrNo = Integer.parseInt(request.getParameter("mr_no"));
-		MedicienRecord medicienRecord = new MedicienRecordService().DetailView(mrNo);
-				
 		RequestDispatcher view = null;
-		if(medicienRecord != null) {
-			view = request.getRequestDispatcher("views/ERP/medicienRecord/MedicienRecordDetailView.jsp");
-			request.setAttribute("medicienRecord", medicienRecord);
+		if(list.size() > 0) {
+			view = request.getRequestDispatcher("views/ERP/patient/PatientListView.jsp");
+			request.setAttribute("list", list);
 			view.forward(request, response);
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", mrNo + "투약일지 상세조회 실패!");
+			request.setAttribute("message", "환자 전체 조회 실패!");
 			view.forward(request, response);
 		}
 	}
