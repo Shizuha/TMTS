@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import ERP.Ward.model.dao.WardDao;
 import ERP.Ward.model.vo.Ward;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 import static common.JDBCTemplate.*;
 public class WardService {
@@ -29,5 +30,13 @@ public class WardService {
 		close(conn);
 		
 		return wList;
+	}
+
+
+	public String WardCount(NursingHospital loginHospital) {
+		// 환자 총명수 카운트 
+		Connection conn = getConnection(loginHospital.getNH_USERID(), loginHospital.getNH_USERPWD());
+		String result = wDao.PatientCount(conn);
+		return result;
 	}
 }

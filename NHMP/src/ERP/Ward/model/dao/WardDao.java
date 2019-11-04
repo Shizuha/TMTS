@@ -74,4 +74,29 @@ public class WardDao {
 		
 		return wList;
 	}
+
+	public String PatientCount(Connection conn) {
+		String result = "0";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select COUNT(*) from ward";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getString(1);
+			}
+			System.out.println();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }
