@@ -58,20 +58,21 @@ public class CalendarDao {
 		
 		PreparedStatement pstmt = null;
 		String query = "INSERT INTO CALENDAR VALUES (seq_cal.nextval, "
-				+ "?, ?, ?, to_date(?, 'yyyy-mm-dd hh24:mi'), "
+				+ "?, ?, ?, ?, to_date(?, 'yyyy-mm-dd hh24:mi'), "
 				+ "to_date(?, 'yyyy-mm-dd hh24:mi'), "
 				+ "?, ?, DEFAULT)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, adminid);
-			pstmt.setString(2, String.valueOf(sendJson.get("title")));
-			pstmt.setString(3, String.valueOf(sendJson.get("description")));
-			pstmt.setString(4, String.valueOf(sendJson.get("start")));
-			pstmt.setString(5, String.valueOf(sendJson.get("end")));
-			pstmt.setString(6, String.valueOf(sendJson.get("type")));
-			pstmt.setString(7, String.valueOf(sendJson.get("backgroundColor")));
-			
+			pstmt.setString(2, "");
+			pstmt.setString(3, String.valueOf(sendJson.get("title")));
+			pstmt.setString(4, String.valueOf(sendJson.get("description")));
+			pstmt.setString(5, String.valueOf(sendJson.get("start")));
+			pstmt.setString(6, String.valueOf(sendJson.get("end")));
+			pstmt.setString(7, String.valueOf(sendJson.get("type")));
+			pstmt.setString(8, String.valueOf(sendJson.get("backgroundColor")));
+		
 			pstmt.execute();
 			
 		} catch (SQLException e) {
@@ -228,7 +229,6 @@ public class CalendarDao {
 				cal.setStartdate(rest.getString("start_date"));
 
 				list.add(cal);
-				System.out.println(cal);
 			}
 
 		} catch (SQLException e) {

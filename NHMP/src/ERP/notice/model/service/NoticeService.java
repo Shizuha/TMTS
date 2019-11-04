@@ -165,6 +165,13 @@ public class NoticeService {
 		close(conn);
 		return list;
 	}
+
+	public ArrayList<Notice> AdminselectTop3() {
+		Connection conn = getConnection();
+		ArrayList<Notice> list = ndao.selectTop3(conn);
+		close(conn);
+		return list;
+	}
 	
 	
 	

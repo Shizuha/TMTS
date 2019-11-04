@@ -47,10 +47,6 @@ public class CalendarListServlet extends HttpServlet {
 			NursingHospital nh = (NursingHospital) request.getSession().getAttribute("loginHospital"); // 유효성 검사
 			Employee emp = (Employee) request.getSession().getAttribute("loginEmployee");
 			
-			
-			
-			
-			
 			String jsondata = request.getParameter("jsondata");
 			System.out.println(jsondata);
 			JSONParser parser = new JSONParser();
@@ -64,7 +60,7 @@ public class CalendarListServlet extends HttpServlet {
 				System.out.println(adminid);
 				JSONArray jarr = new JSONArray();
 				
-				ArrayList<Calendar> list = new CalendarService().listCalendar(nh, sendJson, adminid);
+				ArrayList<Calendar> list = new CalendarService().listCalendar(sendJson, adminid);
 				
 				// list를 jarr로 옮기기
 				for (Calendar c : list) {
@@ -96,10 +92,12 @@ public class CalendarListServlet extends HttpServlet {
 				
 			} else {
 				String empname = emp.getEmpName();
+				String hostid = emp.getHostId();
+				String hostpwd = emp.getHostPwd();
 				
 				JSONArray jarr = new JSONArray();
 				
-				ArrayList<Calendar> list = new CalendarService().EmployeelistCalendar(sendJson, empname);
+				ArrayList<Calendar> list = new CalendarService().EmployeelistCalendar(sendJson, empname, hostid, hostpwd);
 				
 				// list를 jarr로 옮기기
 				for (Calendar c : list) {
