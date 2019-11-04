@@ -2,6 +2,7 @@ package ERP.patient.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,20 +30,21 @@ public class PatientDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// È¯ÀÚ »èÁ¦ ¼­ºí¸´
+		// í™˜ì ì‚­ì œ ì²˜ë¦¬ìš© ì»¨íŠ¸ë¡¤ëŸ¬
 		
-		//1. ÇÑ±Û ÀÖÀ¸¸é ÀÎÄÚµùÃ³¸®
 		request.setCharacterEncoding("utf-8");
 		
-		//2.
-		int patNum = Integer.parseInt("patNum");
-		String renameFileName = request.getParameter("rfile");
+		int patNum = Integer.parseInt(request.getParameter("pat_num"));
 		
-		//3.
 		int result = new PatientService().deletePatient(patNum);
 		
-		//¾ÆÁ÷ ±¸Çö ¾ÈµÊ
-		
+		if(result > 0) {
+			response.sendRedirect("/NHMP/views/ERP/Admin_main.jsp");
+		}else {
+			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
+			request.setAttribute("message", patNum + "ë²ˆì˜ í™˜ì ì •ë³´ ì‚­ì œ ì‹¤íŒ¨!");
+			view.forward(request, response);
+		}
 	}
 
 	/**
