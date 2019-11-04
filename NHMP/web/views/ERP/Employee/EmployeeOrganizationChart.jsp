@@ -33,7 +33,7 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
             
             //[2] 자식 요소를 갖는 li에 대해서는 블릿이미지를 plus.gif를 지정
             $('.organ li:has(ul)') //자식 요소(ul)를 갖는 요소(li)에 대해서
-                .css({cursor: 'pointer', 'list-style-image':'url(/NHMP/resources/ERP/images/folder-closed.gif)'})//+기호로 설정
+                .css({cursor: 'pointer', 'list-style-image':'url(/NHMP/resources/ERP/images/closeForder.PNG)'})//+기호로 설정
                 .children().hide(); //자식요소 숨기기
                 
              
@@ -70,7 +70,7 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
       								teamName +  "<ul></ul></li>");
       						}
       						$('.deptList').eq(index).children().append(li);
-      						$('.teamList').css({'list-style-image':'url(/NHMP/resources/ERP/images/folder-closed.gif)'});
+      						$('.teamList').css({'list-style-image':'url(/NHMP/resources/ERP/images/closeForder.PNG)'});
       					}
       	
       					
@@ -87,13 +87,13 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
                       if ($(this).children("ul").is(':hidden')) {
                     	  
                     	// 보이기
-                          $(this).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder.gif)').children().slideDown();
+                          $(this).css('list-style-image', 'url(/NHMP/resources/ERP/images/openForder.PNG)').children().slideDown();
                     	  
                         
                     }else {
                         // 숨기기
-                        $(this).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder-closed.gif)').children().slideUp();
-                        $('.teamList').css('list-style-image', 'url(/NHMP/resources/ERP/images/folder-closed.gif)').children().slideUp();
+                        $(this).css('list-style-image', 'url(/NHMP/resources/ERP/images/closeForder.PNG)').children().slideUp();
+                        $('.teamList').css('list-style-image', 'url(/NHMP/resources/ERP/images/closeForder.PNG)').children().slideUp();
                         
                     }
  
@@ -143,10 +143,10 @@ function team(id, index){
 	 
 	 if ($("#"+id).children("ul").is(':hidden')) {
 		 $("#"+id).children().slideDown();
-		 $("#"+id).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder.gif)');
+		 $("#"+id).css('list-style-image', 'url(/NHMP/resources/ERP/images/openForder.PNG)');
 	     }else{
-	    	/* $("#"+id).children().slideUp(); */
-	    	 $("#"+id).css('list-style-image', 'url(/NHMP/resources/ERP/images/folder-closed.gif)')
+	    	$("#"+id).children().slideUp(); 
+	    	 $("#"+id).css('list-style-image', 'url(/NHMP/resources/ERP/images/closeForder.PNG)')
 	     }
 	return false;  
  
@@ -169,25 +169,31 @@ function empList(id, index){
 			if(data != null){
 				
 				for(var i in json.list){
-				$("#empImg").prepend("<img alt='' src='/NHMP/resources/ERP/emp_Img_file/" + json.list[i].empimg +"' width='200' height='200'>");
+				$(".imgs").remove();
+				$("#empImg").prepend("<img class='imgs'alt='' src='/NHMP/resources/ERP/emp_Img_file/" + json.list[i].empimg +"' width='200' height='200'>");
 				$("#name").val(decodeURIComponent(json.list[i].empname).replace(/\+/gi, " "));
 				$("#itfor").val(decodeURIComponent(json.list[i].itfor).replace(/\+/gi, " "));
 				$("#phone").val(json.list[i].phone);
 				$("#address").text(decodeURIComponent(json.list[i].address).replace(/\+/gi, " "));
 				$("#hiredate").val(json.list[i].hiredate); 
-				 $("#email").val(json.list[i].email); 
+				$("#email").val(json.list[i].email); 
 				}
-				
+				return false;
 			}
+			
 		},
 		error :function(jqXHR, textStatus, errorThrown){
 			
 			console.log("error : " + textStatus);
 		}
+		
 	});
+	event.stopPropagation();
 	return false;
 }
-</script> 
+
+
+<</script> 
 
 <style type="text/css">
 
@@ -195,24 +201,7 @@ body{
 	color:black;
 	
 }
- a{
- 	color:black;
- }
-.organ-Button{
-	width:50px;
-    background-color: #7571f9;
-    border: none;
-    color:#fff;
-	border-radius:3px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    margin: 4px;
-    cursor: pointer;
-    
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-}
+ 
 .organMain{
 	
 	margin:50px;
@@ -245,10 +234,10 @@ h3{
 }
 .h3{
 	float:left;
-	margin:0px 280px 0px 0px;
+	margin:0px 460px 0px 0px;
 } 
 .dept{
-	
+	border-radius:3px;
 	border:1px solid gray;
 	width:100%;
 	height:470px;
@@ -257,6 +246,7 @@ h3{
 	
 }
 .dept-left{
+	border-radius:3px;
 	border: 1px solid gray;
 	float:left;
 	width:430px;
@@ -265,6 +255,7 @@ h3{
 	
 }
 .dept-right{
+	border-radius:3px;
 	border: 1px solid gray;
 	float:right;
 	width:550px;
@@ -288,17 +279,19 @@ ul {
 }
 .organ{
 	border-radius:10px;
-	padding:60px;
+	padding:25px;
 	border:1px solid gray;
 	height:400px;
 	width:300px;
 	overflow:auto;
 	font-weight: bold;
 	margin-left:35px;
+	
 }
- .organ li{
-	width:150px;
+.organ li{
+	width:250px;
 }
+
 .dp-cp input[type="text"]{
 	text-align:center;
 	margin-left:30px;
@@ -354,6 +347,9 @@ ul {
 	width:250px;
 }
 
+.deptList li{
+	width:
+}
 </style>
 
 </head>
@@ -672,9 +668,7 @@ ul {
 				</div>
 				<div class="organHeader-right">
 					<h3 class="h3">기본정보</h3>
-						<button class="organ-Button">신규</button>
-						<button class="organ-Button">저장</button>
-						<button class="organ-Button">삭제</button>
+						
 				</div>
 			</div>
 				<div class="dept">
@@ -735,9 +729,9 @@ ul {
 						<th>부서명</th><th>부서코드</th><th>부서인원</th>
 						</tr>
 						<tr>
-						<td><input type="text" name="deptname" id="deptname"></td>
-						<td><input type="text" name="deptcode" id="deptcode"></td>
-						<td><input type="text" name="deptcount" id="deptcount"></td>
+						<td><input type="text" name="deptname" id="deptname"readonly></td>
+						<td><input type="text" name="deptcode" id="deptcode"readonly></td>
+						<td><input type="text" name="deptcount" id="deptcount"readonly></td>
 						</tr>
 					</table>
 					<br />
@@ -746,9 +740,9 @@ ul {
 						<th>팀 명&nbsp;</th><th>팀코드&nbsp;</th><th>팀인원&nbsp;</th>
 						</tr>
 						<tr>
-						<td><input type="text" name="teamname" id="teamname"></td>
-						<td><input type="text" name="teamcode" id="teamcode"></td>
-						<td><input type="text" name="teamcount" id="teamcount"></td>
+						<td><input type="text" name="teamname" id="teamname"readonly></td>
+						<td><input type="text" name="teamcode" id="teamcode"readonly></td>
+						<td><input type="text" name="teamcount" id="teamcount"readonly></td>
 						</tr>
 					</table>
 					<div class="empList">
@@ -783,13 +777,13 @@ ul {
             Footer start
         ***********************************-->
 			<div class="footer">
-				<div class="copyright">
-					<p>
-						Copyright &copy; Designed & Developed by <a
-							href="https://themeforest.net/user/quixlab">이민삼수</a> 2018
-					</p>
-				</div>
+			<div class="copyright">
+				<p>
+					Copyright &copy; Designed & Developed by <a
+						href="https://themeforest.net/user/quixlab">Quixlab</a> 2018
+				</p>
 			</div>
+		</div>
 			<!--**********************************
             Footer end
         ***********************************-->
@@ -801,32 +795,17 @@ ul {
 		<!--**********************************
         Scripts
     ***********************************-->
-  
-		<script src="/NHMP/resources/ERP/css/plugins/common/common.min.js"></script>
+  		
+    	<script src="/NHMP/resources/ERP/css/plugins/common/common.min.js"></script>
 		<script src="/NHMP/resources/ERP/js/custom.min.js"></script>
 		<script src="/NHMP/resources/ERP/js/settings.js"></script>
 		<script src="/NHMP/resources/ERP/js/gleek.js"></script>
 
-		<!-- Datamap -->
-		<script src="/NHMP/resources/ERP/css/plugins/d3v3/index.js"></script>
-		<script src="/NHMP/resources/ERP/css/plugins/topojson/topojson.min.js"></script>
-		<script
-			src="/NHMP/resources/ERP/css/plugins/datamaps/datamaps.world.min.js"></script>
-		<!-- Morrisjs -->
-		<script src="/NHMP/resources/ERP/css/plugins/raphael/raphael.min.js"></script>
-		<script src="/NHMP/resources/ERP/css/plugins/morris/morris.min.js"></script>
-		<!-- Pignose Calender -->
-		<script src="/NHMP/resources/ERP/css/plugins/moment/moment.min.js"></script>
-		<script
-			src="/NHMP/resources/ERP/css/plugins/pg-calendar/js/pignose.calendar.min.js"></script>
-		<!-- ChartistJS -->
-		<script
-			src="/NHMP/resources/ERP/css/plugins/chartist/js/chartist.min.js"></script>
-		<script
-			src="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+
+		
 
 
 
-		<script src="/NHMP/resources/ERP/js/dashboard/dashboard-1.js"></script>
+		
 </body>
 </html>

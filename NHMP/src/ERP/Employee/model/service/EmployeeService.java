@@ -178,7 +178,7 @@ public class EmployeeService {
 	}
 
 	public int teamEmpcount(String teamCode, String hostId, String hostPwd) {
-		
+		//조직도에서 팀이름 클릭시 팀에 부여된 사원 카운트 확인용 서비스
 		Connection conn = getConnection(hostId, hostPwd);
 		int result = eDao.teamEmpcount(conn, teamCode);
 		
@@ -192,6 +192,14 @@ public class EmployeeService {
 		Employee emp = eDao.selectOrganEmpOne(conn, empName);
 		close(conn);
 		return emp;
+	}
+
+	public ArrayList<Employee> selectAuthorityEmp(String hostId, String hostPwd, String auCode) {
+		//권한부여관리에서 권한 체크박스 클릭시 해당권한 부여된 사원 조회용 서비스
+		Connection conn = getConnection(hostId, hostPwd);
+		ArrayList<Employee> empList = eDao.selectAuthorityEmp(conn, auCode);
+		close(conn);
+		return empList;
 	}
 
 	

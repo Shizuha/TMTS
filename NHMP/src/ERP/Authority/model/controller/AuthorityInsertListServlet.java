@@ -1,6 +1,7 @@
-package ERP.Employee.controller;
+package ERP.Authority.model.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,21 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ERP.Department.model.service.DepartmentService;
+import ERP.Department.model.vo.Department;
 import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
 import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
- * Servlet implementation class EmployeeNewPwdUpdateServlet
+ * Servlet implementation class AuthorityInsertListServlet
  */
-@WebServlet("/uppwd")
-public class EmployeeNewPwdUpdateServlet extends HttpServlet {
+@WebServlet("/auInUser")
+public class AuthorityInsertListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmployeeNewPwdUpdateServlet() {
+    public AuthorityInsertListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,14 +35,12 @@ public class EmployeeNewPwdUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String newPwd = request.getParameter("newpwd");
-		String empId = request.getParameter("empid");
+		//사용자 선택버튼 클릭시 권한코드와 부서정보 사원정보 조회해서 가져가는 컨트롤러
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
 		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
-		System.out.println(emp);
-		System.out.println(loginHospital);
+		
 		if(emp != null) {
 		
 		hostId = emp.getHostId();
@@ -48,17 +49,24 @@ public class EmployeeNewPwdUpdateServlet extends HttpServlet {
 			hostId = loginHospital.getNH_USERID();
 			hostPwd = loginHospital.getNH_USERPWD();
 		}
-		int result = new EmployeeService().empNewPwdUpdate(newPwd, empId,hostId, hostPwd);
+		String authorityName = request.getParameter("author");
+		ArrayList<Employee> mList = new EmployeeService().selectEmployeeList(hostId, hostPwd);
+		ArrayList<Department> dList = new DepartmentService().selectAll(hostId, hostPwd);
 		
 		
-		if(result > 0 ) {
-			response.sendRedirect("/NHMP/list");
+		
+		
+		RequestDispatcher view = null;
+		if(mList != null && dList != null) {
+			view = request.getRequestDispatcher("views/ERP/Authority/NewAuInUser.jsp");
+			request.setAttribute("mList", mList);
+			request.setAttribute("dList", dList);
+			request.setAttribute("authority", authorityName);
+		
+			view.forward(request, response);
 		}else {
-			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
-			
-			request.setAttribute("message", "실패!");
-			
-		
+			view = request.getRequestDispatcher("views/common/Error.jsp");
+			request.setAttribute("message", "에러");
 			view.forward(request, response);
 		}
 	}

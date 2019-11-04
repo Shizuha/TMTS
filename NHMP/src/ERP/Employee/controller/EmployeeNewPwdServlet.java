@@ -41,8 +41,7 @@ public class EmployeeNewPwdServlet extends HttpServlet {
 		String hostPwd = null;
 		Employee emp1 = (Employee)request.getSession().getAttribute("loginEmployee");
 		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
-		System.out.println(emp1);
-		System.out.println(loginHospital);
+		
 		if(emp1 != null) {
 		
 		hostId = emp1.getHostId();

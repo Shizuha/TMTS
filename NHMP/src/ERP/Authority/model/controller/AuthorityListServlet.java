@@ -1,6 +1,7 @@
-package ERP.Employee.controller;
+package ERP.Authority.model.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,21 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ERP.Employee.model.service.EmployeeService;
+import ERP.Authority.model.service.AuthorityService;
+import ERP.Authority.model.vo.Authority;
 import ERP.Employee.model.vo.Employee;
 import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
- * Servlet implementation class EmployeeNewPwdUpdateServlet
+ * Servlet implementation class AuthorityListServlet
  */
-@WebServlet("/uppwd")
-public class EmployeeNewPwdUpdateServlet extends HttpServlet {
+@WebServlet("/authlist")
+public class AuthorityListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmployeeNewPwdUpdateServlet() {
+    public AuthorityListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,35 +34,31 @@ public class EmployeeNewPwdUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String newPwd = request.getParameter("newpwd");
-		String empId = request.getParameter("empid");
+		//권한부여페이지 클릭시 권한정보 담아가는 컨트롤러
 		String hostId = null;
 		String hostPwd = null;
-		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		Employee emp1 = (Employee)request.getSession().getAttribute("loginEmployee");
 		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
-		System.out.println(emp);
-		System.out.println(loginHospital);
-		if(emp != null) {
+		if(emp1 != null) {
 		
-		hostId = emp.getHostId();
-		hostPwd = emp.getHostPwd();
+		hostId = emp1.getHostId();
+		hostPwd = emp1.getHostPwd();
 		}else {
 			hostId = loginHospital.getNH_USERID();
 			hostPwd = loginHospital.getNH_USERPWD();
 		}
-		int result = new EmployeeService().empNewPwdUpdate(newPwd, empId,hostId, hostPwd);
+		ArrayList<Authority> auList = new AuthorityService().selectAll(hostId, hostPwd);
 		
-		
-		if(result > 0 ) {
-			response.sendRedirect("/NHMP/list");
+		RequestDispatcher view = null;
+		System.out.println("권한서블릿 조회해온값 :" + auList);
+		if(auList.size() > 0) {
+			view = request.getRequestDispatcher("views/ERP/Authority/AuthorityList.jsp");
+			request.setAttribute("auList", auList);
 		}else {
-			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
-			
-			request.setAttribute("message", "실패!");
-			
-		
-			view.forward(request, response);
+			view = request.getRequestDispatcher("views/ERP/common/Error.jsp");
+			request.setAttribute("message", "실패");
 		}
+		view.forward(request, response);
 	}
 
 	/**

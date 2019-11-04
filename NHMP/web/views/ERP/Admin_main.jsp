@@ -368,7 +368,7 @@ $(function(){
 							class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="email-inbox.html">권한부여관리</a></li>
+							<li><a href="/NHMP/authlist">권한부여관리</a></li>
 							<!--
                             <li><a href="email-read.html">수당항목등록</a></li>
                             <li><a href="email-compose.html">급여계산</a></li>

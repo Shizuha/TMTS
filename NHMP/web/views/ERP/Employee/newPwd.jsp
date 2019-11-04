@@ -65,30 +65,30 @@
 		border-radius:3px;
 	}
 </style>
-<script type="text/javascript" src="/lp/resources/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
-$(function(){
-	
-});
 function checkPwd(){
 	
-	var passRule = /^[A-Za-z0-9]{6,12}$/;//숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
-
-	if(!passRule.test($("input[name=newpwd]").val())) {
-    //경고
- 		alert("숫자와 문자 포함 형태의 6~12자리 이내로 입력하셔야 합니다");
-    	return false;
-    	$("input[name=newpwd]").select();
-		}else{
-		return true;
-		}
+	 var passRule = /^[!@#$%^&]+[A-Za-z0-9]{6,12}$/;//숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
+     
+     if(!passRule.test($("#newpwd").val())) {
+        
+   	  alert("암호는 첫번째 특수문자를 포함한 숫자와 문자 포함 형태의 6~12자리 이내의 암호로 입력하셔야 합니다.");
+      
+         return false;
+     }else{
+    	 window.close();
+    	 return true;
+    	
+     }
+	 
 }
 
 
 </script>
 </head>
 <body>
-<form action="/lp/uppwd" method="post" onsubmit="return checkPwd();">
+<form action="/NHMP/uppwd" method="post" onsubmit="return checkPwd();">
 <input type="hidden" name="empid" value="<%=emp.getEmpId() %>">
 <h3>사용자기본정보</h3>
 <table class="uppwd" cellspacing="0"  cellpadding="3" width="100%">
@@ -123,11 +123,11 @@ function checkPwd(){
 <table class="uppwd" cellspacing="0" cellpadding="3" width="100%">
 	<tr>
 		<th>초기화 비밀번호 입력</th>
-		<td><input type="password" name="newpwd" placeholder="내용을 입력해주세요"></td>
+		<td><input type="password" name="newpwd" id="newpwd" placeholder="내용을 입력해주세요"></td>
 	</tr>
 </table>
 	<div class="button">
-	<input type="submit" id="buttons"value="확인" onclick="javascript:self.close();">&nbsp;<input type="button"id="buttons" value="취소" onclick="javascript:self.close();">
+	<input type="submit" id="buttons"value="확인" >&nbsp;<input type="button"id="buttons" value="취소" onclick="javascript:self.close();">
 	</div>
 </form>
 </body>

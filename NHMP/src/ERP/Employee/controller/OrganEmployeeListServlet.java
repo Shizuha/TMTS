@@ -59,12 +59,14 @@ public class OrganEmployeeListServlet extends HttpServlet {
 		
 		
 		
-		if(teamName.length() < 9) {
+		if(teamName.length() < 7) {
 			
 			ArrayList<Employee>	empList = new EmployeeService().selectOrganEmpList(hostId, hostPwd, teamName);
 			Team tcode = new TeamService().selectTeamCode(hostId, hostPwd, teamName);
-			
+			System.out.println("조직도 팀코드=" + tcode);
 			int tCount = new EmployeeService().teamEmpcount(tcode.getTeamCode(),hostId, hostPwd);
+			
+			
 			
 			JSONObject sendJson = new JSONObject();
 			
