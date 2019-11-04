@@ -75,4 +75,35 @@ public class PositionDao {
 		
 		return pList;
 	}
+
+	public Position selectAuPositionName(Connection conn, String posCode) {
+		Position posName = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String query = "select pos_name from POSITIONS where pos_code = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, posCode);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				posName = new Position();
+				posName.setPosName(rs.getString("pos_name"));
+			}
+		
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return posName;
+	}
 }

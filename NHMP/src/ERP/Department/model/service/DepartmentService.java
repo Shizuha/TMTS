@@ -34,4 +34,12 @@ public Department selectDeptCode(String deptName, String hostId, String hostPwd)
 	close(conn);
 	return dp;
 }
+
+	public Department selectAuDeptName(String hostId, String hostPwd, String deptCode) {
+	//권한부여관리에서 사원 부서이름 조회용 서비스
+	Connection conn = getConnection(hostId, hostPwd);
+	Department dList = dDao.selectAuDeptName(conn, deptCode);
+	close(conn);
+	return dList;
+}
 }
