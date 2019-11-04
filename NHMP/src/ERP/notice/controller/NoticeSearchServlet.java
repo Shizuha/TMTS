@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.notice.model.service.NoticeService;
 import ERP.notice.model.vo.Notice;
-import Main.NursingHospital.model.ov.NursingHospital;
+import ERP.Employee.model.vo.Employee;
 /**
  * Servlet implementation class NoticeSearchServlet
  */
@@ -35,8 +35,8 @@ public class NoticeSearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 공지사항 글 검색 처리용 컨트롤러(재목 검색, 작성자 검색, 작성날짜 검색 기능)
 		
-		//nursinghospital 의 로그인정보 받아오기
-		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		//Employee  의 로그인정보(loginEmployee) 받아오기
+		Employee loginEmployee = (Employee)request.getSession().getAttribute("loginEmployee");
 		
 		//1. 한글 깨짐 방지를 위한 인코딩 처리
 		request.setCharacterEncoding("utf-8");
@@ -53,14 +53,14 @@ public class NoticeSearchServlet extends HttpServlet {
 		//5. 검색자 구분하기
 		switch(search) {
 		case "title":	String noticeTitle = request.getParameter("keyword");
-						list = nservice.selectTitleSearch(noticeTitle, loginHospital);
+						list = nservice.selectTitleSearch(noticeTitle, loginEmployee);
 						break;
 		case "writer":	String noticeWriter = request.getParameter("keyword");
-						list = nservice.selectWriterSearch(noticeWriter, loginHospital);
+						list = nservice.selectWriterSearch(noticeWriter, loginEmployee);
 						break;
 		case "date": String beginDate = request.getParameter("from");
 					 String toDate = request.getParameter("to");
-					 list = nservice.selectDateSearch(Date.valueOf(beginDate),Date.valueOf(toDate),loginHospital);	
+					 list = nservice.selectDateSearch(Date.valueOf(beginDate),Date.valueOf(toDate),loginEmployee);	
 					 	break;
 		}
 		
