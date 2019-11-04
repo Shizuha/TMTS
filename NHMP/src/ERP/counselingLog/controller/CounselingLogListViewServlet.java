@@ -31,8 +31,8 @@ public class CounselingLogListViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//»ó´ãÀÏÁö ÀüÃ¼Á¶È¸ Ã³¸®¿ë ÄÁÆ®·Ñ·¯
-		//»ó´ãÀÏÁö ÀüÃ¼ Á¶È¸ Ã³¸®¿ë ÄÁÆ®·Ñ·¯
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½È¸ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½È¸ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 		request.setCharacterEncoding("utf-8");
 				
 		ArrayList<CounselingLog> list = new CounselingLogService().ListView();
@@ -44,7 +44,7 @@ public class CounselingLogListViewServlet extends HttpServlet {
 			view.forward(request, response);
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "»ó´ãÀÏÁö ÀüÃ¼Á¶È¸ ½ÇÆĞ!");
+			request.setAttribute("message", "ìƒë‹´ì¼ì§€ ì „ì²´ì¡°íšŒ ì‹¤íŒ¨!");
 			view.forward(request, response);
 		}
 	}
