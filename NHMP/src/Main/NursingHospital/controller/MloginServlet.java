@@ -55,7 +55,7 @@ public class MloginServlet extends HttpServlet {
 			if( loginEmployee != null ) {
 				HttpSession session = request.getSession();
 				String empname = loginEmployee.getEmpName();
-				ArrayList<Calendar> list = new CalendarService().EmployeeSelectList(empname);
+				ArrayList<Calendar> list = new CalendarService().EmployeeSelectList(empname, hostid, hostpwd);
 				session.setAttribute("list", list);
 				session.setAttribute("loginEmployee", loginEmployee);
 				response.sendRedirect("/NHMP/views/ERP/Employee.jsp");

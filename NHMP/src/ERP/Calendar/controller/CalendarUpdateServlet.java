@@ -12,6 +12,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import ERP.Calendar.Model.Service.CalendarService;
+import ERP.Employee.model.vo.Employee;
 import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
@@ -35,6 +36,10 @@ public class CalendarUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			// 캘린더 수정 서블릿
+			Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+			if(emp != null) {
+			String hostid = emp.getHostId();
+			String hostpwd = emp.getHostPwd();
 			
 			String jsoncal = request.getParameter("jsonupdate");
 
@@ -45,7 +50,19 @@ public class CalendarUpdateServlet extends HttpServlet {
 			JSONObject sendJson = (JSONObject) obj;
 			//sendjson에 있는 username 과 session 에 있는 id 가 같으면 변경 실행 아니면 아이디가 다르다는 메세지 출력 
 			CalendarService calendarService = new CalendarService();
-			calendarService.updateCalendar(sendJson);
+			calendarService.updateCalendar(sendJson, hostid, hostpwd);
+			} else {
+				String jsoncal = request.getParameter("jsonupdate");
+
+				response.setCharacterEncoding("utf-8");
+				JSONParser parser = new JSONParser();
+
+				Object obj = parser.parse(jsoncal);
+				JSONObject sendJson = (JSONObject) obj;
+				//sendjson에 있는 username 과 session 에 있는 id 가 같으면 변경 실행 아니면 아이디가 다르다는 메세지 출력 
+				CalendarService calendarService = new CalendarService();
+				calendarService.AdminupdateCalendar(sendJson);
+			}
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

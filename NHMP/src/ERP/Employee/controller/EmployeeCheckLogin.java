@@ -34,6 +34,7 @@ public class EmployeeCheckLogin extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unused")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userid");
 		String userPwd = request.getParameter("userpwd");
@@ -53,7 +54,7 @@ public class EmployeeCheckLogin extends HttpServlet {
 		 
 		if(emp != null) {
 			String empname = emp.getEmpName();
-			ArrayList<Calendar> list = new CalendarService().EmployeeSelectList(empname);
+			ArrayList<Calendar> list = new CalendarService().EmployeeSelectList(empname, hostId, hostPwd); // 캘린더 수정 처리
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("list", list);
