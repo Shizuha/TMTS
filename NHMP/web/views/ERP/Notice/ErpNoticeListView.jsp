@@ -118,7 +118,7 @@ function showDiv(){
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
-				<a href="/NHMP/views/ERP/employee.jsp"> <b class="logo-abbr"><img
+				<a href="/NHMP/views/ERP/Employee.jsp"> <b class="logo-abbr"><img
 						src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> <span
 					class="logo-compact"><img
 						src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
