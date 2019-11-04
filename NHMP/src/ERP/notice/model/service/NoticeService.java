@@ -146,7 +146,7 @@ public class NoticeService {
 		return result;
 	}
 	
-	//제목검색 서비스
+	//제목검색 서비스(관리자)
 	public ArrayList<Notice> selectTitleSearch(String keyword, NursingHospital loginHospital) {
 		
 		String userid = loginHospital.getNH_USERID();
@@ -156,7 +156,7 @@ public class NoticeService {
 		close(conn);
 		return list;
 	}
-	//작성자검색
+	//작성자검색(관리자)
 	public ArrayList<Notice> selectWriterSearch(String keyword, NursingHospital loginHospital) {
 
 		String userid = loginHospital.getNH_USERID();
@@ -166,7 +166,7 @@ public class NoticeService {
 		close(conn);
 		return list;
 	}
-	//날짜검색
+	//날짜검색(관리자)
 	public ArrayList<Notice> selectDateSearch(Date from, Date to, NursingHospital loginHospital) {
 
 		String userid = loginHospital.getNH_USERID();
@@ -218,6 +218,33 @@ public class NoticeService {
 		close(conn);
 		return notice;
 		
+	}
+
+	public ArrayList<Notice> selectTitleSearch(String keyword, Employee loginEmployee) {
+		String hostid = loginEmployee.getHostId();
+		String hostpwd = loginEmployee.getHostPwd();
+		Connection conn = getConnection(hostid, hostpwd);
+		ArrayList<Notice> list = ndao.selectTitleSearch(conn, keyword);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Notice> selectWriterSearch(String keyword, Employee loginEmployee) {
+		String hostid = loginEmployee.getHostId();
+		String hostpwd = loginEmployee.getHostPwd();
+		Connection conn = getConnection(hostid, hostpwd);
+		ArrayList<Notice> list = ndao.selectWriterSearch(conn, keyword);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Notice> selectDateSearch(Date from, Date to, Employee loginEmployee) {
+		String hostid = loginEmployee.getHostId();
+		String hostpwd = loginEmployee.getHostPwd();
+		Connection conn = getConnection(hostid, hostpwd);
+		ArrayList<Notice> list = ndao.selectDateSearch(conn, from, to);
+		close(conn);
+		return list;
 	}
 	
 	
