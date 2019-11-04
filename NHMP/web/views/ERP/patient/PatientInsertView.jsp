@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>NHMP</title>		<!-- 환자 수정 -->	
+<title>TMTS</title>
 <script>
 //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
 function sample4_execDaumPostcode() {
@@ -63,9 +63,15 @@ function sample4_execDaumPostcode() {
 }
 </script>
 <script type="text/javascript" src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+function movemain(){
+	location.href = "/NHMP/views/ERP/Admin_main.jsp";
+	return false;
+}
+</script>
 </head>
 <body>
-<h2 align="center">환자 수정 페이지</h2>
+<h2 align="center">환자 등록 페이지</h2>
 <form action="/NHMP/patientinsert" method="post">
 <table align="center" width="800" border="3" cellspacing="0" cellpadding="5">
 <tr><th>병록번호</th><td><input type="number" name="pat_num"></td></tr>
