@@ -27,4 +27,12 @@ private PositionDao pDao = new PositionDao();
 		close(conn);
 		return pList;
 	}
+
+	public Position selectAuPositionName(String hostId, String hostPwd, String posCode) {
+		Connection conn = getConnection(hostId, hostPwd);
+		Position posName = pDao.selectAuPositionName(conn, posCode);
+		
+		close(conn);
+		return posName;
+	}
 }

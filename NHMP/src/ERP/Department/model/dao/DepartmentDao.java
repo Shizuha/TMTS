@@ -108,4 +108,36 @@ public class DepartmentDao {
 		
 		return dp;
 	}
+
+	public Department selectAuDeptName(Connection conn, String deptCode) {
+		
+		Department dp = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String query = "select DEPT_NAME from department where DEPT_CODE = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, deptCode);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				dp = new Department();
+				dp.setDeptName(rs.getString("DEPT_NAME"));
+				
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		System.out.println(dp);
+		return dp;
+	}
 }

@@ -97,21 +97,21 @@ public class EmployeeUpdateServlet extends HttpServlet {
 		String address1 = mrequest.getParameter("address1");
 		
 		if(address1 == null)
-			address1 = " ";
+			address1 = ",";
 		String address2 = mrequest.getParameter("address2");
 		
 		if(address2 == null)
-			address2 = " ";
+			address2 = ",";
 		String address3 = mrequest.getParameter("address3");
 		
 		if(address3 == null)
-			address3 = " ";
+			address3 = ",";
 		String address4 = mrequest.getParameter("address4");
 		
 		if(address4 == null)
-			address4 = " ";
+			address4 = ",";
 		
-		emp.setAddress(address1 + address2 + address3 + address4);
+		emp.setAddress(address1 +"," + address2 + "," + address3 + "," + address4);
 		String itfor = mrequest.getParameter("itfornal");
 		emp.setItnalFor(itfor);
 		
