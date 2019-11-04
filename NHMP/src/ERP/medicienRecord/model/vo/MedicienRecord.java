@@ -12,11 +12,14 @@ public class MedicienRecord implements java.io.Serializable{
 	 private String mrComment;
 	 private String mrPatName;
 	 private String mrEmpName;
+	 private String mrOriginalFileName;
+	 private String mrRenameFileName;
 	
 	public MedicienRecord () {}
 	
 	public MedicienRecord(int mrNo, java.sql.Date mrDate, String mrState, String mrName, String mrTime, String mrMany,
-										String mrComment, String mrPatName, String mrEmpName) {
+										String mrComment, String mrPatName, String mrEmpName, String mrOriginalFileName,
+										String mrRenameFileName) {
 		super();
 		this.mrNo = mrNo;
 		this.mrDate = mrDate;
@@ -27,6 +30,8 @@ public class MedicienRecord implements java.io.Serializable{
 		this.mrComment = mrComment;
 		this.mrPatName = mrPatName;
 		this.mrEmpName = mrEmpName;
+		this.mrOriginalFileName = mrOriginalFileName;
+		this.mrRenameFileName = mrRenameFileName;
 	}
 
 	public static long getSerialversionuid() {
@@ -68,6 +73,14 @@ public class MedicienRecord implements java.io.Serializable{
 	public String getMrEmpName() {
 		return mrEmpName;
 	}
+	
+	public String getMrOriginalFileName() {
+		return mrOriginalFileName;
+	}
+	
+	public String getMrRenameFileName() {
+		return mrRenameFileName;
+	}
 
 	public void setMrNo(int mrNo) {
 		this.mrNo = mrNo;
@@ -104,12 +117,21 @@ public class MedicienRecord implements java.io.Serializable{
 	public void setMrEmpName(String mrEmpName) {
 		this.mrEmpName = mrEmpName;
 	}
+	
+	public void setMrOriginalFileName(String mrOriginalFileName) {
+		this.mrOriginalFileName = mrOriginalFileName;
+	}
+	
+	public void setMrRenameFileName(String mrRenameFileName) {
+		this.mrRenameFileName = mrRenameFileName;
+	}
 
 	@Override
 	public String toString() {
 		return "MedicienRecord [mrNo=" + mrNo + ", mrDate=" + mrDate + ", mrState=" + mrState + ", mrName=" + mrName
 				+ ", mrTime=" + mrTime + ", mrMany=" + mrMany + ", mrComment=" + mrComment + ", mrPatName=" + mrPatName
-				+ ", mrEmpName=" + mrEmpName + "]";
+				+ ", mrEmpName=" + mrEmpName + ", mrOriginalFileName=" + mrOriginalFileName 
+				+ ", mrRenameFileName= " + mrRenameFileName + "]";
 	}
 	
 }
