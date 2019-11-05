@@ -461,18 +461,7 @@ thead td {
 							</div></li>
 						<li class="icons dropdown d-none d-md-flex"><a
 							href="javascript:void(0)" class="log-user" data-toggle="dropdown">
-								<span>korean</span> <i class="fa fa-angle-down f-s-14"
-								aria-hidden="true"></i>
-						</a>
-							<div
-								class="drop-down dropdown-language animated fadeIn  dropdown-menu">
-								<div class="dropdown-content-body">
-									<ul>
-										<li><a href="javascript:void()">English</a></li>
-										<li><a href="javascript:void()">Korean</a></li>
-									</ul>
-								</div>
-							</div></li>
+								<span><%=emp.getEmpName() %></span> </a></li>
 						<li class="icons dropdown">
 							<div class="user-img c-pointer position-relative"
 								data-toggle="dropdown">
@@ -494,8 +483,8 @@ thead td {
 										<hr class="my-2">
 										<li><a href="page-lock.html"><i class="icon-lock"></i>
 												<span>Lock Screen</span></a></li>
-										<li><a href="page-login.html"><i class="icon-key"></i>
-												<span>Logout</span></a></li>
+										<li><a href="/NHMP/logouts"><i class="icon-key"></i>
+												<span>로그아웃</span></a></li>
 									</ul>
 								</div>
 							</div>
@@ -536,17 +525,17 @@ thead td {
 
 						</ul>
 					</li>
+					<%if(emp == null){ %>
 					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> <i class="fa fa-id-card"></i> <span
-							class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
+						aria-expanded="false"> 
+						<i class="fa fa-id-card"></i>
+						<span class="nav-text">권한설정</span>
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="#">권한부여관리</a></li>
-							<!--
-                            <li><a href="email-read.html">수당항목등록</a></li>
-                            <li><a href="email-compose.html">급여계산</a></li>
-                            -->
-						</ul></li>
+							<li><a href="/NHMP/authall">권한부여관리</a></li>
+						</ul>
+					</li>
+					<%} %>
 					<!-- <li class="nav-label">Apps</li> -->
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
@@ -559,32 +548,6 @@ thead td {
 							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
 							<li><a href="/NHMP/recordlistview">투약일지 등록</a></li>
 						</ul></li>
-					<!--
-                    <li>
-                            <a  href="javascript:void()" aria-expanded="false">
-                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
-                               <i class="icon-graph menu-icon"></i> <span class="nav-text">게시판</span>
-                        </a>
-                        <ul aria-expanded="false">
-
-                            <li><a href="chart-flot.html">공지사항</a></li>
-                            <li><a href="chart-morris.html">자료실</a></li>
-
-                            <li><a href="chart-chartjs.html">Chartjs</a></li>
-                            <li><a href="chart-chartist.html">Chartist</a></li>
-                            <li><a href="chart-sparkline.html">Sparkline</a></li>
-                            <li><a href="chart-peity.html">Peity</a></li>
-
-                        </ul>
-                    </li>
-                    -->
-
-
-
-
-
-					<!--   <li class="nav-label">UI Components</li>  -->
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
@@ -593,81 +556,6 @@ thead td {
 							<!-- <li><a href="/NHMP/deduclise">공제항목등록</a></li>
 							<li><a href="/NHMP/allowlist">수당항목등록</a></li> -->
 							<li><a href="/NHMP/Epaylist">급여계산</a></li>
-							<!--
-                            <li><a href="ui-button.html">Button</a></li>
-                            <li><a href="ui-button-group.html">Button Group</a></li>
-                            <li><a href="ui-cards.html">Cards</a></li>
-                            -->
-							<!-- </ul>
-                    </li>
-
-
-
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-layers menu-icon"></i><span class="nav-text">Components</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="uc-nestedable.html">Nestedable</a></li>
-                            <li><a href="uc-noui-slider.html">Noui Slider</a></li>
-                            <li><a href="uc-sweetalert.html">Sweet Alert</a></li>
-                            <li><a href="uc-toastr.html">Toastr</a></li>
-                        </ul>
-
-                    <li>
-                        <a href="widgets.html" aria-expanded="false">
-                            <i class="icon-badge menu-icon"></i><span class="nav-text">Widget</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-label">Forms</li>
-
-                    <li>
-                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-note menu-icon"></i><span class="nav-text">Forms</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="form-basic.html">Basic Form</a></li>
-                            <li><a href="form-validation.html">Form Validation</a></li>
-                            <li><a href="form-step.html">Step Form</a></li>
-                            <li><a href="form-editor.html">Editor</a></li>
-                            <li><a href="form-picker.html">Picker</a></li>
-                        </ul>
-                    </li> -->
-							<!--
-                    <li class="nav-label">Table</li>
-                -->
-							<!--    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-menu menu-icon"></i><span class="nav-text">Table</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="table-basic.html" aria-expanded="false">Basic Table</a></li>
-                            <li><a href="table-datatable.html" aria-expanded="false">Data Table</a></li>
-                        </ul>
-                </li> -->
-							<!--
-                    <li class="nav-label">Pages</li>
-                -->
-							<!--  <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-notebook menu-icon"></i><span class="nav-text">Pages</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="page-login.html">Login</a></li>
-                            <li><a href="page-register.html">Register</a></li>
-                            <li><a href="page-lock.html">Lock Screen</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="page-error-404.html">Error 404</a></li>
-                                    <li><a href="page-error-403.html">Error 403</a></li>
-                                    <li><a href="page-error-400.html">Error 400</a></li>
-                                    <li><a href="page-error-500.html">Error 500</a></li>
-                                    <li><a href="page-error-503.html">Error 503</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>-->
 						</ul>
 					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
@@ -681,7 +569,7 @@ thead td {
 		</div>
 
 		<!--**********************************
-            Sidebar end
+            	사이더바 끝
         ***********************************-->
 
 		<!--**********************************
