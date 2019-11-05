@@ -1,35 +1,39 @@
 package ERP.patient.model.service;
 
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.patient.model.dao.PatientDao;
 import ERP.patient.model.vo.Patient;
 import Main.NursingHospital.model.ov.NursingHospital;
-
-import static common.JDBCTemplate.*;
 
 public class PatientService {
 	PatientDao pdao = new PatientDao();
 	
 	public PatientService() {}
 
-	public ArrayList<Patient> ListView() {
-		Connection conn = getConnection();
+	public ArrayList<Patient> ListView(Employee emp) {
+		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
 		ArrayList<Patient> list = pdao.ListView(conn);
 		close(conn);
 		return list;
 	}
 
-	public Patient DetailView(int patNum) {
-		Connection conn = getConnection();
+	public Patient DetailView(Employee emp, int patNum) {
+		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
 		Patient patient = pdao.DetailView(conn, patNum);
 		close(conn);
 		return patient;
 	}
 
-	public int insertPatient(Patient patient) {
-		Connection conn = getConnection();
+	public int insertPatient(Employee emp, Patient patient) {
+		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
 		int result = pdao.insertPatient(conn, patient);
 		if(result > 0)
 			commit(conn);
@@ -39,8 +43,8 @@ public class PatientService {
 		return result;
 	}
 
-	public int updatePatient(Patient patient) {
-		Connection conn = getConnection();
+	public int updatePatient(Employee emp, Patient patient) {
+		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
 		int result = pdao.updatePatient(conn, patient);
 		if(result > 0)
 			commit(conn);
@@ -50,8 +54,8 @@ public class PatientService {
 		return result;
 	}
 
-	public int deletePatient(int patNum) {
-		Connection conn = getConnection();
+	public int deletePatient(Employee emp, int patNum) {
+		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
 		int result = pdao.deletePatient(conn, patNum);
 		if(result > 0)
 			commit(conn);

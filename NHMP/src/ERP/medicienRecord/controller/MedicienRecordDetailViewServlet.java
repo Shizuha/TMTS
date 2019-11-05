@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.medicienRecord.model.service.MedicienRecordService;
 import ERP.medicienRecord.model.vo.MedicienRecord;
 
@@ -32,9 +33,12 @@ public class MedicienRecordDetailViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//투약일지 상세조회 처리용 컨트롤러
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
 		
 		int mrNo = Integer.parseInt(request.getParameter("mr_no"));
-		MedicienRecord medicienRecord = new MedicienRecordService().DetailView(mrNo);
+		MedicienRecord medicienRecord = new MedicienRecordService().DetailView(emp, mrNo);
 				
 		RequestDispatcher view = null;
 		if(medicienRecord != null) {

@@ -19,6 +19,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.medicienRecord.model.service.MedicienRecordService;
 import ERP.medicienRecord.model.vo.MedicienRecord;
 
@@ -43,6 +44,10 @@ public class MedicienRecordInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//투약일지 등록 처리용 컨트롤러
 		request.setCharacterEncoding("utf-8");
+		
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
 		
 		RequestDispatcher view = null;
 		if(!ServletFileUpload.isMultipartContent(request)) {
@@ -102,7 +107,7 @@ public class MedicienRecordInsertServlet extends HttpServlet {
 			medicienRecord.setMrRenameFileName(renameFileName);
 		}
 		
-		int result = new MedicienRecordService().insertMedicienRecord(medicienRecord);
+		int result = new MedicienRecordService().insertMedicienRecord(emp, medicienRecord);
 		
 		if(result > 0) {
 			response.sendRedirect("/NHMP/views/ERP/Admin_main.jsp");

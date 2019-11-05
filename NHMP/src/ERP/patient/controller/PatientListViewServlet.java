@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.patient.model.service.PatientService;
 import ERP.patient.model.vo.Patient;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class PatientListViewServlet
@@ -33,7 +35,11 @@ public class PatientListViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//환자 전체조회 처리용 컨트롤러
-		ArrayList<Patient> list = new PatientService().ListView();
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		
+		ArrayList<Patient> list = new PatientService().ListView(emp);
 		
 		RequestDispatcher view = null;
 		if(list.size() > 0) {

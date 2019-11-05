@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.patient.model.service.PatientService;
 import ERP.patient.model.vo.Patient;
 
@@ -38,6 +39,10 @@ public class PatientInsertServlet extends HttpServlet {
 		//환자 등록 처리용 컨트롤러
 		request.setCharacterEncoding("utf-8");
 		
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		
 		Patient patient = new Patient();
 		
 		patient.setPatNum(Integer.parseInt(request.getParameter("pat_num")));
@@ -54,7 +59,7 @@ public class PatientInsertServlet extends HttpServlet {
 		patient.setPatDoc(request.getParameter("pat_doc"));
 		
 		
-		int result = new PatientService().insertPatient(patient);
+		int result = new PatientService().insertPatient(emp, patient);
 		
 		if(result > 0) {
 			response.sendRedirect("views/ERP/Admin_main.jsp");

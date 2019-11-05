@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.patient.model.service.PatientService;
 
 /**
@@ -34,9 +35,13 @@ public class PatientDeleteServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 		
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		
 		int patNum = Integer.parseInt(request.getParameter("pat_num"));
 		
-		int result = new PatientService().deletePatient(patNum);
+		int result = new PatientService().deletePatient(emp, patNum);
 		
 		if(result > 0) {
 			response.sendRedirect("/NHMP/views/ERP/Admin_main.jsp");

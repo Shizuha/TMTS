@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.medicienRecord.model.service.MedicienRecordService;
 import ERP.medicienRecord.model.vo.MedicienRecord;
 
@@ -35,6 +36,10 @@ public class MedicienRecordSearchServlet extends HttpServlet {
 		//투약일지 검색 처리용 컨트롤러
 		request.setCharacterEncoding("utf-8");
 		
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		
 		String search = request.getParameter("search");
 		
 		ArrayList<MedicienRecord> list = null;
@@ -42,10 +47,10 @@ public class MedicienRecordSearchServlet extends HttpServlet {
 		
 		switch(search) {
 		case "mr_pat_name" : String mrPatName = request.getParameter("mr_pat_name");
-								list = mservice.selectMrPatNameSearch(mrPatName);
+								list = mservice.selectMrPatNameSearch(emp, mrPatName);
 								break;
 		case "mr_emp_name" : String mrEmpName = request.getParameter("mr_emp_name");
-										list = mservice.selectMrEmpNameSearch(mrEmpName);
+										list = mservice.selectMrEmpNameSearch(emp, mrEmpName);
 										break;
 		}
 		

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.medicienRecord.model.service.MedicienRecordService;
 
 
@@ -35,10 +36,14 @@ public class MedicienRecordDeleteServlet extends HttpServlet {
 		//투약일지 삭제 처리용 컨트롤러
 		request.setCharacterEncoding("utf-8");
 		
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		
 		int mrNo = Integer.parseInt(request.getParameter("mr_no"));
 		String renameFileName = request.getParameter("rfile");
 		
-		int result = new MedicienRecordService().deleteMedicienRecord(mrNo);
+		int result = new MedicienRecordService().deleteMedicienRecord(emp, mrNo);
 		
 		if(result > 0) {
 			if(renameFileName != null) {

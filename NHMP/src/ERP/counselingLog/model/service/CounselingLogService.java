@@ -1,34 +1,38 @@
 package ERP.counselingLog.model.service;
 
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.counselingLog.model.dao.CounselingLogDao;
 import ERP.counselingLog.model.vo.CounselingLog;
-
-import static common.JDBCTemplate.*;
 
 public class CounselingLogService {
 	private CounselingLogDao cldao = new CounselingLogDao();
 	
 	public CounselingLogService() {}
 	
-	public ArrayList<CounselingLog> ListView() {
-		Connection conn = getConnection();
+	public ArrayList<CounselingLog> ListView(Employee emp) {
+		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
 		ArrayList<CounselingLog> list = cldao.ListView(conn);
 		close(conn);
 		return list;
 	}
 	
-	public CounselingLog DetailView(int clNo) {
-		Connection conn = getConnection();
+	public CounselingLog DetailView(Employee emp, int clNo) {
+		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
 		CounselingLog counselingLog = cldao.DetailView(conn, clNo);
 		close(conn);
 		return counselingLog;
 	}
 	
-	public int insertCounselingLog(CounselingLog counselingLog) {
-		Connection conn = getConnection();
+	public int insertCounselingLog(Employee emp, CounselingLog counselingLog) {
+		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
 		int result = cldao.insertCounselingLog(conn, counselingLog);
 		if(result > 0)
 			commit(conn);
@@ -38,8 +42,8 @@ public class CounselingLogService {
 		return result;
 	}
 	
-	public int updateCounselingLog(CounselingLog counselingLog) {
-		Connection conn = getConnection();
+	public int updateCounselingLog(Employee emp, CounselingLog counselingLog) {
+		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
 		int result = cldao.updateCounselingLog(conn, counselingLog);
 		if(result > 0)
 			commit(conn);
@@ -49,8 +53,8 @@ public class CounselingLogService {
 		return result;
 	}
 	
-	public int deleteCounselingLog(int clNo) {
-		Connection conn = getConnection();
+	public int deleteCounselingLog(Employee emp, int clNo) {
+		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
 		int result = cldao.deleteConselingLog(conn, clNo);
 		if(result > 0)
 			commit(conn);
@@ -59,15 +63,15 @@ public class CounselingLogService {
 		close(conn);
 		return result;
 	}
-	public ArrayList<CounselingLog> selectTitleSearch(String clTitle) {
-		Connection conn = getConnection();
+	public ArrayList<CounselingLog> selectTitleSearch(Employee emp, String clTitle) {
+		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
 		ArrayList<CounselingLog> list = cldao.selectTitleSearch(conn, clTitle);
 		close(conn);
 		return list;
 	}
 
-	public ArrayList<CounselingLog> selectClEmpNameSearch(String clEmpName) {
-		Connection conn = getConnection();
+	public ArrayList<CounselingLog> selectClEmpNameSearch(Employee emp, String clEmpName) {
+		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
 		ArrayList<CounselingLog> list = cldao.selectClEmpNameSearch(conn, clEmpName);
 		close(conn);
 		return list;
