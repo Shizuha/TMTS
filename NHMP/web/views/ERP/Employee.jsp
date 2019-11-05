@@ -554,7 +554,7 @@ thead td {
 					</a>
 
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/patientlistivew">전체환자 조회</a></li>
+							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
 							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자 입원 등록</a></li>
 							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
 							<li><a href="/NHMP/recordlistview">투약일지 등록</a></li>

@@ -62,7 +62,7 @@ public class PatientInsertServlet extends HttpServlet {
 		int result = new PatientService().insertPatient(emp, patient);
 		
 		if(result > 0) {
-			response.sendRedirect("views/ERP/Admin_main.jsp");
+			response.sendRedirect("views/ERP/Employee.jsp");
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
 			request.setAttribute("message", "환자 등록 실패!");

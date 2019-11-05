@@ -40,7 +40,7 @@ function movedelete(){
 		return false;
 	}
 	function movemain() {
-		location.href = "/NHMP/views/ERP/Admin_main.jsp";
+		location.href = "/NHMP/views/ERP/Employee.jsp";
 		return false;
 	}
 </script>
