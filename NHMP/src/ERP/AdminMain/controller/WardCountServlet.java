@@ -35,7 +35,6 @@ public class WardCountServlet extends HttpServlet {
 		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
 		
 		String wardcnt = new WardService().WardCount(loginHospital);
-		System.out.println(wardcnt);
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.append(wardcnt);

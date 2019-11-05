@@ -41,7 +41,6 @@ public class CnoticeUpdateServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		Cnotice n = new Cnotice();
-		System.out.println(request.getParameter("noticeno"));
 		n.setNOTICE_NO(Integer.parseInt(request.getParameter("noticeno")));
 		n.setNOTICE_TITLE(request.getParameter("title"));
 		n.setNH_NAME(request.getParameter("writer"));

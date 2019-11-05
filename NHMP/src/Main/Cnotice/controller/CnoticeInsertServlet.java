@@ -45,7 +45,6 @@ public class CnoticeInsertServlet extends HttpServlet {
 		c.setNOTICE_TYPE(request.getParameter("category"));
 		c.setNOTICE_DATE(Date.valueOf(request.getParameter("date")));
 		c.setNOTICE_CONTENT(request.getParameter("content"));
-		System.out.println(c.getNOTICE_DATE());
 		int result = new CnoticeService().insertNotice(c);
 		
 		if(result > 0) {

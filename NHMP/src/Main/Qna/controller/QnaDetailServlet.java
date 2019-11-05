@@ -39,7 +39,6 @@ public class QnaDetailServlet extends HttpServlet {
 		// Qna 디테일 컨트롤러
 		int qnano = Integer.parseInt(request.getParameter("no"));
 		// 3.
-		System.out.println(qnano);
 		Qna qna = new QnaService().detailQna(qnano);
 		ArrayList<Comment> list = new CommentService().selectList(qnano);
 		// 4.
