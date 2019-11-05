@@ -99,4 +99,35 @@ public class WardDao {
 		
 		return result;
 	}
+
+	public Ward selectAuDeptName(Connection conn, String wardCode) {
+		Ward wardName = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String query = "select * from ward where ward_code = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, wardCode);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				wardName = new Ward(); 
+				
+				wardName.setWardName(rs.getString("ward_name"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return wardName;
+	}
 }

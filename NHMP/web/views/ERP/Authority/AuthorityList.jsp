@@ -23,16 +23,19 @@
   <script type="text/javascript" src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
  <script type="text/javascript">
  $(function(){
+	 
 	 $("#auChk-all").click(function(){
 		 $(".auChk").prop("checked",this.checked);
 		 
 	 });
 	 $("#empChk-all").click(function(){
-		 $(".empChk").prop("checked",this.checked);
+		 $(".listEmp").prop("checked",this.checked);
+		 
 		 
 	 });
-	 
-	 
+	 $(".listEmp").click(function(){
+		 alert("dd");
+	 });
 	 $(".auChk").click(function(){
 		
 		 var i = $(".ad");
@@ -48,12 +51,12 @@
 					//string 을 json 객체로 바꿈
 					var json = JSON.parse(jsonStr);
 				
-				for(var i in json.list2){
-					var deptName = decodeURIComponent(json.list2[i].deptname).replace(/\+/gi, " ");
+				for(var i in json.list1){
+					var empName = decodeURIComponent(json.list1[i].empname).replace(/\+/gi, " ");
 					/* deptName.remove(); */
 					
-					$(".auEmpTable").append("<tr class='ad'id=emp" + i + ">" + "<td style='padding:5px;'><input type='checkbox' class='empChk'></td>" +
-							"<td>" + deptName + "</td>" +
+					$(".auEmpTable").append("<tr class='ad'id=emp" + i + ">" + "<td style='padding:5px;'><input type='checkbox' name='empDel' class='listEmp' value='" + json.list1[i].empid + "'></td>" +
+							"<td>" + empName + "</td>" +
 						 	"</tr>");
 					}
 				
@@ -65,9 +68,9 @@
 					
 				}
 				
-				for(var i in json.list1){
-					var empName = decodeURIComponent(json.list1[i].empname).replace(/\+/gi, " ");
-					$("#emp"+ i).append("<td>" + empName + "</td>");
+				for(var i in json.list2){
+					var deptName = decodeURIComponent(json.list2[i].deptname).replace(/\+/gi, " ");
+					$("#emp"+ i).append("<td>" + deptName + "</td>");
 					} 
 				
 			},error :function(jqXHR, textStatus, errorThrown){
@@ -87,9 +90,61 @@
          window.open(url, name, option);
          return false;
 	 }else{
-		 alert("d");
+		 alert("지정할 권한을 클릭하세요.");
 	 }
  }
+ function auOutDel(){
+	 if($("input:checkbox[name=empDel]").is(":checked") === false){
+			alert("삭제하실 사원을 선택해주세요.");	
+			return false;
+			
+		}else{
+			  var chkAuthor = $("input[name=auChk]:checked").val();
+		
+			  if(chkAuthor == "G1"){ 
+				 alert("기본권한은 삭제가 불가능합니다.");
+				 return false;
+			  }else{
+				
+				  var trueAndFalseDel = confirm( '해당내용으로 삭제 하시겠습니까?' );
+				    if(trueAndFalseDel != false){
+			  
+			 
+			var arrayParam = new Array();
+
+				$("input:checkbox[name=empDel]:checked").each(function(){
+
+					arrayParam.push($(this).val());
+
+				});
+			
+			$.ajax({
+	 					url : "auEmpDel",
+	 					data : { empDel : arrayParam},
+	 					traditional : true,
+	 					type : "post",
+	 					dataType : "text",
+	 					success : function(data){
+	 						alert(data);
+	 						location.reload();
+	 					},
+	 					error :function(jqXHR, textStatus, errorThrown){
+	 						
+	 						console.log("error : " + textStatus);
+	 					}
+	 					
+	 				});
+				    }else
+				    	return false;
+					  }
+		}
+return true;
+ }
+ 
+function auList(id){
+	$(".auChk").prop("checked", false);
+	$("#" + id).prop("checked", true);
+}
  </script>
  <style>
  .Btn{
@@ -366,14 +421,14 @@
 								<th>권한명</th>
 								<th>권한내용</th>
 							</tr>
-							<% for(Authority au : auList){ %>
+							<% int i = 0; for(Authority au : auList){ %>
 							<tr>
-								<td style="padding:5px;"><input type="checkbox" name="auChk" class="auChk" value="<%=au.getAuthorityCode() %>"></td>
+								<td style="padding:5px;"><input type="checkbox" id="auChk<%=i %>"onclick="auList(this.id);" name="auChk" class="auChk" value="<%=au.getAuthorityCode() %>"></td>
 								<td><%=au.getAuthorityCode() %></td>
 								<td><%=au.getAuthorityName() %></td>
 								<td><%=au.getAuthorityEtc() %></td>
 							</tr>
-							<%} %>
+							<% i++;} %>
 						</table>
 					</div>
 				</div>
@@ -382,19 +437,22 @@
 				<div class="qur-header-title"style="flaot:left; width:30%; display:inline-block;">
 				<h3>사용자목록</h3>
 				</div>
-				<div class="auR-button" style="float:right; width:30%; display:inline-block; padding:0px; margin-left:0px;">
-				<button class="Btn"style="display:inline-block; padding:0px; margin-left:30px;" onclick="auInUser();">사용자 선택</button> <button class="Btn" style="float:right; display:inline-block; padding:0px;">삭제</button>
+				<div class="auR-button" style="float:right; width:40%; display:inline-block; padding:0px; margin-left:0px;">
+				<button class="Btn"style="float:right; display:inline-block; padding:0px; width:82px;margin-top:15px;" onclick="auInUser();">사용자 선택</button>
+				
+				<input type="button"onclick="auOutDel();" class="Btn" style="float:left; width:40px;margin-top:15px; margin-left:65px; display:inline-block; padding:0px;" value="삭제">
 				</div>
 				</div>
 					<div class="auEmp">
 						<table  class="auEmpTable" width="100%" cellpadding="3" cellspacing="0" border="1">
 							<tr>
 								<th style="padding:5px;"><input type="checkbox" id="empChk-all"></th>
-								<th>부서명</th>
+								<th>이름</th>
 								<th>직급</th>
-								<th>사용자명</th>
+								<th>부서</th>
 							</tr>
 						</table>
+						
 					</div>
 				</div>
 			</div>

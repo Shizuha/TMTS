@@ -56,10 +56,10 @@ public class OrganSelectEmp extends HttpServlet {
 		System.out.println("empName 값 받음 = " + empName);
 		
 		Employee empOne = new EmployeeService().selectOrganEmpOne(hostId, hostPwd, empName);
-		System.out.println(empOne);
 		
 		
-		System.out.println("내/외국인 받은값 =" + empOne.getItnalFor());
+		
+		
 		JSONObject sendJson = new JSONObject();
 		
 		JSONArray jarr = new JSONArray();

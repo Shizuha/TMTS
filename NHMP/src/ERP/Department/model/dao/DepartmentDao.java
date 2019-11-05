@@ -137,7 +137,7 @@ public class DepartmentDao {
 			close(rs);
 			close(pstmt);
 		}
-		System.out.println(dp);
+		
 		return dp;
 	}
 }
