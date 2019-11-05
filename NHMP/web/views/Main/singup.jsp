@@ -63,12 +63,14 @@ var cnt = 0;
 		});
 		
 		//패스워드 규칙 확인		
+		$("#userpwd").focusin(function(){
+			cnt = 0;
+		});
 		$("#userpwd").focusout(function(){
 			if(cnt == 0 && $("#userpwd").val().length > 0){
 				var passRule = /^[a-zA-Z](([a-zA-Z])|([0-9])){5,12}$/gi;
 				if(!passRule.test($("#userpwd").val())){
 					alert("패스워드는 문자로 시작하여 숫자와 문자 포함 형태의 6~12자리로 입력하세요");
-					alert($("#userpwd").val().length);
 					$("#userpwd").select();
 					$("#userpwd").val("");
 					cnt = 0;
