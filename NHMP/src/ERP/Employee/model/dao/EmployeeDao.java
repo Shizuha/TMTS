@@ -226,7 +226,7 @@ public class EmployeeDao {
 		int result = 0;
 		Statement stmt = null;
 		ResultSet rs = null;
-		String query = "select count(*) from employee ";
+		String query = "select count(*) from employee";
 		try {
 			
 			stmt = conn.createStatement();
