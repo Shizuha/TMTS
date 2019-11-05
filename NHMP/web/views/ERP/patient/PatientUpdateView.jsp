@@ -221,7 +221,7 @@ function movemain() {
         ***********************************-->
 		<div class="content-body" align="center" style="padding: 40px;">
 		  <h2 align="center">환자 수정 페이지</h2>
-				<form action="/NHMP/patientinsert" method="post">
+				<form action="/NHMP/patientupdate" method="post">
 					<table align="center" width="1000" border="3" cellspacing="0" 
 						cellpadding="5">
 						<tr>

@@ -271,7 +271,13 @@ function movedelete(){
 						</tr>
 						<tr>
 							<th style="font-size : 16px;">첨부파일</th>
-							<td style="font-size : 16px;"><%= counselingLog.getClOriginalFileName() %></td>
+							<td style="font-size : 16px;">
+							<% if(counselingLog.getClOriginalFileName() != null){ %>
+							<a href="/first/nfdown?ofile=<%= counselingLog.getClOriginalFileName() %>&rfile=<%= counselingLog.getClRenameFileName() %>"><%= counselingLog.getClOriginalFileName() %></a>
+							<% }else{ %>
+							첨부파일 없음		
+							<% } %> <br>
+							</td>
 						</tr>
 						<tr>
 							<th colspan="2"><input type="button" value="수정하기"

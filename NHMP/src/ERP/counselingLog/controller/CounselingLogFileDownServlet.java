@@ -31,7 +31,7 @@ public class CounselingLogFileDownServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//»ó´ãÀÏÁö Ã·ºÎÆÄÀÏ ´Ù¿î·Îµå Ã³¸®¿ë ÄÁÆ®·Ñ·¯
+		//í™˜ì ìƒë‹´ì¼ì§€ íŒŒì¼ ë‹¤ìš´ë¡œë“œ ì²˜ë¦¬ìš© ì»¨íŠ¸ë¡¤ëŸ¬
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/ERP/cl_upfiles");
 		
 		String originalFileName = request.getParameter("ofile");

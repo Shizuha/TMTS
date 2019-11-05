@@ -227,49 +227,49 @@
 						cellpadding="5">
 						<tr>
 							<th style="font-size : 16px;">투약일지번호</th>
-							<td><input type="number" name="mr_no" style="font-size : 16px;"></td>
+							<td style="font-size : 16px;"><input type="number" name="mr_no"></td>
 						</tr>
 						<tr>
 							<th style="font-size : 16px;">날짜</th>
-							<td><input type="date" name="mr_date" style="font-size : 16px;"></td>
+							<td style="font-size : 16px;"><input type="date" name="mr_date"></td>
 						</tr>
 						<tr>
 							<th style="font-size : 16px;">증상</th>
-							<td><input type="text" name="mr_state" style="font-size : 16px;"></td>
+							<td style="font-size : 16px;"><input type="text" name="mr_state"></td>
 						</tr>
 						<tr>
-							<th>투약명</th>
-							<td><input type="text" name="mr_name"></td>
+							<th style="font-size : 16px;">투약명</th>
+							<td style="font-size : 16px;"><input type="text" name="mr_name"></td>
 						</tr>
 						<tr>
-							<th>투약시간</th>
-							<td><input type="text" name="mr_time"></td>
+							<th style="font-size : 16px;">투약시간</th>
+							<td style="font-size : 16px;"><input type="text" name="mr_time"></td>
 						</tr>
 						<tr>
-							<th>용량</th>
-							<td><input type="text" name="mr_many"></td>
+							<th style="font-size : 16px;">용량</th>
+							<td style="font-size : 16px;"><input type="text" name="mr_many"></td>
 						</tr>
 						<tr>
-							<th>비고</th>
-							<td><input type="text" name="mr_comment"></td>
+							<th style="font-size : 16px;">비고</th>
+							<td style="font-size : 16px;"><input type="text" name="mr_comment"></td>
 						</tr>
 						<tr>
-							<th>환자명</th>
-							<td><input type="text" name="mr_pat_name"></td>
+							<th style="font-size : 16px;">환자명</th>
+							<td style="font-size : 16px;"><input type="text" name="mr_pat_name"></td>
 						</tr>
 						<tr>
-							<th>투약자</th>
-							<td><input type="text" name="mr_emp_name"></td>
+							<th style="font-size : 16px;">투약자</th>
+							<td style="font-size : 16px;"><input type="text" name="mr_emp_name"></td>
 						</tr>
 						<tr>
-							<th>첨부파일</th>
-							<td><input type="file" name="mr_original_filename"></td>
+							<th style="font-size : 16px;">첨부파일</th>
+							<td style="font-size : 16px;"><input type="file" name="mr_original_filename"></td>
 						</tr>
 						<tr>
 							<th colspan="2" align="center"><input type="submit"
-								value="등록하기"> <input type="reset" value="취소하기">
-								<input type="button" value="목록" onclick="return movemain();">
-								<a href="javascript:history.go(-1)">이전페이지로 이동></a></th>
+								value="등록하기" style="font-size : 16px;"> <input type="reset" value="취소하기" style="font-size : 16px;">
+								<input type="button" value="목록" onclick="return movemain();" style="font-size : 16px;">
+								<a href="javascript:history.go(-1)" style="font-size : 16px;">이전페이지로 이동></a></th>
 						</tr>
 					</table>
 				</form>

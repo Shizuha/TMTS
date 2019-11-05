@@ -283,7 +283,7 @@ function movemain() {
 								&nbsp; &nbsp; &nbsp; <input type="reset" value="취소하기" style="font-size : 16px;">
 								&nbsp; &nbsp; &nbsp; <input type="button" value="목록"
 								onclick="return movemain();" style="font-size : 16px;"> &nbsp; &nbsp; &nbsp; <a
-								href="javascript:history.go(-1)">이전페이지로 이동</a></th>
+								href="javascript:history.go(-1)" style="font-size : 16px;">이전페이지로 이동</a></th>
 						</tr>
 					</table>
 				</form>
