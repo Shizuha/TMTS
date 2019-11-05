@@ -35,7 +35,6 @@ public class EmployeeCountServlet extends HttpServlet {
 		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
 		
 		String empcnt = new EmployeeService().EmployeeCount(loginHospital);
-		System.out.println(empcnt);
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.append(empcnt);

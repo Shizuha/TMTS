@@ -43,7 +43,6 @@ public class CommentInsertServlet extends HttpServlet {
 		com.setCOMMENT_ETC(request.getParameter("comments"));
 		
 		int result = new CommentService().insertComment(com);
-		System.out.println("댓글입력 결과 : " + result);
 		RequestDispatcher view = null;
 		if(result > 0) {
 			response.sendRedirect("/NHMP/detailqna?no="+com.getQNA_NO());
