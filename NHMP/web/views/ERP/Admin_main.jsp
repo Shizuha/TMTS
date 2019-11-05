@@ -564,7 +564,7 @@ $(function(){
         ***********************************-->
 		<div class="content-body">
 
-			<div class="container-fluid mt-3" style="width: 101.4%;">
+			<div class="container-fluid mt-3" style="width: 96%;">
 				<div class="row">
 					<div class="col-lg-3 col-sm-6">
 						<div class="card gradient-1">
