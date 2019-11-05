@@ -100,22 +100,21 @@ public class PatientDao {
 		PreparedStatement pstmt = null;
 		
 		String query = "insert into patient values("
-				+ "pat_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "pat_seq.nextval, ?, ?, ?, default, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, patient.getPatName());
 			pstmt.setString(2, patient.getPatType());
 			pstmt.setDate(3, patient.getPatEntDate());
-			pstmt.setDate(4, patient.getPatOutDate());
-			pstmt.setString(5, patient.getPatGender());
-			pstmt.setString(6, patient.getPatNo());
-			pstmt.setString(7, patient.getAddress());
-			pstmt.setString(8, patient.getFamily());
-			pstmt.setString(9, patient.getEmail());
-			pstmt.setString(10, patient.getPatPhone());
-			pstmt.setString(11, patient.getWard());
-			pstmt.setString(12, patient.getPatDoc());
+			pstmt.setString(4, patient.getPatGender());
+			pstmt.setString(5, patient.getPatNo());
+			pstmt.setString(6, patient.getAddress());
+			pstmt.setString(7, patient.getFamily());
+			pstmt.setString(8, patient.getEmail());
+			pstmt.setString(9, patient.getPatPhone());
+			pstmt.setString(10, patient.getWard());
+			pstmt.setString(11, patient.getPatDoc());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
