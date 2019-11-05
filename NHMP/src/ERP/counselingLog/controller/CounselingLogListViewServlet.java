@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.counselingLog.model.service.CounselingLogService;
 import ERP.counselingLog.model.vo.CounselingLog;
 
@@ -31,11 +32,14 @@ public class CounselingLogListViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//»ó´ãÀÏÁö ÀüÃ¼Á¶È¸ Ã³¸®¿ë ÄÁÆ®·Ñ·¯
-		//»ó´ãÀÏÁö ÀüÃ¼ Á¶È¸ Ã³¸®¿ë ÄÁÆ®·Ñ·¯
+		//í™˜ì ìƒë‹´ì¼ì§€ ì „ì²´ì¡°íšŒ ì²˜ë¦¬ìš© ì»¨íŠ¸ë¡¤ëŸ¬
 		request.setCharacterEncoding("utf-8");
+		
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
 				
-		ArrayList<CounselingLog> list = new CounselingLogService().ListView();
+		ArrayList<CounselingLog> list = new CounselingLogService().ListView(emp);
 				
 		RequestDispatcher view = null;
 		if(list.size() > 0) {
@@ -44,7 +48,7 @@ public class CounselingLogListViewServlet extends HttpServlet {
 			view.forward(request, response);
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "»ó´ãÀÏÁö ÀüÃ¼Á¶È¸ ½ÇÆĞ!");
+			request.setAttribute("message", "í™˜ì ìƒë‹´ì¼ì§€ ì „ì²´ì¡°íšŒ ì‹¤íŒ¨!");
 			view.forward(request, response);
 		}
 	}

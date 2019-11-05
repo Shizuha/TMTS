@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.counselingLog.model.service.CounselingLogService;
 import ERP.counselingLog.model.vo.CounselingLog;
 
@@ -33,8 +34,12 @@ public class CounselingLogSerachServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//»ó´ãÀÏÁö °Ë»ö Ã³¸®¿ë ÄÁÆ®·Ñ·¯
+		//í™˜ì ìƒë‹´ì¼ì§€ ê²€ìƒ‰ ì²˜ë¦¬ìš© ì»¨íŠ¸ë¡¤ëŸ¬
 		request.setCharacterEncoding("utf-8");
+		
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
 		
 		String search = request.getParameter("search");
 		
@@ -43,10 +48,10 @@ public class CounselingLogSerachServlet extends HttpServlet {
 		
 		switch(search) {
 		case "cl_title" : String clTitle = request.getParameter("cl_title");
-						list = cservice.selectTitleSearch(clTitle);
+						list = cservice.selectTitleSearch(emp, clTitle);
 						break;
 		case "cl_emp_name" : String clEmpName = request.getParameter("cl_emp_name");
-										list = cservice.selectClEmpNameSearch(clEmpName);
+										list = cservice.selectClEmpNameSearch(emp, clEmpName);
 										break;
 		}
 		
@@ -57,7 +62,7 @@ public class CounselingLogSerachServlet extends HttpServlet {
 			view.forward(request, response);
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", search + "°Ë»ö Á¶È¸ ½ÇÆĞ!");
+			request.setAttribute("message", search + "ê²€ìƒ‰ ì‹¤íŒ¨!");
 			view.forward(request, response);
 		}
 	}

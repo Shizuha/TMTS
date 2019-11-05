@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.patient.model.service.PatientService;
 import ERP.patient.model.vo.Patient;
 
@@ -32,8 +33,12 @@ public class PatientDetailViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//환자 상세조회 처리용 컨트롤러
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		
 		int patNum = Integer.parseInt(request.getParameter("pat_num"));
-		Patient patient = new PatientService().DetailView(patNum);
+		Patient patient = new PatientService().DetailView(emp, patNum);
 		
 		RequestDispatcher view = null;
 		if(patient != null) {

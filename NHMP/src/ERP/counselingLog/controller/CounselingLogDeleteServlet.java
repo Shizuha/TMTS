@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.counselingLog.model.service.CounselingLogService;
 
 /**
@@ -31,13 +32,17 @@ public class CounselingLogDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//»ó´ãÀÏÁö »èÁ¦ Ã³¸®¿ë ÄÁÆ®·Ñ·¯
+		//í™˜ì ìƒë‹´ì¼ì§€ ì‚­ì œ ì²˜ë¦¬ìš© ì»¨íŠ¸ë¡¤ëŸ¬
 		request.setCharacterEncoding("utf-8");
+		
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
 		
 		int clNo = Integer.parseInt(request.getParameter("cl_no"));
 		String renameFileName = request.getParameter("rfile");
 		
-		int result = new CounselingLogService().deleteCounselingLog(clNo);
+		int result = new CounselingLogService().deleteCounselingLog(emp, clNo);
 		
 		if(result > 0) {
 			if(renameFileName != null) {
@@ -49,7 +54,7 @@ public class CounselingLogDeleteServlet extends HttpServlet {
 			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", clNo + "¹ø »ó´ãÀÏÁö »èÁ¦ ½ÇÆĞ!");
+			request.setAttribute("message", clNo + "ë²ˆ ìƒë‹´ì¼ì§€ ì‚­ì œ ì‹¤íŒ¨!");
 			view.forward(request, response);
 		}
 	}

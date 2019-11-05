@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.medicienRecord.model.service.MedicienRecordService;
 import ERP.medicienRecord.model.vo.MedicienRecord;
 
@@ -35,7 +36,11 @@ public class MedicienRecordListViewServlet extends HttpServlet {
 		//투약일지 전체조회 처리용 컨트롤러
 		request.setCharacterEncoding("utf-8");
 		
-		ArrayList<MedicienRecord> list = new MedicienRecordService().ListView();
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		
+		ArrayList<MedicienRecord> list = new MedicienRecordService().ListView(emp);
 		
 		RequestDispatcher view = null;
 		if(list.size() > 0) {

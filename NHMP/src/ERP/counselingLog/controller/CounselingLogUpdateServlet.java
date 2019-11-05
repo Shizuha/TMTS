@@ -19,6 +19,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import ERP.Employee.model.vo.Employee;
 import ERP.counselingLog.model.service.CounselingLogService;
 import ERP.counselingLog.model.vo.CounselingLog;
 
@@ -41,13 +42,17 @@ public class CounselingLogUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//»ó´ãÀÏÁö ¼öÁ¤ Ã³¸®¿ë ÄÁÆ®·Ñ·¯
+		//í™˜ì ìƒë‹´ì¼ì§€ ìˆ˜ì • ì²˜ë¦¬ìš© ì»¨íŠ¸ë¡¤ëŸ¬
 		request.setCharacterEncoding("utf-8");
+		
+		String hostId = null;
+		String hostPwd = null;
+		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
 		
 		RequestDispatcher view = null;
 		if(!ServletFileUpload.isMultipartContent(request)) {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "form enctype ¼Ó¼ºÀÌ multipart ÀÌ¾î¾ß ÇÕ´Ï´Ù");
+			request.setAttribute("message", "form enctype ì†ì„±ì´ì–´ì•¼ë§Œ í•©ë‹ˆë‹¤");
 			view.forward(request, response);
 		}
 		
@@ -108,13 +113,13 @@ public class CounselingLogUpdateServlet extends HttpServlet {
 			counselingLog.setClRenameFileName(mrequest.getParameter("rfile"));
 		}
 		
-		int result = new CounselingLogService().updateCounselingLog(counselingLog);
+		int result = new CounselingLogService().updateCounselingLog(emp, counselingLog);
 		
 		if(result > 0) {
 			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", counselingLog.getClNo() + "¹ø »ó´ãÀÏÁö ¼öÁ¤ ½ÇÆĞ!");
+			request.setAttribute("message", counselingLog.getClNo() + "ë²ˆ í™˜ì ìƒë‹´ì¼ì§€ ìˆ˜ì • ì‹¤íŒ¨!");
 			view.forward(request, response);
 		}
 		
