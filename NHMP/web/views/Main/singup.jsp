@@ -25,8 +25,9 @@ var cnt = 0;
 	$(function() {
 		$("#idcheck").click(function(){
 			var idRule = /^[a-zA-Z](([a-zA-Z])|([0-9])){5,12}$/gi;
-			if(!idRule.test($("#userpwd").val())){
+			if(!idRule.test($("#userid").val())){
 				alert("아이디는 영문자로 시작하여 숫자+영문자로 6~12글자 자리로 입력하세요");
+				$("#userid").select();
 				$("#userid").val("");
 				return false;
 			}

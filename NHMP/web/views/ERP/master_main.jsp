@@ -12,12 +12,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMTS</title>
 <style type="text/css">
-	div .fc-scroller fc-day-grid-container{
-		height:600px;
-	}
-	.fc-widget-content .fc-scroller.fc-day-grid-container{
-		height:600px;
-	}
 </style>
 <script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
 <script>
@@ -377,7 +371,7 @@
         ***********************************-->
 		<div class="content-body">
 
-			<div class="container-fluid mt-3" style="width:125%; margin:30px;">
+			<div class="container-fluid mt-3" style="width:141%; margin:30px;">
 				<div class="row">
 					<div class="col-lg-3 col-sm-6">
 						<div class="card gradient-1">
