@@ -57,7 +57,7 @@ public class EmployeeListServlet extends HttpServlet {
 
 		int limit = 10; // 한 페이지에 출력할 목록갯수
 		EmployeeService eservice = new EmployeeService();
-
+		System.out.println("전체사원조회 서블릿에서 받은 호스트아이디 비밀번호 :" + hostId + "," + hostPwd);
 		int listCount = eservice.getListCount(hostId, hostPwd);// 현재 테이블의 전체 목록 갯수 조회
 		 System.out.println(listCount);
 		// 총 페이지수 계산

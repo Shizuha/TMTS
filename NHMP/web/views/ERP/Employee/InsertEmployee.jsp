@@ -111,7 +111,7 @@ function formCheck(){
           return false;
       }
       //암호정규식
-      var passRule = /^[!@#$%^&]+[A-Za-z0-9]{6,12}$/;//숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
+      var passRule = /^[a-zA-Z](([a-zA-Z])|([0-9])){5,12}$/gi;//숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
       
       if(!passRule.test($("#emppwd").val())) {
          

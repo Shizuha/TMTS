@@ -18,8 +18,9 @@ import ERP.Department.model.service.DepartmentService;
 import ERP.Department.model.vo.Department;
 import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
-import ERP.Position.model.service.PositionService;
 import ERP.Position.model.vo.Position;
+import ERP.Ward.model.service.WardService;
+import ERP.Ward.model.vo.Ward;
 import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
@@ -62,12 +63,12 @@ public class AuthoritySelectEmpList extends HttpServlet {
 		}
 		
 			ArrayList<Department> dList = new ArrayList<Department>();
-			ArrayList<Position> pList= new ArrayList<Position>();
+			ArrayList<Ward> wList= new ArrayList<Ward>();
 		for(Employee e : empList) {
 			Department dp = new DepartmentService().selectAuDeptName(hostId, hostPwd, e.getDeptCode());
-			Position po = new PositionService().selectAuPositionName(hostId, hostPwd, e.getPosCode());
+			Ward wd = new WardService().selectAuWardName(hostId, hostPwd, e.getWardCode());
 			dList.add(dp);
-			pList.add(po);
+			wList.add(wd);
 		}
 		JSONObject sendJson = new JSONObject();
 		
@@ -91,9 +92,9 @@ public class AuthoritySelectEmpList extends HttpServlet {
 				tn.put("deptname", URLEncoder.encode(d.getDeptName(), "utf-8"));
 				jarr2.add(tn);
 			}
-			for(Position p : pList) {
+			for(Ward w : wList) {
 				JSONObject tn = new JSONObject();
-				tn.put("posname", URLEncoder.encode(p.getPosName(), "utf-8"));
+				tn.put("posname", URLEncoder.encode(w.getWardName(), "utf-8"));
 				jarr3.add(tn);
 			}
 			

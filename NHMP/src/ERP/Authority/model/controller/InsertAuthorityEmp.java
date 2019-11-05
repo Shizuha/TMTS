@@ -19,10 +19,11 @@ import ERP.Department.model.service.DepartmentService;
 import ERP.Department.model.vo.Department;
 import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
-import ERP.Position.model.service.PositionService;
 import ERP.Position.model.vo.Position;
 import ERP.Team.model.service.TeamService;
 import ERP.Team.model.vo.Team;
+import ERP.Ward.model.service.WardService;
+import ERP.Ward.model.vo.Ward;
 import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
@@ -44,7 +45,7 @@ public class InsertAuthorityEmp extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//권한부여 사용자 선택창에서 사원 클릭시 사원목록으로 이동처리하는 AJAX컨트롤러
+		//권한부여 사용자 선택창에서 팀이름 클릭시 사원목록으로 이동처리하는 AJAX컨트롤러
 		
 				String hostId = null;
 				String hostPwd = null;
@@ -73,15 +74,15 @@ public class InsertAuthorityEmp extends HttpServlet {
 					
 					
 					ArrayList<Department> dList = new ArrayList<Department>();
-					ArrayList<Position> pList= new ArrayList<Position>();
+					ArrayList<Ward> wList= new ArrayList<Ward>();
 				for(Employee e : empList) {
 					Department dp = new DepartmentService().selectAuDeptName(hostId, hostPwd, e.getDeptCode());
-					Position po = new PositionService().selectAuPositionName(hostId, hostPwd, e.getPosCode());
+					Ward po = new WardService().selectAuWardName(hostId, hostPwd, e.getWardCode());
 					dList.add(dp);
-					pList.add(po);
+					wList.add(po);
 				}
 				System.out.println(dList);
-				System.out.println(pList);
+				System.out.println(wList);
 					
 					
 					
@@ -107,9 +108,9 @@ public class InsertAuthorityEmp extends HttpServlet {
 						tn.put("deptname", URLEncoder.encode(d.getDeptName(), "utf-8"));
 						jarr2.add(tn);
 					}
-					for(Position p : pList) {
+					for(Ward w : wList) {
 						JSONObject tn = new JSONObject();
-						tn.put("posname", URLEncoder.encode(p.getPosName(), "utf-8"));
+						tn.put("posname", URLEncoder.encode(w.getWardName(), "utf-8"));
 						jarr3.add(tn);
 					}
 					

@@ -456,9 +456,9 @@ input[type=checkbox]:checked{
 						<table class="empListTable" width="100%" cellpadding="2" cellspacing="0" border="1">
 							<tr>
 								<th><input type="checkbox" id="empChk-all" style="width:17px;height:17px;"></th>
+								<th>이름</th>
 								<th>병동</th>
 								<th>직급</th>
-								<th>이름</th>
 							</tr>
 						</table>
 					</div>
