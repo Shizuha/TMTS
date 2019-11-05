@@ -46,7 +46,6 @@ public class PatientUpdateServlet extends HttpServlet {
 		patient.setPatName(request.getParameter("pat_name"));
 		patient.setPatType(request.getParameter("pat_type"));
 		patient.setPatEntDate(Date.valueOf(request.getParameter("pat_entdate")));
-		patient.setPatOutDate(Date.valueOf(request.getParameter("pat_outdate")));
 		patient.setPatGender(request.getParameter("pat_gender"));
 		patient.setPatNo(request.getParameter("pat_no"));
 		patient.setAddress(request.getParameter("address"));

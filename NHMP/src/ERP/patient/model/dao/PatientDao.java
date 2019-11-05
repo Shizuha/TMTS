@@ -130,7 +130,7 @@ public class PatientDao {
 		PreparedStatement pstmt = null;
 		
 		String query = "update patient set pat_name = ?, pat_type = ?, pat_entdate = ?, "
-				+ "pat_outdate = ?, pat_gender = ?, pat_no = ?, address = ?, family = ?, "
+				+ "pat_outdate = default, pat_gender = ?, pat_no = ?, address = ?, family = ?, "
 				+ "email = ?, pat_phone = ?, ward = ?, pat_doc = ?"
 				+ "where pat_num = ?";
 		
@@ -139,16 +139,15 @@ public class PatientDao {
 			pstmt.setString(1, patient.getPatName());
 			pstmt.setString(2, patient.getPatType());
 			pstmt.setDate(3, patient.getPatEntDate());
-			pstmt.setDate(4, patient.getPatOutDate());
-			pstmt.setString(5, patient.getPatGender());
-			pstmt.setString(6, patient.getPatNo());
-			pstmt.setString(7, patient.getAddress());
-			pstmt.setString(8, patient.getFamily());
-			pstmt.setString(9, patient.getEmail());
-			pstmt.setString(10, patient.getPatPhone());
-			pstmt.setString(11, patient.getWard());
-			pstmt.setString(12, patient.getPatDoc());
-			pstmt.setInt(13, patient.getPatNum());
+			pstmt.setString(4, patient.getPatGender());
+			pstmt.setString(5, patient.getPatNo());
+			pstmt.setString(6, patient.getAddress());
+			pstmt.setString(7, patient.getFamily());
+			pstmt.setString(8, patient.getEmail());
+			pstmt.setString(9, patient.getPatPhone());
+			pstmt.setString(10, patient.getWard());
+			pstmt.setString(11, patient.getPatDoc());
+			pstmt.setInt(12, patient.getPatNum());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
