@@ -564,7 +564,7 @@ $(function(){
         ***********************************-->
 		<div class="content-body">
 
-			<div class="container-fluid mt-3">
+			<div class="container-fluid mt-3" style="width: 101.4%;">
 				<div class="row">
 					<div class="col-lg-3 col-sm-6">
 						<div class="card gradient-1">
@@ -628,7 +628,7 @@ $(function(){
                                     </div>
                                        </div>
                                     <div class="card">
-                                <div class="card-body">
+                                <div class="card-body" style="background: #f3f3f9;">
                                     <h4 class="card-title">
 								<table id="newNotice" style="width: 500px; border-top: 1px solid #444444; border-collapse: collapse;">
 										<tr>
