@@ -23,16 +23,16 @@ import ERP.Position.model.vo.Position;
 import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
- * Servlet implementation class AuthoritySelectEmpServlet
+ * Servlet implementation class AuthoritySelectEmpList
  */
-@WebServlet("/auEmp")
-public class AuthoritySelectEmpServlet extends HttpServlet {
+@WebServlet("/selAuEmp")
+public class AuthoritySelectEmpList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AuthoritySelectEmpServlet() {
+    public AuthoritySelectEmpList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,7 +41,7 @@ public class AuthoritySelectEmpServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//권한 클리시 해당권한 가지고 있는 사원 가지고가는 서블릿
+		//사용자 선택창 사원목록에서 선택적용 클릭시 선택된 사원목록으로 이동시키는 컨트롤러
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp1 = (Employee)request.getSession().getAttribute("loginEmployee");
@@ -54,10 +54,12 @@ public class AuthoritySelectEmpServlet extends HttpServlet {
 			hostId = loginHospital.getNH_USERID();
 			hostPwd = loginHospital.getNH_USERPWD();
 		}
-		String auCode = request.getParameter("aucode");
-		System.out.println("서블릿에서 권한코드 받은 내용 =" + auCode);
-		
-		ArrayList<Employee> empList = new EmployeeService().selectAuthorityEmp(hostId, hostPwd, auCode);
+		String[] empId = request.getParameterValues("empid");
+		ArrayList<Employee> empList = new ArrayList<Employee>();
+		for(String i : empId) {
+			Employee emp = new EmployeeService().selectEmpId(i, hostId, hostPwd);
+			empList.add(emp);
+		}
 		
 			ArrayList<Department> dList = new ArrayList<Department>();
 			ArrayList<Position> pList= new ArrayList<Position>();
@@ -67,11 +69,6 @@ public class AuthoritySelectEmpServlet extends HttpServlet {
 			dList.add(dp);
 			pList.add(po);
 		}
-		System.out.println(dList);
-		System.out.println(pList);
-			
-			
-			
 		JSONObject sendJson = new JSONObject();
 		
 		JSONArray jarr1 = new JSONArray();

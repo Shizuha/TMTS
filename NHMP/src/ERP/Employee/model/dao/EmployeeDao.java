@@ -891,6 +891,53 @@ public class EmployeeDao {
 		return result;
 	}
 
+	public int AuthorUpdateEmp(Connection conn, String empId, String authority) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "update employee set AUTHORITY_CODE = ? where EMP_ID = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, authority);
+			pstmt.setString(2, empId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int DeleteAuEmployee(Connection conn, String empId, String au) {
+		//권한삭제시 해당권한들 G1으로 변경하는 Dao
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "update employee set AUTHORITY_CODE = ? where EMP_ID = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, au);
+			pstmt.setString(2, empId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
 	
 
 	

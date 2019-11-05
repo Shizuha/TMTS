@@ -209,6 +209,32 @@ public class EmployeeService {
 		return result;
 	}
 
+	public int AuthorUpdateEmp(String hostId, String hostPwd, String empId, String authority) {
+		//권한부여관리 사용자 선택창에서 사원 권한변경처리 업데이트 서비스
+		Connection conn = getConnection(hostId, hostPwd);
+		int result = eDao.AuthorUpdateEmp(conn, empId,authority);
+		
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int DeleteAuEmployee(String hostId, String hostPwd, String empId, String au) {
+		//사원들 권한 삭제시 권한 G1으로 바꾸는 서비스
+		Connection conn = getConnection(hostId, hostPwd);
+		int result = eDao.DeleteAuEmployee(conn, empId,au);
+		
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
 	
 
 	

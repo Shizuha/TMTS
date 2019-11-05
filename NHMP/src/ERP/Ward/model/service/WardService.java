@@ -39,4 +39,14 @@ public class WardService {
 		String result = wDao.PatientCount(conn);
 		return result;
 	}
+
+
+	public Ward selectAuWardName(String hostId, String hostPwd, String wardCode) {
+		//권한부여사용자선택창에서 사원클릭시 병동조회해오는 서비스
+		Connection conn = getConnection();
+		Ward wd = wDao.selectAuDeptName(conn, wardCode);
+		close(conn);
+		
+		return wd;
+	}
 }

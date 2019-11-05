@@ -193,7 +193,7 @@ function empList(id, index){
 }
 
 
-<</script> 
+</script> 
 
 <style type="text/css">
 
