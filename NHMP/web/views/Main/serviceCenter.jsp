@@ -246,16 +246,16 @@
 				</table>
 				<table id="selectTable">
 					<tr>
-						<td>가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차</td>
-						<td>가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차</td>
-						<td>가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차</td>
+						<td>소규모의 병원이 사용하는 기능들 입니다.<br> 최대 환자 50명, 직원 10명, 관리자 1명을 사용할 데이터를 제공합니다.</td>
+						<td style="border-left: 1px solid blue; height: 50%;">중규모의 병원이 사용하는 기능들 입니다.<br> 최대 환자 100명, 직원 30명, 관리자 2명을 사용할 데이터를 제공합니다.</td>
+						<td style="border-left: 1px solid blue; height: 50%;">대규모의 병원이 사용하는 기능들 입니다.<br> 최대 환자 300명, 직원 50명, 관리자 3명을 사용할 데이터를 제공합니다.</td>
 					</tr>
 					<tr>
-						<td>경량화 <br>
+						<td style="border-right: 1px solid blue; height: 50%;">경량화 <br>
 							<input type="radio" name="selectType" value="basic"
 										style="width:25px;height:25px;">
 					</td>
-						<td>고급형 <br>
+						<td style="border-right: 1px solid blue; height: 50%;">고급형 <br>
 							<input type="radio" name="selectType" value="advanced"
 										style="width:25px;height:25px;">
 						</td>
