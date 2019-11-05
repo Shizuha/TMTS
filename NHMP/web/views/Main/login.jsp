@@ -23,8 +23,8 @@
 	<script type="text/javascript">
 	
 	function logincheck(){
-		var idRule = /^[a-zA-Z](([a-zA-Z])|([0-9])){5,12}$/gi;
-		var passRule = /^[a-zA-Z](([a-zA-Z])|([0-9])){5,12}$/gi;
+		var idRule = /^[a-zA-Z](([a-zA-Z])|([0-9])){3,12}$/gi;
+		var passRule = /^[a-zA-Z](([a-zA-Z])|([0-9])){3,12}$/gi;
 		if(!(idRule.test($("input[type=text]").val())) || !(passRule.test($("input[type=password]").val()))){
 			alert("아이디와 패스워드를 화인해주세요");
 			return false;
