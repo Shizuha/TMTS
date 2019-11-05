@@ -14,16 +14,16 @@ import ERP.Employee.model.vo.Employee;
 import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
- * Servlet implementation class EmployeeIdCheckServlet
+ * Servlet implementation class EmployeeNameCheck
  */
-@WebServlet("/idchk")
-public class EmployeeIdCheckServlet extends HttpServlet {
+@WebServlet("/namechk")
+public class EmployeeNameCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmployeeIdCheckServlet() {
+    public EmployeeNameCheck() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +32,7 @@ public class EmployeeIdCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userid");
+		String empName = request.getParameter("empname");
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
@@ -46,9 +46,9 @@ public class EmployeeIdCheckServlet extends HttpServlet {
 			hostPwd = loginHospital.getNH_USERPWD();
 		}
 		
-		
-		int count = new EmployeeService().selectCheckId(userId,hostId, hostPwd);
-		
+		System.out.println(empName);
+		int count = new EmployeeService().selectCheckEmpName(empName,hostId, hostPwd);
+		System.out.println(count);
 		String returnValue = null;
 		
 		

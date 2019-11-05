@@ -127,6 +127,7 @@ public class EmployeeService {
 	}
 
 	public int selectCheckId(String userId,String hostId, String hostPwd) {
+		//사원정보등록페이지 에서 사원아이디 입력시 중복체크하는 서비스
 		Connection conn = getConnection(hostId, hostPwd);
 		int result = eDao.selectCheckId(conn, userId);
 		
@@ -226,6 +227,32 @@ public class EmployeeService {
 		//사원들 권한 삭제시 권한 G1으로 바꾸는 서비스
 		Connection conn = getConnection(hostId, hostPwd);
 		int result = eDao.DeleteAuEmployee(conn, empId,au);
+		
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int selectCheckEmail(String email, String hostId, String hostPwd) {
+		//인사정보등록 사원이메일 에이작스 확인 서비스
+		Connection conn = getConnection(hostId, hostPwd);
+		int result = eDao.selectCheckEmail(conn, email);
+		
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int selectCheckEmpName(String empName, String hostId, String hostPwd) {
+		//인사정보등록 사원 이름 중복확인 컨트롤러
+		Connection conn = getConnection(hostId, hostPwd);
+		int result = eDao.selectCheckEmpName(conn, empName);
 		
 		if(result > 0)
 			commit(conn);

@@ -22,8 +22,12 @@
 <link href="/NHMP/resources/ERP/css/insertEmployee.css" rel="stylesheet">
 <!-- 폰트 링크 추후 확인후 삭제 -->
 <link href="/NHMP/resources/ERP/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="/NHMP/resources/ERP/images/common/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
 function sample4_execDaumPostcode() {
@@ -85,31 +89,18 @@ function sample4_execDaumPostcode() {
     <!-- 스크립트 영역~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <script type="text/javascript" src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
-function chkName(str){
-	 var reg_name = /^[가-힣a-zA-Z]{2,9}$/;
-
- 	if(!reg_name.test(str)){
-  
- 		return false;
- 		}
-		return true;
-	}
 
 function formCheck(){
-	e.stopPropagtion();
-	$("input[name=empname]").val($("input[name=empname]").val().trim());
+	
+	
+	
+	
 		//이름 정규식
 	  if(!chkName($("input[name=empname]").val())){
 	   $(".empname").css("display", "inline-block");
 	   $("input[name=empname]").focus();
 	   return false;
 	  }
-		//아이디 정규식
-	  var idReg = /^[a-zA-Z]+[a-zA-Z0-9]{5,19}$/g;
-      if( !idReg.test( $("input[name=empids]").val() ) ) {
-          alert("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
-          return false;
-      }
       //암호정규식
       var passRule = /^[a-zA-Z](([a-zA-Z])|([0-9])){5,12}$/gi;//숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
       
@@ -119,13 +110,7 @@ function formCheck(){
        
           return false;
       }
-     //이메일 정규식
-      var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
       
-      if(!emailRule.test($("input[name=email]").val())) {            
-                  alert("이메일 형식에 부합하지 않습니다.");
-                  return false;
-      	}
       //휴대전화 정규식
       var regExp = /^\d{3,4}$/;
 		//휴대폰 중앙 자리
@@ -173,42 +158,110 @@ function formCheck(){
     	  alert("주민번호 형식에 맞지 않습니다.");
           return false;
 		}
-      //사원이름 중복 체크 
-      $.ajax({
-  		url: "/NHMP/namechk",
-  		type: "post",
-  		data: { username : $("input[name=empname]").val()},
-  		success: function(data){
-  			console.log("success :" + data.length);
-  			
-  			if(data.trim() == "ok"){
-  				alert("이미 존재하는 이름입니다.");
-  				$("input[name=empname]").select();
-  				return false;
-  			}
-  		},error : function(jqXHR,  textStatus,  errorThrown){//자료형은 자바스크립트에서 붙여주지 않는다.
-  	         console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
-  	       return false;
-  	      }
-  		});
   	
   	//부양가족 이름 정규식
   	var fy_namechk = /^[가-힣a-zA-Z]{2,9}$/;
   	if(!fy_namechk.test($("input[name=fyname]").val())){
- 	  	alert("한글 또는 영문 2~9자리 사이로 입려 하셔야 합니다.");
+ 	  	alert("한글 또는 영문 2~9자리 사이로 입력 하셔야 합니다.");
  	   $("input[name=empname]").focus();
  	   return false;
  	  }
-  	
+  	$(this).keydown(function(evt) {
+		if (evt.keyCode == 13) 
+			return false; 
+		});
   	return true;
 }
 </script>
 <script type="text/javascript">
 $(function(){
-		$("#empids").on("keyup",function(){
+	$("#empname").on("focusout",function(){
+		//사원이름 중복 체크 
+		
+		if($(this).val() != ""){
+			
+			
+	      $.ajax({
+	  		url: "/NHMP/namechk",
+	  		type: "post",
+	  		data: { empname : $("input[name=empname]").val()},
+	  		success: function(data){
+	  			console.log("success :" + data.length);
+	  			
+	  			if(data.trim() == "ok"){
+	  				$(".empname").css("display", "inline-block");
+					$(".empname2").css("display", "none");
+	  				$("input[name=empname]").select();
+	  				return false;
+	  			}else{
+	  				$(".empname2").css("display", "inline-block");
+					$(".empname").css("display", "none");
+	  				
+	  			}
+	  		},error : function(jqXHR,  textStatus,  errorThrown){//자료형은 자바스크립트에서 붙여주지 않는다.
+	  	         console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+	  	       return false;
+	  	      			}
+	  				});
+		 		
+			}
+		});
+	
+	$("#email").on("focusout",function(){
+		if($(this).val() != ""){
+		if($("input[name=email]").val() != ""){
+			var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		      
+		      if(!emailRule.test($("input[name=email]").val())) {            
+		    	 		 $(".EmailCheck").css("display", "inline-block");
+		                  return false;
+		      	}
+			$.ajax({
+				url: "/NHMP/emailChk",
+				type: "post",
+				data: { email : $("input[name=email]").val()},
+				success: function(data){
+					console.log("success :" + data.length);
+					
+					if(data.trim() == "ok"){
+						$(".errorEmailCheck").css("display", "inline-block");
+						$(".succesEmailCheck").css("display", "none");
+						$("input[name=email]").select();
+						return false;
+					}else{
+						$(".succesEmailCheck").css("display", "inline-block");
+						$("#userPwd").focus();
+						$(".errorEmailCheck").css("display", "none");
+						return false;
+					}
+					
+				},error : function(jqXHR,  textStatus,  errorThrown){//자료형은 자바스크립트에서 붙여주지 않는다.
+			         console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+			      }
+				});
+			
+		}else	
+			return false;
+		}
+	});	
+	
+	
+		$("#empids").on("focusout",function(){
 			
 			if($("input[name=empids]").val() != ""){
-				
+				//아이디 정규식
+				  var idReg = /^[a-zA-Z]+[a-zA-Z0-9]{5,19}$/g;
+			      if( !idReg.test( $("input[name=empids]").val() ) ) {
+			    	  $(".succesIdCheck").css("display", "none");
+			    	  $(".errorIdCheck").css("display", "none");
+			    	  $(".IdCheck").css("display", "inline-block");
+			    	  $("#userId").focus();
+			          return false;
+			      }else{
+			    	  $(".IdCheck").css("display", "none");
+			    	  $(".succesIdCheck").css("display", "inline-block");
+			    	  
+			      
 				$.ajax({
 					url: "/NHMP/idchk",
 					type: "post",
@@ -232,12 +285,14 @@ $(function(){
 				         console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
 				      }
 					});
-				
+			      }
 			}else	
 				return false;
+			
 		});
 		
     	$(".btn3").click(function(){
+    		e.stopPropagation();
     		//학력정보 추가시 
     		$(".insertemp4").append(
     				"<tr><td><input type='checkbox' class='shchk' name='shchk'></td><td>"
@@ -269,6 +324,7 @@ $(function(){
     	
 		
 		$(".btn5").click(function(){
+			e.stopPropagation();
 			//경력사항 추가시
 			$(".insertemp5").append(
 					"<tr>"
@@ -285,7 +341,7 @@ $(function(){
 		});
 		//경력사항 삭제시 체크된 경력정보행 삭제
 		$(".btn6").click(function(){
-            
+			e.stopPropagation();
             if($("input[name=comchk]").is(":checked") == true){ //체크된 요소가 있으면               
                   var i = $("input[name=comchk]:checked").parents("tr");
                            i.remove();
@@ -296,7 +352,7 @@ $(function(){
          });
 		//학력정보 삭제시 체크된 학력정보행 삭제처리
 		$(".btn4").click(function(){
-            
+			e.stopPropagation();
             if($("input[name=shchk]").is(":checked") == true){ //체크된 요소가 있으면               
                   var i = $("input[name=shchk]:checked").parents("tr");
                                        
@@ -308,7 +364,7 @@ $(function(){
          });
 		//부양가족 삭제시 체크된 가족행 삭제처리
 		$(".btn2").click(function(){
-            
+			e.stopPropagation();
             if($("input[name=fychk]").is(":checked") == true){ //체크된 요소가 있으면               
                   var i = $("input[name=fychk]:checked").parents("tr");
                                        
@@ -332,7 +388,12 @@ $(function(){
 			$(this).css({"box-shadow":"none"});
 			
 		});
-		
+		$(window).keydown(function(event){
+		    if(event.keyCode == 13) {
+		      event.preventDefault();
+		      return false;
+		    }
+		  });
 		
     });
 </script>
@@ -340,7 +401,7 @@ $(function(){
 $(function(){
 	//부양가족 추가버튼 누를시 처리
 	$(".btn1").click(function(){
-		e.stopPropagtion();
+		e.stopPropagation();
 		$(".insertemp3").append("<tr>"
 				+ "<td><input type='checkbox' class='fychk' name='fychk'></td>"
 				+ "<td>"
@@ -391,22 +452,22 @@ $(function(){
 	
 	
 	//비밀번호 중복체크 엔터키 누를시 체크
-	$("#emppwd2").on("keyup", function(event){
-		e.stopPropagtion();
-		if(event.keyCode == 13){
+	$("#emppwd2").on("focusout", function(event){
+		
+		
 			if($("#emppwd").val() != $(this).val()){
 				$(".checkPwd").css("display", "inline-block");
-				$("#emppwd2").select();
+				$("#emppwd").select();
 				$(".checkPwd2").css("display", "none");
-				
+				return false;
 			}else{
 				$(".checkPwd2").css("display", "inline-block");
 				$("input[name=email]").select();
 				$(".checkPwd").css("display", "none");
-				
+				return false;
 			}
-			
-		}
+		
+		e.stopPropagation();
 		return false; // 전송되지 않게 함.
 	});
 	
@@ -485,10 +546,16 @@ $(function(){
 	});
 	
 });
-</script>	
-	
+</script>
+<style>
+input[type=checkbox]{
+	background:#F3F3F9;
+}
+/* .Chk{
+	background:#F3F3F9;
+} */
+</style>	
 </head>
-
 <body>
 
 	<!--*******************
@@ -896,9 +963,10 @@ $(function(){
 				<tr>
 					<th>성명(한글)</th>
 						<td>
-						<input type="text" name="empname" id="empname" style="border-radius:5px;">&nbsp;
-						<span class="empname" style="color:red; display:none;">이름이 중복 됩니다.(한글,영어 2~9자 이내)</span>
-						<span class="empname2" style="color:green; display:none;">등록가능합니다.</span>
+						<input type="text" name="empname" id="empname" style="border-radius:5px;" required>&nbsp;
+						<span class="empname" style="color:red; display:none;">이름이 중복 됩니다!</span>
+						<span class="empname2" style="color:green; display:none;">멋진 이름이네요!</span>
+						<span class="empname3" style="color:red; display:none;">이름형식을확인해주세요!(한글,영어 2~9자 이내)</span>
 						</td>
 					<th>고용형태</th>
 						<td>
@@ -947,7 +1015,7 @@ $(function(){
 							<option value="내국인">내국인</option>
 							<option value="외국인">외국인</option>
 						</select>
-					</td><th>주민번호</th><td><input type="text" name="empno1"style="border-radius:5px;" required>-<input type="text"style="border-radius:5px;" name="empno2" required></td>
+					</td><th>주민번호</th><td><input type="text"maxlength="6" name="empno1"style="border-radius:5px;" required>-<input maxlength="7" type="text"style="border-radius:5px;" name="empno2" required></td>
 				<tr>
 				<tr>
 					<th>주소</th>
@@ -955,7 +1023,7 @@ $(function(){
 						<input type="text" id="sample4_postcode"style="border-radius:5px;" placeholder="우편번호">
 						<input type="button" onclick="sample4_execDaumPostcode();" value="우편번호 찾기">&nbsp;
 						<input type="text" id="sample4_roadAddress"name="address1" placeholder="도로명주소" style="border-radius:5px;">
-						<input type="text" id="sample4_jibunAddress"name="address2" placeholder="지번주소" style="border-radius:5px;"><br>
+						<input type="text" id="sample4_jibunAddress"name="address2" placeholder="지번주소" style="border-radius:5px; width:219px;"><br>
 						<input type="text" id="sample4_detailAddress"name="address3" placeholder="상세주소" style="border-radius:5px;">
 						<input type="text" id="sample4_extraAddress"name="address4" placeholder="참고항목" style="border-radius:5px;">
 					
@@ -963,8 +1031,8 @@ $(function(){
 				</tr>
 				<tr>
 					<th>전화번호</th>
-						<td><input typee="Tel"style="border-radius:5px;" name="adtel1">-
-						<input typee="Tel"style="border-radius:5px;" name="adtel2">-<input typee="Tel"style="border-radius:5px;" name="adtel3"></td>
+						<td><input maxlength="3" type="Tel"style="border-radius:5px;" name="adtel1">-
+						<input type="Tel"maxlength="4" style="border-radius:5px;" name="adtel2">-<input maxlength="4" type="Tel"style="border-radius:5px;" name="adtel3"></td>
 					<th>휴대폰</th>
 						<td>
 							<select name="phone" style="border-radius:5px;">
@@ -972,26 +1040,32 @@ $(function(){
 								<option value="011">011</option>
 								<option value="017">017</option>
 								<option value="016">016</option>
-							</select>&nbsp;-<input type="Tel"style="border-radius:5px;" name="phone2">-<input type="Tel"style="border-radius:5px;" name="phone3">
+							</select>&nbsp;-<input type="Tel" maxlength="4" style="border-radius:5px;" name="phone2">-<input type="Tel" maxlength="4" style="border-radius:5px;" name="phone3">
 						</td>
 				</tr>
 				<tr>
 					<th>아이디</th>
 						<td class="idtd">
-						<input type="text"style="border-radius:5px;" name="empids" id="empids">&nbsp;
+						<input type="text"style="border-radius:5px;" name="empids" id="empids" required>&nbsp;
 						<span class="succesIdCheck" style="display:none; color:green; font-size:10pt;">사용가능한 아이디 입니다!</span>
 						&nbsp;<span class="errorIdCheck" style="display:none; color:red;font-size:10pt;">이미 사용중인 아이디 입니다!</span>
+						<span class="IdCheck" style="display:none; color:red;font-size:10pt;">아이디형식에 맞지않습니다!</span>
 						</td>
 					<th>비밀번호</th>
-						<td><input type="password"style="border-radius:5px;" id="emppwd"name="emppwds">&nbsp;
-						중복확인<input type="password"style="border-radius:5px;"id="emppwd2">
+						<td><input type="password"style="border-radius:5px;" id="emppwd"name="emppwds" required>&nbsp;
+						중복확인<input type="password"style="border-radius:5px;"id="emppwd2" required>
 						<span class="checkPwd" style="color:red; display:none;">불일치!</span>
 						<span class="checkPwd2" style="color:green; display:none;">일치!</span>
 						</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
-						<td><input type="email" name="email" style="border-radius:5px;"></td>
+						<td>
+						<input type="email" name="email" id="email" style="border-radius:5px;">
+						<span class="succesEmailCheck" style="display:none; color:green; font-size:10pt;">사용가능한 이메일 입니다!</span>
+						&nbsp;<span class="errorEmailCheck" style="display:none; color:red;font-size:10pt;">이미 사용중인 이메일 입니다!</span>
+						<span class="EmailCheck" style="display:none; color:red;font-size:10pt;">이메일 형식이 틀립니다!</span>
+						</td>
 					<th>기본급</th>
 						<td><input type="text" name="salary"value="1750000"style="border-radius:5px;" required></td>
 				</tr>
@@ -1111,7 +1185,7 @@ $(function(){
 						<th>다자녀</th>
 					</tr>
 					<tr>
-						<td><input type="checkbox" class="fychk" name="fychk"></td>
+						<td class="Chk"><input type="checkbox" class="fychk" name="fychk"></td>
 						<td>
 							<select id="rship" name="rship">
 								<option value="0">--관계구분--</option> 
@@ -1157,7 +1231,7 @@ $(function(){
 							</select></td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" class="fychk" name="fychk"></td>
+						<td class="Chk"><input type="checkbox" class="fychk" name="fychk"></td>
 						<td>
 							<select id="rship" name="rship">
 								<option value="0">--관계구분--</option> 
@@ -1203,7 +1277,7 @@ $(function(){
 							</select></td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" class="fychk" name="fychk"></td>
+						<td class="Chk"><input type="checkbox" class="fychk" name="fychk"></td>
 						<td>
 							<select id="rship" name="rship">
 								<option value="0">--관계구분--</option> 
@@ -1263,7 +1337,7 @@ $(function(){
 						<th>이수</th>
 					</tr>
 					<tr>
-						<td><input type="checkbox" class="shchk" name="shchk"></td>
+						<td class="Chk"><input type="checkbox" class="shchk" name="shchk"></td>
 						<td>
 							<select id="shcool" name="shcool">
 								<option value="0">--구분--</option> 
@@ -1290,7 +1364,7 @@ $(function(){
 						</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" class="shchk" name="shchk"></td>
+						<td class="Chk"><input type="checkbox" class="shchk" name="shchk"></td>
 						<td>
 							<select id="shcool" name="shcool">
 								<option value="0">--구분--</option> 
@@ -1332,7 +1406,7 @@ $(function(){
 						<th>퇴사사유</th>
 					</tr>
 					<tr>
-						<td><input type="checkbox" class="comchk" name="comchk"></td>
+						<td class="Chk"><input type="checkbox" class="comchk" name="comchk"></td>
 						<td><input type="text" class="comchk" name="COM_NAME"value="퇼" required></td>
 						<td><input type="date" name="HIRE_DATE"value="2015-05-18" required></td>
 						<td><input type="date" name="LAST_DATE"value="2017-06-18" required></td>
@@ -1343,7 +1417,7 @@ $(function(){
 					</tr>
 				</table>
 				<div class="insert">
-				<input type="submit" id="as" value="등록하기" >&nbsp;<input type="reset" id="as" value="취소">
+				<input type="submit" id="sub" value="등록하기" >&nbsp;<input type="reset" id="re" value="취소">
 				</div>
 			</form>	
 		</div>
