@@ -10,7 +10,10 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <style type="text/css">
-	input[type=password] {
+	#userpwd,#userpwd2{
+		width:200px;
+	}
+	#userid{
 		width:200px;
 	}
 </style>
@@ -21,6 +24,12 @@ var cnt = 0;
 	//아이디 중복 확인
 	$(function() {
 		$("#idcheck").click(function(){
+			var idRule = /^[a-zA-Z](([a-zA-Z])|([0-9])){5,12}$/gi;
+			if(!idRule.test($("#userpwd").val())){
+				alert("아이디는 영문자로 시작하여 숫자+영문자로 6~12글자 자리로 입력하세요");
+				$("#userid").val("");
+				return false;
+			}
 			var userid = $("#userid").val();
 			if(userid.length != "0"){
 				$.ajax({
@@ -34,7 +43,7 @@ var cnt = 0;
 						} else {
 							alert(data);
 							$("#userid").select();
-						return false
+							return false;
 						}
 					},
 					error : function(jqXHR, textStatus, errorThrown ){
@@ -120,8 +129,8 @@ var cnt = 0;
 		<tr>
 			<th>아이디 *</th>
 			<td>
-				<input type="text" name="userid" id="userid" required> &nbsp;
-				<button id="idcheck" onclick="return checkId();">중복체크</button>
+				<input type="text" name="userid" id="userid" required placeholder="첫 글자 영문자 포함 6~12글자 "> &nbsp;
+				<button id="idcheck" onclick="return checkId();" >중복체크</button>
 			</td>
 		</tr>
 		
