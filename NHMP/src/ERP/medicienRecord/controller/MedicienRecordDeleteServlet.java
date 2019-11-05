@@ -52,7 +52,7 @@ public class MedicienRecordDeleteServlet extends HttpServlet {
 				renameFile.delete();
 			}
 			
-			response.sendRedirect("/NHMP/views/ERP/Admin_main.jsp");
+			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
 			request.setAttribute("message", mrNo + "번 투약일지 삭제 실패!");

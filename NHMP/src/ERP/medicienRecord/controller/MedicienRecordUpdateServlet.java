@@ -117,7 +117,7 @@ public class MedicienRecordUpdateServlet extends HttpServlet {
 		int result = new MedicienRecordService().updateMedicienRecord(emp, medicienRecord);
 		
 		if(result > 0) {
-			response.sendRedirect("/NHMP/views/ERP/Admin_main.jsp");
+			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
 			request.setAttribute("message", medicienRecord.getMrNo() + "번 투약일지 수정 실패!");

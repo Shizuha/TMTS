@@ -1,16 +1,14 @@
 package ERP.patient.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import ERP.Employee.model.vo.Employee;
 import ERP.patient.model.service.PatientService;
@@ -59,6 +57,15 @@ public class PatientUpdateServlet extends HttpServlet {
 		patient.setPatDoc(request.getParameter("pat_doc"));
 		
 		int result = new PatientService().updatePatient(emp, patient);
+		
+		
+		if(result > 0) {
+			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
+		}else {
+			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
+			request.setAttribute("message", patient.getPatNum() + "번 투약일지 수정 실패!");
+			view.forward(request, response);
+		}
 	}
 
 	/**

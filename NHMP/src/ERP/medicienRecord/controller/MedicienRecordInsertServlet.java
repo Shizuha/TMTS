@@ -110,7 +110,7 @@ public class MedicienRecordInsertServlet extends HttpServlet {
 		int result = new MedicienRecordService().insertMedicienRecord(emp, medicienRecord);
 		
 		if(result > 0) {
-			response.sendRedirect("/NHMP/views/ERP/Admin_main.jsp");
+			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
 			request.setAttribute("message", "새 투약일지 등록 실패!");

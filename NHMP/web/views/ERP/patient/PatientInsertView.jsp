@@ -28,7 +28,7 @@
 	src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
 <script>
 function movemain() {
-	location.href = "/NHMP/views/ERP/Admin_main.jsp";
+	location.href = "/NHMP/views/ERP/Employee.jsp";
 	return false;
 }
 </script>

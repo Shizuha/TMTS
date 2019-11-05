@@ -44,7 +44,7 @@ public class PatientDeleteServlet extends HttpServlet {
 		int result = new PatientService().deletePatient(emp, patNum);
 		
 		if(result > 0) {
-			response.sendRedirect("/NHMP/views/ERP/Admin_main.jsp");
+			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
 			request.setAttribute("message", patNum + "번의 환자 정보 삭제 실패!");
