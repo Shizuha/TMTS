@@ -96,7 +96,7 @@ function chkName(str){
 	}
 
 function formCheck(){
-	
+	e.stopPropagtion();
 	$("input[name=empname]").val($("input[name=empname]").val().trim());
 		//이름 정규식
 	  if(!chkName($("input[name=empname]").val())){
@@ -105,7 +105,7 @@ function formCheck(){
 	   return false;
 	  }
 		//아이디 정규식
-	  var idReg = /^[a-zA-Z]+[a-z0-9]{5,19}$/g;
+	  var idReg = /^[a-zA-Z]+[a-zA-Z0-9]{5,19}$/g;
       if( !idReg.test( $("input[name=empids]").val() ) ) {
           alert("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
           return false;
@@ -340,7 +340,7 @@ $(function(){
 $(function(){
 	//부양가족 추가버튼 누를시 처리
 	$(".btn1").click(function(){
-		
+		e.stopPropagtion();
 		$(".insertemp3").append("<tr>"
 				+ "<td><input type='checkbox' class='fychk' name='fychk'></td>"
 				+ "<td>"
@@ -392,7 +392,7 @@ $(function(){
 	
 	//비밀번호 중복체크 엔터키 누를시 체크
 	$("#emppwd2").on("keyup", function(event){
-		
+		e.stopPropagtion();
 		if(event.keyCode == 13){
 			if($("#emppwd").val() != $(this).val()){
 				$(".checkPwd").css("display", "inline-block");
