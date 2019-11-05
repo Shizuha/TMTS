@@ -212,6 +212,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 			pw.flush();
 			pw.close();
 		}
+		System.out.println("사원정보 등록한 행=" + result);
 		System.out.println("주민번호로 사원 한명 조회해오기전 사원주민번호=" + emp.getEmpNo());
 		Employee emp2 = new EmployeeService().selectOne(emp.getEmpNo(),hostId, hostPwd);
 		System.out.println("insert한뒤 사원주민번호로 사원조회해온 객체=" + emp2);
@@ -311,7 +312,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 		System.out.println(result2);
 		if(result2 == 0) {
 			pw.println("<script >");
-			pw.println("alert('정상적인 발송방식이 아닙니다 확인하세요.')");
+			pw.println("alert('부양가족 등록실패.')");
 			pw.println("history.back()");
 			pw.println("</script>");
 			pw.flush();
@@ -351,7 +352,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 		System.out.println(eduList);
 		 if(result3 == 0) {
 			 pw.println("<script >");
-				pw.println("alert('정상적인 발송방식이 아닙니다 확인하세요.')");
+				pw.println("alert('학력정보 등록실패.')");
 				pw.println("history.back()");
 				pw.println("</script>");
 				pw.flush();

@@ -938,6 +938,60 @@ public class EmployeeDao {
 		return result;
 	}
 
+	public int selectCheckEmail(Connection conn, String email) {
+		//인사정보등록 사원 이메일 확인 dao
+		int rowCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "select count(email) from employee where email = ?";
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, email);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				rowCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return rowCount;
+	}
+
+	public int selectCheckEmpName(Connection conn, String empName) {
+		//인사정보등록 사원 이름 확인 dao
+		int rowCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "select count(emp_name) from employee where emp_name = ?";
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, empName);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				rowCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return rowCount;
+	}
+
 	
 
 	

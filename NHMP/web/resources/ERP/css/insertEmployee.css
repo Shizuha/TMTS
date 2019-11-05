@@ -107,7 +107,8 @@
     }
     table{
     	width:100%;
-    	background:#f4f4f4;
+    	/* background:#f4f4f4; */
+    	backgound:#F3F3F9;
     	border: 1px solid #dddddd;
     }
     
@@ -185,7 +186,7 @@
     	text-align:center;
     	margin-top: 15px;
     }
-    #as{
+    #sub, #re{
     width:100px;
 
     background-color: #7571f9;
