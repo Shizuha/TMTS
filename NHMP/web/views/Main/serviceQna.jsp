@@ -990,7 +990,7 @@ input[type="button"].btn-block {
 			<% if (loginHospital == null) {	%>
 			<h1 align="center">회원 가입 후 신청해주세요.</h1>
 			<% } else { %>
-			<% if(loginHospital.getNH_SERVICE_CODE().equals("GS0") || loginHospital.getAUTHORITY_CODE().equals("G1")) { %>
+			<% if(loginHospital.getNH_SERVICE_CODE().equals("GS0") || loginHospital.getAUTHORITY_CODE().equals("G1") || loginHospital.getNH_SERVICE_CODE().equals("GS2")){ %>
 			<table style="width: 100%; border-top: 1px solid #444444; border-collapse: collapse;">
 				<tr>
 					<th

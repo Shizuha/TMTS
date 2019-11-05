@@ -154,8 +154,8 @@
             		<span class="flaticon-cloud"></span>
             	</div>
               <div class="media-body pl-4">
-                <h3 class="heading">매우 빠른 서버</h3>
-                <p class="mb-0">Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                <h3 class="heading">빠른 도입</h3>
+                <p class="mb-0">설치형 프로그램이 아니기 때문에 도입 결정과 동시에 즉시 사용할 수 있습니다.</p>
               </div>
             </div>      
           </div>
@@ -166,7 +166,7 @@
             	</div>
               <div class="media-body pl-4">
                 <h3 class="heading">매일마다 백업</h3>
-                <p class="mb-0">Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                <p class="mb-0">사용자가 입력한 자료는 개인 PC나 자체 서버, USB가 아닌 TMTS 서버에 안전하게 보관됩니다.</p>
               </div>
             </div>    
           </div>
@@ -177,7 +177,7 @@
             	</div>
               <div class="media-body pl-4">
                 <h3 class="heading">전문적인 고객상담</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                <p>전화, 게시판 상담 외에도 요청에 따라 원격으로 문제를 해결할 수 있습니다.</p>
               </div>
             </div>        
           </div>
@@ -190,17 +190,16 @@
         <div class="row d-flex justify-content-center">
           <div class="col-md-10 text-center d-flex ftco-animate">
           	<div class="blog-entry justify-content-end">
-              <a href="blog-single.html" class="block-20 img" style="background-image: url('/NHMP/resources/Main/images/image_4.jpg');">
+              <a href="#" class="block-20 img" style="background-image: url('/NHMP/resources/Main/images/image_4.jpg');">
               </a>
               <div class="text pt-4 px-md-5">
-              	<div class="meta mb-3">
-                  <div><a href="#">Aug 05, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                <p><a href="blog-single.html" class="btn-custom">Continue <span class="icon-long-arrow-right"></span></a></p>
+                <h3 class="heading mt-2">PC설치형과 클라우드 설치형 중에 선택을 할 수 있습니다.</h3>
+                <h4>PC설치형</h4>
+                <p>서버 PC와 직원 PC에 프로그램 및 DB 설치 방식 프로그램이 설치된 PC에서만 사용 가능</p>
+           		<p>서버, 스토리지, 네트워크, 보안 등 제반 ICT자원을 기업이 직접 관리</p>
+           		<h4>클라우드 설치형</h4>
+           		<p>인터넷을 통해 로그인하여 사용하는 방식 (프로그램 설치 불필요)</p>
+           		<p>프로그램이 설치되어 있지 않은 PC는 물론 모바일 기기(스마트폰, 태블릿)에서도 사용 가능</p>
               </div>
             </div>
           </div>
