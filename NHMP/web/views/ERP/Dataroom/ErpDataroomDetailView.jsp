@@ -469,7 +469,7 @@ Dataroom dataroom = (Dataroom)request.getAttribute("dataroom");
 		첨부파일 없음		
 	<% } %>
 	</td></tr>
-	<tr><th>내용</th><td colspan="3"><%= dataroom.getDataroomContent() %></td></tr>
+	<tr><th>내용</th><td colspan="3"><%= dataroom.getDataroomContent().replace("\r\n", "<br>") %></td></tr>
 	<tr><th colspan="4"><a href="/NHMP/drlist">목록으로 이동</a></th></tr>
 	</table>
 	
