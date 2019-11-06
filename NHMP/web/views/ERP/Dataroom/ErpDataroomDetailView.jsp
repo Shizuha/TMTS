@@ -7,17 +7,14 @@
 <%
 	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
 %>
+<%@ page import="ERP.Dataroom.model.vo.Dataroom, java.util.ArrayList" %>
 
-<%@ page import="ERP.notice.model.vo.Notice, java.util.ArrayList" %>
-<% //스크립트릿(scriptlet) 태그라고 함
-	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
-%>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.If"%>
+
+
 <%
-	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
-	int beginPage = ((Integer)request.getAttribute("beginPage")).intValue();
-	int endPage = ((Integer)request.getAttribute("endPage")).intValue();
-	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
-%>
+Dataroom dataroom = (Dataroom)request.getAttribute("dataroom");
+%>   
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +24,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMTS</title>
+
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="/NHMP/resources/ERP/images/common/favicon.png">
@@ -42,48 +40,7 @@
 <!-- Custom Stylesheet -->
 <link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
 
-<!-- ErpNoticeListView.jsp 추가분 -->
 
-<style type="text/css">
-div.searchbox {
-	border : 1px solid blue;
-	width : 600px;
-	height : 120px;
-	background : ivory;
-	padding : 0;
-}
-</style>
-<script type="text/javascript" src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	showDiv();
-	
-	$("input[name=item]").on("change", function(){
-		showDiv();
-	});
-});
-
-function showDiv(){
-	if($("input[name=item]").eq(0).is(":checked")){
-		$("#titlediv").css("display", "block");
-		$("#writerdiv").css("display", "none");
-		$("#datediv").css("display", "none");
-	}
-	
-	if($("input[name=item]").eq(1).is(":checked")){
-		$("#titlediv").css("display", "none");
-		$("#writerdiv").css("display", "block");
-		$("#datediv").css("display", "none");
-	}
-	
-	if($("input[name=item]").eq(2).is(":checked")){
-		$("#titlediv").css("display", "none");
-		$("#writerdiv").css("display", "none");
-		$("#datediv").css("display", "block");
-	}
-}
-</script>
-<!-- ErpNoticeListView.jsp 추가분 끝 -->
 
 
 </head>
@@ -492,98 +449,33 @@ function showDiv(){
 			</div>
 			
 		</div>
+<!-- ErpdataroomListView.jsp 추가분 -->		
+<center>		
 		
-		<!-- ErpNoticeListView.jsp 추가분 -->
-<h1 align="center">공지사항 전체 목록 보기 : <%= list.size() %> 개</h1>
-<h3 align="center"><a href="/NHMP/nlist">전체 목록 보기</a></h3>
-<center>
-<div class="searchbox">
-<div>
-	<h2>검색할 항목을 선택하시오.</h2>
-	<input type="radio" name="item" value="title" checked> 제목 &nbsp; &nbsp; &nbsp; 
-	<input type="radio" name="item" value="writer"> 작성자 &nbsp; &nbsp; &nbsp; 
-	<input type="radio" name="item" value="date"> 날짜
-</div>
-<div id="titlediv">
-	<form action="/NHMP/nsearch" method="post">
-		<input type="hidden" name="search" value="title">
-		<label>검색할 제목을 입력하시오 : 
-		<input type="search" name="keyword"></label>
-		<input type="submit" value="검색">
-	</form>
-</div>
-<div id="writerdiv">
-	<form action="/NHMP/nsearch" method="post">
-		<input type="hidden" name="search" value="writer">
-		<label>검색할 작성자 아이디를 입력하시오 : 
-		<input type="search" name="keyword"></label>
-		<input type="submit" value="검색">
-	</form>
-</div>
-<div id="datediv">
-	<form action="/NHMP/nsearch" method="post">
-		<input type="hidden" name="search" value="date">
-		<label>검색할 날짜를 선택하시오 : 
-		<input type="date" name="from"> ~ <input type="date" name="to"></label>
-		<input type="submit" value="검색">
-	</form>
-</div>
-</div>
-<br>
-<table align="center" width="600" border="1" cellspacing="0" cellpadding="5" float="block">
-<tr >
-	<th>번호</th>
-	<th>제목</th>
-	<th>작성자</th>
-	<th>작성날짜</th>
-	<th>조회수</th>
-</tr>
-<% for(Notice n : list){ %>
-<tr >
-	<th><%= n.getNoticeNo() %></th>
-	<td><a href="/NHMP/ndetail?no=<%= n.getNoticeNo() %>"><%= n.getNoticeTitle() %></a></td>
-	<td><%= n.getNoticeWriter() %></td>
-	<td align="center">
-		<%= n.getNoticeDate() %>
-	</td>
-	<td><%= n.getNoticeCount() %></td>
-</tr>
-<% } %>
-
-
-
-</table>
-
-     <!-- 패이징처리 서블릿 -->
-<div id="pagebox" align="center">
-<a href="/NHMP/nlist?page=1">|◁</a> &nbsp;
-<% if((beginPage - 10) < 1){ %>
-	<a href="/NHMP/nlist?page=1">◀◀</a>
-<% }else{ %>
-	<a href="/NHMP/nlist?page=<%= beginPage - 10 %>">◀◀</a>
-<% } %> &nbsp;
-<% for(int p = beginPage; p <= endPage; p++){ 
-		if(p == currentPage){
-%>
-	<a href="/NHMP/nlist?page=<%= p %>"><font color="red"><b>[<%= p %>]</b></font></a>
-<% }else{ %>
-	<a href="/NHMP/nlist?page=<%= p %>"><%= p %></a>
-<% }}  %> &nbsp;
-<% if((endPage + 10) > maxPage){ %>
-	<a href="/NHMP/nlist?page=<%= maxPage %>">▶▶</a>
-<% }else{ %>
-	<a href="/NHMP/nlist?page=<%= endPage + 10 %>">▶▶</a>
-<% } %> &nbsp;
-<a href="/NHMP/nlist?page=<%= maxPage %>">▷|</a>
-</div>
-<!-- 홈으로 가는 버튼 생성 -->
-<div align="center">
-	<a href="/NHMP/nlist">홈으로 이동</a>
-</div>
-        
-<!-- ErpNoticeListView.jsp 추가분 끝-->
+	
+	
+	
+		
+	<table align="center" width="500" border="1" cellspacing="0" cellpadding="5">
+	<tr><th colspan="4"><%= dataroom.getDataroomNo() %>번 공지사항 화면</th></tr>
+	<tr><th >제목</th><td><%= dataroom.getDataroomTitle() %></td><th>조회수</th><td><%= dataroom.getDataroomCount() %></td></tr>
+	<tr><th>작성자</th><td colspan="3"><%= dataroom.getDataroomWriter() %></td></tr>
+	<tr><th>등록날짜</th><td colspan="3"><%= dataroom.getDataroomDate() %></td></tr>
+	<tr><th>첨부파일</th>
+	<td colspan="3">
+	<% if(dataroom.getDataroomOriginalFileName() != null){ %>
+		<a href="/NHMP/drfdown?ofile=<%= dataroom.getDataroomOriginalFileName() %>&rfile=<%= dataroom.getDataroomRenameFileName() %>"><%= dataroom.getDataroomRenameFileName() %></a>
+	<% }else{ %>
+		첨부파일 없음		
+	<% } %>
+	</td></tr>
+	<tr><th>내용</th><td colspan="3"><%= dataroom.getDataroomContent() %></td></tr>
+	<tr><th colspan="4"><a href="/NHMP/drlist">목록으로 이동</a></th></tr>
+	</table>
+	
 </center>
-<br>
+<!-- ErpdataroomListView.jsp 추가분 끝-->
+
 
 
 
@@ -1150,7 +1042,6 @@ function showDiv(){
 			<!--**********************************
             Content body end
         ***********************************-->
-   
 
 
 			<!--**********************************

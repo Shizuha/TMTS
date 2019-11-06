@@ -1,7 +1,7 @@
-package ERP.notice.controller;
+package ERP.Dataroom.model.controller;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.sql.*;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -11,20 +11,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ERP.notice.model.service.NoticeService;
-import ERP.notice.model.vo.Notice;
+import ERP.Dataroom.model.vo.Dataroom;
+import ERP.Dataroom.model.service.DataroomService;
+
 import Main.NursingHospital.model.ov.NursingHospital;
+
 /**
- * Servlet implementation class NoticeSearchServlet
+ * Servlet implementation class DataroomAdminSearchServlet
  */
-@WebServlet("/nsearch.ad")
-public class NoticeAdminSearchServlet extends HttpServlet {
+@WebServlet("/drsearch.ad")
+public class DataroomAdminSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeAdminSearchServlet() {
+    public DataroomAdminSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,35 +35,31 @@ public class NoticeAdminSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 공지사항 글 검색 처리용 컨트롤러(재목 검색, 작성자 검색, 작성날짜 검색 기능)
-		
+		// 자료실 글 검색 처리용 컨트롤러(재목 검색, 작성자검색, 관리자전용)
 		//nursinghospital 의 로그인정보 받아오기
 		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
-		
+				
 		//1. 한글 깨짐 방지를 위한 인코딩 처리
 		request.setCharacterEncoding("utf-8");
-		
+				
 		//2. 전송온 값 변수에 옮기기 / 서비스로 옮기기 위하여 3번을 하기 위해 변수로 담아둠
 		String search = request.getParameter("search");
-		
+				
 		//3. 서비스로 전송 온 값 옮기고 결과받을 변수 준비
-		ArrayList<Notice> list = null;
+		ArrayList<Dataroom> list = null;
 		
-		//4. 노티스 서비스 준비
-		NoticeService nservice = new NoticeService();
+		//4. 자료실서비스 준비
+		DataroomService drservice = new DataroomService();
 		
-		//5. 검색자 구분하기
+		
+		//5. 검색자구분하기
 		switch(search) {
-		case "title":	String noticeTitle = request.getParameter("keyword");
-						list = nservice.selectTitleSearch(noticeTitle, loginHospital);
+		case "title":	String dataroomTitle = request.getParameter("keyword");
+						list = drservice.selectTitleSearch(dataroomTitle, loginHospital);
 						break;
-		case "writer":	String noticeWriter = request.getParameter("keyword");
-						list = nservice.selectWriterSearch(noticeWriter, loginHospital);
+		case "writer":	String dataroomWriter = request.getParameter("keyword");
+						list = drservice.selectWriterSearch(dataroomWriter, loginHospital);
 						break;
-		case "date": String beginDate = request.getParameter("from");
-					 String toDate = request.getParameter("to");
-					 list = nservice.selectDateSearch(Date.valueOf(beginDate),Date.valueOf(toDate),loginHospital);	
-					 	break;
 		}
 		
 		int currentPage = 1;
@@ -88,9 +86,8 @@ public class NoticeAdminSearchServlet extends HttpServlet {
 		
 		//6. 리턴값 내보내서 성공 실패 확인하기(리스트는 일반 리스트인대 admin리스트는?뷰파일을 두개 넣는 방법은?)admin 서블릿을 만들어야됨
 		RequestDispatcher view = null;
-		if (list.size() >= 0) {
-			view = request.getRequestDispatcher("views/ERP/Notice/ErpAdminNoticeListView.jsp");
-			
+		if (list.size() > 0) {
+			view = request.getRequestDispatcher("views/ERP/Dataroom/ErpAdminDataroomListView.jsp");
 			request.setAttribute("list", list);
 			request.setAttribute("maxPage", maxPage);
 			request.setAttribute("currentPage", currentPage);
@@ -102,8 +99,20 @@ public class NoticeAdminSearchServlet extends HttpServlet {
 			request.setAttribute("message", search + " 글 검색 조회 실패!");
 			view.forward(request, response);	
 		}
+		
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -113,7 +122,6 @@ public class NoticeAdminSearchServlet extends HttpServlet {
 	}
 
 }
-
 
 
 

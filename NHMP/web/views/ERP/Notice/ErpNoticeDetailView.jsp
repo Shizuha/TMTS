@@ -23,6 +23,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMTS</title>
+
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="/NHMP/resources/ERP/images/common/favicon.png">
@@ -73,7 +74,7 @@
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
-				<a href="/NHMP/views/ERP/main.jsp"> <b class="logo-abbr"><img
+				<a href="/NHMP/views/ERP/Employee.jsp"> <b class="logo-abbr"><img
 						src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> <span
 					class="logo-compact"><img
 						src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
@@ -287,9 +288,9 @@
 						<i class="fa fa-users"></i><span class="nav-text">인사관리</span> 
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="layout-blank.html">인사정보관리</a></li>
-							<li><a href="layout-one-column.html">인사정보등록</a></li>
-							<li><a href="layout-two-column.html">조직도</a></li>
+							<li><a href="/NHMP/list">전체사원조회</a></li>
+							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
+							<li><a href="/NHMP/ochart">조직도</a></li>
 							<!--
                             <li><a href="layout-compact-nav.html">Compact Nav</a></li>
                             <li><a href="layout-vertical.html">Vertical</a></li>
@@ -304,22 +305,18 @@
 
 						</ul>
 					</li>
-					<!-- <li class="nav-label">Apps</li> -->
 					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> 
-						<i class="fa fa-id-card"></i> 
-						<span class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
+						aria-expanded="false"> <i class="fa fa-id-card"></i> <span
+							class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
 					</a>
-						<% if(loginHospital != null) { %>
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/authall">권한부여관리</a></li>
+							<li><a href="#">권한부여관리</a></li>
 							<!--
                             <li><a href="email-read.html">수당항목등록</a></li>
                             <li><a href="email-compose.html">급여계산</a></li>
                             -->
-						</ul>
-						<% } %>
-					</li>
+						</ul></li>
+					<!-- <li class="nav-label">Apps</li> -->
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
 							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
@@ -328,7 +325,7 @@
 						<ul aria-expanded="false">
 							<li><a href="app-profile.html">전체환자 조회</a></li>
 							<li><a href="app-calender.html">환자 입원 등록</a></li>
-							<li><a href="app-calender.html">상담일지 등록</a></li>
+							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
 							<li><a href="app-calender.html">투약일지 등록</a></li>
 						</ul></li>
 					<!--
@@ -362,23 +359,13 @@
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
-							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
-							<li><a href="/NHMP/paylist">급여계산</a></li>
+							<!-- <li><a href="/NHMP/deduclise">공제항목등록</a></li>
+							<li><a href="/NHMP/allowlist">수당항목등록</a></li> -->
+							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 							<!--
                             <li><a href="ui-button.html">Button</a></li>
                             <li><a href="ui-button-group.html">Button Group</a></li>
                             <li><a href="ui-cards.html">Cards</a></li>
-                            <li><a href="ui-carousel.html">Carousel</a></li>
-                            <li><a href="ui-dropdown.html">Dropdown</a></li>
-                            <li><a href="ui-list-group.html">List Group</a></li>
-                            <li><a href="ui-media-object.html">Media Object</a></li>
-                            <li><a href="ui-modal.html">Modal</a></li>
-                            <li><a href="ui-pagination.html">Pagination</a></li>
-                            <li><a href="ui-popover.html">Popover</a></li>
-                            <li><a href="ui-progressbar.html">Progressbar</a></li>
-                            <li><a href="ui-tab.html">Tab</a></li>
-                            <li><a href="ui-typography.html">Typography</a></li>
                             -->
 							<!-- </ul>
                     </li>
@@ -454,11 +441,12 @@
 					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
-					<li><a href="javascript:void()" aria-expanded="false"> <i
+					<li><a href="/NHMP/drlist" aria-expanded="false"> <i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
+					</ul>
 			</div>
-			</ul>
+			
 		</div>
 <!-- ErpNoticeListView.jsp 추가분 -->		
 <center>		
