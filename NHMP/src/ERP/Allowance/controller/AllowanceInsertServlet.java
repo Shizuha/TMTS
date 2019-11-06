@@ -44,7 +44,7 @@ public class AllowanceInsertServlet extends HttpServlet {
 		awna.setALLOWANCE_FORMULA(request.getParameter("Aformula"));
 		awna.setALLOWANCE_ETC(request.getParameter("Aetc"));
 		
-		int result = new AllowanceService().insertAllowance(awna);
+		int result = new AllowanceService().insertAllowance(awna, loginHospital);
 		RequestDispatcher view = null;
 		if(result > 0 ) {
 			ArrayList<Allowance> list = new AllowanceService().selectList(loginHospital);

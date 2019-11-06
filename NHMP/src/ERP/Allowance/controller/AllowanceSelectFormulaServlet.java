@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import ERP.Allowance.model.service.AllowanceService;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 
 /**
@@ -34,9 +35,10 @@ public class AllowanceSelectFormulaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 수당 수식 조회용 컨트롤러
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
 		String Acode = request.getParameter("acode");
 				
-		String Formula = new AllowanceService().selectFormula(Acode);
+		String Formula = new AllowanceService().selectFormula(Acode, loginHospital);
 		
 		System.out.println("servlet formula : " + Formula);
 		

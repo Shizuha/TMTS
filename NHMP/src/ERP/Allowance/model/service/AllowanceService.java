@@ -34,8 +34,8 @@ public class AllowanceService {
 		return null;
 	}
 
-	public int insertAllowance(Allowance awna) {
-		Connection conn = getConnection();
+	public int insertAllowance(Allowance awna, NursingHospital loginHospital) {
+		Connection conn = getConnection(loginHospital.getNH_USERID(),loginHospital.getNH_USERPWD());
 		int result = ADao.insertAllowance(conn, awna);
 		close(conn);
 		if(result > 0) {
@@ -46,15 +46,15 @@ public class AllowanceService {
 		return result;
 	}
 
-	public String selectFormula(String acode) {
-		Connection conn = getConnection();
+	public String selectFormula(String acode, NursingHospital loginHospital) {
+		Connection conn = getConnection(loginHospital.getNH_USERID(), loginHospital.getNH_USERPWD());
 		String Formula = ADao.selectFormula(conn, acode);
 		close(conn);
 		return Formula;
 	}
 
-	public int deleteAllowance(String code) {
-		Connection conn = getConnection();
+	public int deleteAllowance(String code, NursingHospital loginHospital) {
+		Connection conn = getConnection(loginHospital.getNH_USERID(), loginHospital.getNH_USERPWD());
 		int result = ADao.deleteAllowance(conn, code);
 		close(conn);
 		return result;

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ERP.Allowance.model.service.AllowanceService;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class AllowanceGetFormulaServlet
@@ -31,10 +32,11 @@ public class AllowanceGetFormulaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 급여 계산의 수당 수식 처리용 컨트롤러
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
 			String Acode = request.getParameter("Acode");
 			System.out.println(Acode);
 			
-			String aformula = new AllowanceService().selectFormula(Acode);
+			String aformula = new AllowanceService().selectFormula(Acode, loginHospital);
 				
 			System.out.println("servlet aformula : "+aformula);
 			
