@@ -94,6 +94,7 @@ function sample4_execDaumPostcode() {
 <script type="text/javascript">
 
 function formCheck(){
+	alert("이벤트 실행됨");
 	//이름 정규식
 		var chkName = /^[가-힣a-zA-Z]{2,6}$/;	
 	  if(!chkName($(this).val())){
@@ -101,15 +102,7 @@ function formCheck(){
 	   $(this).focus();
 	   return false;
 	  }
-      //암호정규식
-      var passRule = /^[a-zA-Z](([a-zA-Z])|([0-9])){5,12}$/gi;//숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
-      
-      if(!passRule.test($("#emppwd").val())) {
-         
-    	  alert("암호는 첫번째 특수문자를 포함한 숫자와 문자 포함 형태의 6~12자리 이내의 암호로 입력하셔야 합니다.");
-       
-          return false;
-      }
+     
       
       //휴대전화 정규식
       var regExp = /^\d{3,4}$/;
@@ -462,7 +455,18 @@ $(function(){
 	
 	//비밀번호 중복체크 엔터키 누를시 체크
 	$("#emppwd2").on("focusout", function(event){
-		
+		 //암호정규식
+	      var passRule = /^[a-zA-Z](([a-zA-Z])|([0-9])){5,12}$/gi;//숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
+	      
+	      if(!passRule.test($("#emppwd").val())) {
+	         
+	    	  alert("암호는 첫번째 특수문자를 포함한 숫자와 문자 포함 형태의 6~12자리 이내의 암호로 입력하셔야 합니다.");
+	       		$("#emppwd").val("");
+	       		$("#emppwd2").val("");
+	       		$("#emppwd").focus();
+	       		
+	          return false;
+	      }
 		
 			if($("#emppwd").val() != $(this).val()){
 				$(".checkPwd").css("display", "inline-block");
@@ -814,7 +818,9 @@ input[type=checkbox]{
         ***********************************-->
 		<div class="nk-sidebar">
 			<div class="nk-nav-scroll">
+				<%if(emp != null){ %>
 				<ul class="metismenu" id="menu">
+					<%if(emp.getAuthorityCode().equals("G5")){ %>
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
 						href="javascript:void()" aria-expanded="false"> 
 						<i class="fa fa-users"></i><span class="nav-text">인사관리</span> 
@@ -823,39 +829,52 @@ input[type=checkbox]{
 							<li><a href="/NHMP/list">전체사원조회</a></li>
 							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
 							<li><a href="/NHMP/ochart">조직도</a></li>
-							<!--
-                            <li><a href="layout-compact-nav.html">Compact Nav</a></li>
-                            <li><a href="layout-vertical.html">Vertical</a></li>
-                            <li><a href="layout-horizontal.html">Horizontal</a></li>
-                            <li><a href="layout-boxed.html">Boxed</a></li>
-                            <li><a href="layout-wide.html">Wide</a></li>
-
-
-                            <li><a href="layout-fixed-header.html">Fixed Header</a></li>
-                            <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li>
-                        -->
-
 						</ul>
 					</li>
-					<!-- <li class="nav-label">Apps</li> -->
-					<%if(emp == null){ %>
+						<%} %>
+						<%if(emp.getAuthorityCode().equals("G2")){ %>
 					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> 
-						<i class="fa fa-id-card"></i>
-						 
+						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
+							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
+					</a>
+						<ul aria-expanded="false">
+							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
+							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
+									입원 등록</a></li>
+							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
+							<li><a href="/NHMP/recordlistview">투약일지 등록</a></li>
+						</ul></li>
+					<%} %>
+					<li><a class="has-arrow" href="javascript:void()"
+						aria-expanded="false"> <i class="fa fa-usd"></i><span
+							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
+					</a>
+						<ul aria-expanded="false">
+							<li><a href="/NHMP/Epaylist">급여계산</a></li>
+						</ul>
+						<%}else{ %>
+						<ul class="metismenu" id="menu">
+					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
+						href="javascript:void()" aria-expanded="false"> 
+						<i class="fa fa-users"></i><span class="nav-text">인사관리</span> 
+					</a>
+						<ul aria-expanded="false">
+							<li><a href="/NHMP/list">전체사원조회</a></li>
+							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
+							<li><a href="/NHMP/ochart">조직도</a></li>
+						</ul>
+					</li>
+					<li><a class="has-arrow" href="javascript:void()"aria-expanded="false"> <i class="fa fa-id-card"></i>
 						<span class="nav-text">권한설정</span>
 					</a>
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/authlist">권한부여관리</a></li>
 						</ul>
-						
 					</li>
-					<%} %>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
-							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
+							class="nav-text">환자 관리</span>
 					</a>
-
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
 							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
@@ -865,26 +884,19 @@ input[type=checkbox]{
 						</ul></li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span
-							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
+							class="nav-text">급여 관리</span> 
 					</a>
 						<ul aria-expanded="false">
-							<!-- <li><a href="/NHMP/deduclise">공제항목등록</a></li>
-							<li><a href="/NHMP/allowlist">수당항목등록</a></li> -->
-							<li><a href="/NHMP/paylist">급여계산</a></li>
-							<!--
-                            <li><a href="ui-button.html">Button</a></li>
-                            <li><a href="ui-button-group.html">Button Group</a></li>
-                            -->
-							<!-- </ul>-->
-                    
+							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 						</ul>
+						<%} %>
 					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
 					<li><a href="/NHMP/drlist" aria-expanded="false"> <i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
-				</ul>
+					</ul>
 			</div>
 		</div>
 

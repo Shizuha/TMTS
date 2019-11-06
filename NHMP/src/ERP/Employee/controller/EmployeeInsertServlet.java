@@ -288,7 +288,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 		String[] mChild = mrequest.getParameterValues("M_CHILD");
 		
 		ArrayList<Dependents> drr = new ArrayList<Dependents>();
-		
+		if(rship != null) {
 		for(int i = 0; i < rship.length; i++) {
 			
 			String rrship = rship[i];
@@ -317,8 +317,8 @@ public class EmployeeInsertServlet extends HttpServlet {
 			pw.println("</script>");
 			pw.flush();
 			pw.close();
+			}
 		}
-		
 		String[] itforNal = mrequest.getParameterValues("shcool");
 		String[] adDate = mrequest.getParameterValues("AD_DATE");
 		String[] grDate = mrequest.getParameterValues("GR_DATE");
