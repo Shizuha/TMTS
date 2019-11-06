@@ -21,9 +21,6 @@
 <link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
 <link href="/NHMP/resources/ERP/css/employeeListViewCss.css"
 	rel="stylesheet">
-<!-- 아이콘 처리용 -->
-<link href="/NHMP/resources/ERP/vender/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
 
 
 

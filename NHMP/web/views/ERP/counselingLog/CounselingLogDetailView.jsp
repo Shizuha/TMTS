@@ -23,9 +23,6 @@
 <link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
 <link href="/NHMP/resources/ERP/css/employeeListViewCss.css"
 	rel="stylesheet">
-<!-- 아이콘 처리용 -->
-<link href="/NHMP/resources/ERP/vender/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
 
 
 
@@ -38,8 +35,7 @@ function moveupdate(){
 	return false;
 }
 function movedelete(){
-	location.href = "/NHMP/counseldelete?cl_no=<%=counselingLog.getClNo()%>&rfile=<%=counselingLog.getClRenameFileName()%>
-	";
+	location.href = "/NHMP/counseldelete?cl_no=<%= counselingLog.getClNo()%>&rfile=<%= counselingLog.getClRenameFileName()%>";
 		return false;
 	}
 </script>

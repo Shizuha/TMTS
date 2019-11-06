@@ -27,9 +27,6 @@
 <link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
 <link href="/NHMP/resources/ERP/css/employeeListViewCss.css"
 	rel="stylesheet">
-<!-- 아이콘 처리용 -->
-<link href="/NHMP/resources/ERP/vender/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
 
 
 
@@ -149,28 +146,21 @@
         ***********************************-->
 		<div class="nk-sidebar">
 			<div class="nk-nav-scroll">
-				<%
-					if (emp != null) {
-				%>
+				<%if(emp != null){ %>
 				<ul class="metismenu" id="menu">
-					<%
-						if (emp.getAuthorityCode().equals("G5")) {
-					%>
+					<%if(emp.getAuthorityCode().equals("G5")){ %>
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
-						href="javascript:void()" aria-expanded="false"> <i
-							class="fa fa-users"></i><span class="nav-text">인사관리</span>
+						href="javascript:void()" aria-expanded="false"> 
+						<i class="fa fa-users"></i><span class="nav-text">인사관리</span> 
 					</a>
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/list">전체사원조회</a></li>
 							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
 							<li><a href="/NHMP/ochart">조직도</a></li>
-						</ul></li>
-					<%
-						}
-					%>
-					<%
-						if (emp.getAuthorityCode().equals("G2")) {
-					%>
+						</ul>
+					</li>
+						<%} %>
+						<%if(emp.getAuthorityCode().equals("G2")){ %>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
 							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
@@ -179,74 +169,70 @@
 							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
 							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
 									입원 등록</a></li>
-							<li><a
-								href="/NHMP/views/ERP/counselingLog/CounselingLogInsertView.jsp">상담일지
-									등록</a></li>
-							<li><a
-								href="/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp">투약일지
-									등록</a></li>
+							<li><a href="/NHMP/views/ERP/counselingLog/CounselingLogInsertView.jsp">상담일지 등록</a></li>
+							<li><a href="/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp">투약일지 등록</a></li>
 						</ul></li>
-					<%
-						}
-					%>
+					<%} %>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
 					</a>
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/Epaylist">급여계산</a></li>
-						</ul> <%
- 	} else {
- %>
-						<ul class="metismenu" id="menu">
-							<li class="mega-menu mega-menu-sm"><a class="has-arrow"
-								href="javascript:void()" aria-expanded="false"> <i
-									class="fa fa-users"></i><span class="nav-text">인사관리</span>
-							</a>
-								<ul aria-expanded="false">
-									<li><a href="/NHMP/list">전체사원조회</a></li>
-									<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
-									<li><a href="/NHMP/ochart">조직도</a></li>
-								</ul></li>
-							<li><a class="has-arrow" href="javascript:void()"
-								aria-expanded="false"> <i class="fa fa-id-card"></i> <span
-									class="nav-text">권한설정</span>
-							</a>
-								<ul aria-expanded="false">
-									<li><a href="/NHMP/authlist">권한부여관리</a></li>
-								</ul></li>
-							<li><a class="has-arrow" href="javascript:void()"
-								aria-expanded="false"> <i class="fa fa-plus-square"></i><span
-									class="nav-text">환자 관리</span>
-							</a>
-								<ul aria-expanded="false">
-									<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
-									<li><a
-										href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자 입원
-											등록</a></li>
-									<li><a
-										href="/NHMP/views/ERP/counselingLog/CounselingLogInsertView.jsp">상담일지
-											등록</a></li>
-									<li><a
-										href="/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp">투약일지
-											등록</a></li>
-								</ul></li>
-							<li><a class="has-arrow" href="javascript:void()"
-								aria-expanded="false"> <i class="fa fa-usd"></i><span
-									class="nav-text">급여 관리</span>
-							</a>
-								<ul aria-expanded="false">
-									<li><a href="/NHMP/Epaylist">급여계산</a></li>
-								</ul> <%
- 	}
- %>
-							<li><a href="/NHMP/nlist" aria-expanded="false"> <i
-									class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
-							</a></li>
-							<li><a href="/NHMP/drlist" aria-expanded="false"> <i
-									class="fa fa-download"></i> <span class="nav-text">자료실</span>
-							</a></li>
 						</ul>
+						<li><a href="/NHMP/nlist" aria-expanded="false"> <i
+							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
+					</a></li>
+					<li><a href="/NHMP/drlist" aria-expanded="false"> <i
+							class="fa fa-download"></i> <span class="nav-text">자료실</span>
+					</a></li>
+						<%}else{ %>
+						<ul class="metismenu" id="menu">
+					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
+						href="javascript:void()" aria-expanded="false"> 
+						<i class="fa fa-users"></i><span class="nav-text">인사관리</span> 
+					</a>
+						<ul aria-expanded="false">
+							<li><a href="/NHMP/list">전체사원조회</a></li>
+							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
+							<li><a href="/NHMP/ochart">조직도</a></li>
+						</ul>
+					</li>
+					<li><a class="has-arrow" href="javascript:void()"aria-expanded="false"> <i class="fa fa-id-card"></i>
+						<span class="nav-text">권한설정</span>
+					</a>
+						<ul aria-expanded="false">
+							<li><a href="/NHMP/authlist">권한부여관리</a></li>
+						</ul>
+					</li>
+					<li><a class="has-arrow" href="javascript:void()"
+						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
+							class="nav-text">환자 관리</span>
+					</a>
+						<ul aria-expanded="false">
+							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
+							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
+									입원 등록</a></li>
+							<li><a href="/NHMP/views/ERP/counselingLog/CounselingLogInsertView.jsp">상담일지 등록</a></li>
+							<li><a href="/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp">투약일지 등록</a></li>
+						</ul></li>
+					<li><a class="has-arrow" href="javascript:void()"
+						aria-expanded="false"> <i class="fa fa-usd"></i><span
+							class="nav-text">급여 관리</span> 
+					</a>
+						<ul aria-expanded="false">
+							<li><a href="/NHMP/Epaylist">급여계산</a></li>
+							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
+							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
+						</ul>
+						<li><a href="/NHMP/nlist.ad" aria-expanded="false"> <i
+							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
+					</a></li>
+					<li><a href="/NHMP/drlist.ad" aria-expanded="false"> <i
+							class="fa fa-download"></i> <span class="nav-text">자료실</span>
+					</a></li>
+						<%} %>
+					</ul>
 			</div>
 		</div>
 
