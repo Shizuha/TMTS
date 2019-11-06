@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.Employee.model.vo.Employee;
 import ERP.medicienRecord.model.service.MedicienRecordService;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 
 /**
@@ -39,11 +40,20 @@ public class MedicienRecordDeleteServlet extends HttpServlet {
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		if(emp != null) {
+		
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
 		
 		int mrNo = Integer.parseInt(request.getParameter("mr_no"));
 		String renameFileName = request.getParameter("rfile");
 		
-		int result = new MedicienRecordService().deleteMedicienRecord(emp, mrNo);
+		int result = new MedicienRecordService().deleteMedicienRecord(hostId, hostPwd, mrNo);
 		
 		if(result > 0) {
 			if(renameFileName != null) {

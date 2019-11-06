@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="ERP.medicienRecord.model.vo.MedicienRecord" %>
-<%
-	MedicienRecord medicienRecord = (MedicienRecord)request.getAttribute("medicienRecord");
-%>
 <!DOCTYPE html>
 <html>
 <head>

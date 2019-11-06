@@ -18,22 +18,22 @@ public class PatientService {
 	
 	public PatientService() {}
 
-	public ArrayList<Patient> ListView(Employee emp) {
-		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
+	public ArrayList<Patient> ListView(String hostId, String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		ArrayList<Patient> list = pdao.ListView(conn);
 		close(conn);
 		return list;
 	}
 
-	public Patient DetailView(Employee emp, int patNum) {
-		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
+	public Patient DetailView(String hostId, String hostPwd, int patNum) {
+		Connection conn = getConnection(hostId, hostPwd);
 		Patient patient = pdao.DetailView(conn, patNum);
 		close(conn);
 		return patient;
 	}
 
-	public int insertPatient(Employee emp, Patient patient) {
-		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
+	public int insertPatient(String hostId, String hostPwd, Patient patient) {
+		Connection conn = getConnection(hostId, hostPwd);
 		int result = pdao.insertPatient(conn, patient);
 		if(result > 0)
 			commit(conn);
@@ -43,8 +43,8 @@ public class PatientService {
 		return result;
 	}
 
-	public int updatePatient(Employee emp, Patient patient) {
-		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
+	public int updatePatient(String hostId, String hostPwd, Patient patient) {
+		Connection conn = getConnection(hostId, hostPwd);
 		int result = pdao.updatePatient(conn, patient);
 		if(result > 0)
 			commit(conn);
@@ -54,8 +54,8 @@ public class PatientService {
 		return result;
 	}
 
-	public int deletePatient(Employee emp, int patNum) {
-		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
+	public int deletePatient(String hostId, String hostPwd, int patNum) {
+		Connection conn = getConnection(hostId, hostPwd);
 		int result = pdao.deletePatient(conn, patNum);
 		if(result > 0)
 			commit(conn);

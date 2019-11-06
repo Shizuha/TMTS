@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.Employee.model.vo.Employee;
 import ERP.patient.model.service.PatientService;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class PatientDeleteServlet
@@ -38,10 +39,19 @@ public class PatientDeleteServlet extends HttpServlet {
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		if(emp != null) {
+		
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
 		
 		int patNum = Integer.parseInt(request.getParameter("pat_num"));
 		
-		int result = new PatientService().deletePatient(emp, patNum);
+		int result = new PatientService().deletePatient(hostId, hostPwd, patNum);
 		
 		if(result > 0) {
 			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");

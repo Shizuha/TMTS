@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import ERP.Employee.model.vo.Employee;
 import ERP.medicienRecord.model.service.MedicienRecordService;
 import ERP.medicienRecord.model.vo.MedicienRecord;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class MedicienRecordListViewServlet
@@ -39,8 +40,17 @@ public class MedicienRecordListViewServlet extends HttpServlet {
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		if(emp != null) {
 		
-		ArrayList<MedicienRecord> list = new MedicienRecordService().ListView(emp);
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
+		
+		ArrayList<MedicienRecord> list = new MedicienRecordService().ListView(hostId, hostPwd);
 		
 		RequestDispatcher view = null;
 		if(list.size() > 0) {

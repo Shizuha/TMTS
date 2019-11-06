@@ -22,6 +22,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import ERP.Employee.model.vo.Employee;
 import ERP.counselingLog.model.service.CounselingLogService;
 import ERP.counselingLog.model.vo.CounselingLog;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class CounselingLogInsertServlet
@@ -48,6 +49,15 @@ public class CounselingLogInsertServlet extends HttpServlet {
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		if(emp != null) {
+		
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
 		
 		RequestDispatcher view = null;
 		if(!ServletFileUpload.isMultipartContent(request)) {
@@ -106,7 +116,7 @@ public class CounselingLogInsertServlet extends HttpServlet {
 			counselingLog.setClRenameFileName(renameFileName);
 		}
 		
-		int result = new CounselingLogService().insertCounselingLog(emp, counselingLog);
+		int result = new CounselingLogService().insertCounselingLog(hostId, hostPwd, counselingLog);
 		
 		if(result > 0) {
 			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");

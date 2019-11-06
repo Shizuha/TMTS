@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import ERP.Employee.model.vo.Employee;
 import ERP.counselingLog.model.service.CounselingLogService;
 import ERP.counselingLog.model.vo.CounselingLog;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class CounselingLogListViewServlet
@@ -38,8 +39,17 @@ public class CounselingLogListViewServlet extends HttpServlet {
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		if(emp != null) {
+		
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
 				
-		ArrayList<CounselingLog> list = new CounselingLogService().ListView(emp);
+		ArrayList<CounselingLog> list = new CounselingLogService().ListView(hostId, hostPwd);
 				
 		RequestDispatcher view = null;
 		if(list.size() > 0) {

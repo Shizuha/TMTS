@@ -38,8 +38,17 @@ public class PatientListViewServlet extends HttpServlet {
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		if(emp != null) {
 		
-		ArrayList<Patient> list = new PatientService().ListView(emp);
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
+		
+		ArrayList<Patient> list = new PatientService().ListView(hostId, hostPwd);
 		
 		RequestDispatcher view = null;
 		if(list.size() > 0) {

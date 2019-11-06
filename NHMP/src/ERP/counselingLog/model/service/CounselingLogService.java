@@ -17,22 +17,22 @@ public class CounselingLogService {
 	
 	public CounselingLogService() {}
 	
-	public ArrayList<CounselingLog> ListView(Employee emp) {
-		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
+	public ArrayList<CounselingLog> ListView(String hostId, String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
 		ArrayList<CounselingLog> list = cldao.ListView(conn);
 		close(conn);
 		return list;
 	}
 	
-	public CounselingLog DetailView(Employee emp, int clNo) {
-		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
+	public CounselingLog DetailView(String hostId, String hostPwd, int clNo) {
+		Connection conn = getConnection(hostId, hostPwd);
 		CounselingLog counselingLog = cldao.DetailView(conn, clNo);
 		close(conn);
 		return counselingLog;
 	}
 	
-	public int insertCounselingLog(Employee emp, CounselingLog counselingLog) {
-		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
+	public int insertCounselingLog(String hostId, String hostPwd, CounselingLog counselingLog) {
+		Connection conn = getConnection(hostId, hostPwd);
 		int result = cldao.insertCounselingLog(conn, counselingLog);
 		if(result > 0)
 			commit(conn);
@@ -42,8 +42,8 @@ public class CounselingLogService {
 		return result;
 	}
 	
-	public int updateCounselingLog(Employee emp, CounselingLog counselingLog) {
-		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
+	public int updateCounselingLog(String hostId, String hostPwd, CounselingLog counselingLog) {
+		Connection conn = getConnection(hostId, hostPwd);
 		int result = cldao.updateCounselingLog(conn, counselingLog);
 		if(result > 0)
 			commit(conn);
@@ -53,8 +53,8 @@ public class CounselingLogService {
 		return result;
 	}
 	
-	public int deleteCounselingLog(Employee emp, int clNo) {
-		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
+	public int deleteCounselingLog(String hostId, String hostPwd, int clNo) {
+		Connection conn = getConnection(hostId, hostPwd);
 		int result = cldao.deleteConselingLog(conn, clNo);
 		if(result > 0)
 			commit(conn);
@@ -63,15 +63,15 @@ public class CounselingLogService {
 		close(conn);
 		return result;
 	}
-	public ArrayList<CounselingLog> selectTitleSearch(Employee emp, String clTitle) {
-		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
+	public ArrayList<CounselingLog> selectTitleSearch(String hostId, String hostPwd, String clTitle) {
+		Connection conn = getConnection(hostId, hostPwd);
 		ArrayList<CounselingLog> list = cldao.selectTitleSearch(conn, clTitle);
 		close(conn);
 		return list;
 	}
 
-	public ArrayList<CounselingLog> selectClEmpNameSearch(Employee emp, String clEmpName) {
-		Connection conn = getConnection(emp.getHostId(), emp.getHostPwd());
+	public ArrayList<CounselingLog> selectClEmpNameSearch(String hostId, String hostPwd, String clEmpName) {
+		Connection conn = getConnection(hostId, hostPwd);
 		ArrayList<CounselingLog> list = cldao.selectClEmpNameSearch(conn, clEmpName);
 		close(conn);
 		return list;

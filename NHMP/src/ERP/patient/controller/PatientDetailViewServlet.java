@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import ERP.Employee.model.vo.Employee;
 import ERP.patient.model.service.PatientService;
 import ERP.patient.model.vo.Patient;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class PatientDetailViewServlet
@@ -36,9 +37,18 @@ public class PatientDetailViewServlet extends HttpServlet {
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		if(emp != null) {
+		
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
 		
 		int patNum = Integer.parseInt(request.getParameter("pat_num"));
-		Patient patient = new PatientService().DetailView(emp, patNum);
+		Patient patient = new PatientService().DetailView(hostId, hostPwd, patNum);
 		
 		RequestDispatcher view = null;
 		if(patient != null) {
