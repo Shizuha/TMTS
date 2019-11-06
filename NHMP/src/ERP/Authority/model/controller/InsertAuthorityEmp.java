@@ -75,9 +75,19 @@ public class InsertAuthorityEmp extends HttpServlet {
 					
 					ArrayList<Department> dList = new ArrayList<Department>();
 					ArrayList<Ward> wList= new ArrayList<Ward>();
+					Department dp = null;
+					Ward po = null;
 				for(Employee e : empList) {
-					Department dp = new DepartmentService().selectAuDeptName(hostId, hostPwd, e.getDeptCode());
-					Ward po = new WardService().selectAuWardName(hostId, hostPwd, e.getWardCode());
+					if(e.getDeptCode() != null) {
+					dp = new DepartmentService().selectAuDeptName(hostId, hostPwd, e.getDeptCode());
+					}else {
+						dp = new Department(" ","없음");
+					}
+					if(e.getWardCode() != null) {
+					po = new WardService().selectAuWardName(hostId, hostPwd, e.getWardCode());
+					}else {
+						po = new Ward("","없음");
+					}
 					dList.add(dp);
 					wList.add(po);
 				}

@@ -95,27 +95,47 @@ function sample4_execDaumPostcode() {
 
 function formCheck(){
 	alert("이벤트 실행됨");
-	//이름 정규식
-		var chkName = /^[가-힣a-zA-Z]{2,6}$/;	
+		  //이름 정규식
+		  var chkName = /^[가-힣a-zA-Z]{2,6}$/;	
+		 //휴대폰 끝자리
+	      var regExp2 = /^\d{4}$/;
+	  	 //휴대전화 정규식
+	      var regExp = /^\d{3,4}$/;
+	      
+	      //전화번호 정규식
+	      var adTel1 = /^\d{2,3}$/;
+	      var adTel2 = /^\d{3,4}$/;
+	      var adTel3 = /^\d{4}$/;
+	      //급여 정규식 숫자만
+	      var salary = /^\d{1,}$/;
+	      //주민번호 정규식
+	      var empNo = /^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))$/g;
+	      //주민번호 뒷자리 정규식
+	      var empNo2 = /^[1-4][0-9]{6}$/g;
+	    	//부양가족 이름 정규식
+	    	var fy_namechk = /^[가-힣a-zA-Z]{2,9}$/;
 	  if(!chkName($(this).val())){
 	  alert("이름형식을 확인하세요");
 	   $(this).focus();
 	   return false;
 	  }
      
-      
-		$("#adtel1").on("focusout", function(){
-			
-		});
-		$("#adtel1").on("focusout", function(){
-			
-		});
+	
+      if(!regExp2.test($("input[name=phone3]").val())) {            
+          console.log("dd");
+          $("#phone3").focus();
+          return false;
+		}
+    
 		
+      if(!regExp.test($("input[name=phone2]").val())) {            
+    	  $("#phone2").select();
+          $("#phone2").val("");
+          
+          return false;
+		}
       
-      var adTel1 = /^\d{2,3}$/;
-      var adTel2 = /^\d{3,4}$/;
-      var adTel3 = /^\d{4}$/;
-      //전화번호 정규식
+     
       if(!adTel1.test($("input[name=adtel1]").val())) {            
           alert("전화 첫 번째 자리는 숫자 2자리~3자리 또는 숫자만 입력하십시오.");
           return false;
@@ -128,27 +148,23 @@ function formCheck(){
           alert("전화 마지막 자리는 숫자 4자리 또는 숫자만 입력하십시오.");
           return false;
 		}
-      //급여 정규식 숫자만
-      var salary = /^\d{1,}$/;
+     
       if(!salary.test($("input[name=salary]").val())) {            
           alert("기본급은 특수기호없이 숫자만 입력하십시오.");
           return false;
 		}
-      //주민번호 정규식
-      var empNo = /^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))$/g;
+      
       if(!empNo.test($("input[name=empno1]").val())) {            
           alert("주민번호 형식에 맞지 않습니다.");
           return false;
 		}
-      //주민번호 뒷자리 정규식
-      var empNo2 = /^[1-4][0-9]{6}$/g;
+     
       if(!empNo2.test($("input[name=empno2]").val())) {            
     	  alert("주민번호 형식에 맞지 않습니다.");
           return false;
 		}
   	
-  	//부양가족 이름 정규식
-  	var fy_namechk = /^[가-힣a-zA-Z]{2,9}$/;
+  	
   	if(!fy_namechk.test($("input[name=fyname]").val())){
  	  	alert("한글 또는 영문 2~9자리 사이로 입력 하셔야 합니다.");
  	   $("input[name=empname]").focus();
@@ -169,29 +185,6 @@ function formCheck(){
 </script>
 <script type="text/javascript">
 $(function(){
-	$("#phone3").on("focusout", function(){
-		//휴대폰 끝자리
-	      var regExp2 = /^\d{4}$/;
-	      if(!regExp2.test($("input[name=phone3]").val())) {            
-	          alert("휴대전화 마지막 번호는 숫자 4자리 또는 숫자만 입력하십시오.");
-	          $("#phone3").focus();
-	          return false;
-			}
-	      
-	});
-	
-	$("#phone2").on("focusout", function(){
-		//휴대전화 정규식
-	      var regExp = /^\d{3,4}$/;
-			//휴대폰 중앙 자리
-	      if(!regExp.test($("input[name=phone2]").val())) {            
-	          
-	          $("#phone2").select();
-	          $("#phone2").val("");
-	          alert("휴대전화 중간번호는 숫자 3~4자리 사이의 숫자만 입력하십시오.");
-	          return false;
-			}
-	});
 	
 	$("#empname").on("focusout",function(){
 		//사원이름 중복 체크 
@@ -919,7 +912,7 @@ input[type=checkbox]{
 						<li><a href="/NHMP/nlist.ad" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
-					<li><a href="/NHMP/drlist.ad" aria-expanded="false"> <i
+					<li><a href="/NHMP/drlist.ad" aria-expanded="false"><i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
 						<%} %>
