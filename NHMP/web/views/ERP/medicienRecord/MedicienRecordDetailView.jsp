@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="ERP.medicienRecord.model.vo.MedicienRecord"%>
+<%@ page
+	import="ERP.medicienRecord.model.vo.MedicienRecord,
+ERP.Employee.model.vo.Employee"%>
 <%
 	MedicienRecord medicienRecord = (MedicienRecord) request.getAttribute("medicienRecord");
+	Employee emp = (Employee) session.getAttribute("loginEmployee");
 %>
 <!DOCTYPE html>
 <html>
@@ -36,12 +39,8 @@ function moveupdate(){
 	return false
 }
 function movedelete(){
-	location.href = "/NHMP/medicienRecord?mr_no=<%=medicienRecord.getMrNo()%>&rfile=<%=medicienRecord.getMrRenameFileName()%>";
-		return false;
-	}
-	
-	function movemain() {
-		location.href = "/NHMP/views/ERP/Employee.jsp";
+	location.href = "/NHMP/medicienRecord?mr_no=<%=medicienRecord.getMrNo()%>&rfile=<%=medicienRecord.getMrRenameFileName()%>
+	";
 		return false;
 	}
 </script>
@@ -75,6 +74,9 @@ function movedelete(){
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
+				<%
+					if (emp != null) {
+				%>
 				<a href="/NHMP/views/ERP/Employee.jsp"> <b class="logo-abbr"><img
 						src="/NHMP/resources/ERP/images/logo.png" alt=""> </b> <span
 					class="logo-compact"><img
@@ -83,6 +85,20 @@ function movedelete(){
 						src="/NHMP/resources/ERP/images/common/logo-text.png" alt="">
 				</span>
 				</a>
+				<%
+					} else {
+				%>
+				<a href="/NHMP/views/ERP/Admin_main.jsp"> <b class="logo-abbr"><img
+						src="/NHMP/resources/ERP/images/logo.png" alt=""> </b> <span
+					class="logo-compact"><img
+						src="/NHMP/resources/ERP/images/logo-compact.png" alt=""></span> <span
+					class="brand-title"> <img
+						src="/NHMP/resources/ERP/images/common/logo-text.png" alt="">
+				</span>
+				</a>
+				<%
+					}
+				%>
 			</div>
 		</div>
 		<!--**********************************
@@ -138,7 +154,13 @@ function movedelete(){
         ***********************************-->
 		<div class="nk-sidebar">
 			<div class="nk-nav-scroll">
+				<%
+					if (emp != null) {
+				%>
 				<ul class="metismenu" id="menu">
+					<%
+						if (emp.getAuthorityCode().equals("G5")) {
+					%>
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
 						href="javascript:void()" aria-expanded="false"> <i
 							class="fa fa-users"></i><span class="nav-text">인사관리</span>
@@ -147,80 +169,95 @@ function movedelete(){
 							<li><a href="/NHMP/list">전체사원조회</a></li>
 							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
 							<li><a href="/NHMP/ochart">조직도</a></li>
-							<!--
-                            <li><a href="layout-compact-nav.html">Compact Nav</a></li>
-                            <li><a href="layout-vertical.html">Vertical</a></li>
-                        -->
-
 						</ul></li>
-					<!-- <li class="nav-label">Apps</li> -->
-					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> <i class="fa fa-id-card"></i> <span
-							class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
-					</a>
-
-						<ul aria-expanded="false">
-							<li><a href="/NHMP/authall">권한부여관리</a></li>
-							<!--
-                            <li><a href="email-read.html">수당항목등록</a></li>
-                            <li><a href="email-compose.html">급여계산</a></li>
-                            -->
-						</ul></li>
+					<%
+						}
+					%>
+					<%
+						if (emp.getAuthorityCode().equals("G2")) {
+					%>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
 							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
 					</a>
-
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
 							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
 									입원 등록</a></li>
-							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
-							<li><a href="/NHMP/recordlistview">투약일지 등록</a></li>
+							<li><a
+								href="/NHMP/views/ERP/counselingLog/CounselingLogInsertView.jsp">상담일지
+									등록</a></li>
+							<li><a
+								href="/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp">투약일지
+									등록</a></li>
 						</ul></li>
-					<!--
-                    <li>
-                            <a  href="javascript:void()" aria-expanded="false">
-                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
-                               <i class="icon-graph menu-icon"></i> <span class="nav-text">게시판</span>
-                        </a>
-                        <ul aria-expanded="false">
-
-                            <li><a href="chart-flot.html">공지사항</a></li>
-                            <li><a href="chart-morris.html">자료실</a></li>
-
-                            <li><a href="chart-chartjs.html">Chartjs</a></li>
-                            <li><a href="chart-chartist.html">Chartist</a></li>
-                            <li><a href="chart-sparkline.html">Sparkline</a></li>
-                            <li><a href="chart-peity.html">Peity</a></li>
-
-                        </ul>
-                    </li>
-                    -->
-
-
-
-
-
-					<!--   <li class="nav-label">UI Components</li>  -->
+					<%
+						}
+					%>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
 					</a>
 						<ul aria-expanded="false">
-							<!-- <li><a href="/NHMP/deduclise">공제항목등록</a></li>
-							<li><a href="/NHMP/allowlist">수당항목등록</a></li> -->
-							<li><a href="/NHMP/paylist">급여계산</a></li>
-
+							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 						</ul>
 					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
-					<li><a href="javascript:void()" aria-expanded="false"> <i
+					<li><a href="/NHMP/drlist" aria-expanded="false"> <i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
-				</ul>
+					<%
+						} else {
+					%>
+					<ul class="metismenu" id="menu">
+						<li class="mega-menu mega-menu-sm"><a class="has-arrow"
+							href="javascript:void()" aria-expanded="false"> <i
+								class="fa fa-users"></i><span class="nav-text">인사관리</span>
+						</a>
+							<ul aria-expanded="false">
+								<li><a href="/NHMP/list">전체사원조회</a></li>
+								<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
+								<li><a href="/NHMP/ochart">조직도</a></li>
+							</ul></li>
+						<li><a class="has-arrow" href="javascript:void()"
+							aria-expanded="false"> <i class="fa fa-id-card"></i> <span
+								class="nav-text">권한설정</span>
+						</a>
+							<ul aria-expanded="false">
+								<li><a href="/NHMP/authlist">권한부여관리</a></li>
+							</ul></li>
+						<li><a class="has-arrow" href="javascript:void()"
+							aria-expanded="false"> <i class="fa fa-plus-square"></i><span
+								class="nav-text">환자 관리</span>
+						</a>
+							<ul aria-expanded="false">
+								<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
+								<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
+										입원 등록</a></li>
+								<li><a
+									href="/NHMP/views/ERP/counselingLog/CounselingLogInsertView.jsp">상담일지
+										등록</a></li>
+								<li><a
+									href="/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp">투약일지
+										등록</a></li>
+							</ul></li>
+						<li><a class="has-arrow" href="javascript:void()"
+							aria-expanded="false"> <i class="fa fa-usd"></i><span
+								class="nav-text">급여 관리</span>
+						</a>
+							<ul aria-expanded="false">
+								<li><a href="/NHMP/Epaylist">급여계산</a></li>
+							</ul> <%
+ 	}
+ %>
+						<li><a href="/NHMP/nlist.ad" aria-expanded="false"> <i
+								class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
+						</a></li>
+						<li><a href="/NHMP/drlist.ad" aria-expanded="false"> <i
+								class="fa fa-download"></i> <span class="nav-text">자료실</span>
+						</a></li>
+					</ul>
 			</div>
 
 		</div>
@@ -232,88 +269,92 @@ function movedelete(){
 		<!--**********************************
             Content body start
         ***********************************-->
-		<div class="content-body" align="center"style="padding: 40px;">
-		  <h2 align="center">환자 투약일지 상세조회 페이지</h2>
-				<form action="/NHMP/recorddetail" method="post"
-					enctype="multipart/form-data">
-					<table align="center" width="600" cellspacing="0" cellpadding="5"
-						border="3">
-						<tr>
-							<th style="font-size : 16px;">투약일지번호</th>
-							<td style="font-size : 16px;"><%=medicienRecord.getMrNo()%></td>
-						</tr>
-						<tr>
-							<th style="font-size : 16px;">날짜</th>
-							<td style="font-size : 16px;"><%=medicienRecord.getMrDate()%></td>
-						</tr>
-						<tr>
-							<th style="font-size : 16px;">증상</th>
-							<td style="font-size : 16px;"><%=medicienRecord.getMrState()%></td>
-						</tr>
-						<tr>
-							<th style="font-size : 16px;">투약명</th>
-							<td style="font-size : 16px;"><%=medicienRecord.getMrName()%></td>
-						</tr>
-						<tr>
-							<th style="font-size : 16px;">투약시간</th>
-							<td style="font-size : 16px;"><%=medicienRecord.getMrTime()%></td>
-						</tr>
-						<tr>
-							<th style="font-size : 16px;">용량</th>
-							<td style="font-size : 16px;"><%=medicienRecord.getMrMany()%></td>
-						</tr>
-						<tr>
-							<th style="font-size : 16px;">비고</th>
-							<td style="font-size : 16px;"><%=medicienRecord.getMrComment()%></td>
-						</tr>
-						<tr>
-							<th style="font-size : 16px;">환자명</th>
-							<td style="font-size : 16px;"><%=medicienRecord.getMrPatName()%></td>
-						</tr>
-						<tr>
-							<th style="font-size : 16px;">투약자</th>
-							<td style="font-size : 16px;"><%=medicienRecord.getMrEmpName()%></td>
-						</tr>
-						<tr>
-							<th style="font-size : 16px;">첨부파일</th>
-							<td style="font-size : 16px;">
-							<% if(medicienRecord.getMrOriginalFileName() != null){ %>
-							<a href="/first/nfdown?ofile=<%= medicienRecord.getMrOriginalFileName() %>&rfile=<%= medicienRecord.getMrRenameFileName() %>" ><%= medicienRecord.getMrOriginalFileName() %></a>
-							<% }else{ %>
-							첨부파일 없음		
-							<% } %> <br>
-							</td>
-						</tr>
-						<tr>
-							<th colspan="2"><input type="button" value="수정하기"
-								onclick="return moveupdate();" style="font-size : 16px;"> &nbsp; &nbsp; &nbsp; <input
-								type="submit" value="삭제" onclick="return movedelete();" style="font-size : 16px;">
-								&nbsp; &nbsp; &nbsp; <input type="button" value="목록"
-								onclick="return movemain();" style="font-size : 16px;">&nbsp; &nbsp; &nbsp; <a
-								href="javascript:history.go(-1);" style="font-size : 16px;">이전페이지로 이동</a></th>
-						</tr>
-					</table>
-				</form>
-			</div>
+		<div class="content-body" align="center" style="padding: 40px;">
+			<h2 align="center">환자 투약일지 상세조회 페이지</h2>
+			<form action="/NHMP/recorddetail" method="post"
+				enctype="multipart/form-data">
+				<table align="center" width="600" cellspacing="0" cellpadding="5"
+					border="3">
+					<tr>
+						<th style="font-size: 16px;">투약일지번호</th>
+						<td style="font-size: 16px;"><%=medicienRecord.getMrNo()%></td>
+					</tr>
+					<tr>
+						<th style="font-size: 16px;">날짜</th>
+						<td style="font-size: 16px;"><%=medicienRecord.getMrDate()%></td>
+					</tr>
+					<tr>
+						<th style="font-size: 16px;">증상</th>
+						<td style="font-size: 16px;"><%=medicienRecord.getMrState()%></td>
+					</tr>
+					<tr>
+						<th style="font-size: 16px;">투약명</th>
+						<td style="font-size: 16px;"><%=medicienRecord.getMrName()%></td>
+					</tr>
+					<tr>
+						<th style="font-size: 16px;">투약시간</th>
+						<td style="font-size: 16px;"><%=medicienRecord.getMrTime()%></td>
+					</tr>
+					<tr>
+						<th style="font-size: 16px;">용량</th>
+						<td style="font-size: 16px;"><%=medicienRecord.getMrMany()%></td>
+					</tr>
+					<tr>
+						<th style="font-size: 16px;">비고</th>
+						<td style="font-size: 16px;"><%=medicienRecord.getMrComment()%></td>
+					</tr>
+					<tr>
+						<th style="font-size: 16px;">환자명</th>
+						<td style="font-size: 16px;"><%=medicienRecord.getMrPatName()%></td>
+					</tr>
+					<tr>
+						<th style="font-size: 16px;">투약자</th>
+						<td style="font-size: 16px;"><%=medicienRecord.getMrEmpName()%></td>
+					</tr>
+					<tr>
+						<th style="font-size: 16px;">첨부파일</th>
+						<td style="font-size: 16px;">
+							<%
+								if (medicienRecord.getMrOriginalFileName() != null) {
+							%> <a
+							href="/first/nfdown?ofile=<%=medicienRecord.getMrOriginalFileName()%>&rfile=<%=medicienRecord.getMrRenameFileName()%>"><%=medicienRecord.getMrOriginalFileName()%></a>
+							<%
+								} else {
+							%> 첨부파일 없음 <%
+								}
+							%> <br>
+						</td>
+					</tr>
+					<tr>
+						<th colspan="2"><input type="button" value="수정하기"
+							onclick="return moveupdate();" style="font-size: 16px;">
+							&nbsp; &nbsp; &nbsp; <input type="submit" value="삭제"
+							onclick="return movedelete();" style="font-size: 16px;">
+							&nbsp; &nbsp; &nbsp; <a href="javascript:history.go(-1);"
+							style="font-size: 16px;">이전페이지로 이동</a></th>
+					</tr>
+				</table>
+			</form>
 		</div>
+	</div>
 
-		<!--**********************************
+	<!--**********************************
             Content body end
         ***********************************-->
 
 
-		<!--**********************************
+	<!--**********************************
             Footer start
         ***********************************-->
-		<div class="footer">
-			<div class="copyright">
-				<p>
-					Copyright &copy; Designed & Developed by <a
-						href="https://themeforest.net/user/quixlab">Quixlab</a> 2018
-				</p>
-			</div>
+	<div class="footer">
+		<div class="copyright">
+			<p>
+				Copyright &copy; Designed & Developed by <a
+					href="https://themeforest.net/user/quixlab">Quixlab</a> 2018
+			</p>
 		</div>
-		<!--**********************************
+	</div>
+	<!--**********************************
             Footer end
         ***********************************-->
 	</div>

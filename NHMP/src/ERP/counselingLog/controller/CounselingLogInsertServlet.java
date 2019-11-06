@@ -74,7 +74,6 @@ public class CounselingLogInsertServlet extends HttpServlet {
 						savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 		
 		CounselingLog counselingLog = new CounselingLog();
-		counselingLog.setClNo(Integer.parseInt(mrequest.getParameter("cl_no")));
 		counselingLog.setClTitle(mrequest.getParameter("cl_title"));
 		counselingLog.setClDate(Date.valueOf(mrequest.getParameter("cl_date")));
 		counselingLog.setClContents(mrequest.getParameter("cl_contents"));

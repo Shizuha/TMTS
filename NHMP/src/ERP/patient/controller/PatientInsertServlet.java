@@ -55,7 +55,6 @@ public class PatientInsertServlet extends HttpServlet {
 		
 		Patient patient = new Patient();
 		
-		patient.setPatNum(Integer.parseInt(request.getParameter("pat_num")));
 		patient.setPatName(request.getParameter("pat_name"));
 		patient.setPatType(request.getParameter("pat_type"));
 		patient.setPatEntDate(Date.valueOf(request.getParameter("pat_entdate")));

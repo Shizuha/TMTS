@@ -76,4 +76,11 @@ public class CounselingLogService {
 		close(conn);
 		return list;
 	}
+
+	public int getListCount(String hostId, String hostPwd) {
+		Connection conn = getConnection(hostId, hostPwd);
+		int listCount = cldao.getListCount(conn);
+		close(conn);
+		return listCount;
+	}
 }

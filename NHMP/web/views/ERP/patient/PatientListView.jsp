@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="ERP.patient.model.vo.Patient, java.util.ArrayList"%>
+<%@ page
+	import="ERP.patient.model.vo.Patient, java.util.ArrayList,
+ERP.Employee.model.vo.Employee"%>
 <%
 	ArrayList<Patient> list = (ArrayList<Patient>) request.getAttribute("list");
+	Employee emp = (Employee) session.getAttribute("loginEmployee");
+	int currentPage = ((Integer) request.getAttribute("currentPage")).intValue();
+	int beginPage = ((Integer) request.getAttribute("beginPage")).intValue();
+	int endPage = ((Integer) request.getAttribute("endPage")).intValue();
+	int maxPage = ((Integer) request.getAttribute("maxPage")).intValue();
 %>
 <!DOCTYPE html>
 <html>
@@ -50,16 +57,6 @@
 			$("#pat_doc_div").css("display", "block");
 		}
 	}
-
-	function moveinsert() {
-		location.href = "/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp";
-		return false;
-	}
-
-	function movemain() {
-		location.href = "/NHMP/views/ERP/Employee.jsp";
-		return false;
-	}
 </script>
 </head>
 
@@ -91,6 +88,9 @@
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
+				<%
+					if (emp != null) {
+				%>
 				<a href="/NHMP/views/ERP/Employee.jsp"> <b class="logo-abbr"><img
 						src="/NHMP/resources/ERP/images/logo.png" alt=""> </b> <span
 					class="logo-compact"><img
@@ -99,6 +99,20 @@
 						src="/NHMP/resources/ERP/images/common/logo-text.png" alt="">
 				</span>
 				</a>
+				<%
+					} else {
+				%>
+				<a href="/NHMP/views/ERP/Admin_main.jsp"> <b class="logo-abbr"><img
+						src="/NHMP/resources/ERP/images/logo.png" alt=""> </b> <span
+					class="logo-compact"><img
+						src="/NHMP/resources/ERP/images/logo-compact.png" alt=""></span> <span
+					class="brand-title"> <img
+						src="/NHMP/resources/ERP/images/common/logo-text.png" alt="">
+				</span>
+				</a>
+				<%
+					}
+				%>
 			</div>
 		</div>
 		<!--**********************************
@@ -154,7 +168,13 @@
         ***********************************-->
 		<div class="nk-sidebar">
 			<div class="nk-nav-scroll">
+				<%
+					if (emp != null) {
+				%>
 				<ul class="metismenu" id="menu">
+					<%
+						if (emp.getAuthorityCode().equals("G5")) {
+					%>
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
 						href="javascript:void()" aria-expanded="false"> <i
 							class="fa fa-users"></i><span class="nav-text">인사관리</span>
@@ -163,80 +183,95 @@
 							<li><a href="/NHMP/list">전체사원조회</a></li>
 							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
 							<li><a href="/NHMP/ochart">조직도</a></li>
-							<!--
-                            <li><a href="layout-compact-nav.html">Compact Nav</a></li>
-                            <li><a href="layout-vertical.html">Vertical</a></li>
-                        -->
-
 						</ul></li>
-					<!-- <li class="nav-label">Apps</li> -->
-					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> <i class="fa fa-id-card"></i> <span
-							class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
-					</a>
-
-						<ul aria-expanded="false">
-							<li><a href="/NHMP/authall">권한부여관리</a></li>
-							<!--
-                            <li><a href="email-read.html">수당항목등록</a></li>
-                            <li><a href="email-compose.html">급여계산</a></li>
-                            -->
-						</ul></li>
+					<%
+						}
+					%>
+					<%
+						if (emp.getAuthorityCode().equals("G2")) {
+					%>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
 							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
 					</a>
-
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
 							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
 									입원 등록</a></li>
-							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
-							<li><a href="/NHMP/recordlistview">투약일지 등록</a></li>
+							<li><a
+								href="/NHMP/views/ERP/counselingLog/CounselingLogInsertView.jsp">상담일지
+									등록</a></li>
+							<li><a
+								href="/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp">투약일지
+									등록</a></li>
 						</ul></li>
-					<!--
-                    <li>
-                            <a  href="javascript:void()" aria-expanded="false">
-                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
-                               <i class="icon-graph menu-icon"></i> <span class="nav-text">게시판</span>
-                        </a>
-                        <ul aria-expanded="false">
-
-                            <li><a href="chart-flot.html">공지사항</a></li>
-                            <li><a href="chart-morris.html">자료실</a></li>
-
-                            <li><a href="chart-chartjs.html">Chartjs</a></li>
-                            <li><a href="chart-chartist.html">Chartist</a></li>
-                            <li><a href="chart-sparkline.html">Sparkline</a></li>
-                            <li><a href="chart-peity.html">Peity</a></li>
-
-                        </ul>
-                    </li>
-                    -->
-
-
-
-
-
-					<!--   <li class="nav-label">UI Components</li>  -->
+					<%
+						}
+					%>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
 					</a>
 						<ul aria-expanded="false">
-							<!-- <li><a href="/NHMP/deduclise">공제항목등록</a></li>
-							<li><a href="/NHMP/allowlist">수당항목등록</a></li> -->
-							<li><a href="/NHMP/paylist">급여계산</a></li>
-
+							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 						</ul>
 					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
-					<li><a href="javascript:void()" aria-expanded="false"> <i
+					<li><a href="/NHMP/drlist" aria-expanded="false"> <i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
-				</ul>
+					<%
+						} else {
+					%>
+					<ul class="metismenu" id="menu">
+						<li class="mega-menu mega-menu-sm"><a class="has-arrow"
+							href="javascript:void()" aria-expanded="false"> <i
+								class="fa fa-users"></i><span class="nav-text">인사관리</span>
+						</a>
+							<ul aria-expanded="false">
+								<li><a href="/NHMP/list">전체사원조회</a></li>
+								<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
+								<li><a href="/NHMP/ochart">조직도</a></li>
+							</ul></li>
+						<li><a class="has-arrow" href="javascript:void()"
+							aria-expanded="false"> <i class="fa fa-id-card"></i> <span
+								class="nav-text">권한설정</span>
+						</a>
+							<ul aria-expanded="false">
+								<li><a href="/NHMP/authlist">권한부여관리</a></li>
+							</ul></li>
+						<li><a class="has-arrow" href="javascript:void()"
+							aria-expanded="false"> <i class="fa fa-plus-square"></i><span
+								class="nav-text">환자 관리</span>
+						</a>
+							<ul aria-expanded="false">
+								<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
+								<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
+										입원 등록</a></li>
+								<li><a
+									href="/NHMP/views/ERP/counselingLog/CounselingLogInsertView.jsp">상담일지
+										등록</a></li>
+								<li><a
+									href="/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp">투약일지
+										등록</a></li>
+							</ul></li>
+						<li><a class="has-arrow" href="javascript:void()"
+							aria-expanded="false"> <i class="fa fa-usd"></i><span
+								class="nav-text">급여 관리</span>
+						</a>
+							<ul aria-expanded="false">
+								<li><a href="/NHMP/Epaylist">급여계산</a></li>
+							</ul> <%
+ 	}
+ %>
+						<li><a href="/NHMP/nlist.ad" aria-expanded="false"> <i
+								class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
+						</a></li>
+						<li><a href="/NHMP/drlist.ad" aria-expanded="false"> <i
+								class="fa fa-download"></i> <span class="nav-text">자료실</span>
+						</a></li>
+					</ul>
 			</div>
 
 		</div>
@@ -296,9 +331,9 @@
 					<th style="font-size: 16px;">담당의사</th>
 				</tr>
 				<%
-						for (int i = 0; i < list.size(); i++) {
-							Patient p = list.get(i);
-					%>
+					for (int i = 0; i < list.size(); i++) {
+						Patient p = list.get(i);
+				%>
 				<tr>
 					<td style="font-size: 16px;"><a
 						href="/NHMP/patientdetail?pat_num=<%=p.getPatNum()%>"><%=p.getPatNum()%></a></td>
@@ -316,14 +351,58 @@
 					<td style="font-size: 16px;"><%=p.getPatDoc()%></td>
 				</tr>
 				<%
-						}
-					%>
+					}
+				%>
 				<tr>
-					<th colspan="30" align="center"><input type="button"
-						value="목록" onclick="return movemain();" style="font-size: 16px;">
-						&nbsp; &nbsp; &nbsp; <a href="javascript:history.go(-1)"
-						style="font-size: 16px;">이전페이지로 이동</a>
+					<th colspan="30" align="center"><a
+						href="javascript:history.go(-1)" style="font-size: 16px;">이전페이지로
+							이동</a>
 			</table>
+			<div id="pagebox" align="center">
+				<a href="/NHMP/patientlistview?page=1">|◁</a> &nbsp;
+				<%
+					if ((beginPage - 10) < 1) {
+				%>
+				<a href="/NHMP/patientlistview?page=1">◀◀</a>
+				<%
+					} else {
+				%>
+				<a href="/NHMP/patientlistview?page=<%=beginPage - 10%>">◀◀</a>
+				<%
+					}
+				%>
+				&nbsp;
+				<%
+					for (int p = beginPage; p <= endPage; p++) {
+						if (p == currentPage) {
+				%>
+				<a href="/NHMP/patientlistview?page=<%=p%>"><font color="red"><b>[<%=p%>]
+					</b></font></a>
+				<%
+					} else {
+				%>
+				<a href="/NHMP/patientlistview?page=<%=p%>"><%=p%></a>
+				<%
+					}
+					}
+				%>
+				&nbsp;
+				<%
+					if ((endPage + 10) > maxPage) {
+				%>
+				<a href="/NHMP/patientlistview?page=<%=maxPage%>">▶▶</a>
+				<%
+					} else {
+				%>
+				<a href="/NHMP/patientlistview?page=<%=endPage + 10%>">▶▶</a>
+				<%
+					}
+				%>
+				&nbsp; <a href="/NHMP/patientlistview?page=<%=maxPage%>">▷|</a>
+			</div>
+			<div align="center">
+				<a href="/NHMP/views/ERP/Employee.jsp">홈으로 이동</a>
+			</div>
 		</div>
 
 		<!--**********************************
