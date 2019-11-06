@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import ERP.Allowance.model.service.AllowanceService;
 import ERP.Allowance.model.vo.Allowance;
 import ERP.Deduction.model.service.DeductionService;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class AllowanceDeleteServlet
@@ -33,9 +34,10 @@ public class AllowanceDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 수당 삭제용 컨트롤러
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
 		String code = request.getParameter("code");
 		System.out.println(code);
-		int reuslt = new AllowanceService().deleteAllowance(code);
+		int reuslt = new AllowanceService().deleteAllowance(code, loginHospital);
 		
 	}
 

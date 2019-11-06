@@ -511,7 +511,7 @@ function Acheckbox(Acode, Ano){
 										<hr class="my-2">
 										<li><a href="page-lock.html"><i class="icon-lock"></i>
 												<span>Lock Screen</span></a></li>
-										<li><a href="page-login.html"><i class="icon-key"></i>
+										<li><a href="/NHMP/logout"><i class="icon-key"></i>
 												<span>Logout</span></a></li>
 									</ul>
 								</div>
