@@ -7,7 +7,7 @@
    ArrayList<Dependents> dpenList = (ArrayList<Dependents>)request.getAttribute("dpenList");
    ArrayList<Career> carList = (ArrayList<Career>)request.getAttribute("carList");
    ArrayList<Education> eduList = (ArrayList<Education>)request.getAttribute("eduList");
-   
+   Employee emp2 = (Employee)session.getAttribute("loginEmployee");
    String[] rship = new String[14];
    String[] fyshcl = new String[7];
    String[] taking = new String[5];
@@ -153,7 +153,7 @@
 	String[] team = new String[18];
 	String[] ward = new String[3];
 	String[] hold = new String[3];
-	
+	if(emp.getEmpmentCode() != null){
 	for(int i = 0; i < ement.length; i ++){
 		switch(emp.getEmpmentCode()){
 		case "EM1" : ement[0] = "selected";break;
@@ -163,9 +163,9 @@
 		case "EM5" : ement[4] = "selected";break;
 		case "EM6" : ement[5] = "selected";break;
 		case "EM7" : ement[6] = "selected";break;
+			}
 		}
 	}
-	
 	if(emp.getDeptCode() != null){
 	for(int i = 0; i < dept.length; i ++){
 		switch(emp.getDeptCode()){
@@ -178,6 +178,7 @@
 			}
 		}
 	}
+	if(emp.getPosCode() != null){
 	for(int i = 0; i < po.length; i ++){
 		switch(emp.getPosCode()){
 		case "PO1" : po[0] = "selected";break;
@@ -186,8 +187,10 @@
 		case "PO4" : po[3] = "selected";break;
 		case "PO5" : po[4] = "selected";break;
 		case "PO6" : po[5] = "selected";break;
+			}
 		}
 	}
+	if(emp.getTeamCode() != null){
 	for(int i = 0; i < team.length; i ++){
 		switch(emp.getTeamCode()){
 		case "TM1" : team[0] = "selected";break;
@@ -210,19 +213,24 @@
 		case "TM18" : team[17] = "selected";break;
 		}
 	}
+	}
+	if(emp.getWardCode() != null){
 	for(int i = 0; i < ward.length; i ++){
 		switch(emp.getWardCode()){
 		case "BD01" : ward[0] = "selected";break;
 		case "BD02" : ward[1] = "selected";break;
 		case "BD03" : ward[2] = "selected";break;
+			}
 		}
 	}
+	if(emp.getHoldOffice() != null){
 	 for(int i = 0; i < hold.length; i ++){
 		switch(emp.getHoldOffice()){
 		case "HOD1" : hold[0] = "selected";break;
 		case "HOD2" : hold[1] = "selected";break;
 		case "HOD3" : hold[2] = "selected";break;
 		
+			}
 		}
 	}
 %>
@@ -662,14 +670,27 @@ $(function(){
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
-				<a href="/NHMP/views/ERP/main.jsp"> <b class="logo-abbr"><img
-						src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> <span
+				<%if(emp2 != null){ %>
+				<a href="/NHMP/views/ERP/Employee.jsp">
+				 <b class="logo-abbr"><img
+						src="/NHMP/resources/ERP/images/logo.png" alt=""> </b> <span
 					class="logo-compact"><img
-						src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
-					<span class="brand-title"> <img align="middle"
-						src="/NHMP/resources/ERP/images/common/logo-text.png" ailgn="">
+						src="/NHMP/resources/ERP/images/logo-compact.png" alt=""></span> <span
+					class="brand-title"> <img
+						src="/NHMP/resources/ERP/images/common/logo-text.png" alt="">
 				</span>
 				</a>
+				<%}else{ %>
+				<a href="/NHMP/views/ERP/Admin_main.jsp">
+				 <b class="logo-abbr"><img
+						src="/NHMP/resources/ERP/images/logo.png" alt=""> </b> <span
+					class="logo-compact"><img
+						src="/NHMP/resources/ERP/images/logo-compact.png" alt=""></span> <span
+					class="brand-title"> <img
+						src="/NHMP/resources/ERP/images/common/logo-text.png" alt="">
+				</span>
+				</a>
+				<%} %>
 			</div>
 		</div>
 		<!--**********************************
@@ -851,8 +872,8 @@ $(function(){
 										<hr class="my-2">
 										<li><a href="page-lock.html"><i class="icon-lock"></i>
 												<span>Lock Screen</span></a></li>
-										<li><a href="page-login.html"><i class="icon-key"></i>
-												<span>Logout</span></a></li>
+										<li><a href="/NHMP/logouts"><i class="icon-key"></i>
+												<span>로그아웃</span></a></li>
 									</ul>
 								</div>
 							</div>
@@ -879,85 +900,41 @@ $(function(){
 							<li><a href="/NHMP/list">전체사원조회</a></li>
 							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
 							<li><a href="/NHMP/ochart">조직도</a></li>
-							<!--
-                            <li><a href="layout-compact-nav.html">Compact Nav</a></li>
-                            <li><a href="layout-vertical.html">Vertical</a></li>
-                            <li><a href="layout-horizontal.html">Horizontal</a></li>
-                            <li><a href="layout-boxed.html">Boxed</a></li>
-                            <li><a href="layout-wide.html">Wide</a></li>
-
-
-                            <li><a href="layout-fixed-header.html">Fixed Header</a></li>
-                            <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li>
-                        -->
-
 						</ul>
 					</li>
-					<!-- <li class="nav-label">Apps</li> -->
+					<%if(emp2 == null){ %>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> 
-						<i class="fa fa-id-card"></i> 
-						<span class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
+						<i class="fa fa-id-card"></i>
+						 
+						<span class="nav-text">권한설정</span>
 					</a>
-						
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/authall">권한부여관리</a></li>
-							<!--
-                            <li><a href="email-read.html">수당항목등록</a></li>
-                            <li><a href="email-compose.html">급여계산</a></li>
-                            -->
 						</ul>
 						
 					</li>
+					<%} %>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
 							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
 					</a>
 
 						<ul aria-expanded="false">
-							<li><a href="app-profile.html">전체환자 조회</a></li>
-							<li><a href="app-calender.html">환자 입원 등록</a></li>
-							<li><a href="app-calender.html">상담일지 등록</a></li>
-							<li><a href="app-calender.html">투약일지 등록</a></li>
+							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
+							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
+									입원 등록</a></li>
+							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
+							<li><a href="/NHMP/recordlistview">투약일지 등록</a></li>
 						</ul></li>
-					<!--
-                    <li>
-                            <a  href="javascript:void()" aria-expanded="false">
-                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
-                               <i class="icon-graph menu-icon"></i> <span class="nav-text">게시판</span>
-                        </a>
-                        <ul aria-expanded="false">
-
-                            <li><a href="chart-flot.html">공지사항</a></li>
-                            <li><a href="chart-morris.html">자료실</a></li>
-
-                            <li><a href="chart-chartjs.html">Chartjs</a></li>
-                            <li><a href="chart-chartist.html">Chartist</a></li>
-                            <li><a href="chart-sparkline.html">Sparkline</a></li>
-                            <li><a href="chart-peity.html">Peity</a></li>
-
-                        </ul>
-                    </li>
-                    -->
-
-
-
-
-
-					<!--   <li class="nav-label">UI Components</li>  -->
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span
-							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
+							class="nav-text">급여 관리</span> 
 					</a>
 						<ul aria-expanded="false">
 							<!-- <li><a href="/NHMP/deduclise">공제항목등록</a></li>
 							<li><a href="/NHMP/allowlist">수당항목등록</a></li> -->
 							<li><a href="/NHMP/paylist">급여계산</a></li>
-							<!--
-                            <li><a href="ui-button.html">Button</a></li>
-                            <li><a href="ui-button-group.html">Button Group</a></li>
-                            -->
 							<!-- </ul>
                     </li>
 
@@ -1019,11 +996,11 @@ $(function(){
 					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
-					<li><a href="javascript:void()" aria-expanded="false"> <i
+					<li><a href="/NHMP/drlist" aria-expanded="false"> <i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
+				</ul>
 			</div>
-			</ul>
 		</div>
 
 		<!--**********************************

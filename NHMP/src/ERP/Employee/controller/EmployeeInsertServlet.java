@@ -140,7 +140,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 			emp.setTeamCode(team);
 		}
 		String job = mrequest.getParameter("job");
-		if(job.equals("job") != true)
+		if(job.equals("0") != true)
 			emp.setPosCode(job);
 		else {
 			job = null;
@@ -206,7 +206,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 		
 		if(result == 0) {
 			pw.println("<script >");
-			pw.println("alert('정상적인 발송방식이 아닙니다 확인하세요.')");
+			pw.println("alert('사원정보 등록실패')");
 			pw.println("history.back()");
 			pw.println("</script>");
 			pw.flush();
