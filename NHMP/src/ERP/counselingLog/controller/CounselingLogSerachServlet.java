@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import ERP.Employee.model.vo.Employee;
 import ERP.counselingLog.model.service.CounselingLogService;
 import ERP.counselingLog.model.vo.CounselingLog;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class CounselingLogSerachServlet
@@ -40,6 +41,15 @@ public class CounselingLogSerachServlet extends HttpServlet {
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		if(emp != null) {
+		
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
 		
 		String search = request.getParameter("search");
 		
@@ -48,10 +58,10 @@ public class CounselingLogSerachServlet extends HttpServlet {
 		
 		switch(search) {
 		case "cl_title" : String clTitle = request.getParameter("cl_title");
-						list = cservice.selectTitleSearch(emp, clTitle);
+						list = cservice.selectTitleSearch(hostId, hostPwd, clTitle);
 						break;
 		case "cl_emp_name" : String clEmpName = request.getParameter("cl_emp_name");
-										list = cservice.selectClEmpNameSearch(emp, clEmpName);
+										list = cservice.selectClEmpNameSearch(hostId, hostPwd, clEmpName);
 										break;
 		}
 		

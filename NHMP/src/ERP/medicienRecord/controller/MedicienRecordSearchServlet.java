@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import ERP.Employee.model.vo.Employee;
 import ERP.medicienRecord.model.service.MedicienRecordService;
 import ERP.medicienRecord.model.vo.MedicienRecord;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class MedicienRecordSearchServlet
@@ -39,6 +40,15 @@ public class MedicienRecordSearchServlet extends HttpServlet {
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		if(emp != null) {
+		
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
 		
 		String search = request.getParameter("search");
 		
@@ -47,10 +57,10 @@ public class MedicienRecordSearchServlet extends HttpServlet {
 		
 		switch(search) {
 		case "mr_pat_name" : String mrPatName = request.getParameter("mr_pat_name");
-								list = mservice.selectMrPatNameSearch(emp, mrPatName);
+								list = mservice.selectMrPatNameSearch(hostId, hostPwd, mrPatName);
 								break;
 		case "mr_emp_name" : String mrEmpName = request.getParameter("mr_emp_name");
-										list = mservice.selectMrEmpNameSearch(emp, mrEmpName);
+										list = mservice.selectMrEmpNameSearch(hostId, hostPwd, mrEmpName);
 										break;
 		}
 		

@@ -22,6 +22,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import ERP.Employee.model.vo.Employee;
 import ERP.medicienRecord.model.service.MedicienRecordService;
 import ERP.medicienRecord.model.vo.MedicienRecord;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class MedicienRecordInsertServlet
@@ -48,6 +49,15 @@ public class MedicienRecordInsertServlet extends HttpServlet {
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		if(emp != null) {
+		
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
 		
 		RequestDispatcher view = null;
 		if(!ServletFileUpload.isMultipartContent(request)) {
@@ -107,7 +117,7 @@ public class MedicienRecordInsertServlet extends HttpServlet {
 			medicienRecord.setMrRenameFileName(renameFileName);
 		}
 		
-		int result = new MedicienRecordService().insertMedicienRecord(emp, medicienRecord);
+		int result = new MedicienRecordService().insertMedicienRecord(hostId, hostPwd, medicienRecord);
 		
 		if(result > 0) {
 			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
