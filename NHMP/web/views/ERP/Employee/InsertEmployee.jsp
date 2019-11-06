@@ -104,19 +104,14 @@ function formCheck(){
 	  }
      
       
-      //휴대전화 정규식
-      var regExp = /^\d{3,4}$/;
-		//휴대폰 중앙 자리
-      if(!regExp.test($("input[name=phone2]").val())) {            
-          alert("휴대전화 중간번호는 숫자 3~4자리 사이의 숫자만 입력하십시오.");
-          return false;
-		}
-		//휴대폰 끝자리
-      var regExp2 = /^\d{4}$/;
-      if(!regExp2.test($("input[name=phone3]").val())) {            
-          alert("휴대전화 마지막 번호는 숫자 4자리 또는 숫자만 입력하십시오.");
-          return false;
-		}
+		$("#adtel1").on("focusout", function(){
+			
+		});
+		$("#adtel1").on("focusout", function(){
+			
+		});
+		
+      
       var adTel1 = /^\d{2,3}$/;
       var adTel2 = /^\d{3,4}$/;
       var adTel3 = /^\d{4}$/;
@@ -174,6 +169,30 @@ function formCheck(){
 </script>
 <script type="text/javascript">
 $(function(){
+	$("#phone3").on("focusout", function(){
+		//휴대폰 끝자리
+	      var regExp2 = /^\d{4}$/;
+	      if(!regExp2.test($("input[name=phone3]").val())) {            
+	          alert("휴대전화 마지막 번호는 숫자 4자리 또는 숫자만 입력하십시오.");
+	          $("#phone3").focus();
+	          return false;
+			}
+	      
+	});
+	
+	$("#phone2").on("focusout", function(){
+		//휴대전화 정규식
+	      var regExp = /^\d{3,4}$/;
+			//휴대폰 중앙 자리
+	      if(!regExp.test($("input[name=phone2]").val())) {            
+	          
+	          $("#phone2").select();
+	          $("#phone2").val("");
+	          alert("휴대전화 중간번호는 숫자 3~4자리 사이의 숫자만 입력하십시오.");
+	          return false;
+			}
+	});
+	
 	$("#empname").on("focusout",function(){
 		//사원이름 중복 체크 
 		
@@ -852,6 +871,12 @@ input[type=checkbox]{
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 						</ul>
+						<li><a href="/NHMP/nlist" aria-expanded="false"> <i
+							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
+					</a></li>
+					<li><a href="/NHMP/drlist" aria-expanded="false"> <i
+							class="fa fa-download"></i> <span class="nav-text">자료실</span>
+					</a></li>
 						<%}else{ %>
 						<ul class="metismenu" id="menu">
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
@@ -887,15 +912,17 @@ input[type=checkbox]{
 							class="nav-text">급여 관리</span> 
 					</a>
 						<ul aria-expanded="false">
+							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
+							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
 							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 						</ul>
-						<%} %>
-					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
+						<li><a href="/NHMP/nlist.ad" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
-					<li><a href="/NHMP/drlist" aria-expanded="false"> <i
+					<li><a href="/NHMP/drlist.ad" aria-expanded="false"> <i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
+						<%} %>
 					</ul>
 			</div>
 		</div>
@@ -992,7 +1019,7 @@ input[type=checkbox]{
 								<option value="011">011</option>
 								<option value="017">017</option>
 								<option value="016">016</option>
-							</select>&nbsp;-<input type="Tel" maxlength="4" style="border-radius:5px;" name="phone2">-<input type="Tel" maxlength="4" style="border-radius:5px;" name="phone3">
+							</select>&nbsp;-<input type="Tel" maxlength="4" style="border-radius:5px;"id="phone2" name="phone2">-<input type="Tel" maxlength="4" id="phone3" style="border-radius:5px;" name="phone3">
 						</td>
 				</tr>
 				<tr>

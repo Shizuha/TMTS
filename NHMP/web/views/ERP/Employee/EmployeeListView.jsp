@@ -216,6 +216,12 @@
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 						</ul>
+						<li><a href="/NHMP/nlist" aria-expanded="false"> <i
+							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
+					</a></li>
+					<li><a href="/NHMP/drlist" aria-expanded="false"> <i
+							class="fa fa-download"></i> <span class="nav-text">자료실</span>
+					</a></li>
 						<%}else{ %>
 						<ul class="metismenu" id="menu">
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
@@ -254,10 +260,10 @@
 							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 						</ul>
 						<%} %>
-					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
+					<li><a href="/NHMP/nlist.ad" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
-					<li><a href="/NHMP/drlist" aria-expanded="false"> <i
+					<li><a href="/NHMP/drlist.ad" aria-expanded="false"> <i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
 					</ul>
