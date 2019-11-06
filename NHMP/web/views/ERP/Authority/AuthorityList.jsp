@@ -333,10 +333,6 @@ function auList(id){
 						
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/authlist">권한부여관리</a></li>
-							<!--
-                            <li><a href="email-read.html">수당항목등록</a></li>
-                            <li><a href="email-compose.html">급여계산</a></li>
-                            -->
 						</ul>
 					
 					</li>
@@ -356,14 +352,15 @@ function auList(id){
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
 					</a>
 						<ul aria-expanded="false">
-							<!-- <li><a href="/NHMP/deduclise">공제항목등록</a></li>
-							<li><a href="/NHMP/allowlist">수당항목등록</a></li> -->
+							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
+							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
 							<li><a href="/NHMP/paylist">급여계산</a></li>
 							
 						</ul>
-					<li><a href="/NHMP/nlist" aria-expanded="false"><i class="fa fa-slideshare"></i><span class="nav-text">공지사항</span>
+						<li><a href="/NHMP/nlist.ad" aria-expanded="false"> <i
+							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
-					<li><a href="javascript:void()" aria-expanded="false"> <i
+					<li><a href="/NHMP/drlist.ad" aria-expanded="false"> <i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
 					</ul>
