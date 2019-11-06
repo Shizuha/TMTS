@@ -166,10 +166,16 @@ function formCheck(){
  	   $("input[name=empname]").focus();
  	   return false;
  	  }
-  	$(this).keydown(function(evt) {
-		if (evt.keyCode == 13) 
-			return false; 
-		});
+  	//아이디정규식
+  	var idReg = /^[a-zA-Z]+[a-zA-Z0-9]{5,19}$/g;
+    if( !idReg.test( $("input[name=empids]").val() ) ) {
+  	  $(".succesIdCheck").css("display", "none");
+  	  $(".errorIdCheck").css("display", "none");
+  	  $(".IdCheck").css("display", "inline-block");
+  	  $("#userId").focus();
+        return false;
+    }
+  	
   	return true;
 }
 </script>
@@ -288,11 +294,11 @@ $(function(){
 			      }
 			}else	
 				return false;
-			
+			e.stopPropagation();
 		});
 		
     	$(".btn3").click(function(){
-    		e.stopPropagation();
+    	
     		//학력정보 추가시 
     		$(".insertemp4").append(
     				"<tr><td><input type='checkbox' class='shchk' name='shchk'></td><td>"
@@ -324,7 +330,7 @@ $(function(){
     	
 		
 		$(".btn5").click(function(){
-			e.stopPropagation();
+			
 			//경력사항 추가시
 			$(".insertemp5").append(
 					"<tr>"
@@ -341,18 +347,19 @@ $(function(){
 		});
 		//경력사항 삭제시 체크된 경력정보행 삭제
 		$(".btn6").click(function(){
-			e.stopPropagation();
+			
             if($("input[name=comchk]").is(":checked") == true){ //체크된 요소가 있으면               
                   var i = $("input[name=comchk]:checked").parents("tr");
                            i.remove();
               }else {
                   alert("기본값은 삭제할수 없어용!")
               }
+        	
             return false;
          });
 		//학력정보 삭제시 체크된 학력정보행 삭제처리
 		$(".btn4").click(function(){
-			e.stopPropagation();
+			
             if($("input[name=shchk]").is(":checked") == true){ //체크된 요소가 있으면               
                   var i = $("input[name=shchk]:checked").parents("tr");
                                        
@@ -360,11 +367,12 @@ $(function(){
               }else {
                   alert("기본값은 삭제할수 없어용!")
               }
+        	
             return false;
          });
 		//부양가족 삭제시 체크된 가족행 삭제처리
 		$(".btn2").click(function(){
-			e.stopPropagation();
+			
             if($("input[name=fychk]").is(":checked") == true){ //체크된 요소가 있으면               
                   var i = $("input[name=fychk]:checked").parents("tr");
                                        
@@ -375,6 +383,7 @@ $(function(){
                   alert("기본값은 삭제할수 없어용!");
                   return false;
               }
+      		return false;
            
          });
 		
@@ -401,7 +410,7 @@ $(function(){
 $(function(){
 	//부양가족 추가버튼 누를시 처리
 	$(".btn1").click(function(){
-		e.stopPropagation();
+		
 		$(".insertemp3").append("<tr>"
 				+ "<td><input type='checkbox' class='fychk' name='fychk'></td>"
 				+ "<td>"
@@ -837,7 +846,7 @@ input[type=checkbox]{
 						<span class="nav-text">권한설정</span>
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/authall">권한부여관리</a></li>
+							<li><a href="/NHMP/authlist">권한부여관리</a></li>
 						</ul>
 						
 					</li>
@@ -866,63 +875,8 @@ input[type=checkbox]{
                             <li><a href="ui-button.html">Button</a></li>
                             <li><a href="ui-button-group.html">Button Group</a></li>
                             -->
-							<!-- </ul>
-                    </li>
-
-
-
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-layers menu-icon"></i><span class="nav-text">Components</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="uc-nestedable.html">Nestedable</a></li>
-                            <li><a href="uc-noui-slider.html">Noui Slider</a></li>
-                            <li><a href="uc-sweetalert.html">Sweet Alert</a></li>
-                            <li><a href="uc-toastr.html">Toastr</a></li>
-                        </ul>
-
-                    <li>
-                        <a href="widgets.html" aria-expanded="false">
-                            <i class="icon-badge menu-icon"></i><span class="nav-text">Widget</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-label">Forms</li>
-
-                    <li>
-                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-note menu-icon"></i><span class="nav-text">Forms</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="form-basic.html">Basic Form</a></li>
-                            <li><a href="form-validation.html">Form Validation</a></li>
-                            <li><a href="form-step.html">Step Form</a></li>
-                            <li><a href="form-editor.html">Editor</a></li>
-                            <li><a href="form-picker.html">Picker</a></li>
-                        </ul>
-                    </li> -->
-							<!--
-                    <li class="nav-label">Table</li>
-                -->
-							<!--    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-menu menu-icon"></i><span class="nav-text">Table</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="table-basic.html" aria-expanded="false">Basic Table</a></li>
-                            <li><a href="table-datatable.html" aria-expanded="false">Data Table</a></li>
-                        </ul>
-                </li> -->
-							<!--
-                    <li class="nav-label">Pages</li>
-                -->
-							<!--  <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-notebook menu-icon"></i><span class="nav-text">Pages</span>
-                        </a>
-                       
-                    </li>-->
+							<!-- </ul>-->
+                    
 						</ul>
 					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
@@ -956,7 +910,7 @@ input[type=checkbox]{
 						</td>
 					<th>고용형태</th>
 						<td>
-							<select id="empment" name="empment" style="border-radius:5px;">
+							<select id="empment" name="empment" style="border-radius:5px;" required>
 								<option value="0">--고용형태--</option> 
 								<option value="EM1">일용직</option>
 								<option value="EM2">위촉직</option>
@@ -971,7 +925,7 @@ input[type=checkbox]{
 				<tr>
 				<th>부서</th>
 					<td>
-						<select id="dept" name="dept" style="border-radius:5px;">
+						<select id="dept" name="dept" style="border-radius:5px;" required>
 							<option value="0">--부서구분--</option> 
 							<option value="10">가정의학과</option>
 							<option value="30">한방과</option>
@@ -983,7 +937,7 @@ input[type=checkbox]{
 					</td>
 				<th>직위</th>
 					<td>
-						<select id="job" name="job" style="border-radius:5px;">
+						<select id="job" name="job" style="border-radius:5px;" required>
 							<option value="0">--선택--</option> 
 							<option value="PO2">과장</option>
 							<option value="PO3">사원</option>
@@ -1007,11 +961,11 @@ input[type=checkbox]{
 					<th>주소</th>
 					<td colspan="3">
 						<input type="text" id="sample4_postcode"style="border-radius:5px;" placeholder="우편번호">
-						<input type="button" onclick="sample4_execDaumPostcode();" value="우편번호 찾기">&nbsp;
-						<input type="text" id="sample4_roadAddress"name="address1" placeholder="도로명주소" style="border-radius:5px;">
-						<input type="text" id="sample4_jibunAddress"name="address2" placeholder="지번주소" style="border-radius:5px; width:219px;"><br>
+						<input type="button" onclick="sample4_execDaumPostcode();" value="우편번호 찾기" >&nbsp;
+						<input type="text" id="sample4_roadAddress"name="address1" placeholder="도로명주소" style="border-radius:5px;" readonly>
+						<input type="text" id="sample4_jibunAddress"name="address2" placeholder="지번주소" style="border-radius:5px; width:219px;" readonly><br>
 						<input type="text" id="sample4_detailAddress"name="address3" placeholder="상세주소" style="border-radius:5px;">
-						<input type="text" id="sample4_extraAddress"name="address4" placeholder="참고항목" style="border-radius:5px;">
+						<input type="text" id="sample4_extraAddress"name="address4" placeholder="참고항목" style="border-radius:5px;" readonly>
 					
 					</td>
 				</tr>
@@ -1033,7 +987,7 @@ input[type=checkbox]{
 					<th>아이디</th>
 						<td class="idtd">
 						<input type="text"style="border-radius:5px;" name="empids" id="empids" required>&nbsp;
-						<span class="succesIdCheck" style="display:none; color:green; font-size:10pt;">사용가능한 아이디 입니다!</span>
+						<span class="succesIdCheck" style="display:none; color:green; font-size:10pt;">사용가능한 아이디 입니다<i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>
 						&nbsp;<span class="errorIdCheck" style="display:none; color:red;font-size:10pt;">이미 사용중인 아이디 입니다!</span>
 						<span class="IdCheck" style="display:none; color:red;font-size:10pt;">아이디형식에 맞지않습니다!</span>
 						</td>
@@ -1041,16 +995,16 @@ input[type=checkbox]{
 						<td><input type="password"style="border-radius:5px;" id="emppwd"name="emppwds" required>&nbsp;
 						중복확인<input type="password"style="border-radius:5px;"id="emppwd2" required>
 						<span class="checkPwd" style="color:red; display:none;">불일치!</span>
-						<span class="checkPwd2" style="color:green; display:none;">일치!</span>
+						<span class="checkPwd2" style="color:green; display:none;">일치<i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>
 						</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
 						<td>
 						<input type="email" name="email" id="email" style="border-radius:5px;">
-						<span class="succesEmailCheck" style="display:none; color:green; font-size:10pt;">사용가능한 이메일 입니다!</span>
-						&nbsp;<span class="errorEmailCheck" style="display:none; color:red;font-size:10pt;">이미 사용중인 이메일 입니다!</span>
-						<span class="EmailCheck" style="display:none; color:red;font-size:10pt;">이메일 형식이 틀립니다!</span>
+						<span class="succesEmailCheck" style="display:none; color:green; font-size:10pt;">사용가능한 이메일 입니다<i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>
+						&nbsp;<span class="errorEmailCheck" style="display:none; color:red;font-size:10pt;">이미 사용중인 이메일 입니다<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></span>
+						<span class="EmailCheck" style="display:none; color:red;font-size:10pt;">이메일 형식이 틀립니다<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></span>
 						</td>
 					<th>기본급</th>
 						<td><input type="text" name="salary"value="1750000"style="border-radius:5px;" required></td>
@@ -1065,7 +1019,7 @@ input[type=checkbox]{
 				<tr>
 					<th>팀</th>
 						<td>
-							<select id="team" name="team" style="border-radius:5px;">
+							<select id="team" name="team" style="border-radius:5px;" required>
 								<option value="0">--팀구분--</option> 
 								<option value="TM1">병원간호팀</option>
 								<option value="TM2">외래간호팀</option>
@@ -1090,7 +1044,7 @@ input[type=checkbox]{
 							
 					<th>재직형태</th>
 						<td>
-							<select id="hold" name="hold" style="border-radius:5px;">
+							<select id="hold" name="hold" style="border-radius:5px;" required>
 								<option value="0">--재직구분--</option> 
 								<option value="HOD1">휴직</option>
 								<option value="HOD2">재직</option>
@@ -1101,7 +1055,7 @@ input[type=checkbox]{
 				<tr>
 					<th>병동</th>
 						<td>
-							<select id="ward" name="ward" style="border-radius:5px;">
+							<select id="ward" name="ward" style="border-radius:5px;" required>
 								<option value="0">--병동구분--</option> 
 								<option value="BD01">1병동</option>
 								<option value="BD02">2병동</option>

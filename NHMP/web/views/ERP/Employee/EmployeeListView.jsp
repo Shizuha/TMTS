@@ -207,11 +207,13 @@
 						<span class="nav-text">권한설정</span>
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/authall">권한부여관리</a></li>
+							<li><a href="/NHMP/authlist">권한부여관리</a></li>
 						</ul>
 						
 					</li>
 					<%} %>
+					<%if(emp != null){ %>
+						<%if(emp.getAuthorityCode().equals("G2")){%>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
 							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
@@ -223,6 +225,7 @@
 							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
 							<li><a href="/NHMP/recordlistview">투약일지 등록</a></li>
 						</ul></li>
+						<%} %>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
@@ -240,6 +243,7 @@
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
 					</ul>
+					<% } %>
 			</div>
 			
 		</div>

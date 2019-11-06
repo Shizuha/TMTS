@@ -11,7 +11,7 @@ public class Department implements Serializable{
 	
 	public Department () {}
 
-	public Department(String deptCode, String deptName, String teamCode) {
+	public Department(String deptCode, String deptName) {
 		super();
 		this.deptCode = deptCode;
 		this.deptName = deptName;

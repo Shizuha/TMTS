@@ -1,6 +1,7 @@
 package ERP.Employee.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -90,8 +91,17 @@ public class EmployeeListServlet extends HttpServlet {
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("listCount", listCount);
 		} else {
-			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "전체조회실패");
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter pw = response.getWriter();
+			
+				pw.println("<script >");
+				pw.println("alert('사원이없습니다^^')");
+				pw.println("history.back()");
+				pw.println("</script>");
+				pw.flush();
+				pw.close();
+				
+			
 
 		}
 		view.forward(request, response);
