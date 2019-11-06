@@ -16,6 +16,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import ERP.Employee.model.vo.Employee;
 import ERP.patient.model.service.PatientService;
 import ERP.patient.model.vo.Patient;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class PatientInsertServlet
@@ -42,6 +43,15 @@ public class PatientInsertServlet extends HttpServlet {
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		if(emp != null) {
+		
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
 		
 		Patient patient = new Patient();
 		
@@ -59,7 +69,7 @@ public class PatientInsertServlet extends HttpServlet {
 		patient.setPatDoc(request.getParameter("pat_doc"));
 		
 		
-		int result = new PatientService().insertPatient(emp, patient);
+		int result = new PatientService().insertPatient(hostId, hostPwd, patient);
 		
 		if(result > 0) {
 			response.sendRedirect("views/ERP/Employee.jsp");

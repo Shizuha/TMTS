@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ERP.Employee.model.vo.Employee;
 import ERP.counselingLog.model.service.CounselingLogService;
+import Main.NursingHospital.model.ov.NursingHospital;
 
 /**
  * Servlet implementation class CounselingLogDeleteServlet
@@ -38,11 +39,20 @@ public class CounselingLogDeleteServlet extends HttpServlet {
 		String hostId = null;
 		String hostPwd = null;
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
+		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
+		if(emp != null) {
+		
+		hostId = emp.getHostId();
+		hostPwd = emp.getHostPwd();
+		}else {
+			hostId = loginHospital.getNH_USERID();
+			hostPwd = loginHospital.getNH_USERPWD();
+		}
 		
 		int clNo = Integer.parseInt(request.getParameter("cl_no"));
 		String renameFileName = request.getParameter("rfile");
 		
-		int result = new CounselingLogService().deleteCounselingLog(emp, clNo);
+		int result = new CounselingLogService().deleteCounselingLog(hostId, hostPwd, clNo);
 		
 		if(result > 0) {
 			if(renameFileName != null) {
