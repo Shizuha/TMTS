@@ -8,9 +8,9 @@
 	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
 %>
 
-<%@ page import="ERP.notice.model.vo.Notice, java.util.ArrayList" %>
+<%@ page import="ERP.Dataroom.model.vo.Dataroom, java.util.ArrayList" %>
 <% //스크립트릿(scriptlet) 태그라고 함
-	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+	ArrayList<Dataroom> list = (ArrayList<Dataroom>)request.getAttribute("list");
 %>
 <%
 	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
@@ -485,7 +485,7 @@ function showDiv(){
 					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
-					<li><a href="/NHMP/drlist" aria-expanded="false"> <i
+					<li><a href="javascript:void()" aria-expanded="false"> <i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
 					</ul>
@@ -494,41 +494,10 @@ function showDiv(){
 		</div>
 		
 		<!-- ErpNoticeListView.jsp 추가분 -->
-<h1 align="center">공지사항 전체 목록 보기 : <%= list.size() %> 개</h1>
-<h3 align="center"><a href="/NHMP/nlist">전체 목록 보기</a></h3>
+<h1 align="center">자료실 전체 목록 보기 : <%= list.size() %> 개</h1>
+<h3 align="center"><a href="/NHMP/drlist">전체 목록 보기</a></h3>
 <center>
-<div class="searchbox">
-<div>
-	<h2>검색할 항목을 선택하시오.</h2>
-	<input type="radio" name="item" value="title" checked> 제목 &nbsp; &nbsp; &nbsp; 
-	<input type="radio" name="item" value="writer"> 작성자 &nbsp; &nbsp; &nbsp; 
-	<input type="radio" name="item" value="date"> 날짜
-</div>
-<div id="titlediv">
-	<form action="/NHMP/nsearch" method="post">
-		<input type="hidden" name="search" value="title">
-		<label>검색할 제목을 입력하시오 : 
-		<input type="search" name="keyword"></label>
-		<input type="submit" value="검색">
-	</form>
-</div>
-<div id="writerdiv">
-	<form action="/NHMP/nsearch" method="post">
-		<input type="hidden" name="search" value="writer">
-		<label>검색할 작성자 아이디를 입력하시오 : 
-		<input type="search" name="keyword"></label>
-		<input type="submit" value="검색">
-	</form>
-</div>
-<div id="datediv">
-	<form action="/NHMP/nsearch" method="post">
-		<input type="hidden" name="search" value="date">
-		<label>검색할 날짜를 선택하시오 : 
-		<input type="date" name="from"> ~ <input type="date" name="to"></label>
-		<input type="submit" value="검색">
-	</form>
-</div>
-</div>
+
 <br>
 <table align="center" width="600" border="1" cellspacing="0" cellpadding="5" float="block">
 <tr >
@@ -536,49 +505,82 @@ function showDiv(){
 	<th>제목</th>
 	<th>작성자</th>
 	<th>작성날짜</th>
+	<th>첨부파일</th>
 	<th>조회수</th>
 </tr>
-<% for(Notice n : list){ %>
-<tr >
-	<th><%= n.getNoticeNo() %></th>
-	<td><a href="/NHMP/ndetail?no=<%= n.getNoticeNo() %>"><%= n.getNoticeTitle() %></a></td>
-	<td><%= n.getNoticeWriter() %></td>
-	<td align="center">
-		<%= n.getNoticeDate() %>
+	<% for(Dataroom dataroom : list){ %>
+	<tr >
+		<th><%= dataroom.getDataroomNo() %></th>
+		<td><a href="/NHMP/drdetail?no=<%= dataroom.getDataroomNo() %>"><%= dataroom.getDataroomTitle() %></a></td>
+		<td><%= dataroom.getDataroomWriter() %></td>
+		<td align="center">
+			<%= dataroom.getDataroomDate() %>
+		</td>
+		<td align="center">
+		<% if(dataroom.getDataroomOriginalFileName() != null){ %>
+			◎
+		<% }else{ %>
+			&nbsp;
+		<% } %>
 	</td>
-	<td><%= n.getNoticeCount() %></td>
-</tr>
-<% } %>
+		
+		<td><%= dataroom.getDataroomCount() %></td>
+	</tr>
+	<% } %>
 
 
 
 </table>
 
+<div>
+<div>
+	
+	<input type="radio" name="item" value="title" checked> 제목 &nbsp; &nbsp; &nbsp; 
+	<input type="radio" name="item" value="writer"> 작성자 &nbsp; &nbsp; &nbsp; 
+</div>
+<div id="titlediv">
+	<form action="/NHMP/drsearch" method="post">
+		<input type="hidden" name="search" value="title">
+		<label>검색할 제목을 입력하시오 : 
+		<input type="search" name="keyword"></label>
+		<input type="submit" value="검색">
+	</form>
+</div>
+<div id="writerdiv">
+	<form action="/NHMP/drsearch" method="post">
+		<input type="hidden" name="search" value="writer">
+		<label>검색할 작성자 아이디를 입력하시오 : 
+		<input type="search" name="keyword"></label>
+		<input type="submit" value="검색">
+	</form>
+</div>
+</div>
+
      <!-- 패이징처리 서블릿 -->
 <div id="pagebox" align="center">
-<a href="/NHMP/nlist?page=1">|◁</a> &nbsp;
+<a href="/NHMP/drlist?page=1">|◁</a> &nbsp;
 <% if((beginPage - 10) < 1){ %>
-	<a href="/NHMP/nlist?page=1">◀◀</a>
+	<a href="/NHMP/drlist?page=1">◀◀</a>
 <% }else{ %>
-	<a href="/NHMP/nlist?page=<%= beginPage - 10 %>">◀◀</a>
+	<a href="/NHMP/drlist?page=<%= beginPage - 10 %>">◀◀</a>
 <% } %> &nbsp;
 <% for(int p = beginPage; p <= endPage; p++){ 
 		if(p == currentPage){
 %>
-	<a href="/NHMP/nlist?page=<%= p %>"><font color="red"><b>[<%= p %>]</b></font></a>
+	<a href="/NHMP/drlist?page=<%= p %>"><font color="red"><b>[<%= p %>]</b></font></a>
 <% }else{ %>
-	<a href="/NHMP/nlist?page=<%= p %>"><%= p %></a>
+	<a href="/NHMP/drlist?page=<%= p %>"><%= p %></a>
 <% }}  %> &nbsp;
 <% if((endPage + 10) > maxPage){ %>
-	<a href="/NHMP/nlist?page=<%= maxPage %>">▶▶</a>
+	<a href="/NHMP/drlist?page=<%= maxPage %>">▶▶</a>
 <% }else{ %>
-	<a href="/NHMP/nlist?page=<%= endPage + 10 %>">▶▶</a>
+	<a href="/NHMP/drlist?page=<%= endPage + 10 %>">▶▶</a>
 <% } %> &nbsp;
-<a href="/NHMP/nlist?page=<%= maxPage %>">▷|</a>
+<a href="/NHMP/drlist?page=<%= maxPage %>">▷|</a>
 </div>
 <!-- 홈으로 가는 버튼 생성 -->
 <div align="center">
-	<a href="/NHMP/nlist">홈으로 이동</a>
+	<a href="/NHMP/drlist">홈으로 이동</a>
 </div>
         
 <!-- ErpNoticeListView.jsp 추가분 끝-->

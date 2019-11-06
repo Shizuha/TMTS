@@ -15,6 +15,103 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMTS</title>
+<script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
+<script> 
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+	
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+        	plugins: [ 'dayGrid', 'interaction', 'list'],
+        	defaultView: 'dayGridMonth',
+        	selectable: true,
+        	locales : 'ko',
+
+            header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,addEventButton'
+            },
+
+            displayEventTime: false, // don't show the time column in list view
+            customButtons: {
+                addEventButton: {
+                  text: '일정 보기',
+                  click: function() {
+                	 window.open("/NHMP/views/ERP/Calendar.jsp");
+                  }
+                }
+            }
+          });
+
+          calendar.render();
+      });
+	
+$(function(){    
+      $.ajax({
+  		url : "/NHMP/ntop",
+  		type : "get",
+  		dataType : "json",
+  		success : function(data){
+  			var jsonStr = JSON.stringify(data);
+  			var json = JSON.parse(jsonStr);
+  			var values = "";
+  			
+  			for(var i in json.list){
+  				values += "<tr><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].no + 
+  				"</td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
+  				+ "</a></td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].date + "</td></tr>";
+  				/* <a href='/frist/ndetail?no= */
+  			}
+  			/* <td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd; */
+  			$("#newNotice").html($("#newNotice").html() + values);
+  		},
+  		error : function(jqXHR, textStatus, errorThrown){
+  			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+  		}
+  	});
+});
+
+$(function(){
+	//직원수
+	$.ajax({
+		url : "/NHMP/empcount",
+		type : "get",
+		success : function(data) {
+			$("#empcount").html(data+" 명");
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+
+	});
+	//신청 대기자 수 
+	$.ajax({
+		url : "/NHMP/patientcount",
+		type : "get",
+		success : function(data) {
+			$("#patientcount").html(data+" 명");
+
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+
+	});
+	$.ajax({
+		url : "/NHMP/wardcount",
+		type : "get",
+		success : function(data) {
+			$("#wardcount").html(data+" 개");
+
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+
+	});
+});
+    </script>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="/NHMP/resources/ERP/images/common/favicon.png">
@@ -69,7 +166,7 @@ function movelist(){
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
-				<a href="/NHMP/views/ERP/main.jsp"> <b class="logo-abbr"><img
+				<a href="/NHMP/views/ERP/Admin_main.jsp"> <b class="logo-abbr"><img
 						src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> <span
 					class="logo-compact"><img
 						src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
@@ -275,17 +372,29 @@ function movelist(){
 		<!--**********************************
             Sidebar start
         ***********************************-->
-		<div class="nk-sidebar">
+<div class="nk-sidebar">
 			<div class="nk-nav-scroll">
 				<ul class="metismenu" id="menu">
+
+					<!--    <li class="nav-label">Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="index.html">Home 1</a></li>
+                            <li><a href="./index-2.html">Home 2</a></li>
+                        </ul>
+                    </li>
+                    -->
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
-						href="javascript:void()" aria-expanded="false"> 
-						<i class="fa fa-users"></i><span class="nav-text">인사관리</span> 
+						href="javascript:void()" aria-expanded="false"> <i
+							class="fa fa-users"></i><span class="nav-text">인사관리</span> <!-- <i class="icon-globe-alt menu-icon"></i><span class="nav-text">인사설정</span>-->
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="layout-blank.html">인사정보관리</a></li>
-							<li><a href="layout-one-column.html">인사정보등록</a></li>
-							<li><a href="layout-two-column.html">조직도</a></li>
+							<li><a href="/NHMP/list">전체사원조회</a></li>
+							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
+							<li><a href="/NHMP/ochart">조직도</a></li>
 							<!--
                             <li><a href="layout-compact-nav.html">Compact Nav</a></li>
                             <li><a href="layout-vertical.html">Vertical</a></li>
@@ -298,34 +407,29 @@ function movelist(){
                             <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li>
                         -->
 
-						</ul>
-					</li>
+						</ul></li>
 					<!-- <li class="nav-label">Apps</li> -->
 					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> 
-						<i class="fa fa-id-card"></i> 
-						<span class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
+						aria-expanded="false"> <i class="fa fa-id-card"></i> <span
+							class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
 					</a>
-						<% if(loginHospital != null) { %>
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/authall">권한부여관리</a></li>
+							<li><a href="/NHMP/authlist">권한부여관리</a></li>
 							<!--
                             <li><a href="email-read.html">수당항목등록</a></li>
                             <li><a href="email-compose.html">급여계산</a></li>
                             -->
-						</ul>
-						<% } %>
-					</li>
+						</ul></li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
 							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
 					</a>
 
 						<ul aria-expanded="false">
-							<li><a href="app-profile.html">전체환자 조회</a></li>
-							<li><a href="app-calender.html">환자 입원 등록</a></li>
-							<li><a href="app-calender.html">상담일지 등록</a></li>
-							<li><a href="app-calender.html">투약일지 등록</a></li>
+							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
+							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자 입원 등록</a></li>
+							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
+							<li><a href=/NHMP/recordlistview>투약일지 등록</a></li>
 						</ul></li>
 					<!--
                     <li>
@@ -450,12 +554,13 @@ function movelist(){
 					<li><a href="/NHMP/nlist.ad" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
-					<li><a href="javascript:void()" aria-expanded="false"> <i
+					<li><a href="/NHMP/drlist.ad" aria-expanded="false"> <i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
 			</div>
 			</ul>
 		</div>
+
 		
 		<!-- ErpNoticeListView.jsp 추가분 -->
 <center>

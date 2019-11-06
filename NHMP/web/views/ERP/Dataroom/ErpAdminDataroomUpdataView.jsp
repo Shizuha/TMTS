@@ -1,24 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-<%@
-	page import="Main.NursingHospital.model.ov.NursingHospital"%>
-
+    pageEncoding="UTF-8"%>
+<%@ page import="ERP.Dataroom.model.vo.Dataroom,Main.NursingHospital.model.ov.NursingHospital" %>
 <%
+	Dataroom dataroom = (Dataroom)request.getAttribute("dataroom");
+	String currentPage = (String)request.getAttribute("currentPage");
 	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
 %>
-
-<%@ page import="ERP.notice.model.vo.Notice, java.util.ArrayList" %>
-<% //스크립트릿(scriptlet) 태그라고 함
-	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
-%>
-<%
-	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
-	int beginPage = ((Integer)request.getAttribute("beginPage")).intValue();
-	int endPage = ((Integer)request.getAttribute("endPage")).intValue();
-	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
-%>
-
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,6 +15,103 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TMTS</title>
+<script type="text/javascript" src="/NHMP/resources/common/js/jquery-3.4.1.min.js"></script>
+<script> 
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+	
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+        	plugins: [ 'dayGrid', 'interaction', 'list'],
+        	defaultView: 'dayGridMonth',
+        	selectable: true,
+        	locales : 'ko',
+
+            header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,addEventButton'
+            },
+
+            displayEventTime: false, // don't show the time column in list view
+            customButtons: {
+                addEventButton: {
+                  text: '일정 보기',
+                  click: function() {
+                	 window.open("/NHMP/views/ERP/Calendar.jsp");
+                  }
+                }
+            }
+          });
+
+          calendar.render();
+      });
+	
+$(function(){    
+      $.ajax({
+  		url : "/NHMP/ntop",
+  		type : "get",
+  		dataType : "json",
+  		success : function(data){
+  			var jsonStr = JSON.stringify(data);
+  			var json = JSON.parse(jsonStr);
+  			var values = "";
+  			
+  			for(var i in json.list){
+  				values += "<tr><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].no + 
+  				"</td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
+  				+ "</a></td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].date + "</td></tr>";
+  				/* <a href='/frist/ndetail?no= */
+  			}
+  			/* <td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd; */
+  			$("#newNotice").html($("#newNotice").html() + values);
+  		},
+  		error : function(jqXHR, textStatus, errorThrown){
+  			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+  		}
+  	});
+});
+
+$(function(){
+	//직원수
+	$.ajax({
+		url : "/NHMP/empcount",
+		type : "get",
+		success : function(data) {
+			$("#empcount").html(data+" 명");
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+
+	});
+	//신청 대기자 수 
+	$.ajax({
+		url : "/NHMP/patientcount",
+		type : "get",
+		success : function(data) {
+			$("#patientcount").html(data+" 명");
+
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+
+	});
+	$.ajax({
+		url : "/NHMP/wardcount",
+		type : "get",
+		success : function(data) {
+			$("#wardcount").html(data+" 개");
+
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+
+	});
+});
+    </script>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="/NHMP/resources/ERP/images/common/favicon.png">
@@ -42,52 +127,15 @@
 <!-- Custom Stylesheet -->
 <link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
 
-<!-- ErpNoticeListView.jsp 추가분 -->
+<!-- Erp.jsp 추가분 -->
 
-<style type="text/css">
-div.searchbox {
-	border : 1px solid blue;
-	width : 600px;
-	height : 120px;
-	background : ivory;
-	padding : 0;
-}
-</style>
-<script type="text/javascript" src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
-$(function(){
-	showDiv();
-	
-	$("input[name=item]").on("change", function(){
-		showDiv();
-	});
-});
-
-function showDiv(){
-	if($("input[name=item]").eq(0).is(":checked")){
-		$("#titlediv").css("display", "block");
-		$("#writerdiv").css("display", "none");
-		$("#datediv").css("display", "none");
-	}
-	
-	if($("input[name=item]").eq(1).is(":checked")){
-		$("#titlediv").css("display", "none");
-		$("#writerdiv").css("display", "block");
-		$("#datediv").css("display", "none");
-	}
-	
-	if($("input[name=item]").eq(2).is(":checked")){
-		$("#titlediv").css("display", "none");
-		$("#writerdiv").css("display", "none");
-		$("#datediv").css("display", "block");
-	}
+function movelist(){
+	location.href = "/NHMP/blist?page=<%= currentPage %>";
+	return false;
 }
 </script>
-<!-- ErpNoticeListView.jsp 추가분 끝 -->
-
-
 </head>
-
 <body>
 
 
@@ -118,7 +166,7 @@ function showDiv(){
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
-				<a href="/NHMP/views/ERP/Employee.jsp"> <b class="logo-abbr"><img
+				<a href="/NHMP/views/ERP/Admin_main.jsp"> <b class="logo-abbr"><img
 						src="/NHMP/resources/ERP/images/common/logo.png" alt=""> </b> <span
 					class="logo-compact"><img
 						src="/NHMP/resources/ERP/images/common/logo-compact.png" alt=""></span>
@@ -324,12 +372,24 @@ function showDiv(){
 		<!--**********************************
             Sidebar start
         ***********************************-->
-		<div class="nk-sidebar">
+<div class="nk-sidebar">
 			<div class="nk-nav-scroll">
 				<ul class="metismenu" id="menu">
+
+					<!--    <li class="nav-label">Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="index.html">Home 1</a></li>
+                            <li><a href="./index-2.html">Home 2</a></li>
+                        </ul>
+                    </li>
+                    -->
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
-						href="javascript:void()" aria-expanded="false"> 
-						<i class="fa fa-users"></i><span class="nav-text">인사관리</span> 
+						href="javascript:void()" aria-expanded="false"> <i
+							class="fa fa-users"></i><span class="nav-text">인사관리</span> <!-- <i class="icon-globe-alt menu-icon"></i><span class="nav-text">인사설정</span>-->
 					</a>
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/list">전체사원조회</a></li>
@@ -347,30 +407,29 @@ function showDiv(){
                             <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li>
                         -->
 
-						</ul>
-					</li>
+						</ul></li>
+					<!-- <li class="nav-label">Apps</li> -->
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-id-card"></i> <span
 							class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="#">권한부여관리</a></li>
+							<li><a href="/NHMP/authlist">권한부여관리</a></li>
 							<!--
                             <li><a href="email-read.html">수당항목등록</a></li>
                             <li><a href="email-compose.html">급여계산</a></li>
                             -->
 						</ul></li>
-					<!-- <li class="nav-label">Apps</li> -->
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
 							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
 					</a>
 
 						<ul aria-expanded="false">
-							<li><a href="app-profile.html">전체환자 조회</a></li>
-							<li><a href="app-calender.html">환자 입원 등록</a></li>
+							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
+							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자 입원 등록</a></li>
 							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
-							<li><a href="app-calender.html">투약일지 등록</a></li>
+							<li><a href=/NHMP/recordlistview>투약일지 등록</a></li>
 						</ul></li>
 					<!--
                     <li>
@@ -403,13 +462,23 @@ function showDiv(){
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
 					</a>
 						<ul aria-expanded="false">
-							<!-- <li><a href="/NHMP/deduclise">공제항목등록</a></li>
-							<li><a href="/NHMP/allowlist">수당항목등록</a></li> -->
-							<li><a href="/NHMP/Epaylist">급여계산</a></li>
+							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
+							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
+							<li><a href="/NHMP/paylist">급여계산</a></li>
 							<!--
                             <li><a href="ui-button.html">Button</a></li>
                             <li><a href="ui-button-group.html">Button Group</a></li>
                             <li><a href="ui-cards.html">Cards</a></li>
+                            <li><a href="ui-carousel.html">Carousel</a></li>
+                            <li><a href="ui-dropdown.html">Dropdown</a></li>
+                            <li><a href="ui-list-group.html">List Group</a></li>
+                            <li><a href="ui-media-object.html">Media Object</a></li>
+                            <li><a href="ui-modal.html">Modal</a></li>
+                            <li><a href="ui-pagination.html">Pagination</a></li>
+                            <li><a href="ui-popover.html">Popover</a></li>
+                            <li><a href="ui-progressbar.html">Progressbar</a></li>
+                            <li><a href="ui-tab.html">Tab</a></li>
+                            <li><a href="ui-typography.html">Typography</a></li>
                             -->
 							<!-- </ul>
                     </li>
@@ -482,112 +551,49 @@ function showDiv(){
                         </ul>
                     </li>-->
 						</ul>
-					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
+					<li><a href="/NHMP/nlist.ad" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
-					<li><a href="/NHMP/drlist" aria-expanded="false"> <i
+					<li><a href="/NHMP/drlist.ad" aria-expanded="false"> <i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
-					</ul>
 			</div>
-			
+			</ul>
 		</div>
+
 		
 		<!-- ErpNoticeListView.jsp 추가분 -->
-<h1 align="center">공지사항 전체 목록 보기 : <%= list.size() %> 개</h1>
-<h3 align="center"><a href="/NHMP/nlist">전체 목록 보기</a></h3>
 <center>
-<div class="searchbox">
-<div>
-	<h2>검색할 항목을 선택하시오.</h2>
-	<input type="radio" name="item" value="title" checked> 제목 &nbsp; &nbsp; &nbsp; 
-	<input type="radio" name="item" value="writer"> 작성자 &nbsp; &nbsp; &nbsp; 
-	<input type="radio" name="item" value="date"> 날짜
-</div>
-<div id="titlediv">
-	<form action="/NHMP/nsearch" method="post">
-		<input type="hidden" name="search" value="title">
-		<label>검색할 제목을 입력하시오 : 
-		<input type="search" name="keyword"></label>
-		<input type="submit" value="검색">
-	</form>
-</div>
-<div id="writerdiv">
-	<form action="/NHMP/nsearch" method="post">
-		<input type="hidden" name="search" value="writer">
-		<label>검색할 작성자 아이디를 입력하시오 : 
-		<input type="search" name="keyword"></label>
-		<input type="submit" value="검색">
-	</form>
-</div>
-<div id="datediv">
-	<form action="/NHMP/nsearch" method="post">
-		<input type="hidden" name="search" value="date">
-		<label>검색할 날짜를 선택하시오 : 
-		<input type="date" name="from"> ~ <input type="date" name="to"></label>
-		<input type="submit" value="검색">
-	</form>
-</div>
-</div>
-<br>
-<table align="center" width="600" border="1" cellspacing="0" cellpadding="5" float="block">
-<tr >
-	<th>번호</th>
-	<th>제목</th>
-	<th>작성자</th>
-	<th>작성날짜</th>
-	<th>조회수</th>
+		
+<h2 align="center"><%= dataroom.getDataroomNo() %>번 자료실글 수정 페이지 </h2>
+<table align="center" border="1" cellspacing="0" cellpadding="3">
+<form action="/NHMP/drupdate" method="post" enctype="multipart/form-data">
+<input type="hidden" name="page" value="<%= currentPage %>">
+<input type="hidden" name="no" value="<%= dataroom.getDataroomNo() %>">
+<tr><th>제목</th><td><input type="text" name="title" value="<%= dataroom.getDataroomTitle() %>"></td></tr>
+<tr><th>작성자</th>
+<td><input type="text" name="writer" value="<%= dataroom.getDataroomWriter() %>" readonly></td></tr>
+<tr><th>파일 첨부</th>
+   <td>
+   <% if(dataroom.getDataroomOriginalFileName() != null){ %>
+   	<%= dataroom.getDataroomOriginalFileName() %>
+   <% }else{ %>
+   	첨부파일 없음
+   <% } %> <br>
+   <input type="file" name="upfile"></td>
 </tr>
-<% for(Notice n : list){ %>
-<tr >
-	<th><%= n.getNoticeNo() %></th>
-	<td><a href="/NHMP/ndetail?no=<%= n.getNoticeNo() %>"><%= n.getNoticeTitle() %></a></td>
-	<td><%= n.getNoticeWriter() %></td>
-	<td align="center">
-		<%= n.getNoticeDate() %>
-	</td>
-	<td><%= n.getNoticeCount() %></td>
-</tr>
-<% } %>
-
-
-
+<tr><th>내용</th>
+<td><textarea rows="5" cols="70" name="content"><%= dataroom.getDataroomContent() %></textarea></td></tr>
+<tr><th colspan="2"> 
+	<input type="submit" value="글수정" > &nbsp; 
+	<input type="reset" value="작성취소"> &nbsp; 
+	<input type="button" value="목록" onclick="history.go(-1);"> &nbsp;
+	<input type="button" value="이전 페이지로" onclick="history.go(-1); return false;">
+</th></tr>
+</form>
 </table>
-
-     <!-- 패이징처리 서블릿 -->
-<div id="pagebox" align="center">
-<a href="/NHMP/nlist?page=1">|◁</a> &nbsp;
-<% if((beginPage - 10) < 1){ %>
-	<a href="/NHMP/nlist?page=1">◀◀</a>
-<% }else{ %>
-	<a href="/NHMP/nlist?page=<%= beginPage - 10 %>">◀◀</a>
-<% } %> &nbsp;
-<% for(int p = beginPage; p <= endPage; p++){ 
-		if(p == currentPage){
-%>
-	<a href="/NHMP/nlist?page=<%= p %>"><font color="red"><b>[<%= p %>]</b></font></a>
-<% }else{ %>
-	<a href="/NHMP/nlist?page=<%= p %>"><%= p %></a>
-<% }}  %> &nbsp;
-<% if((endPage + 10) > maxPage){ %>
-	<a href="/NHMP/nlist?page=<%= maxPage %>">▶▶</a>
-<% }else{ %>
-	<a href="/NHMP/nlist?page=<%= endPage + 10 %>">▶▶</a>
-<% } %> &nbsp;
-<a href="/NHMP/nlist?page=<%= maxPage %>">▷|</a>
-</div>
-<!-- 홈으로 가는 버튼 생성 -->
-<div align="center">
-	<a href="/NHMP/nlist">홈으로 이동</a>
-</div>
-        
-<!-- ErpNoticeListView.jsp 추가분 끝-->
 </center>
 <br>
-
-
-
-
 		<!--**********************************
             Sidebar end
         ***********************************-->
