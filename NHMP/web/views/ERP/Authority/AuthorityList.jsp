@@ -14,12 +14,7 @@
 <!-- 메인 CSS 처리용 -->
 <link href="/NHMP/resources/ERP/css/style.css?after" rel="stylesheet">
 <link href="/NHMP/resources/ERP/css/employeeListViewCss.css" rel="stylesheet">
-<!-- 아이콘 처리용 -->
-  <link href="/NHMP/resources/ERP/vender/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-	
-
-<!-- 스크립트태그 -->
   <script type="text/javascript" src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
  <script type="text/javascript">
  $(function(){
@@ -315,37 +310,31 @@ function auList(id){
 			<div class="nk-nav-scroll">
 				<ul class="metismenu" id="menu">
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
-						href="javascript:void()" aria-expanded="false"> 
-						<i class="fa fa-users"></i><span class="nav-text">인사관리</span> 
+						href="javascript:void()" aria-expanded="false"> <i
+							class="fa fa-users"></i><span class="nav-text">인사관리</span> 
 					</a>
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/list">전체사원조회</a></li>
 							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
 							<li><a href="/NHMP/ochart">조직도</a></li>
-						</ul>
-					</li>
-					<!-- <li class="nav-label">Apps</li> -->
+						</ul></li>
 					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> 
-						<i class="fa fa-id-card"></i> 
-						<span class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
+						aria-expanded="false"> <i class="fa fa-id-card"></i> <span
+							class="nav-text">권한설정</span> 
 					</a>
-						
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/authlist">권한부여관리</a></li>
-						</ul>
-					
-					</li>
+						</ul></li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
 							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
 					</a>
+
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
-							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
-									입원 등록</a></li>
+							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자 입원 등록</a></li>
 							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
-							<li><a href="/NHMP/recordlistview">투약일지 등록</a></li>
+							<li><a href=/NHMP/recordlistview>투약일지 등록</a></li>
 						</ul></li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span
@@ -355,19 +344,17 @@ function auList(id){
 							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
 							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
 							<li><a href="/NHMP/paylist">급여계산</a></li>
-							
+						
 						</ul>
-						<li><a href="/NHMP/nlist.ad" aria-expanded="false"> <i
+					<li><a href="/NHMP/nlist.ad" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
 					<li><a href="/NHMP/drlist.ad" aria-expanded="false"> <i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
-					</ul>
+				</ul>
 			</div>
-			
 		</div>
-
 		<!--**********************************
             Sidebar end
         ***********************************-->
@@ -406,7 +393,7 @@ function auList(id){
 				<div class="auR-button" style="float:right; width:40%; display:inline-block; padding:0px; margin-left:0px;">
 				<button class="Btn"style="float:right; display:inline-block; padding:0px; width:82px;margin-top:15px;" onclick="auInUser();">사용자 선택</button>
 				
-				<input type="button"onclick="auOutDel();" class="Btn" style="float:left; width:40px;margin-top:15px; margin-left:65px; display:inline-block; padding:0px;" value="삭제">
+				<input type="button"onclick="auOutDel();" class="Btn" style="float:right; width:40px;margin-top:15px; margin-left:65px; display:inline-block; padding:0px;" value="삭제">
 				</div>
 				</div>
 					<div class="auEmp">
@@ -453,16 +440,40 @@ function auList(id){
     ***********************************-->
     
     
-    		<script src="/NHMP/resources/ERP/css/plugins/common/common.min.js"></script>
+    	<script src="/NHMP/resources/ERP/css/plugins/common/common.min.js"></script>
 		<script src="/NHMP/resources/ERP/js/custom.min.js"></script>
 		<script src="/NHMP/resources/ERP/js/settings.js"></script>
 		<script src="/NHMP/resources/ERP/js/gleek.js"></script>
-		<!-- <script src="/NHMP/resources/ERP/js/styleSwitcher.js"></script> -->
+		<script src="/NHMP/resources/ERP/js/styleSwitcher.js"></script>
 
-<!-- 	<script src="/NHMP/resources/ERP/common/common.min.js"></script>
-	<script src="/NHMP/resources/ERP/js/custom.min.js"></script>
-	<script src="/NHMP/resources/ERP/js/settings.js"></script>
-	<script src="/NHMP/resources/ERP/js/gleek.js"></script> -->
+		<!-- Chartjs -->
+		<script
+			src="/NHMP/resources/ERP/css/plugins/chart.js/Chart.bundle.min.js"></script>
+		<!-- Circle progress -->
+		<script
+			src="/NHMP/resources/ERP/css/plugins/circle-progress/circle-progress.min.js"></script>
+		<!-- Datamap -->
+		<script src="/NHMP/resources/ERP/css/plugins/d3v3/index.js"></script>
+		<script src="/NHMP/resources/ERP/css/plugins/topojson/topojson.min.js"></script>
+		<script
+			src="/NHMP/resources/ERP/css/plugins/datamaps/datamaps.world.min.js"></script>
+		<!-- Morrisjs -->
+		<script src="/NHMP/resources/ERP/css/plugins/raphael/raphael.min.js"></script>
+		<script src="/NHMP/resources/ERP/css/plugins/morris/morris.min.js"></script>
+		<!-- Pignose Calender -->
+		<script src="/NHMP/resources/ERP/css/plugins/moment/moment.min.js"></script>
+		<script
+			src="/NHMP/resources/ERP/css/plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+		<!-- ChartistJS -->
+		<script
+			src="/NHMP/resources/ERP/css/plugins/chartist/js/chartist.min.js"></script>
+		<script
+			src="/NHMP/resources/ERP/css/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+
+
+
+		<script src="/NHMP/resources/ERP/js/dashboard/dashboard-1.js"></script>
+		
 
 </body>
 
