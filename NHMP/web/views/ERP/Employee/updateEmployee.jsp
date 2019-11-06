@@ -1084,11 +1084,11 @@ $(function(){
 					<td colspan="3">
 						<input type="text" id="sample4_postcode" placeholder="우편번호">
 						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">&nbsp;
-						<input type="text" id="sample4_roadAddress"name="address1" placeholder="도로명주소"value="<%=ad1 %>">
-						<input type="text" id="sample4_jibunAddress"name="address2" placeholder="지번주소"value="<%=ad2 %>"><br>
+						<input type="text" id="sample4_roadAddress"name="address1" placeholder="도로명주소"value="<%=ad1 %>" readonly>
+						<input type="text" id="sample4_jibunAddress"name="address2" placeholder="지번주소"value="<%=ad2 %>" readonly><br>
 						<span id="guide" style="color:#999;display:none"></span>
 						<input type="text" id="sample4_detailAddress"name="address3"value="<%=ad3 %>" placeholder="상세주소">
-						<input type="text" id="sample4_extraAddress"name="address4"value="<%=ad4 %>" placeholder="참고항목">
+						<input type="text" id="sample4_extraAddress"name="address4"value="<%=ad4 %>" placeholder="참고항목" readonly>
 					
 					</td>
 				</tr>
@@ -1730,7 +1730,7 @@ $(function(){
 					<%} %>
 				</table>
 				<div class="insert">
-				<input type="submit" id="as" value="수정하기" >&nbsp;<input type="reset" id="as" value="취소">
+				<input type="submit" id="sub" value="수정하기" >&nbsp;<input type="reset" id="re" value="취소">
 				</div>
 			</form>	
 		</div>

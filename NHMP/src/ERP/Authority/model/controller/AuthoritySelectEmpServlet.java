@@ -58,12 +58,24 @@ public class AuthoritySelectEmpServlet extends HttpServlet {
 		System.out.println("서블릿에서 권한코드 받은 내용 =" + auCode);
 		
 		ArrayList<Employee> empList = new EmployeeService().selectAuthorityEmp(hostId, hostPwd, auCode);
-		
+		System.out.println(empList);
 			ArrayList<Department> dList = new ArrayList<Department>();
 			ArrayList<Position> pList= new ArrayList<Position>();
+			Department dp = null;
+			Position po = null;
+			String dps = " ";
+			String pos = " ";
 		for(Employee e : empList) {
-			Department dp = new DepartmentService().selectAuDeptName(hostId, hostPwd, e.getDeptCode());
-			Position po = new PositionService().selectAuPositionName(hostId, hostPwd, e.getPosCode());
+			if(e.getDeptCode() != null) {
+			dp = new DepartmentService().selectAuDeptName(hostId, hostPwd, e.getDeptCode());
+			}else {
+				dp = new Department(" ","없음");
+			}
+			if(e.getPosCode() != null) {
+			po = new PositionService().selectAuPositionName(hostId, hostPwd, e.getPosCode());
+			}else {
+				po = new Position(" ", "없음");
+			}
 			dList.add(dp);
 			pList.add(po);
 		}
@@ -89,9 +101,11 @@ public class AuthoritySelectEmpServlet extends HttpServlet {
 				tn.put("empid", e.getEmpId());
 				jarr1.add(tn);
 			}
+			System.out.println(dList);
 			for(Department d : dList) {
 				JSONObject tn = new JSONObject();
 				tn.put("deptname", URLEncoder.encode(d.getDeptName(), "utf-8"));
+				
 				jarr2.add(tn);
 			}
 			for(Position p : pList) {

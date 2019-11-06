@@ -503,6 +503,8 @@ thead td {
 		<div class="nk-sidebar">
 			<div class="nk-nav-scroll">
 				<ul class="metismenu" id="menu">
+				<%if(emp != null){ %>
+					<%if(emp.getAuthorityCode().equals("G1")){ %>
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
 						href="javascript:void()" aria-expanded="false"> 
 						<i class="fa fa-users"></i><span class="nav-text">인사관리</span> 
@@ -511,50 +513,39 @@ thead td {
 							<li><a href="/NHMP/list">전체사원조회</a></li>
 							<li><a href="/NHMP/views/ERP/Employee/InsertEmployee.jsp">인사정보등록</a></li>
 							<li><a href="/NHMP/ochart">조직도</a></li>
-							<!--
-                            <li><a href="layout-compact-nav.html">Compact Nav</a></li>
-                            <li><a href="layout-vertical.html">Vertical</a></li>
-                            <li><a href="layout-horizontal.html">Horizontal</a></li>
-                            <li><a href="layout-boxed.html">Boxed</a></li>
-                            <li><a href="layout-wide.html">Wide</a></li>
-
-
-                            <li><a href="layout-fixed-header.html">Fixed Header</a></li>
-                            <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li>
-                        -->
-
 						</ul>
 					</li>
+						<%} %>
+					<%} %>
 					<%if(emp == null){ %>
-					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> 
-						<i class="fa fa-id-card"></i>
+					<li><a class="has-arrow" href="javascript:void()"aria-expanded="false"> <i class="fa fa-id-card"></i>
 						<span class="nav-text">권한설정</span>
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/authall">권한부여관리</a></li>
+							<li><a href="/NHMP/authlist">권한부여관리</a></li>
 						</ul>
 					</li>
 					<%} %>
 					<!-- <li class="nav-label">Apps</li> -->
+					<%if(emp != null){ %>
+						<%if(emp.getAuthorityCode().equals("G2")) %>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-plus-square"></i><span
 							class="nav-text">환자 관리</span> <!--   <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">환자 관리</span> -->
 					</a>
-
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
-							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자 입원 등록</a></li>
+							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
+									입원 등록</a></li>
 							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
 							<li><a href="/NHMP/recordlistview">투약일지 등록</a></li>
 						</ul></li>
+						<%} %>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
 					</a>
 						<ul aria-expanded="false">
-							<!-- <li><a href="/NHMP/deduclise">공제항목등록</a></li>
-							<li><a href="/NHMP/allowlist">수당항목등록</a></li> -->
 							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 						</ul>
 					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
