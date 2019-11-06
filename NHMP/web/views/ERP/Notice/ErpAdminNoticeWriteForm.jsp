@@ -576,7 +576,7 @@ function moveList(){
 <tr><th>내용</th><td><textarea name="content" rows="5" cols="50"></textarea></td></tr>
 <tr><th colspan="2">
 	<input type="submit" value="등록하기"> &nbsp;
-	<input type="reset" value="취소하기"> &nbsp;
+	<input type="reset" value="초기화"> &nbsp;
 	<input type="button" value="목록이동" onclick="moveList();">
 </th></tr>
 </table>
