@@ -62,7 +62,8 @@
 		width: 300px;
 	}
 	#rootdiv #Paycenter table{
-		width:290px;
+		boder:1px;
+		width:288.021px;
 		float:right;
 		text-align:center;
 		background:#f4f4f4;
@@ -79,10 +80,11 @@
 	#rootdiv #Payright{
 		/* border : 1px solid red; */
 		float: right; 
-		width: 30%;
+		width: 27%;
 	}
 	#rootdiv #Payright table{
-		width:290px;
+		boder:1px;
+		width:288.021px;
 		float:right;
 		text-align:center;
 		background:#f4f4f4;
@@ -458,6 +460,30 @@ function Acheckbox(Acode, Ano){
 								<!-- 디비에서 list 받아서 가져오기 -->
 							</table>
 						</div>
+						<!-- Paycenter -->
+						<div id="Payright">
+							<table width="auto" border="1" margin="0 0 0 0">
+								<tr>
+									<th>선택</th>
+									<th align="center">수당명칭2</th>
+								</tr>
+								<%
+									for (Allowance a : Alist) {
+								%>
+								<tr align="center">
+									<td><input type="checkbox" class="ACheckBtn" 
+										id="ACheckBtn<%= a.getALLOWANCE_NO() %>"
+										onclick="Acheckbox('<%= a.getALLOWANCE_CODE() %>','<%= a.getALLOWANCE_NO() %>')"
+										style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
+									<td><%=a.getALLOWANCE_NAME()%></td>
+								</tr>
+								<%
+									}
+								%>
+								<!-- 디비에서 list 받아서 가져오기 -->
+							</table>
+						</div>
+						<!-- Payright -->
 						<!-- Payleft -->
 
 						<div id="Paycenter">
@@ -483,31 +509,6 @@ function Acheckbox(Acode, Ano){
 								<!-- 디비에서 list 받아서 가져오기 -->
 							</table>
 						</div>
-						<!-- Paycenter -->
-
-						<div id="Payright">
-							<table width="auto" border="1" margin="0 0 0 0">
-								<tr>
-									<th>선택</th>
-									<th align="center">수당명칭2</th>
-								</tr>
-								<%
-									for (Allowance a : Alist) {
-								%>
-								<tr align="center">
-									<td><input type="checkbox" class="ACheckBtn" 
-										id="ACheckBtn<%= a.getALLOWANCE_NO() %>"
-										onclick="Acheckbox('<%= a.getALLOWANCE_CODE() %>','<%= a.getALLOWANCE_NO() %>')"
-										style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
-									<td><%=a.getALLOWANCE_NAME()%></td>
-								</tr>
-								<%
-									}
-								%>
-								<!-- 디비에서 list 받아서 가져오기 -->
-							</table>
-						</div>
-						<!-- Payright -->
 						<div id="Payresult">
 							<table border="1">
 								<div id="Payresult">
@@ -528,7 +529,7 @@ function Acheckbox(Acode, Ano){
 											%>
 										
 										<tr>
-											<th style="text-align: center;">수당총액
+											<th style="text-align: center; background-color:rgb(117, 113, 249, 0.8);">수당총액
 											<td style="text-align: center;"><input type="text"
 												id="totalA" value="0"
 												style="text-align: right; width: 140px;" readonly>원
@@ -536,7 +537,7 @@ function Acheckbox(Acode, Ano){
 											</th>
 										</tr>
 										<tr>
-											<th style="text-align: center;">월수령액
+											<th style="text-align: center; background-color:rgb(117, 113, 249, 1);">월수령액
 											<td style="text-align: center;"><input type="text"
 												id="totalM" value="0"
 												style="text-align: right; width: 140px;" readonly>원
@@ -564,7 +565,7 @@ function Acheckbox(Acode, Ano){
 											%>
 										
 										<tr>
-											<th style="text-align: center;">공제총액
+											<th style="text-align: center; background-color:rgb(117, 113, 249, 0.8);">공제총액
 											<td style="text-align: center;"><input type="text"
 												id="totalD" value="0"
 												style="text-align: right; width: 140px;" readonly>원
@@ -572,7 +573,7 @@ function Acheckbox(Acode, Ano){
 											</th>
 										</tr>
 										<tr>
-											<th style="text-align: center;">기본급
+											<th style="text-align: center; background-color:rgb(117, 113, 249, 1);">기본급
 											<td style="text-align: center;"><input type="text"
 												id="pay" value="0" style="text-align: right; width: 140px;"
 												readonly>원</td>
