@@ -482,10 +482,10 @@ $("#txtBox").removeAttr("disabled"); */
 							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
 							<li><a href="/NHMP/paylist">급여계산</a></li>
 						</ul>
-					<li><a href="javascript:void()" aria-expanded="false"> <i
+					<li><a href="/NHMP/nlist.ad" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
-					<li><a href="javascript:void()" aria-expanded="false"> <i
+					<li><a href="/NHMP/drlist.ad" aria-expanded="false"> <i
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
 			</div>
