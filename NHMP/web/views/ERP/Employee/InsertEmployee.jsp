@@ -95,13 +95,10 @@ function sample4_execDaumPostcode() {
 
 function formCheck(){
 	alert("이벤트 실행됨");
-		  //이름 정규식
-		  var chkName = /^[가-힣a-zA-Z]{2,6}$/;	
-		 //휴대폰 끝자리
+		  //휴대폰 끝자리
 	      var regExp2 = /^\d{4}$/;
-	  	 //휴대전화 정규식
+	  	  //휴대전화 정규식
 	      var regExp = /^\d{3,4}$/;
-	      
 	      //전화번호 정규식
 	      var adTel1 = /^\d{2,3}$/;
 	      var adTel2 = /^\d{3,4}$/;
@@ -112,24 +109,23 @@ function formCheck(){
 	      var empNo = /^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))$/g;
 	      //주민번호 뒷자리 정규식
 	      var empNo2 = /^[1-4][0-9]{6}$/g;
-	    	//부양가족 이름 정규식
-	    	var fy_namechk = /^[가-힣a-zA-Z]{2,9}$/;
-	  if(!chkName($(this).val())){
-	  alert("이름형식을 확인하세요");
-	   $(this).focus();
-	   return false;
-	  }
+	      //부양가족 이름 정규식
+	      var fy_namechk = /^[가-힣a-zA-Z]{2,9}$/;
+	      //아이디정규식
+	      var idReg = /^[a-zA-Z]+[a-zA-Z0-9]{5,19}$/g;
+	  
      
 	
       if(!regExp2.test($("input[name=phone3]").val())) {            
-          console.log("dd");
+         alert("휴대폰번호 끝자리는 3~4자리 사이로 입력하셔야 합니다.")
           $("#phone3").focus();
           return false;
 		}
     
 		
-      if(!regExp.test($("input[name=phone2]").val())) {            
-    	  $("#phone2").select();
+      if(!regExp.test($("input[name=phone2]").val())) {
+    	  alert("휴대폰번호 중간리는 3~4자리 사이로 입력하셔야 합니다.")
+    	  $("#phone2").focus();
           $("#phone2").val("");
           
           return false;
@@ -138,14 +134,17 @@ function formCheck(){
      
       if(!adTel1.test($("input[name=adtel1]").val())) {            
           alert("전화 첫 번째 자리는 숫자 2자리~3자리 또는 숫자만 입력하십시오.");
+          $("input[name=adtel1]").focus();
           return false;
 		}
       if(!adTel2.test($("input[name=adtel2]").val())) {            
           alert("전화 두번째 자리는 숫자 3~4자리 또는 숫자만 입력하십시오.");
+          $("input[name=adtel2]").focus();
           return false;
 		}
       if(!adTel3.test($("input[name=adtel3]").val())) {            
           alert("전화 마지막 자리는 숫자 4자리 또는 숫자만 입력하십시오.");
+          $("input[name=adtel3]").focus();
           return false;
 		}
      
@@ -170,14 +169,23 @@ function formCheck(){
  	   $("input[name=empname]").focus();
  	   return false;
  	  }
-  	//아이디정규식
-  	var idReg = /^[a-zA-Z]+[a-zA-Z0-9]{5,19}$/g;
+  	
     if( !idReg.test( $("input[name=empids]").val() ) ) {
   	  $(".succesIdCheck").css("display", "none");
   	  $(".errorIdCheck").css("display", "none");
   	  $(".IdCheck").css("display", "inline-block");
   	  $("#userId").focus();
         return false;
+    }
+    
+    if($("input[name=email]").val() != null){
+		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	      
+	      if(!emailRule.test($("input[name=email]").val())) {  
+	    	  alert("email형식을 확인해주세요.")
+	    	  $("input[name=email]").focus();
+	                  return false;
+	      	}
     }
   	
   	return true;
@@ -186,12 +194,21 @@ function formCheck(){
 <script type="text/javascript">
 $(function(){
 	
+	
+	
+	
 	$("#empname").on("focusout",function(){
 		//사원이름 중복 체크 
 		
 		if($(this).val() != ""){
-			
-			
+			var reg = /^[가-힣]{2,4}$/;
+			var result = $(this).val()
+			if(!reg.test(result)){
+				  alert("이름형식을 확인하세요");
+				  $(this).val("");
+				   $(this).focus();
+				   return false;
+				  }
 	      $.ajax({
 	  		url: "/NHMP/namechk",
 	  		type: "post",
@@ -225,6 +242,8 @@ $(function(){
 		      
 		      if(!emailRule.test($("input[name=email]").val())) {            
 		    	 		 $(".EmailCheck").css("display", "inline-block");
+		    	 		 $("input[name=email]").val("");
+		    	 		 $("input[name=email]").focus();
 		                  return false;
 		      	}
 			$.ajax({
@@ -357,7 +376,7 @@ $(function(){
                   var i = $("input[name=comchk]:checked").parents("tr");
                            i.remove();
               }else {
-                  alert("기본값은 삭제할수 없어용!")
+                  alert("기본값은 삭제할수 없습니다")
               }
         	
             return false;
@@ -370,7 +389,7 @@ $(function(){
                                        
                      i.remove();
               }else {
-                  alert("기본값은 삭제할수 없어용!")
+                  alert("기본값은 삭제할수 없습니다")
               }
         	
             return false;
@@ -385,7 +404,7 @@ $(function(){
                      
                   
               }else {
-                  alert("기본값은 삭제할수 없어용!");
+                  alert("기본값은 삭제할수 없습니다");
                   return false;
               }
       		return false;
@@ -472,7 +491,7 @@ $(function(){
 	      
 	      if(!passRule.test($("#emppwd").val())) {
 	         
-	    	  alert("암호는 첫번째 특수문자를 포함한 숫자와 문자 포함 형태의 6~12자리 이내의 암호로 입력하셔야 합니다.");
+	    	  alert("암호는 첫번째 영문자를 포함한 숫자와 문자 포함 형태의 1~9자리 이내의 암호로 입력하셔야 합니다.");
 	       		$("#emppwd").val("");
 	       		$("#emppwd2").val("");
 	       		$("#emppwd").focus();
@@ -936,14 +955,14 @@ input[type=checkbox]{
 					<th>성명(한글)</th>
 						<td>
 						<input type="text" name="empname" id="empname" style="border-radius:5px;" required>&nbsp;
-						<span class="empname" style="color:red; display:none;">이름이 중복 됩니다!<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></span>
+						<span class="empname" style="color:red; display:none;">이름이 중복 됩니다<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></span>
 						<span class="empname2" style="color:green; display:none;">멋진 이름이네요 <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>
-						<span class="empname3" style="color:red; display:none;">이름형식을확인해주세요!(한글,영어 2~9자 이내)<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></span>
+						<span class="empname3" style="color:red; display:none;">이름형식을확인해주세요(한글,영어 2~9자 이내)<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></span>
 						</td>
 					<th>고용형태</th>
 						<td>
 							<select id="empment" name="empment" style="border-radius:5px;" required>
-								<option value="0">--고용형태--</option> 
+								<option value="EM7">--고용형태--</option> 
 								<option value="EM1">일용직</option>
 								<option value="EM2">위촉직</option>
 								<option value="EM4">계약직</option>
@@ -958,7 +977,7 @@ input[type=checkbox]{
 				<th>부서</th>
 					<td>
 						<select id="dept" name="dept" style="border-radius:5px;" required>
-							<option value="0">--부서구분--</option> 
+							<option value="10">--부서구분--</option> 
 							<option value="10">가정의학과</option>
 							<option value="30">한방과</option>
 							<option value="40">간호과</option>
@@ -1019,9 +1038,9 @@ input[type=checkbox]{
 					<th>아이디</th>
 						<td class="idtd">
 						<input type="text"style="border-radius:5px;" name="empids" id="empids" required>&nbsp;
-						<span class="succesIdCheck" style="display:none; color:green; font-size:10pt;">사용가능한 아이디 입니다<i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>
-						&nbsp;<span class="errorIdCheck" style="display:none; color:red;font-size:10pt;">이미 사용중인 아이디 입니다!</span>
-						<span class="IdCheck" style="display:none; color:red;font-size:10pt;">아이디형식에 맞지않습니다!</span>
+						<span class="succesIdCheck" style="display:none; color:green; font-size:10pt;"><b>사용가능한 아이디 입니다.<i class="fa fa-thumbs-o-up" aria-hidden="true"></i></b></span>
+						&nbsp;<span class="errorIdCheck" style="display:none; color:red;font-size:10pt;"><b>이미 사용중인 아이디 입니다.<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></b></span>
+						<span class="IdCheck" style="display:none; color:red;font-size:10pt;"><b>아이디형식에 맞지않습니다<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></b></span>
 						</td>
 					<th>비밀번호</th>
 						<td><input type="password"style="border-radius:5px;" id="emppwd"name="emppwds" required>&nbsp;
@@ -1052,7 +1071,7 @@ input[type=checkbox]{
 					<th>팀</th>
 						<td>
 							<select id="team" name="team" style="border-radius:5px;" required>
-								<option value="0">--팀구분--</option> 
+								<option value="TM1">--팀구분--</option> 
 								<option value="TM1">병원간호팀</option>
 								<option value="TM2">외래간호팀</option>
 								<option value="TM3">간병팀</option>
@@ -1077,7 +1096,7 @@ input[type=checkbox]{
 					<th>재직형태</th>
 						<td>
 							<select id="hold" name="hold" style="border-radius:5px;" required>
-								<option value="0">--재직구분--</option> 
+								<option value="HOD2">--재직구분--</option> 
 								<option value="HOD1">휴직</option>
 								<option value="HOD2">재직</option>
 								<option value="HOD3">퇴직</option>
@@ -1088,7 +1107,7 @@ input[type=checkbox]{
 					<th>병동</th>
 						<td>
 							<select id="ward" name="ward" style="border-radius:5px;" required>
-								<option value="0">--병동구분--</option> 
+								<option value="BD03">--병동구분--</option> 
 								<option value="BD01">1병동</option>
 								<option value="BD02">2병동</option>
 								<option value="BD03">3병동</option>

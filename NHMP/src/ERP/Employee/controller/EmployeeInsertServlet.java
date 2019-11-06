@@ -319,13 +319,14 @@ public class EmployeeInsertServlet extends HttpServlet {
 			pw.close();
 			}
 		}
+		
 		String[] itforNal = mrequest.getParameterValues("shcool");
 		String[] adDate = mrequest.getParameterValues("AD_DATE");
 		String[] grDate = mrequest.getParameterValues("GR_DATE");
 		String[] schName = mrequest.getParameterValues("SCH_NAME");
 		String[] major = mrequest.getParameterValues("MAJOR");
 		String[] taking = mrequest.getParameterValues("TAKING");
-		
+		if(itforNal != null) {
 		
 		ArrayList<Education> eduList = new ArrayList<Education>();
 		
@@ -357,8 +358,9 @@ public class EmployeeInsertServlet extends HttpServlet {
 				pw.println("</script>");
 				pw.flush();
 				pw.close();
-		 }
-		 	
+		 	}
+		}
+		
 		 	String[] comName = mrequest.getParameterValues("COM_NAME");
 			String[] hireDate = mrequest.getParameterValues("HIRE_DATE");
 			String[] lastDate = mrequest.getParameterValues("LAST_DATE");
@@ -367,7 +369,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 			String[] resBilties = mrequest.getParameterValues("RES_BILTIES");
 			String[] leaveReason = mrequest.getParameterValues("LEAVE_REASON");
 			
-			
+			if(comName != null) {
 			ArrayList<Career> carList = new ArrayList<Career>();
 			
 			for(int i = 0; i < comName.length; i++) {
@@ -390,6 +392,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 				
 				carList.add(new Career(emp2.getEmpId(), comName1, hireDate1, lastDate1, workTeam1, lastPosition1, resBilties1, leaveReason1));
 				}
+			
 			System.out.println(carList);
 			int result4 = 0;
 			for(Career c : carList) {
@@ -406,6 +409,7 @@ public class EmployeeInsertServlet extends HttpServlet {
 				pw.println("</script>");
 				pw.flush();
 				pw.close();
+				}
 			}
 	}
 
