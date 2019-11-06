@@ -75,7 +75,6 @@ public class MedicienRecordInsertServlet extends HttpServlet {
 		
 		MedicienRecord medicienRecord = new MedicienRecord();
 		
-		medicienRecord.setMrNo(Integer.parseInt(mrequest.getParameter("mr_no")));
 		medicienRecord.setMrDate(Date.valueOf(mrequest.getParameter("mr_date")));
 		medicienRecord.setMrState(mrequest.getParameter("mr_state"));
 		medicienRecord.setMrName(mrequest.getParameter("mr_name"));
