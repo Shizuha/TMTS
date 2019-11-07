@@ -48,9 +48,17 @@
 	}
 	
 	#rootdiv #Payleft table th{
-		background: rgb(117, 113, 249, 0.5);
+		background: rgba(117, 113, 249, 0.5);
     	color:rgba(0, 0, 0, 1);
     	text-align:center;
+    	font-weight:bold;
+    	/* opacity:0.5; */
+	}
+	#rootdiv #Payleft table td{
+		background:rgba(181, 179, 247, 0.44);
+    	color:rgba(0, 0, 0, 1);
+    	text-align:center;
+    	font-weight:bold;
     	/* opacity:0.5; */
 	}
 	
@@ -73,6 +81,13 @@
 		background: rgb(117, 113, 249, 0.5);
     	text-align:center;
     	color:rgba(0, 0, 0, 1);
+    	font-weight:bold;
+	}
+	#rootdiv #Paycenter table td{
+		background:rgba(181, 179, 247, 0.44);
+    	text-align:center;
+    	color:rgba(0, 0, 0, 1);
+    	font-weight:bold;
 	}
 	
 	
@@ -91,9 +106,16 @@
 		color:#000;
 	}
 	#rootdiv #Payright table th{
-		background: rgb(117, 113, 249, 0.5);
+		background: rgba(117, 113, 249, 0.5);
     	text-align:center;
     	color:rgba(0, 0, 0, 1);
+    	font-weight:bold;
+	}
+	#rootdiv #Payright table td{
+		background:rgba(181, 179, 247, 0.44);
+    	text-align:center;
+    	color:rgba(0, 0, 0, 1);
+    	font-weight:bold;
 	}
 	
 	#rootdiv div{
@@ -119,6 +141,10 @@
 		width:129px;
     	text-align:center;
     	color:rgba(0, 0, 0, 1);
+	}
+	#rootdiv #Payresult table td{
+		background: rgba(181, 179, 247, 0.44);
+		font-weight:bold;
 	}
 
 </style>
