@@ -13,8 +13,13 @@ import javax.servlet.http.HttpSession;
 
 import ERP.Calendar.Model.Service.CalendarService;
 import ERP.Calendar.Model.vo.Calendar;
+import ERP.Department.model.service.DepartmentService;
+import ERP.Department.model.vo.Department;
 import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
+import ERP.Team.model.service.TeamService;
+import ERP.Ward.model.service.WardService;
+import ERP.Ward.model.vo.Ward;
 import Main.NursingHospital.model.ov.NursingHospital;
 import Main.NursingHospital.model.service.NHService;
 
@@ -52,12 +57,18 @@ public class MloginServlet extends HttpServlet {
 			userid = request.getParameter("userid");
 			userpwd = request.getParameter("userpwd");
 			loginEmployee = new EmployeeService().loginCheck(userid, userpwd, hostid, hostpwd);
+			Department dp = new DepartmentService().selectAuDeptName(hostid, hostpwd, loginEmployee.getDeptCode());
+			String tm = new TeamService().selectTeamName(loginEmployee.getTeamCode(), hostid, hostpwd);
+			Ward wd = new WardService().selectAuWardName(hostid, hostpwd, loginEmployee.getWardCode());
 			if( loginEmployee != null ) {
 				HttpSession session = request.getSession();
 				String empname = loginEmployee.getEmpName();
 				ArrayList<Calendar> list = new CalendarService().EmployeeSelectList(empname, hostid, hostpwd);
 				session.setAttribute("list", list);
 				session.setAttribute("loginEmployee", loginEmployee);
+				session.setAttribute("dp", dp);
+				session.setAttribute("tm", tm);
+				session.setAttribute("wd", wd);
 				response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
 					
 			}else{
