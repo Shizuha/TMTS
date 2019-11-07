@@ -269,6 +269,9 @@ function trueAndFalse() {
 	}
 </script>
 <style>
+body{
+ font-family: Georgia, "맑은 고딕", serif;
+ }
 .Btn{
 	background-color: #7571f9;
 

@@ -11,6 +11,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	body{
+ font-family: Georgia, "맑은 고딕", serif;
+ }
 	input[type=password]{
 		width:200px;
 	}
@@ -80,7 +83,7 @@ function checkPwd(){
       		
          return false;
      }
-	 
+     window.close();
 }
 
 

@@ -102,7 +102,7 @@
     	padding: 50px;
     	background:#ffffff;
     	border-radius:5px;
-    	box-shadow:1px 1px 1px 2px #dddddd;
+    	box-shadow:1px 1px 4px 3px #dddddd;
     	
     	
     }
@@ -173,7 +173,7 @@
     .insertemp2{
     	font-weight:bold;
     	width:100%;
-    	background:#f4f4f4;
+    	
     }
    input[type=text]{
     	width:100px;
