@@ -396,8 +396,8 @@ thead td {
 							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
 							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
 									입원 등록</a></li>
-							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
-							<li><a href="/NHMP/recordlistview">투약일지 등록</a></li>
+							<li><a href="/NHMP/views/ERP/counselingLog/CounselingLogInsertView.jsp">상담일지 등록</a></li>
+							<li><a href="/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp">투약일지 등록</a></li>
 						</ul></li>
 					<%} %>
 					<li><a class="has-arrow" href="javascript:void()"
@@ -434,8 +434,8 @@ thead td {
 							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
 							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
 									입원 등록</a></li>
-							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
-							<li><a href="/NHMP/recordlistview">투약일지 등록</a></li>
+							<li><a href="/NHMP/views/ERP/counselingLog/CounselingLogInsertView.jsp">상담일지 등록</a></li>
+							<li><a href="/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp">투약일지 등록</a></li>
 						</ul></li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span
