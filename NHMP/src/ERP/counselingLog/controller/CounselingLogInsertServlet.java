@@ -43,11 +43,17 @@ public class CounselingLogInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//�솚�옄 �긽�떞�씪吏� �벑濡� 泥섎━�슜 而⑦듃濡ㅻ윭
+		//환자 상담일지 등록 처리용 컨트롤러
 		request.setCharacterEncoding("utf-8");
 		
 		String hostId = null;
 		String hostPwd = null;
+		
+		String cl_phonef = null;
+		String cl_phonem = null;
+		String cl_phoneb = null;
+		String cl_phone = null;
+		
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
 		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
 		if(emp != null) {
@@ -62,7 +68,7 @@ public class CounselingLogInsertServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		if(!ServletFileUpload.isMultipartContent(request)) {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "form �깭洹몄쓽 enctype �냽�꽦�씠�뼱�빞留� �빀�땲�떎");
+			request.setAttribute("message", "form enctype 속성이어야만 합니다.");
 			view.forward(request, response);
 		}
 		
@@ -74,9 +80,14 @@ public class CounselingLogInsertServlet extends HttpServlet {
 						savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 		
 		CounselingLog counselingLog = new CounselingLog();
+		cl_phonef = request.getParameter("cl_phonef");
+		cl_phonem = request.getParameter("cl_phonem");
+		cl_phoneb = request.getParameter("cl_phoneb");
+		cl_phone = cl_phonef + "-" + cl_phonem + "-" + cl_phoneb;
+		
 		counselingLog.setClTitle(mrequest.getParameter("cl_title"));
 		counselingLog.setClContents(mrequest.getParameter("cl_contents"));
-		counselingLog.setClPhone(mrequest.getParameter("cl_phone"));
+		counselingLog.setClPhone(cl_phone);
 		counselingLog.setClComment(mrequest.getParameter("cl_comment"));
 		counselingLog.setClPatName(mrequest.getParameter("cl_pat_name"));
 		counselingLog.setClEmpName(mrequest.getParameter("cl_emp_name"));
@@ -125,7 +136,7 @@ public class CounselingLogInsertServlet extends HttpServlet {
 			
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "�솚�옄 �긽�떞�씪吏� �벑濡� �떎�뙣!");
+			request.setAttribute("message", "상담일지 등록 실패!");
 			view.forward(request, response);
 		}
 	}

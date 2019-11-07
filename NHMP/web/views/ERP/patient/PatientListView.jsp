@@ -352,7 +352,7 @@ ERP.Employee.model.vo.Employee"%>
 				%>
 				<tr>
 					<th colspan="30" align="center"><a
-						href="javascript:history.go(-1)" style="font-size: 16px;">이전페이지로
+						href="javascript:history.go(-1)" style="font-size: 16px; margin-right : 50px; float : right;">이전페이지로
 							이동</a>
 			</table>
 			<div id="pagebox" align="center">

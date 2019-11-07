@@ -263,27 +263,27 @@
 					<tr>
 						<th style="font-size: 16px;">병록번호</th>
 						<td><input type="number" name="pat_num"
-							style="font-size: 16px;"></td>
+							style="font-size: 16px; width: 300px;" maxlength="5"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">환자명</th>
 						<td><input type="text" name="pat_name"
-							style="font-size: 16px;"></td>
+							style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">구분</th>
 						<td><input type="text" name="pat_type"
-							style="font-size: 16px;"></td>
+							placeholder="ex) 입원, 퇴원"style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">입원날짜</th>
 						<td><input type="date" name="pat_entdate"
-							style="font-size: 16px;"></td>
+							style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">퇴원날짜</th>
 						<td><input type="date" name="pat_outdate"
-							style="font-size: 16px;"></td>
+							style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">환자성별</th>
@@ -293,41 +293,47 @@
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">주민번호</th>
-						<td><input type="text" name="pat_no" style="font-size: 16px;"></td>
+						<td><input type="text" name="pat_nof" style="font-size : 16px; width: 145px;" maxlength="6"> 
+						- 
+						<input type="text" name="pat_nob" style="font-size : 16px; width: 145px;" maxlength="7"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">주소</th>
 						<td><input type="text" name="address"
-							style="font-size: 16px;"></td>
+							style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">보호자명</th>
-						<td><input type="text" name="family" style="font-size: 16px;"></td>
+						<td><input type="text" name="family" style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">이메일</th>
-						<td><input type="email" name="email" style="font-size: 16px;"></td>
+						<td><input type="email" name="email" style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">전화번호</th>
-						<td><input type="tel" name="pat_phone"
-							style="font-size: 16px;"></td>
+						<td><input type="tel" name="pat_phonef"
+							style="font-size: 16px; width: 95px;" maxlength="3">-
+							<input type="tel" name="pat_phonem"
+							style="font-size : 16px; width: 95px;" maxlength="4">-
+							<input type="tel" name="pat_phoneb"
+							style="font-size : 16px; width: 95px;" maxlength="4"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">병동</th>
-						<td><input type="text" name="ward" style="font-size: 16px;"></td>
+						<td><input type="text" name="ward" placeholder="ex) KH1병동" style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">담당의사</th>
 						<td><input type="text" name="pat_doc"
-							placeholder="ex)조국, 김봉수" style="font-size: 16px;"></td>
+							placeholder="ex) 김의사, 이명의" style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th colspan="2"><input type="submit" value="수정하기"
-							style="font-size: 16px;"> &nbsp; &nbsp; &nbsp; <input
-							type="reset" value="취소하기" style="font-size: 16px;">
+							style="font-size: 16px; margin-left : 380px; width: 100px;"> &nbsp; &nbsp; &nbsp; <input
+							type="reset" value="취소하기" style="font-size: 16px; width: 100px;">
 							&nbsp; &nbsp; &nbsp; <a href="javascript:history.go(-1)"
-							style="font-size: 16px;">이전페이지로 이동</a></th>
+							style="font-size: 16px; width: 170px; float: right;">이전페이지로 이동</a></th>
 					</tr>
 				</table>
 			</form>

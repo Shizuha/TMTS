@@ -39,6 +39,16 @@ public class PatientUpdateServlet extends HttpServlet {
 		
 		String hostId = null;
 		String hostPwd = null;
+		
+		String pat_nof = null;
+		String pat_nob = null;
+		String pat_no = null;
+		
+		String pat_phonef = null;
+		String pat_phonem = null;
+		String pat_phoneb = null;
+		String pat_phone = null;
+		
 		Employee emp = (Employee)request.getSession().getAttribute("loginEmployee");
 		NursingHospital loginHospital = (NursingHospital)request.getSession().getAttribute("loginHospital");
 		if(emp != null) {
@@ -51,17 +61,23 @@ public class PatientUpdateServlet extends HttpServlet {
 		}
 		
 		Patient patient = new Patient();
+		pat_nof = request.getParameter("pat_nof");
+		pat_nob = request.getParameter("pat_nob");
+		pat_no = pat_nof + "-" +  pat_nob;
 		
-		patient.setPatNum(Integer.parseInt(request.getParameter("pat_num")));
+		pat_phonef = request.getParameter("pat_phonef");
+		pat_phonem = request.getParameter("pat_phonem");
+		pat_phoneb = request.getParameter("pat_phoneb");
+		pat_phone = pat_phonef + "-" + pat_phonem + "-" + pat_phoneb;
+		
 		patient.setPatName(request.getParameter("pat_name"));
 		patient.setPatType(request.getParameter("pat_type"));
-		patient.setPatEntDate(Date.valueOf(request.getParameter("pat_entdate")));
 		patient.setPatGender(request.getParameter("pat_gender"));
-		patient.setPatNo(request.getParameter("pat_no"));
+		patient.setPatNo(pat_no);
 		patient.setAddress(request.getParameter("address"));
 		patient.setFamily(request.getParameter("family"));
 		patient.setEmail(request.getParameter("email"));
-		patient.setPatPhone(request.getParameter("pat_phone"));
+		patient.setPatPhone(pat_phone);
 		patient.setWard(request.getParameter("ward"));
 		patient.setPatDoc(request.getParameter("pat_doc"));
 		
