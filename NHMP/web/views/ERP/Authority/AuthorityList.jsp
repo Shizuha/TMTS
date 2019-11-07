@@ -184,6 +184,7 @@ function auList(id){
  	padding:20px;
  	display:inline-block;
  	height:530px;
+ 	box-shadow:
  }
  .auRight{
  	float:right;

@@ -75,7 +75,6 @@
   	}
   </script>
 
-</head>
 
 <body>
 
@@ -306,7 +305,7 @@
                   
                     <tr class="mainTr">
                       <th><input type="checkbox" class="check-all">&nbsp;전체선택</th>
-                      <th>사번</th>
+                      <th style="width:5%;">사번</th>
                       <th>이름</th>
                       <th>입사일</th>
                       <th>휴대폰</th>
@@ -339,11 +338,11 @@
                 </table>
                 </form>
 				<div id="pagebox" align="center" style="margin-right: 30px;">
-					<a href="/NHMP/list?page=1"><i id="i1" class="fas fa-angle-left"></i></a>&nbsp;
+					<a href="/NHMP/list?page=1"><i id="i1"class="fa fa-fast-backward" aria-hidden="true"></i></a>&nbsp;
 					<%
 						if (beginPage - 10 < 1) { %>
 						
-					<a href="/NHMP/list?page=1"><i id="i2"class="fas fa-angle-double-left"></i></a>
+					<a href="/NHMP/list?page=1"><i id="i2" class="fa fa-hand-o-left" aria-hidden="true"></i></a>
 					
 					<%} else {%>
 						
@@ -354,8 +353,7 @@
 					<% for (int p = beginPage; p <= endPage; p++) {
 							if (p == currentPage) {%>
 							
-					<a href="/NHMP/list?page=<%=p%>"><font color="red"><b>[<%=p%>]
-						</b></font></a>
+					<a href="/NHMP/list?page=<%=p%>"><font color="red" size="3"><b>(<%=p%>)</b></font></a>
 
 					<%} else {%>
 					<a href="/NHMP/list?page=<%=p%>"><%=p%></a>
@@ -365,7 +363,7 @@
 					<%
 						if ((endPage + 10) > maxPage) {
 					%>
-					<a href="/NHMP/list?page=<%=maxPage%>"><i id="i3"class="fas fa-angle-double-right"></i></a>
+					<a href="/NHMP/list?page=<%=maxPage%>"><i id="i3" class="fa fa-hand-o-right" aria-hidden="true"></i></a>
 					<%
 						} else {
 					%>
@@ -373,8 +371,9 @@
 					<%
 						}
 					%>
-					&nbsp; <a href="/NHMP/list?page=<%=maxPage%>"><i id="i4" class="fas fa-angle-right"></i></a>
+					&nbsp; <a href="/NHMP/list?page=<%=maxPage%>"><i id="i4" class="fa fa-fast-forward" aria-hidden="true"></i></a>
 				</div>
+				<i style="margin-left:546px;" class="fa fa-child" aria-hidden="true"></i>
 			</div>
 		</div>
 
