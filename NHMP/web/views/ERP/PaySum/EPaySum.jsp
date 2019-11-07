@@ -321,7 +321,7 @@ function Acheckbox(Acode, Ano){
 		<!--**********************************
             	상단바 시작
         ***********************************-->
-				<div class="header">
+		<div class="header">
 			<div class="header-content clearfix">
 
 				<div class="nav-control">
