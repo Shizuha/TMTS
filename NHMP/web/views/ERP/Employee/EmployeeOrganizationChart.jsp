@@ -205,7 +205,9 @@ body{
 	color:black;
 	font-family: Georgia, "맑은 고딕", serif;
 }
- 
+.footer{
+	margin-top:600px;
+}
 .organMain{
 	
 	margin:50px;

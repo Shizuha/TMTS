@@ -637,13 +637,12 @@ $(function(){
 input[type=checkbox]{
 	background:#F3F3F9;
 }
-table td{
+table td, th{
+	text-align:center;
 	background:rgba(117, 113, 249, 0.04);
 	padding:3px;
 }
-/* .Chk{
-	background:#F3F3F9;
-} */
+
 </style>	
 </head>
 <body>

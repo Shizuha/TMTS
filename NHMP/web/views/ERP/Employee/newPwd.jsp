@@ -101,7 +101,7 @@ function checkPwd(){
 	</tr>
 	<%}else{ %>
 	<tr>
-		<td rowspan="5"><img alt="xx" src="/NHMP/resources/ERP/images/user/6.jpg" width="100%" height="200px"></td>
+		<td rowspan="5"><img alt="xx" src="/NHMP/resources/ERP/images/캡처12.PNG" width="100%" height="200px"></td>
 	</tr>
 	<%} %>
 	<tr>

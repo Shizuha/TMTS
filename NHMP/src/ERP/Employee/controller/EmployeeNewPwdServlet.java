@@ -66,7 +66,7 @@ public class EmployeeNewPwdServlet extends HttpServlet {
 			
 			
 		}else {
-			 view = request.getRequestDispatcher("views/common/error.jsp");
+			 view = request.getRequestDispatcher("views/common/Error.jsp");
 			
 			request.setAttribute("message", "실패!");
 			
