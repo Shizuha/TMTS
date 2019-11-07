@@ -30,56 +30,8 @@
     
    
 	}
-	#usernewpwd{
-	width:120px;
-
-    background-color: #7571f9;
-
-    border: none;
-
-    color:#fff;
-
-	border-radius:3px;
-
-    text-align: center;
-
-    text-decoration: none;
-
-    display: inline-block;
-
-    font-size: 15px;
-
-    margin: 4px;
-
-    cursor: pointer;
-    
-    
-	}
-	#delbutton{
-	width:50px;
-
-    background-color: #7571f9;
-
-    border: none;
-
-    color:#fff;
-
-	border-radius:3px;
-
-    text-align: center;
-
-    text-decoration: none;
-
-    display: inline-block;
-
-    font-size: 15px;
-
-    margin: 4px;
-
-    cursor: pointer;
-    
-   
-	}
+	
+	
 	.container-fluid{
 		width:100%;
 		background:white;

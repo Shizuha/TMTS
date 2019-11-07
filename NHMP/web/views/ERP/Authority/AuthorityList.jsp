@@ -146,30 +146,26 @@ function auList(id){
  font-family: Georgia, "맑은 고딕", serif;
  }
  .Btn{
- 
- 	
- 	background-color: #7571f9;
-
-    border: none;
-
-    color:#fff;
-
-	border-radius:3px;
-
-    text-align: center;
-
-    text-decoration: none;
-
+    float:right;
     display: inline-block;
-
-    font-size: 15px;
-
-    margin: 4px;
-
-    cursor: pointer;
-    
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    width:80px;
+    background:#7571f9;
+ 	color:#fff;
+  	border:none;
+  	position:relative;
+  	cursor:pointer;
+  	transition:600ms ease all;
+  	outline:none;
+  	padding:1px;
+  	border-radius:3px;
+  	margin:4px;
  }
+ .Btn:hover{
+    background:#fff;
+  	color:#7571f9;
+  	border: 1px solid #7571f9;
+    }
+ 
  .auMain{
  	
  	border-radius:5px;
@@ -398,10 +394,10 @@ function auList(id){
 				<div class="qur-header-title"style="flaot:left; width:30%; display:inline-block;">
 				<h3>사용자목록</h3>
 				</div>
-				<div class="auR-button" style="float:right; width:40%; display:inline-block; padding:0px; margin-left:0px;">
-				<button class="Btn"style="float:right; display:inline-block; padding:0px; width:82px;margin-top:15px;" onclick="auInUser();">사용자 선택</button>
+				<div class="auR-button" style="float:right; width:48%; display:inline-block; padding:0px; margin-left:0px;">
+				<button class="Btn" onclick="auInUser();">사용자 선택</button>
 				
-				<input type="button"onclick="auOutDel();" class="Btn" style="float:right; width:40px;margin-top:15px; margin-left:65px; display:inline-block; padding:0px;" value="삭제">
+				<input type="button"onclick="auOutDel();" class="Btn"value="삭제">
 				</div>
 				</div>
 					<div class="auEmp">

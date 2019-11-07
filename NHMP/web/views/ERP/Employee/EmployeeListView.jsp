@@ -78,10 +78,63 @@
   	}
   </script>
   <style type="text/css">
-  body{
- font-family: Georgia, "맑은 고딕", serif;
- color:black;
- }
+  	body{
+ 	font-family: Georgia, "맑은 고딕", serif;
+ 	color:black;
+ 	}
+ 	#button1{
+	width:80px;
+    background:#7571f9;
+ 	color:#fff;
+  	border:none;
+  	position:relative;
+  	cursor:pointer;
+  	transition:600ms ease all;
+  	outline:none;
+  	padding:1px;
+  	border-radius:3px;
+  	margin:4px;
+	}
+ 	#usernewpwd{
+	width:120px;
+    background:#7571f9;
+ 	color:#fff;
+  	border:none;
+  	position:relative;
+  	cursor:pointer;
+  	transition:600ms ease all;
+  	outline:none;
+  	padding:1px;
+  	border-radius:3px;
+  	margin:4px;
+	}
+	#delbutton{
+	border-radius:3px;
+	width:100px;
+	padding:1px;
+    background:#7571f9;
+ 	color:#fff;
+  	border:none;
+  	position:relative;
+  	cursor:pointer;
+  	transition:600ms ease all;
+  	outline:none;
+	}
+	#usernewpwd:hover{
+  	background:#fff;
+  	color:#7571f9;
+  	border: 1px solid #7571f9;
+	}
+	#delbutton:hover{
+  	background:#fff;
+  	color:#7571f9;
+  	border: 1px solid #7571f9;
+	}
+	#button1:hover{
+  	background:#fff;
+  	color:#7571f9;
+  	border: 1px solid #7571f9;
+	}
   </style>
 </head>
 

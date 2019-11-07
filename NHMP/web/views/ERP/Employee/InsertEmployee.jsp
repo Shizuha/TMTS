@@ -638,11 +638,89 @@ input[type=checkbox]{
 	background:#F3F3F9;
 }
 table td, th{
-	text-align:center;
+	
 	background:rgba(117, 113, 249, 0.04);
 	padding:3px;
 }
-
+.insertemp3 ,.insertemp4 ,.insertemp5 td{
+text-align:center;
+}
+.btn1, .btn2{
+    float:right;
+    display: inline-block;
+    width:80px;
+    background:#7571f9;
+ 	color:#fff;
+  	border:none;
+  	position:relative;
+  	cursor:pointer;
+  	transition:600ms ease all;
+  	outline:none;
+  	padding:1px;
+  	border-radius:3px;
+  	margin:4px;
+    }
+    .btn3, .btn4{
+     float:right;
+    display: inline-block;
+    width:80px;
+    background:#7571f9;
+ 	color:#fff;
+  	border:none;
+  	position:relative;
+  	cursor:pointer;
+  	transition:600ms ease all;
+  	outline:none;
+  	padding:1px;
+  	border-radius:3px;
+  	margin:4px;
+    }
+    .btn5, .btn6{
+     float:right;
+    display: inline-block;
+    width:80px;
+    background:#7571f9;
+ 	color:#fff;
+  	border:none;
+  	position:relative;
+  	cursor:pointer;
+  	transition:600ms ease all;
+  	outline:none;
+  	padding:1px;
+  	border-radius:3px;
+  	margin:4px;
+    }
+   .btn2:hover{
+    background:#fff;
+  	color:#7571f9;
+  	border: 1px solid #7571f9;
+    }
+    .btn1:hover{
+     background:#fff;
+  	color:#7571f9;
+  	border: 1px solid #7571f9;
+    }
+     .btn3:hover{
+    background:#fff;
+  	color:#7571f9;
+  	border: 1px solid #7571f9;
+    }
+    .btn4:hover{
+     background:#fff;
+  	color:#7571f9;
+  	border: 1px solid #7571f9;
+    }
+     .btn5:hover{
+    background:#fff;
+  	color:#7571f9;
+  	border: 1px solid #7571f9;
+    }
+    .btn6:hover{
+     background:#fff;
+  	color:#7571f9;
+  	border: 1px solid #7571f9;
+    }
+    
 </style>	
 </head>
 <body>
