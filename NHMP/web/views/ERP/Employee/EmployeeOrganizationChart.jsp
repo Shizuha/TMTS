@@ -45,7 +45,8 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
             	var index = $(this).index();
             	if($(event.target).is(".deptList")){
             	//클릭된 해당부서 기본정보 부서명에 추가
-            	$("#deptname").val($(this).text());
+            	var DeptName = $(this).text().substring(0,6);
+            	$("#deptname").val(DeptName);
             	
             	//자식요소 유무 이프문
             	
@@ -171,7 +172,7 @@ function empList(id, index){
 				
 				for(var i in json.list){
 				$(".imgs").remove();
-				$("#empImg").prepend("<img class='imgs'alt='' src='/NHMP/resources/ERP/emp_Img_file/" + json.list[i].empimg +"' width='200' height='200'>");
+				$("#empImg").prepend("<img class='imgs'alt='' src='/NHMP/resources/ERP/emp_Img_file/" + json.list[i].empimg +"' width='100%' height='100%'>");
 				$("#name").val(decodeURIComponent(json.list[i].empname).replace(/\+/gi, " "));
 				$("#itfor").val(decodeURIComponent(json.list[i].itfor).replace(/\+/gi, " "));
 				$("#phone").val(json.list[i].phone);
@@ -202,7 +203,7 @@ background-color: #7571f9;
 }
 body{
 	color:black;
-	
+	font-family: Georgia, "맑은 고딕", serif;
 }
  
 .organMain{
@@ -241,29 +242,31 @@ h3{
 } 
 .dept{
 	border-radius:3px;
-	border:1px solid gray;
+	
 	width:100%;
 	height:470px;
 	padding:5px;
-	
+	box-shadow:1px 1px 1px 2px #dddddd;
 	
 }
 .dept-left{
 	border-radius:3px;
-	border: 1px solid gray;
+	box-shadow:1px 1px 3px 2px #dddddd;
 	float:left;
 	width:430px;
 	padding:30px;
 	height:460px;
-	
+	background: rgba(117, 113, 249, 0.17);
 }
 .dept-right{
 	border-radius:3px;
-	border: 1px solid gray;
+	box-shadow:1px 1px 3px 2px #dddddd;
 	float:right;
 	width:550px;
 	height:460px;
 	padding:20px;
+	background: rgba(117, 113, 249, 0.17);
+	
 }
 /*  input[type="checkbox"]:checked~ul {
         display:none;
@@ -283,13 +286,14 @@ ul {
 .organ{
 	border-radius:10px;
 	padding:25px;
-	border:1px solid gray;
+	
 	height:400px;
 	width:300px;
 	overflow:auto;
 	font-weight: bold;
 	margin-left:35px;
-	
+	background:white;
+	box-shadow:1px 1px 3px 2px #dddddd inset;;
 }
 .organ li{
 	width:250px;
@@ -299,6 +303,13 @@ ul {
 	text-align:center;
 	margin-left:30px;
 	border:none;
+}
+.dp-cp {
+	border:none;
+	background:white;
+}
+.tm-cp{
+	background:white;
 }
 .tm-cp input[type="text"]{
 	text-align:center;
@@ -314,9 +325,10 @@ ul {
 	display: inline-block;
 	width:500px;
 	height:240px;
-	border: 1px solid gray;
 	padding:10px;
 	border-radius:3px;
+	background:white;
+	box-shadow: 1px 1px 5px 1px grey;
 }
 .empList{
 	width:510px;
@@ -325,10 +337,11 @@ ul {
 	padding:10px;
 	display:inline-block;
 	
+	
 }
 #empImg{
 	display:inline-block;
-	border:1px solid gray;
+	box-shadow:1px 1px 3px 2px #dddddd;
 	width:200px;
 	height:200px;
 	float:left;
@@ -343,6 +356,7 @@ ul {
 	float:right;
 	width:230px;
 	height:200px;
+	
 	
 }
 #detailEmp li {
@@ -642,19 +656,19 @@ ul {
 						</tr>
 					</table>
 					<div class="empList">
-						<h4>사원상세정보</h4>
+						<h4><b>사원상세정보</b></h4>
 						<div id="bigEmp">
 						<div id="empImg">
 						
 						</div>
 						<div id="detailEmp">
 						<ul id="empOne">
-							<li>이름:<input type="text" id="name" readonly></li>
-							<li>내/외국인:<input type="text" id="itfor" readonly></li>
-							<li>입사일:<input type="text" id="hiredate" readonly></li>
-							<li>이메일:<input type="text" id="email" readonly></li>
-							<li>휴대폰:<input type="text" id="phone" readonly></li>
-							<li>주소<br>
+							<li><b>이름:</b><input type="text" id="name" readonly></li>
+							<li><b>내/외국인:</b><input type="text" id="itfor" readonly></li>
+							<li><b>입사일:</b><input type="text" id="hiredate" readonly></li>
+							<li><b>이메일:</b><input type="text" id="email" readonly></li>
+							<li><b>휴대폰:</b><input type="text" id="phone" readonly></li>
+							<li><b>주소</b><br>
 							<textarea rows="2" cols="30" id="address" readonly></textarea>
 							</li>
 						</ul>

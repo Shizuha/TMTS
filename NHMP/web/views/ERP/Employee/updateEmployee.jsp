@@ -639,7 +639,11 @@ $(function(){
 	
 });
 </script>
-	
+<style type="text/css">
+body{
+ font-family: Georgia, "맑은 고딕", serif;
+ }
+</style>
 </head>
 
 <body>
@@ -849,7 +853,7 @@ $(function(){
 					<th>고용형태</th>
 						<td>
 							<select id="empment" name="empment">
-								<option value="0">--고용형태--</option> 
+								<option value="EM7">--고용형태--</option> 
 								<option value="EM1"<%=ement[0] %>>일용직</option>
 								<option value="EM2"<%=ement[1] %>>위촉직</option>
 								<option value="EM4"<%=ement[3] %>>계약직</option>
@@ -864,7 +868,7 @@ $(function(){
 				<th>부서</th>
 					<td>
 						<select id="dept" name="dept">
-							<option value="0">--부서구분--</option> 
+							<option value="10">--부서구분--</option> 
 							<option value="10"<%=dept[0] %>>가정의학과</option>
 							<option value="30"<%=dept[2] %> >한방과</option>
 							<option value="40"<%=dept[3] %>>간호과</option>
@@ -1425,8 +1429,8 @@ $(function(){
 								<option value="박사" <%=fyshcl[6]%>>박사</option>
 							</select>
 						</td>
-						<td><input type="date" name="AD_DATE" value="<%=e.getAdDate() %>" required></td>
-						<td><input type="date" name="GR_DATE" value="<%=e.getGrDate() %>" required></td>
+						<td><input type="date" name="AD_DATE" min="1960-01-01" max="9999-12-31" value="<%=e.getAdDate() %>" required></td>
+						<td><input type="date" name="GR_DATE" min="1960-01-01" max="9999-12-31" value="<%=e.getGrDate() %>" required></td>
 						<td><input type="text" name="SCH_NAME"value="<%=e.getSchName() %>" required></td>
 						<td><input type="text" name="MAJOR" value="<%=e.getMajor() %>" required></td>
 						<td>
@@ -1463,8 +1467,8 @@ $(function(){
 								<option value="박사">박사</option>
 							</select>
 						</td>
-						<td><input type="date" name="AD_DATE" required></td>
-						<td><input type="date" name="GR_DATE" required></td>
+						<td><input type="date" name="AD_DATE" min="1960-01-01" max="9999-12-31" required></td>
+						<td><input type="date" name="GR_DATE" min="1960-01-01" max="9999-12-31" required></td>
 						<td><input type="text" name="SCH_NAME" required></td>
 						<td><input type="text" name="MAJOR" required></td>
 						<td>
@@ -1490,8 +1494,8 @@ $(function(){
 								<option value="박사">박사</option>
 							</select>
 						</td>
-						<td><input type="date" name="AD_DATE" required></td>
-						<td><input type="date" name="GR_DATE" required></td>
+						<td><input type="date" name="AD_DATE" min="1960-01-01" max="9999-12-31" required></td>
+						<td><input type="date" name="GR_DATE" min="1960-01-01" max="9999-12-31" required></td>
 						<td><input type="text" name="SCH_NAME" required></td>
 						<td><input type="text" name="MAJOR" required></td>
 						<td>
@@ -1524,8 +1528,8 @@ $(function(){
 					<tr>
 						<td><input type="checkbox" class="comchk" name="comchk"<%=emp.getEmpId() %>></td>
 						<td><input type="text" class="comchk" name="COM_NAME"value="<%=c.getComName() %>" required></td>
-						<td><input type="date" name="HIRE_DATE" value="<%=c.getHireDate() %>" required></td>
-						<td><input type="date" name="LAST_DATE" value="<%=c.getLastDate() %>" required></td>
+						<td><input type="date" name="HIRE_DATE" min="1960-01-01" max="9999-12-31" value="<%=c.getHireDate() %>" required></td>
+						<td><input type="date" name="LAST_DATE" min="1960-01-01" max="9999-12-31" value="<%=c.getLastDate() %>" required></td>
 						<td><input type="text" name="WORK_TEAM" value="<%=c.getWorkTeam() %>" required></td>
 						<td><input type="text" name="LAST_POSITION" value="<%=c.getLastPosition() %>" required></td>
 						<td><input type="text" name="RES_BILTIES" value="<%=c.getResBilties() %>" required></td>
@@ -1536,8 +1540,8 @@ $(function(){
 					<tr>
 						<td><input type="checkbox" class="comchk" name="comchk"></td>
 						<td><input type="text" class="comchk" name="COM_NAME" required></td>
-						<td><input type="date" name="HIRE_DATE" required></td>
-						<td><input type="date" name="LAST_DATE" required></td>
+						<td><input type="date" min="1960-01-01" max="9999-12-31" name="HIRE_DATE" required></td>
+						<td><input type="date" min="1960-01-01" max="9999-12-31" name="LAST_DATE" required></td>
 						<td><input type="text" name="WORK_TEAM" required></td>
 						<td><input type="text" name="LAST_POSITION" required></td>
 						<td><input type="text" name="RES_BILTIES" required></td>
@@ -1546,8 +1550,8 @@ $(function(){
 					<tr>
 						<td><input type="checkbox" class="comchk" name="comchk"></td>
 						<td><input type="text" class="comchk" name="COM_NAME" required></td>
-						<td><input type="date" name="HIRE_DATE" required></td>
-						<td><input type="date" name="LAST_DATE" required></td>
+						<td><input type="date" min="1960-01-01" max="9999-12-31" name="HIRE_DATE" required></td>
+						<td><input type="date" min="1960-01-01" max="9999-12-31" name="LAST_DATE" required></td>
 						<td><input type="text" name="WORK_TEAM" required></td>
 						<td><input type="text" name="LAST_POSITION" required></td>
 						<td><input type="text" name="RES_BILTIES" required></td>

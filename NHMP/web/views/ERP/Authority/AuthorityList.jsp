@@ -142,6 +142,9 @@ function auList(id){
 }
  </script>
  <style>
+ body{
+ font-family: Georgia, "맑은 고딕", serif;
+ }
  .Btn{
  
  	
@@ -179,7 +182,8 @@ function auList(id){
  .auLeft{
  	float:left;
  	width:48%;
- 	border:1px solid gray;
+ 	background: rgba(117, 113, 249, 0.17);
+	box-shadow:1px 1px 3px 2px #dddddd;
  	border-radius:5px;
  	padding:20px;
  	display:inline-block;
@@ -189,21 +193,24 @@ function auList(id){
  .auRight{
  	float:right;
  	width:48%;
- 	border:1px solid gray;
+ 	background: rgba(117, 113, 249, 0.17);
+	box-shadow:1px 1px 3px 2px #dddddd;
  	border-radius:5px;
  	padding:20px;
  	display:inline-block;
  	height:530px;
  }
  .auList{
- 	border:1px solid gray;
+ 	background:white;
+	box-shadow:1px 1px 3px 2px #dddddd;
  	border-radius:5px;
  	width:98%;
  	padding:10px;
  	height:450px;
  }
  .auEmp{
- 	border:1px solid gray;
+ 	background:white;
+	box-shadow:1px 1px 3px 2px #dddddd;
  	border-radius:5px;
  	width:98%;
  	padding:10px;

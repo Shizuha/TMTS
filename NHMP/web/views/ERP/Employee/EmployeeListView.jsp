@@ -62,19 +62,28 @@
   	});
  	
   	function trueAndFalse() {
-  		
+  		if($("input[name=empno]").is(":checked") == true){
   		var trueAndFalseDel = confirm( '정말로 삭제하시겠습니까?' );
   		
         if(trueAndFalseDel != false){
         	return true;
         }else
         	return false;
-        
+  		}else{
+   		 alert("선택된사원이 없습니다. 사원을 선택해주세요.");
+   		 return false;
+   	 }
         
         
   	}
   </script>
-
+  <style type="text/css">
+  body{
+ font-family: Georgia, "맑은 고딕", serif;
+ color:black;
+ }
+  </style>
+</head>
 
 <body>
 
@@ -276,13 +285,13 @@
 		<!--**********************************
             Content body start
         ***********************************-->
-		<div class="content-body" style="padding: 40px;">
+		<div class="content-body" style="padding: 30px;">
 			<div class="container-fluid">
 			<div class="search">
 				<div class="empname">
 					<form action="/NHMP/esel" method="post" >
-					사용자명:&nbsp; <div class="icon"><i class="fa fa-search"></i></div><input type="search" name="empname" id="sc">&nbsp;
-					부서:&nbsp;<select name="dept">
+					<b>사용자명:</b>&nbsp; <div class="icon"><i class="fa fa-search"></i></div><input type="search" name="empname" id="sc">&nbsp;
+					<b>부서:</b>&nbsp;<select name="dept">
 							<option>--부서구분--</option>
 							<option value="40">간호과</option>
 							<option value="20">외과</option>
@@ -301,7 +310,7 @@
 			<input type="hidden" name="bpage" value="<%=beginPage %>">
 			<input type="submit" id="delbutton"value="삭제">&nbsp;
 			<button id="usernewpwd">비밀번호초기화</button></div><br>
-                <table class="table table-bordered" style="margin-top:10px;"id="dataTable" width="100%" cellspacing="0" border="1">
+                <table class="table table-bordered" style="margin-top:10px;"id="dataTable" width="100%" cellspacing="0" >
                   
                     <tr class="mainTr">
                       <th><input type="checkbox" class="check-all">&nbsp;전체선택</th>
@@ -373,7 +382,6 @@
 					%>
 					&nbsp; <a href="/NHMP/list?page=<%=maxPage%>"><i id="i4" class="fa fa-fast-forward" aria-hidden="true"></i></a>
 				</div>
-				<i style="margin-left:546px;" class="fa fa-child" aria-hidden="true"></i>
 			</div>
 		</div>
 

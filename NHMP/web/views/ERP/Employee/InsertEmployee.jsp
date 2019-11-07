@@ -111,9 +111,30 @@ function formCheck(){
 	      var empNo2 = /^[1-4][0-9]{6}$/g;
 	      //부양가족 이름 정규식
 	      var fy_namechk = /^[가-힣a-zA-Z]{2,9}$/;
-	  
+	  	 
+	     /*  var shDate = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
      
-	
+	      if(!shDate.test($("input[name=HIRE_DATE]").val())) {            
+	          alert("입사일짜 날짜 형식에 부합하지 않습니다");
+	           $("input[name=HIRE_DATE]").focus();
+	           return false;
+	 		}
+	      if(!shDate.test($("input[name=LAST_DATE]").val())) {            
+	    	  alert("퇴사일짜 날짜 형식에 부합하지 않습니다");
+	    	  $("input[name=LAST_DATE]").focus();
+	           return false;
+	 		}
+	      if(!shDate.test($("input[name=AD_DATE]").val())) {            
+	    	  alert("입학년월 날짜 형식에 부합하지 않습니다");
+	    	  $("input[name=AD_DATE]").focus();
+	           return false;
+	 		}
+	      if(!shDate.test($("input[name=GR_DATE]").val())) {            
+	    	  alert("졸업년월 날짜 형식에 부합하지 않습니다");
+	    	  $("input[name=GR_DATE]").focus();
+	           return false;
+	 		} */
+	      
       if(!regExp2.test($("input[name=phone3]").val())) {            
          alert("휴대폰번호 끝자리는 3~4자리 사이로 입력하셔야 합니다.")
           $("#phone3").focus();
@@ -610,10 +631,14 @@ $(function(){
 });
 </script>
 <style>
+ body{
+ font-family: Georgia, "맑은 고딕", serif;
+ }
 input[type=checkbox]{
 	background:#F3F3F9;
 }
 table td{
+	background:rgba(117, 113, 249, 0.04);
 	padding:3px;
 }
 /* .Chk{
@@ -1217,8 +1242,8 @@ table td{
 								<option value="박사">박사</option>
 							</select>
 						</td>
-						<td><input type="date" name="AD_DATE"value="2015-05-18" required></td>
-						<td><input type="date" name="GR_DATE"value="2016-04-03" required></td>
+						<td><input type="date" name="AD_DATE"value="2015-05-18" min="1960-01-01" max="2999-12-31" required></td>
+						<td><input type="date" name="GR_DATE"value="2016-04-03" min="1960-01-01" max="2999-12-31" required></td>
 						<td><input type="text" name="SCH_NAME"value="좌항초등" required></td>
 						<td><input type="text" name="MAJOR"value="컴퓨터" required></td>
 						<td>
@@ -1244,8 +1269,8 @@ table td{
 								<option value="박사">박사</option>
 							</select>
 						</td>
-						<td><input type="date" name="AD_DATE"value="2012-05-18" required></td>
-						<td><input type="date" name="GR_DATE"value="2013-09-18" required></td>
+						<td><input type="date" name="AD_DATE"value="2012-05-18" min="1960-01-01" max="9999-12-31" required></td>
+						<td><input type="date" name="GR_DATE"value="2013-09-18" min="1960-01-01" max="9999-12-31" required></td>
 						<td><input type="text" name="SCH_NAME"value="세일중" required></td>
 						<td><input type="text" name="MAJOR"value="컴퓨터" required></td>
 						<td>
