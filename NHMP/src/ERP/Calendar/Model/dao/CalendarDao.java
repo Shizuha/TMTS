@@ -56,6 +56,8 @@ public class CalendarDao {
 
 	public void InsertCalendar(Connection conn, JSONObject sendJson, String adminid) {
 		
+		System.out.println(sendJson);
+		
 		PreparedStatement pstmt = null;
 		String query = "INSERT INTO CALENDAR VALUES (seq_cal.nextval, "
 				+ "?, ?, ?, ?, to_date(?, 'yyyy-mm-dd hh24:mi'), "
@@ -103,7 +105,7 @@ public class CalendarDao {
 			pstmt.setInt(7, Integer.parseInt((String) sendJson.get("_id")));
 			
 			pstmt.executeUpdate();
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

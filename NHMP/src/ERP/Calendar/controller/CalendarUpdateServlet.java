@@ -56,7 +56,7 @@ public class CalendarUpdateServlet extends HttpServlet {
 
 				response.setCharacterEncoding("utf-8");
 				JSONParser parser = new JSONParser();
-
+				
 				Object obj = parser.parse(jsoncal);
 				JSONObject sendJson = (JSONObject) obj;
 				//sendjson에 있는 username 과 session 에 있는 id 가 같으면 변경 실행 아니면 아이디가 다르다는 메세지 출력 
