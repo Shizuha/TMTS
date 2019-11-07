@@ -94,7 +94,7 @@ function sample4_execDaumPostcode() {
 <script type="text/javascript">
 
 function formCheck(){
-	alert("이벤트 실행됨");
+	
 		  //휴대폰 끝자리
 	      var regExp2 = /^\d{4}$/;
 	  	  //휴대전화 정규식
@@ -111,8 +111,6 @@ function formCheck(){
 	      var empNo2 = /^[1-4][0-9]{6}$/g;
 	      //부양가족 이름 정규식
 	      var fy_namechk = /^[가-힣a-zA-Z]{2,9}$/;
-	      //아이디정규식
-	      var idReg = /^[a-zA-Z]+[a-zA-Z0-9]{5,19}$/g;
 	  
      
 	
@@ -190,16 +188,8 @@ function formCheck(){
 	                  return false;
 	      	}
     }
-    if($("input[name=empids]").val() != null){
-	    if( !idReg.test( $("input[name=empids]").val() ) ) {
-	  	  $(".succesIdCheck").css("display", "none");
-	  	  $(".errorIdCheck").css("display", "none");
-	  	  $(".IdCheck").css("display", "inline-block");
-	  	  $("#empids").val("");
-	  	  $("#empids").focus();
-	        return false;
-	    	}
-    }
+    
+   
   	return true;
 }
 </script>
@@ -297,11 +287,12 @@ $(function(){
 				//아이디 정규식
 				  var idReg = /^[a-zA-Z]+[a-zA-Z0-9]{5,19}$/g;
 			      if( !idReg.test( $("input[name=empids]").val() ) ) {
+			    
 			    	  $(".succesIdCheck").css("display", "none");
 			    	  $(".errorIdCheck").css("display", "none");
 			    	  $(".IdCheck").css("display", "inline-block");
-			    	  $("#empids").val("");
-			    	  $("#empids").focus();
+			    	  $(this).val("");
+			    	  $(this).focus();
 			          return false;
 			      }else{
 			    	  $(".IdCheck").css("display", "none");
