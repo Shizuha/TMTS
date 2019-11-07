@@ -51,16 +51,17 @@ public class MloginServlet extends HttpServlet {
 		String userpwd = "";
 		NursingHospital loginHospital = null;
 		Employee loginEmployee = null;
+		RequestDispatcher view = null;
 		if(!Cname.equals("관리자")) {//직원
 			String hostid = request.getParameter("hostid");
 			String hostpwd = request.getParameter("hostpwd");
 			userid = request.getParameter("userid");
 			userpwd = request.getParameter("userpwd");
 			loginEmployee = new EmployeeService().loginCheck(userid, userpwd, hostid, hostpwd);
-			Department dp = new DepartmentService().selectAuDeptName(hostid, hostpwd, loginEmployee.getDeptCode());
-			String tm = new TeamService().selectTeamName(loginEmployee.getTeamCode(), hostid, hostpwd);
-			Ward wd = new WardService().selectAuWardName(hostid, hostpwd, loginEmployee.getWardCode());
 			if( loginEmployee != null ) {
+				Department dp = new DepartmentService().selectAuDeptName(hostid, hostpwd, loginEmployee.getDeptCode());
+				String tm = new TeamService().selectTeamName(loginEmployee.getTeamCode(), hostid, hostpwd);
+				Ward wd = new WardService().selectAuWardName(hostid, hostpwd, loginEmployee.getWardCode());
 				HttpSession session = request.getSession();
 				String empname = loginEmployee.getEmpName();
 				ArrayList<Calendar> list = new CalendarService().EmployeeSelectList(empname, hostid, hostpwd);
@@ -72,7 +73,7 @@ public class MloginServlet extends HttpServlet {
 				response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
 					
 			}else{
-				RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
+				view = request.getRequestDispatcher("views/common/Error.jsp");
 				request.setAttribute("message", "로그인 실패!!");
 				view.forward(request, response);
 			}
@@ -88,7 +89,7 @@ public class MloginServlet extends HttpServlet {
 				response.sendRedirect("/NHMP/views/Main/login.jsp");
 					
 			}else{
-				RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
+				view = request.getRequestDispatcher("views/common/Error.jsp");
 				request.setAttribute("message", "로그인 실패!!");
 				view.forward(request, response);
 			}
