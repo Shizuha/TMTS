@@ -539,10 +539,7 @@ function callFunction(){
 <% } %> &nbsp;
 <a href="/NHMP/drlist.ad?page=<%= maxPage %>">▷|</a>
 </div>
-<!-- 홈으로 가는 버튼 생성 -->
-<div align="center">
-	<a href="/NHMP/drlist.ad">홈으로 이동</a>
-</div>
+
 
 <div>
 	<div>

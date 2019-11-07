@@ -434,7 +434,6 @@ function movelist(){
 <tr><th colspan="2"> 
 	<input type="submit" value="글수정" > &nbsp; 
 	<input type="reset" value="초기화"> &nbsp; 
-	<input type="button" value="목록" onclick="history.go(-1);"> &nbsp;
 	<input type="button" value="이전 페이지로" onclick="history.go(-1); return false;">
 </th></tr>
 </form>

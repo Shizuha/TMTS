@@ -182,6 +182,21 @@ function callFunction(){
 	window.location.href = "/NHMP/views/ERP/Notice/ErpAdminNoticeWriteForm.jsp";
 	return false;  //다른 버튼으로 클릭 이벤트 전달 막기
 }
+
+ function button1_click(){
+	if($("#from").val()==""){
+	alert("날짜를 입력해 주세요");
+	return false;
+	} 
+	
+	if($("#to").val()==""){
+	alert("날짜를 입력해 주세요");
+	return false;
+	}
+}
+
+
+
 </script>
 <!-- ErpNoticeListView.jsp 추가분 끝 -->
 
@@ -500,8 +515,8 @@ function callFunction(){
 		<form action="/NHMP/nsearch.ad" method="post">
 			<input type="hidden" name="search" value="date">
 			<label>검색할 날짜를 선택하시오 : 
-			<input type="date" name="from"> ~ <input type="date" name="to"></label>
-			<input type="submit" value="검색">
+			<input type="date" name="from" id="from"> ~ <input type="date" name="to" id="to"></label>
+			<input type="submit" value="검색" onclick="return button1_click();">
 		</form>
 	</div>
 </div>
@@ -559,10 +574,7 @@ function callFunction(){
 <% } %> &nbsp;
 <a href="/NHMP/nlist.ad?page=<%= maxPage %>">▷|</a>
 </div>
-<!-- 홈으로 가는 버튼 생성 -->
-<div align="center">
-	<a href="/NHMP/nlist.ad">홈으로 이동</a>
-</div>
+
         
 <!-- ErpNoticeListView.jsp 추가분 끝-->
 </center>

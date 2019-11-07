@@ -87,7 +87,24 @@ function showDiv(){
 		$("#writerdiv").css("display", "none");
 		$("#datediv").css("display", "block");
 	}
+	
+	
+		
 }
+
+function button1_click(){
+	if($("#from").val()==""){
+		alert("날짜를 입력해 주세요");
+		return false;
+		} 
+		
+		if($("#to").val()==""){
+		alert("날짜를 입력해 주세요");
+		return false;
+		}
+}
+
+
 </script>
 <!-- ErpNoticeListView.jsp 추가분 끝 -->
 
@@ -300,8 +317,8 @@ function showDiv(){
 	<form action="/NHMP/nsearch" method="post">
 		<input type="hidden" name="search" value="date">
 		<label>검색할 날짜를 선택하시오 : 
-		<input type="date" name="from"> ~ <input type="date" name="to"></label>
-		<input type="submit" value="검색">
+		<input type="date" name="from" id="from"> ~ <input type="date" name="to" id="to"></label>
+		<input type="submit" value="검색" onclick="return button1_click();">
 	</form>
 </div>
 </div>
@@ -352,10 +369,7 @@ function showDiv(){
 <% } %> &nbsp;
 <a href="/NHMP/nlist?page=<%= maxPage %>">▷|</a>
 </div>
-<!-- 홈으로 가는 버튼 생성 -->
-<div align="center">
-	<a href="/NHMP/nlist">홈으로 이동</a>
-</div>
+
         
 <!-- ErpNoticeListView.jsp 추가분 끝-->
 </center>
