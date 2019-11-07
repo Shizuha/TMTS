@@ -35,7 +35,7 @@
 				addEventButton : {
 					text : '일정 보기',
 					click : function() {
-						window.open("/NHMP/views/ERP/Calendar.jsp");
+						window.open("/NHMP/views/ERP/Calendar.jsp", "", "width=800px, height=600px, left=400, top=200");
 					}
 				}
 			}
