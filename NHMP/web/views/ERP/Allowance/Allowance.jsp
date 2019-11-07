@@ -18,7 +18,6 @@
 <title>TMTS</title>
 <style type="text/css">
 	#alistdiv{
-		border:1px solid red;
 		float: left;
 		margin-left:50px;
 		width:1300px;
@@ -68,9 +67,16 @@
 	}
 	
 	#alistdiv table th{
-		background: rgb(117, 113, 249, 0.5);
+		background: rgba(117, 113, 249, 0.5);
     	color:rgba(0, 0, 0, 1);
     	text-align:center;
+    	font-weight:bold;
+	}
+	#alistdiv table td{
+		background: rgba(181, 179, 247, 0.44);
+    	color:rgba(0, 0, 0, 1);
+    	text-align:center;
+    	font-weight:bold;
 	}
 	#alistdiv table td input{
 		margin:5px;

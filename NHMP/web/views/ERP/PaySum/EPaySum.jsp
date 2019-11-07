@@ -53,6 +53,10 @@
     	text-align:center;
     	/* opacity:0.5; */
 	}
+	#rootdiv #Payleft table td{
+		background: rgba(181, 179, 247, 0.44);
+		font-weight:bold;
+	}
 	
 	
 	
@@ -74,6 +78,10 @@
     	text-align:center;
     	color:rgba(0, 0, 0, 1);
 	}
+	#rootdiv #Paycenter table td{
+		background: rgba(181, 179, 247, 0.44);
+		font-weight:bold;
+	}
 	
 	
 	
@@ -94,6 +102,10 @@
 		background: rgb(117, 113, 249, 0.5);
     	text-align:center;
     	color:rgba(0, 0, 0, 1);
+	}
+	#rootdiv #Payright table td{
+		background: rgba(181, 179, 247, 0.44);
+		font-weight:bold;
 	}
 	
 	#rootdiv div{
@@ -119,6 +131,10 @@
 		width:129px;
     	text-align:center;
     	color:rgba(0, 0, 0, 1);
+	}
+	#rootdiv #Payresult table td{
+		background: rgba(181, 179, 247, 0.44);
+		font-weight:bold;
 	}
 
 </style>
