@@ -155,11 +155,13 @@ function formCheck(){
       
       if(!empNo.test($("input[name=empno1]").val())) {            
           alert("주민번호 형식에 맞지 않습니다.");
+          $("input[name=empno1]").focus();
           return false;
 		}
      
       if(!empNo2.test($("input[name=empno2]").val())) {            
     	  alert("주민번호 형식에 맞지 않습니다.");
+    	  $("input[name=empno2]").focus();
           return false;
 		}
   	
@@ -178,6 +180,7 @@ function formCheck(){
         return false;
     }
     
+    
     if($("input[name=email]").val() != null){
 		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	      
@@ -187,7 +190,16 @@ function formCheck(){
 	                  return false;
 	      	}
     }
-  	
+    if($("input[name=empids]").val() != null){
+	    if( !idReg.test( $("input[name=empids]").val() ) ) {
+	  	  $(".succesIdCheck").css("display", "none");
+	  	  $(".errorIdCheck").css("display", "none");
+	  	  $(".IdCheck").css("display", "inline-block");
+	  	  $("#empids").val("");
+	  	  $("#empids").focus();
+	        return false;
+	    	}
+    }
   	return true;
 }
 </script>
@@ -242,6 +254,8 @@ $(function(){
 		      
 		      if(!emailRule.test($("input[name=email]").val())) {            
 		    	 		 $(".EmailCheck").css("display", "inline-block");
+		    	 		$(".errorEmailCheck").css("display", "none");
+		    	 		$(".succesEmailCheck").css("display", "none");
 		    	 		 $("input[name=email]").val("");
 		    	 		 $("input[name=email]").focus();
 		                  return false;
@@ -261,6 +275,7 @@ $(function(){
 					}else{
 						$(".succesEmailCheck").css("display", "inline-block");
 						$("#userPwd").focus();
+						$(".EmailCheck").css("display", "none");
 						$(".errorEmailCheck").css("display", "none");
 						return false;
 					}
@@ -285,7 +300,8 @@ $(function(){
 			    	  $(".succesIdCheck").css("display", "none");
 			    	  $(".errorIdCheck").css("display", "none");
 			    	  $(".IdCheck").css("display", "inline-block");
-			    	  $("#userId").focus();
+			    	  $("#empids").val("");
+			    	  $("#empids").focus();
 			          return false;
 			      }else{
 			    	  $(".IdCheck").css("display", "none");
@@ -302,7 +318,8 @@ $(function(){
 						if(data.trim() == "ok"){
 							$(".errorIdCheck").css("display", "inline-block");
 							$(".succesIdCheck").css("display", "none");
-							$("#userId").select();
+							$("#empids").val("");
+							$("#empids").focus();
 							return false;
 						}else{
 							$(".succesIdCheck").css("display", "inline-block");
@@ -486,6 +503,7 @@ $(function(){
 	
 	//비밀번호 중복체크 엔터키 누를시 체크
 	$("#emppwd2").on("focusout", function(event){
+		
 		 //암호정규식
 	      var passRule = /^[a-zA-Z](([a-zA-Z])|([0-9])){5,12}$/gi;//숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
 	      
@@ -499,15 +517,24 @@ $(function(){
 	          return false;
 	      }
 		
+		
 			if($("#emppwd").val() != $(this).val()){
 				$(".checkPwd").css("display", "inline-block");
-				$("#emppwd").select();
+				$("#emppwd").val("");
+	       		$("#emppwd2").val("");
+				$("#emppwd").focus();
 				$(".checkPwd2").css("display", "none");
 				return false;
+				
+				
+				
 			}else{
 				$(".checkPwd2").css("display", "inline-block");
 				$("input[name=email]").select();
 				$(".checkPwd").css("display", "none");
+				
+				
+				
 				return false;
 			}
 		
@@ -595,6 +622,7 @@ $(function(){
 input[type=checkbox]{
 	background:#F3F3F9;
 }
+
 /* .Chk{
 	background:#F3F3F9;
 } */
@@ -666,149 +694,8 @@ input[type=checkbox]{
 						<span class="toggle-icon"><i class="icon-menu"></i></span>
 					</div>
 				</div>
-				<div class="header-left">
-					<div class="input-group icons">
-						<div class="input-group-prepend">
-							<span
-								class="input-group-text bg-transparent border-0 pr-2 pr-sm-3"
-								id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
-						</div>
-						<input type="search" class="form-control" placeholder="검색할 메뉴 명"
-							aria-label="Search Dashboard">
-						<div class="drop-down animated flipInX d-md-none">
-							<form action="#">
-								<input type="text" class="form-control" placeholder="Search">
-							</form>
-						</div>
-					</div>
-				</div>
 				<div class="header-right">
 					<ul class="clearfix">
-						<li class="icons dropdown"><a href="javascript:void(0)"
-							data-toggle="dropdown"> <i class="mdi mdi-email-outline"></i>
-								<span class="badge badge-pill gradient-1">3</span>
-						</a>
-							<div class="drop-down animated fadeIn dropdown-menu">
-								<div
-									class="dropdown-content-heading d-flex justify-content-between">
-									<span class="">3 New Messages</span> <a
-										href="javascript:void()" class="d-inline-block"> <span
-										class="badge badge-pill gradient-1">3</span>
-									</a>
-								</div>
-								<div class="dropdown-content-body">
-									<ul>
-										<li class="notification-unread"><a
-											href="javascript:void()"> <img
-												class="float-left mr-3 avatar-img"
-												src="/NHMP/resources/ERP/images/avatar/1.jpg" alt="">
-												<div class="notification-content">
-													<div class="notification-heading">Saiful Islam</div>
-													<div class="notification-timestamp">08 Hours ago</div>
-													<div class="notification-text">Hi Teddy, Just wanted
-														to let you ...</div>
-												</div>
-										</a></li>
-										<li class="notification-unread"><a
-											href="javascript:void()"> <img
-												class="float-left mr-3 avatar-img"
-												src="/NHMP/resources/ERP/images/avatar/2.jpg" alt="">
-												<div class="notification-content">
-													<div class="notification-heading">Adam Smith</div>
-													<div class="notification-timestamp">08 Hours ago</div>
-													<div class="notification-text">Can you do me a
-														favour?</div>
-												</div>
-										</a></li>
-										<li><a href="javascript:void()"> <img
-												class="float-left mr-3 avatar-img"
-												src="/NHMP/resources/ERP/images/avatar/3.jpg" alt="">
-												<div class="notification-content">
-													<div class="notification-heading">Barak Obama</div>
-													<div class="notification-timestamp">08 Hours ago</div>
-													<div class="notification-text">Hi Teddy, Just wanted
-														to let you ...</div>
-												</div>
-										</a></li>
-										<li><a href="javascript:void()"> <img
-												class="float-left mr-3 avatar-img"
-												src="/NHMP/resources/ERP/images/avatar/4.jpg" alt="">
-												<div class="notification-content">
-													<div class="notification-heading">Hilari Clinton</div>
-													<div class="notification-timestamp">08 Hours ago</div>
-													<div class="notification-text">Hello</div>
-												</div>
-										</a></li>
-									</ul>
-
-								</div>
-							</div></li>
-						<li class="icons dropdown"><a href="javascript:void(0)"
-							data-toggle="dropdown"> <i class="mdi mdi-bell-outline"></i>
-								<span class="badge badge-pill gradient-2">3</span>
-						</a>
-							<div
-								class="drop-down animated fadeIn dropdown-menu dropdown-notfication">
-								<div
-									class="dropdown-content-heading d-flex justify-content-between">
-									<span class="">2 New Notifications</span> <a
-										href="javascript:void()" class="d-inline-block"> <span
-										class="badge badge-pill gradient-2">5</span>
-									</a>
-								</div>
-								<div class="dropdown-content-body">
-									<ul>
-										<li><a href="javascript:void()"> <span
-												class="mr-3 avatar-icon bg-success-lighten-2"><i
-													class="icon-present"></i></span>
-												<div class="notification-content">
-													<h6 class="notification-heading">Events near you</h6>
-													<span class="notification-text">Within next 5 days</span>
-												</div>
-										</a></li>
-										<li><a href="javascript:void()"> <span
-												class="mr-3 avatar-icon bg-danger-lighten-2"><i
-													class="icon-present"></i></span>
-												<div class="notification-content">
-													<h6 class="notification-heading">Event Started</h6>
-													<span class="notification-text">One hour ago</span>
-												</div>
-										</a></li>
-										<li><a href="javascript:void()"> <span
-												class="mr-3 avatar-icon bg-success-lighten-2"><i
-													class="icon-present"></i></span>
-												<div class="notification-content">
-													<h6 class="notification-heading">Event Ended
-														Successfully</h6>
-													<span class="notification-text">One hour ago</span>
-												</div>
-										</a></li>
-										<li><a href="javascript:void()"> <span
-												class="mr-3 avatar-icon bg-danger-lighten-2"><i
-													class="icon-present"></i></span>
-												<div class="notification-content">
-													<h6 class="notification-heading">Events to Join</h6>
-													<span class="notification-text">After two days</span>
-												</div>
-										</a></li>
-									</ul>
-
-								</div>
-							</div></li>
-						<li class="icons dropdown d-none d-md-flex"><a
-							href="javascript:void(0)" class="log-user" data-toggle="dropdown">
-								<span>korean</span> <i class="fa fa-angle-down f-s-14"
-								aria-hidden="true"></i>
-						</a>
-							<div
-								class="drop-down dropdown-language animated fadeIn  dropdown-menu">
-								<div class="dropdown-content-body">
-									<ul>
-										<li><a href="javascript:void()">English</a></li>
-										<li><a href="javascript:void()">Korean</a></li>
-									</ul>
-								</div>
-							</div></li>
 						<li class="icons dropdown">
 							<div class="user-img c-pointer position-relative"
 								data-toggle="dropdown">
@@ -821,17 +708,13 @@ input[type=checkbox]{
 								<div class="dropdown-content-body">
 									<ul>
 										<li><a href="app-profile.html"><i class="icon-user"></i>
-												<span>마이페이지</span></a></li>
-										<li><a href="javascript:void()"> <i
-												class="icon-envelope-open"></i> <span>Inbox</span>
-												<div class="badge gradient-3 badge-pill gradient-1">3</div>
-										</a></li>
+												<span>내정보 보기</span></a></li>
+
 
 										<hr class="my-2">
-										<li><a href="page-lock.html"><i class="icon-lock"></i>
-												<span>Lock Screen</span></a></li>
-										<li><a href="/NHMP/logouts"><i class="icon-key"></i>
-												<span>로그아웃</span></a></li>
+										<li><a href="/NHMP/ERP/views/Employee/calendar.jsp"><i
+												class="icon-lock"></i> <span>일정관리</span></a></li>
+										<li><a href="/NHMP/logouts"><i class="icon-key"></i> <span>로그아웃</span></a></li>
 									</ul>
 								</div>
 							</div>
@@ -840,6 +723,7 @@ input[type=checkbox]{
 				</div>
 			</div>
 		</div>
+		
 		<!--**********************************
             Header end ti-comment-alt
         ***********************************-->
@@ -949,15 +833,15 @@ input[type=checkbox]{
 		<div class="content-body">
 			<div class="insertbox">
         	<h2>기본정보</h2>
-        	<form action="/NHMP/empin" method="post" onsubmit="return formCheck();" enctype="multipart/form-data">
-			<table class="insertemp" cellpadding="5" cellspacing="0" >
+        	<form action="/NHMP/empin" method="post"  onsubmit="return formCheck();" enctype="multipart/form-data">
+			<table class="insertemp" cellpadding="6" cellspacing="0" >
 				<tr>
 					<th>성명(한글)</th>
 						<td>
 						<input type="text" name="empname" id="empname" style="border-radius:5px;" required>&nbsp;
-						<span class="empname" style="color:red; display:none;">이름이 중복 됩니다<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></span>
-						<span class="empname2" style="color:green; display:none;">멋진 이름이네요 <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>
-						<span class="empname3" style="color:red; display:none;">이름형식을확인해주세요(한글,영어 2~9자 이내)<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></span>
+						<span class="empname" style="color:red; display:none;"><b>이름이 중복 됩니다<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></b></span>
+						<span class="empname2" style="color:green; display:none;"><b>멋진 이름이네요 <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></b></span>
+						<span class="empname3" style="color:red; display:none;"><b>이름형식을확인해주세요(한글,영어 2~9자 이내)<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></b></span>
 						</td>
 					<th>고용형태</th>
 						<td>
@@ -1045,17 +929,17 @@ input[type=checkbox]{
 					<th>비밀번호</th>
 						<td><input type="password"style="border-radius:5px;" id="emppwd"name="emppwds" required>&nbsp;
 						중복확인<input type="password"style="border-radius:5px;"id="emppwd2" required>
-						<span class="checkPwd" style="color:red; display:none;">불일치!</span>
-						<span class="checkPwd2" style="color:green; display:none;">일치<i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>
+						<span class="checkPwd" style="color:red; display:none;"><b>불일치<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></b></span>
+						<span class="checkPwd2" style="color:green; display:none;"><b>일치<i class="fa fa-thumbs-o-up" aria-hidden="true"></i></b></span>
 						</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
 						<td>
 						<input type="email" name="email" id="email" style="border-radius:5px;">
-						<span class="succesEmailCheck" style="display:none; color:green; font-size:10pt;">사용가능한 이메일 입니다<i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>
-						&nbsp;<span class="errorEmailCheck" style="display:none; color:red;font-size:10pt;">이미 사용중인 이메일 입니다<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></span>
-						<span class="EmailCheck" style="display:none; color:red;font-size:10pt;">이메일 형식이 틀립니다<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></span>
+						<span class="succesEmailCheck" style="display:none; color:green; font-size:10pt;"><b>사용가능한 이메일 입니다<i class="fa fa-thumbs-o-up" aria-hidden="true"></i></b></span>
+						&nbsp;<span class="errorEmailCheck" style="display:none; color:red;font-size:10pt;"><b>이미 사용중인 이메일 입니다<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></b></span>
+						<span class="EmailCheck" style="display:none; color:red;font-size:10pt;"><b>이메일 형식이 틀립니다<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></b></span>
 						</td>
 					<th>기본급</th>
 						<td><input type="text" name="salary"value="1750000"style="border-radius:5px;" required></td>
@@ -1164,7 +1048,7 @@ input[type=checkbox]{
 			<!-- 부양가족~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<h2>부양가족</h2>
 			<div class="fbtn"><button class="btn1">추가</button>&nbsp;<button class="btn2">삭제</button></div>
-				<table class="insertemp3" cellpadding="5" cellspacing="0">
+				<table class="insertemp3" cellpadding="3" cellspacing="0">
 					<tr>
 						<th><input type="checkbox" class="fychkall" name="fychkall"></th>
 						<th>관계</th>
@@ -1385,7 +1269,7 @@ input[type=checkbox]{
 				<!-- 경력사항 테이블~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>경력사항</h2>
 			<div class="fbtn"><button class="btn5">추가</button>&nbsp;<button class="btn6">삭제</button></div>
-				<table class="insertemp5" cellpadding="5" cellspacing="0" width="100%">
+				<table class="insertemp5" cellpadding="3" cellspacing="0" width="100%">
 					<tr>
 						<th>&nbsp;&nbsp;<input type="checkbox" class="comchkall" name="comchkall"></th>
 						<th>회사명</th>

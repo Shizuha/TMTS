@@ -69,17 +69,16 @@
 <script type="text/javascript">
 function checkPwd(){
 	
-	 var passRule = /^[!@#$%^&]+[A-Za-z0-9]{6,12}$/;//숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
+	 var passRule = /^[a-zA-Z](([a-zA-Z])|([0-9])){5,12}$/gi;//숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
      
      if(!passRule.test($("#newpwd").val())) {
         
-   	  alert("암호는 첫번째 특수문자를 포함한 숫자와 문자 포함 형태의 6~12자리 이내의 암호로 입력하셔야 합니다.");
-      
+   	  alert("암호는 첫번째 영문자를 포함한 숫자와 문자 포함 형태의 1~9자리 이내의 암호로 입력하셔야 합니다.");
+      		$("#newpwd").val("");
+      		$("#newpwd").val("");
+      		$("#newpwd").focus();
+      		
          return false;
-     }else{
-    	 window.close();
-    	 return true;
-    	
      }
 	 
 }
