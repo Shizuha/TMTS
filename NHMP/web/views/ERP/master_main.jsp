@@ -175,7 +175,7 @@
 
 
 										<hr class="my-2">
-										<li><a href="/NHMP/ERP/views/Employee/calendar.jsp"><i
+										<li><a href="/NHMP/views/ERP/Calendar.jsp"><i
 												class="icon-lock"></i> <span>일정관리</span></a></li>
 										<li><a href="/NHMP/logouts"><i class="icon-key"></i> <span>로그아웃</span></a></li>
 									</ul>
