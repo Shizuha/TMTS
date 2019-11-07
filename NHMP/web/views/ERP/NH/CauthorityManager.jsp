@@ -35,7 +35,6 @@
 		align:center;
 		text-align:center;
 		width:1100px;
-		border: 1px solid blue;
 	}
 	.root .NH_list{
 		float:left;
@@ -43,7 +42,6 @@
 		width:500px;
 		height:250px;
 		color:rgba(0, 0, 0, 1);
-		border: 1px solid red;
 	}
 	.root .NH_list table{
 		width:100%;
@@ -72,7 +70,6 @@
 		width:500px;
 		height:250px;
 		color:rgba(0, 0, 0, 1);
-		border: 1px solid red;
 	}
 	.root .Authlist table{
 		width:100%;
