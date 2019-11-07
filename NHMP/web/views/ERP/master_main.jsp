@@ -199,7 +199,7 @@
 				<ul class="metismenu" id="menu">
 					<li class="mega-menu mega-menu-sm"><a class="has-arrow"
 						href="javascript:void()" aria-expanded="false"> <i
-							class="fa fa-users"></i><span class="nav-text">인사관리</span> <!-- <i class="icon-globe-alt menu-icon"></i><span class="nav-text">인사설정</span>-->
+							class="fa fa-users"></i><span class="nav-text">고객관리</span> <!-- <i class="icon-globe-alt menu-icon"></i><span class="nav-text">인사설정</span>-->
 					</a>
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/allNH">전체고객조회</a></li>
@@ -210,7 +210,7 @@
 							class="nav-text">권한설정</span> <!--    <i class="icon-envelope menu-icon"></i> <span class="nav-text">권한설정</span> -->
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/Cautholist">권한관리</a></li>
+							<li><a href="/NHMP/Cautholist">전체권한조회</a></li>
 							<li><a href="/NHMP/Cauthmanager">권한부여관리</a></li>
 						</ul></li>
 					
