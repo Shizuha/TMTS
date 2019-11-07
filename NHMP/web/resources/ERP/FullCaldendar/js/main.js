@@ -41,8 +41,8 @@ function filtering(event) {
 function calDateWhenResize(event) {
 
   var newDates = {
-    startDate: '',
-    endDate: ''
+    startDate: "",
+    endDate: ""
   };
 
   if (event.allDay) {
@@ -59,8 +59,8 @@ function calDateWhenResize(event) {
 function calDateWhenDragnDrop(event) {
   // 드랍시 수정된 날짜반영
   var newDates = {
-    startDate: '',
-    endDate: ''
+    startDate: "",
+    endDate: ""
   }
 
   //하루짜리 all day
@@ -162,6 +162,7 @@ var calendar = $('#calendar').fullCalendar({
     date.start = "1900-01-01";
     date.end = "2099-12-30";
     var jsondata = JSON.stringify(date);
+    console.log(jsondata);
     $.ajax({
       type: "get",
       url: "/NHMP/callist",
@@ -176,7 +177,7 @@ var calendar = $('#calendar').fullCalendar({
     	  for(var i = 0; i < list.length; i++ ){
           if (list[i].allDay && list[i].start !== list[i].end) {
             // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
-        	  list[i].end = moment(list[i].end).add(1, 'days');
+        	  list[i].end = moment(list[i].end).add(0, 'days');
           }
           var evt = {
         		  _id:list[i]._id,
@@ -211,20 +212,32 @@ var calendar = $('#calendar').fullCalendar({
     /** 리사이즈시 수정된 날짜반영
      * 하루를 빼야 정상적으로 반영됨. */
     var newDates = calDateWhenResize(event);
-
+    
+    var eventresize = {
+    		_id:event._id,
+    		allDay: event.allDay,
+            title: event.title,
+            start: newDates.startDate,
+            end: newDates.endDate,
+            type: event.type,
+            backgroundColor: event.backgroundColor,
+            description: event.description,
+            username: event.username,
+    }
+    
+    var jsonupdate = JSON.stringify(eventresize);
     //리사이즈한 일정 업데이트
     $.ajax({
       type: "get",
-      url: "",
+      url: "/NHMP/calup",
       data: {
-        //id: event._id,
-        //....
+    	  jsonupdate
       },
       success: function (response) {
         alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
       }
     });
-
+    console.log(jsonupdate);
   },
 
   eventDragStart: function (event, jsEvent, ui, view) {
@@ -246,13 +259,26 @@ var calendar = $('#calendar').fullCalendar({
 
     // 드랍시 수정된 날짜반영
     var newDates = calDateWhenDragnDrop(event);
-
+    
+    var eventresize = {
+    		_id:event._id,
+    		allDay: event.allDay,
+            title: event.title,
+            start: newDates.startDate,
+            end: newDates.endDate,
+            type: event.type,
+            backgroundColor: event.backgroundColor,
+            description: event.description,
+            username: event.username,
+    }
+    
+    var jsonupdate = JSON.stringify(eventresize);
     //드롭한 일정 업데이트
     $.ajax({
       type: "get",
-      url: "",
+      url: "/NHMP/calup",
       data: {
-        //...
+    	jsonupdate
       },
       success: function (response) {
         alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
