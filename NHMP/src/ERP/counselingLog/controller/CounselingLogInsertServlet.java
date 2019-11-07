@@ -43,7 +43,7 @@ public class CounselingLogInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//환자 상담일지 등록 처리용 컨트롤러
+		//�솚�옄 �긽�떞�씪吏� �벑濡� 泥섎━�슜 而⑦듃濡ㅻ윭
 		request.setCharacterEncoding("utf-8");
 		
 		String hostId = null;
@@ -62,7 +62,7 @@ public class CounselingLogInsertServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		if(!ServletFileUpload.isMultipartContent(request)) {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "form 태그의 enctype 속성이어야만 합니다");
+			request.setAttribute("message", "form �깭洹몄쓽 enctype �냽�꽦�씠�뼱�빞留� �빀�땲�떎");
 			view.forward(request, response);
 		}
 		
@@ -118,10 +118,15 @@ public class CounselingLogInsertServlet extends HttpServlet {
 		int result = new CounselingLogService().insertCounselingLog(hostId, hostPwd, counselingLog);
 		
 		if(result > 0) {
-			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
+			if(emp != null) {
+				response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
+			}else {
+				response.sendRedirect("/NHMP/views/ERP/Admin_main.jsp");
+			}
+			
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", "환자 상담일지 등록 실패!");
+			request.setAttribute("message", "�솚�옄 �긽�떞�씪吏� �벑濡� �떎�뙣!");
 			view.forward(request, response);
 		}
 	}

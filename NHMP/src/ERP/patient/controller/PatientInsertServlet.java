@@ -37,7 +37,7 @@ public class PatientInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//환자 등록 처리용 컨트롤러
+		//�솚�옄 �벑濡� 泥섎━�슜 而⑦듃濡ㅻ윭
 		request.setCharacterEncoding("utf-8");
 		
 		String hostId = null;
@@ -71,7 +71,12 @@ public class PatientInsertServlet extends HttpServlet {
 		int result = new PatientService().insertPatient(hostId, hostPwd, patient);
 		
 		if(result > 0) {
-			response.sendRedirect("views/ERP/Employee.jsp");
+			if(emp != null) {
+				response.sendRedirect("views/ERP/Employee.jsp");
+			}else {
+				response.sendRedirect("views/ERP/Admin_main.jsp");
+			}
+			
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
 			request.setAttribute("message", "환자 등록 실패!");
