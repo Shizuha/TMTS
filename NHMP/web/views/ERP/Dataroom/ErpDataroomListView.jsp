@@ -350,10 +350,7 @@ function showDiv(){
 <% } %> &nbsp;
 <a href="/NHMP/drlist?page=<%= maxPage %>">▷|</a>
 </div>
-<!-- 홈으로 가는 버튼 생성 -->
-<div align="center">
-	<a href="/NHMP/drlist">홈으로 이동</a>
-</div>
+
         
 <!-- ErpNoticeListView.jsp 추가분 끝-->
 </center>
