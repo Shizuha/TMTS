@@ -2,11 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ page import="ERP.Employee.model.vo.Employee,
 				 java.util.ArrayList,
-				 ERP.Calendar.Model.vo.Calendar" %>
+				 ERP.Calendar.Model.vo.Calendar,
+				 ERP.Department.model.vo.Department,
+				 ERP.Ward.model.vo.Ward" %>
 
 <%//스크립트 립 태그라고 함 //위에 페이지있는건 디렉트 태그라고 함.
 	Employee emp = (Employee)session.getAttribute("loginEmployee");
 	ArrayList<Calendar> list = (ArrayList<Calendar>)session.getAttribute("list");
+	Department dp = (Department)session.getAttribute("dp");
+	String tm = (String)session.getAttribute("tm");
+	Ward wd = (Ward)session.getAttribute("wd");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -330,138 +335,8 @@ thead td {
 						<span class="toggle-icon"><i class="icon-menu"></i></span>
 					</div>
 				</div>
-				<div class="header-left">
-					<div class="input-group icons">
-						<div class="input-group-prepend">
-							<span
-								class="input-group-text bg-transparent border-0 pr-2 pr-sm-3"
-								id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
-						</div>
-						<input type="search" class="form-control" placeholder="검색할 메뉴 명"
-							aria-label="Search Dashboard">
-						<div class="drop-down animated flipInX d-md-none">
-							<form action="#">
-								<input type="text" class="form-control" placeholder="Search">
-							</form>
-						</div>
-					</div>
-				</div>
 				<div class="header-right">
 					<ul class="clearfix">
-						<li class="icons dropdown"><a href="javascript:void(0)"
-							data-toggle="dropdown"> <i class="mdi mdi-email-outline"></i>
-								<span class="badge badge-pill gradient-1">3</span>
-						</a>
-							<div class="drop-down animated fadeIn dropdown-menu">
-								<div
-									class="dropdown-content-heading d-flex justify-content-between">
-									<span class="">3 New Messages</span> <a
-										href="javascript:void()" class="d-inline-block"> <span
-										class="badge badge-pill gradient-1">3</span>
-									</a>
-								</div>
-								<div class="dropdown-content-body">
-									<ul>
-										<li class="notification-unread"><a
-											href="javascript:void()"> <img
-												class="float-left mr-3 avatar-img"
-												src="/NHMP/resources/ERP/images/avatar/1.jpg" alt="">
-												<div class="notification-content">
-													<div class="notification-heading">Saiful Islam</div>
-													<div class="notification-timestamp">08 Hours ago</div>
-													<div class="notification-text">Hi Teddy, Just wanted
-														to let you ...</div>
-												</div>
-										</a></li>
-										<li class="notification-unread"><a
-											href="javascript:void()"> <img
-												class="float-left mr-3 avatar-img"
-												src="/NHMP/resources/ERP/images/avatar/2.jpg" alt="">
-												<div class="notification-content">
-													<div class="notification-heading">Adam Smith</div>
-													<div class="notification-timestamp">08 Hours ago</div>
-													<div class="notification-text">Can you do me a
-														favour?</div>
-												</div>
-										</a></li>
-										<li><a href="javascript:void()"> <img
-												class="float-left mr-3 avatar-img"
-												src="/NHMP/resources/ERP/images/avatar/3.jpg" alt="">
-												<div class="notification-content">
-													<div class="notification-heading">Barak Obama</div>
-													<div class="notification-timestamp">08 Hours ago</div>
-													<div class="notification-text">Hi Teddy, Just wanted
-														to let you ...</div>
-												</div>
-										</a></li>
-										<li><a href="javascript:void()"> <img
-												class="float-left mr-3 avatar-img"
-												src="/NHMP/resources/ERP/images/avatar/4.jpg" alt="">
-												<div class="notification-content">
-													<div class="notification-heading">Hilari Clinton</div>
-													<div class="notification-timestamp">08 Hours ago</div>
-													<div class="notification-text">Hello</div>
-												</div>
-										</a></li>
-									</ul>
-
-								</div>
-							</div></li>
-						<li class="icons dropdown"><a href="javascript:void(0)"
-							data-toggle="dropdown"> <i class="mdi mdi-bell-outline"></i>
-								<span class="badge badge-pill gradient-2">3</span>
-						</a>
-							<div
-								class="drop-down animated fadeIn dropdown-menu dropdown-notfication">
-								<div
-									class="dropdown-content-heading d-flex justify-content-between">
-									<span class="">2 New Notifications</span> <a
-										href="javascript:void()" class="d-inline-block"> <span
-										class="badge badge-pill gradient-2">5</span>
-									</a>
-								</div>
-								<div class="dropdown-content-body">
-									<ul>
-										<li><a href="javascript:void()"> <span
-												class="mr-3 avatar-icon bg-success-lighten-2"><i
-													class="icon-present"></i></span>
-												<div class="notification-content">
-													<h6 class="notification-heading">Events near you</h6>
-													<span class="notification-text">Within next 5 days</span>
-												</div>
-										</a></li>
-										<li><a href="javascript:void()"> <span
-												class="mr-3 avatar-icon bg-danger-lighten-2"><i
-													class="icon-present"></i></span>
-												<div class="notification-content">
-													<h6 class="notification-heading">Event Started</h6>
-													<span class="notification-text">One hour ago</span>
-												</div>
-										</a></li>
-										<li><a href="javascript:void()"> <span
-												class="mr-3 avatar-icon bg-success-lighten-2"><i
-													class="icon-present"></i></span>
-												<div class="notification-content">
-													<h6 class="notification-heading">Event Ended
-														Successfully</h6>
-													<span class="notification-text">One hour ago</span>
-												</div>
-										</a></li>
-										<li><a href="javascript:void()"> <span
-												class="mr-3 avatar-icon bg-danger-lighten-2"><i
-													class="icon-present"></i></span>
-												<div class="notification-content">
-													<h6 class="notification-heading">Events to Join</h6>
-													<span class="notification-text">After two days</span>
-												</div>
-										</a></li>
-									</ul>
-
-								</div>
-							</div></li>
-						<li class="icons dropdown d-none d-md-flex"><a
-							href="javascript:void(0)" class="log-user" data-toggle="dropdown">
-								<span><%=emp.getEmpName() %></span> </a></li>
 						<li class="icons dropdown">
 							<div class="user-img c-pointer position-relative"
 								data-toggle="dropdown">
@@ -474,17 +349,13 @@ thead td {
 								<div class="dropdown-content-body">
 									<ul>
 										<li><a href="app-profile.html"><i class="icon-user"></i>
-												<span>마이페이지</span></a></li>
-										<li><a href="javascript:void()"> <i
-												class="icon-envelope-open"></i> <span>Inbox</span>
-												<div class="badge gradient-3 badge-pill gradient-1">3</div>
-										</a></li>
+												<span>내정보 보기</span></a></li>
+
 
 										<hr class="my-2">
-										<li><a href="page-lock.html"><i class="icon-lock"></i>
-												<span>Lock Screen</span></a></li>
-										<li><a href="/NHMP/logouts"><i class="icon-key"></i>
-												<span>로그아웃</span></a></li>
+										<li><a href="/NHMP/views/ERP/Calendar.jsp"><i
+												class="icon-lock"></i> <span>일정관리</span></a></li>
+										<li><a href="/NHMP/logouts"><i class="icon-key"></i> <span>로그아웃</span></a></li>
 									</ul>
 								</div>
 							</div>
@@ -596,16 +467,16 @@ thead td {
 			<%if(emp != null){ %>
 				<div class="member">
 				<%if(emp.getEmpRenameFilename() != null){ %>
-					<center><img alt="" src="/NHMP/resources/ERP/emp_Img_file/<%=emp.getEmpRenameFilename() %>"></center><br><br>
+					<center><img alt="" src="/NHMP/resources/ERP/emp_Img_file/<%=emp.getEmpRenameFilename() %>" height="100" width="100"></center><br><br>
 					<%}else{ %>
 					<center><img alt="" src="/NHMP/resources/ERP/images/testimonial2.jpg"></center><br><br>
 					<%} %>
 					<ul id="header_list" style="border: 1px soild;">
-						<li>사원코드 :<%=emp.getUserId() %></li><br>
-						<li>부서 :<%=emp.getDeptCode() %> </li>
-						<li style="font-size: 10pt;">팀 코드 :<%=emp.getTeamCode() %></li><br>
+						<li>사원코드 :<%=emp.getEmpId() %></li><br>
+						<li>부서 :<%= dp.getDeptName() %> </li>
+						<li style="font-size: 10pt;">팀 :<%= tm %></li><br>
 						<li>이름 :<%=emp.getEmpName() %></li><br>
-						<li>담당병동 :<%=emp.getWardCode() %></li>
+						<li>담당병동 :<%= wd.getWardName() %></li>
 					</ul><br>
 				</div>
 				<% }else{ %>
