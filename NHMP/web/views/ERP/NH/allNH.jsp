@@ -32,9 +32,16 @@
 		color:#000;
 	}
 	#rootdiv #NHlist_talbe th{
-		background: rgb(117, 113, 249, 0.5);
+		background: rgba(117, 113, 249, 0.5);
     	color:rgba(0, 0, 0, 1);
     	text-align:center;
+    	font-weight:bold;
+	}
+	#rootdiv #NHlist_talbe td{
+		background:rgba(181, 179, 247, 0.44);
+    	color:rgba(0, 0, 0, 1);
+    	text-align:center;
+    	font-weight:bold;
 	}
 </style>
 <!-- Favicon icon -->

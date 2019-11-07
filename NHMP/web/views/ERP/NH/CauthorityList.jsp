@@ -46,14 +46,23 @@
 		border: 1px solid red;
 	}
 	.root .Authlist table{
-		float:center;
-		width:1100px;
-		background: rgb(241, 33, 104, 0.25);
+		width:100%;
+		float:left;
+		text-align:center;
+		background:#f4f4f4;
+		color:#000;
 	}
 	.root .Authlist table th{
-		background: rgb(117, 113, 249, 0.5);
+		background: rgba(117, 113, 249, 0.5);
     	color:rgba(0, 0, 0, 1);
     	text-align:center;
+    	font-weight:bold;
+	}
+	.root .Authlist table td{
+		background:rgba(181, 179, 247, 0.44);
+    	color:rgba(0, 0, 0, 1);
+    	text-align:center;
+    	font-weight:bold;
 	}
 	.root .btnlist input{
 		width:100px;

@@ -46,14 +46,24 @@
 		border: 1px solid red;
 	}
 	.root .NH_list table{
-		width:500px;
-		background: rgb(136, 214, 241, 0.4);
+		width:100%;
+		float:left;
+		text-align:center;
+		background:#f4f4f4;
+		color:#000;
 	}
 	
 	.root .NH_list table th{
-		background: rgb(117, 113, 249, 0.5);
+		background: rgba(117, 113, 249, 0.5);
     	color:rgba(0, 0, 0, 1);
     	text-align:center;
+    	font-weight:bold;
+	}
+	.root .NH_list table td{
+		background:rgba(181, 179, 247, 0.44);
+    	color:rgba(0, 0, 0, 1);
+    	text-align:center;
+    	font-weight:bold;
 	}
 	
 	.root .Authlist{
@@ -65,14 +75,23 @@
 		border: 1px solid red;
 	}
 	.root .Authlist table{
-		float:right;
-		width:500px;
-		background: rgb(136, 214, 241, 0.4);
+		width:100%;
+		float:left;
+		text-align:center;
+		background:#f4f4f4;
+		color:#000;
 	}
 	.root .Authlist table th{
-		background: rgb(117, 113, 249, 0.5);
+		background: rgba(117, 113, 249, 0.5);
     	color:rgba(0, 0, 0, 1);
     	text-align:center;
+    	font-weight:bold;
+	}
+	.root .Authlist table td{
+		background:rgba(181, 179, 247, 0.44);
+    	color:rgba(0, 0, 0, 1);
+    	text-align:center;
+    	font-weight:bold;
 	}
 	.root .btnlist input{
 		width:100px;
