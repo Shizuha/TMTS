@@ -2,13 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ page
 	import="ERP.Employee.model.vo.Employee,
+				 Main.NursingHospital.model.ov.NursingHospital,
 				 java.util.ArrayList,
 				 ERP.Calendar.Model.vo.Calendar"%>
 
 <%
 	//스크립트 립 태그라고 함 //위에 페이지있는건 디렉트 태그라고 함.
 	Employee emp = (Employee) session.getAttribute("loginEmployee");
+	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
 	ArrayList<Calendar> list = (ArrayList<Calendar>) session.getAttribute("list");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -34,7 +37,9 @@
 <script type="text/javascript"
 	src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
 <script>
-	
+	function pat_doc(){
+		
+	}
 </script>
 </head>
 
@@ -246,7 +251,7 @@
 		<div class="content-body" align="center" style="padding: 40px;">
 			<h2 align="center">환자 등록 페이지</h2>
 			<form action="/NHMP/patientinsert" method="post">
-				<table align="center" width="800" border="3" cellspacing="0"
+				<table align="center" width="900" border="3" cellspacing="0"
 					cellpadding="5">
 					<tr>
 						<th style="font-size: 16px;">환자명</th>
@@ -256,16 +261,6 @@
 					<tr>
 						<th style="font-size: 16px;">구분</th>
 						<td><input type="text" name="pat_type"
-							style="font-size: 16px;"></td>
-					</tr>
-					<tr>
-						<th style="font-size: 16px;">입원날짜</th>
-						<td><input type="date" name="pat_entdate"
-							style="font-size: 16px;"></td>
-					</tr>
-					<tr>
-						<th style="font-size: 16px;">퇴원날짜</th>
-						<td><input type="date" name="pat_outdate"
 							style="font-size: 16px;"></td>
 					</tr>
 					<tr>
@@ -298,12 +293,11 @@
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">병동</th>
-						<td><input type="text" name="ward" style="font-size: 16px;"></td>
+						<td><input type="text" name="ward" placeholder="ex) KH1병동 KH2병동 KH3병동"style="width : 250px; font-size: 16px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">담당의사</th>
-						<td style="font-size: 16px;"><input type="text"
-							name="pat_doc"></td>
+						<td><input type="text" name="pat_doc" placeholder="ex) 김봉수, 조국" style="font-size : 16px;"></td>
 					</tr>
 					<tr>
 						<th colspan="2"><input type="submit" value="등록하기"

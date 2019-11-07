@@ -57,7 +57,6 @@ public class PatientInsertServlet extends HttpServlet {
 		
 		patient.setPatName(request.getParameter("pat_name"));
 		patient.setPatType(request.getParameter("pat_type"));
-		patient.setPatEntDate(Date.valueOf(request.getParameter("pat_entdate")));
 		patient.setPatGender(request.getParameter("pat_gender"));
 		patient.setPatNo(request.getParameter("pat_no"));
 		patient.setAddress(request.getParameter("address"));
@@ -66,7 +65,6 @@ public class PatientInsertServlet extends HttpServlet {
 		patient.setPatPhone(request.getParameter("pat_phone"));
 		patient.setWard(request.getParameter("ward"));
 		patient.setPatDoc(request.getParameter("pat_doc"));
-		
 		
 		int result = new PatientService().insertPatient(hostId, hostPwd, patient);
 		
