@@ -271,7 +271,7 @@ function callFunction(){
 								class="drop-down dropdown-profile animated fadeIn dropdown-menu">
 								<div class="dropdown-content-body">
 									<ul>
-										<li><a href="app-profile.html"><i class="icon-user"></i>
+										<li><a href="/NHMP/myinfo"><i class="icon-user"></i>
 												<span>내정보 보기</span></a></li>
 
 
@@ -515,7 +515,7 @@ function callFunction(){
 		<form action="/NHMP/nsearch.ad" method="post">
 			<input type="hidden" name="search" value="date">
 			<label>검색할 날짜를 선택하시오 : 
-			<input type="date" name="from" id="from"> ~ <input type="date" name="to" id="to"></label>
+			<input type="date" name="from" id="from" max="9999-12-31"> ~ <input type="date" name="to" id="to" max="9999-12-31"></label>
 			<input type="submit" value="검색" onclick="return button1_click();">
 		</form>
 	</div>
