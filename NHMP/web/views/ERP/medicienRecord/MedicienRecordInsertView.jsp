@@ -13,23 +13,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NHMP</title>
 <style type="text/css">
-	.filebox.bs3-success label {
-		color: #fff;
-		background-color: #7571f9;
-		border-color: #4cae4c;
-		margin:0px;
-		width:100%;
-	}
-	.filebox input[type="file"] {  /* 파일 필드 숨기기 */
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		padding: 0;
-		margin:0px;
-		overflow: hidden;
-		clip:rect(0,0,0,0);
-		border: 0;
-	}
+	
 	
 	input[type="text"]{
 		float:center;
@@ -358,9 +342,7 @@
 					<tr>
 						<th style="font-size: 16px;">첨부파일</th>
 						<td style="font-size: 16px;">
-							<div class="filebox bs3-success">
-							  <label for="ex_file2">업로드</label> <input type="file" name="mr_original_filename"> 
-							</div>
+							 <input type="file" name="mr_original_filename">
 						</td>
 					</tr>
 					<tr>
