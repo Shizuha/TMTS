@@ -124,7 +124,7 @@
                            	        	<button class="btn login-form__btn submit w-100" onclick="return logincheck()">로그인</button>
                           	     	</form>
 	                                <div align="right">
-	                                	비밀번호 몰라?<a href="page-register.html" class="text-primary">여기로</a> 이동~
+	                                	<h5>비밀번호 분실 시 관리자에게 문의해주세요</h5>
 	                                </div>
 	                                <div align="right">
 	                                	<a id="signup" href="/NHMP/views/Main/singup.jsp" style="text-align:left" >회원가입</a>
