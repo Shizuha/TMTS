@@ -203,7 +203,7 @@ $(function(){
 
 
 										<hr class="my-2">
-										<li><a href="/NHMP/views/ERP/Calendar.jsp"><i
+										<li><a href="/NHMP/views/ERP/Calendar.jsp" onClick="window.open(this.href, '', 'width=800px, height=600px, left=400, top=200'); return false;"><i
 												class="icon-lock"></i> <span>일정관리</span></a></li>
 										<li><a href="/NHMP/logouts"><i class="icon-key"></i> <span>로그아웃</span></a></li>
 									</ul>
@@ -248,8 +248,8 @@ $(function(){
 						<ul aria-expanded="false">
 							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
 							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자 입원 등록</a></li>
-							<li><a href="/NHMP/views/ERP/counselingLog/CounselingLogInsertView.jsp">상담일지 등록</a></li>
-							<li><a href="/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp">투약일지 등록</a></li>
+							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
+							<li><a href=/NHMP/recordlistview>투약일지 등록</a></li>
 						</ul></li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span
@@ -346,6 +346,7 @@ $(function(){
                                     <div class="card">
                                 <div class="card-body" style="background: #f3f3f9;">
                                     <h4 class="card-title">
+                                    <a href="/NHMP/nlist.ad" title="공지사항"style="color:rgba(0, 0, 0, 1);">더보기 <i class="fa fa-angle-right"></i></a>
 								<table id="newNotice" style="width: 500px; border-top: 1px solid #444444; border-collapse: collapse;">
 										<tr>
 											<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">번호</th>
