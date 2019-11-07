@@ -12,7 +12,61 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NHMP</title>
-
+<style type="text/css">
+	.filebox.bs3-success label {
+		color: #fff;
+		background-color: #7571f9;
+		border-color: #4cae4c;
+		margin:0px;
+		width:100%;
+	}
+	.filebox input[type="file"] {  /* 파일 필드 숨기기 */
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin:0px;
+		overflow: hidden;
+		clip:rect(0,0,0,0);
+		border: 0;
+	}
+	
+	input[type="text"]{
+		float:center;
+		width:100%;
+	}
+	input[type=button],input[type="submit"],input[type="reset"]{
+		background-color: #7571f9;
+		border: none;
+		color:#fff;
+		border-radius:3px;
+		text-align: center;
+		text-decoration: none;
+	    display: inline-block;
+	    font-size: 15px;
+	    margin: 4px;
+	}
+	
+	div #root{
+		width:100%;
+		height:100%;
+	}
+	div #root h2{
+		float:center;
+		margin:0px;
+		border:0px;
+		padding:0px;
+		
+	}
+	div #root table{
+		float:center;
+		
+	}
+	
+	
+	
+	
+</style>
 
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
@@ -258,8 +312,10 @@
 		<!--**********************************
             Content body start
         ***********************************-->
-		<div class="content-body" align="center" style="padding: 40px;">
-			<h2 align="center">투약일지 등록 페이지</h2>
+		
+	<div class="content-body" align="center" style="padding: 40px;">
+		<div id="root">
+			<h2>투약일지 등록 페이지</h2><br><br><br>
 			<form action="/NHMP/recordinsert" method="post"
 				enctype="multipart/form-data">
 				<table align="center" width="800" border="3" cellspacing="0"
@@ -301,21 +357,25 @@
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">첨부파일</th>
-						<td style="font-size: 16px;"><input type="file"
-							name="mr_original_filename"></td>
+						<td style="font-size: 16px;">
+							<div class="filebox bs3-success">
+							  <label for="ex_file2">업로드</label> <input type="file" name="mr_original_filename"> 
+							</div>
+						</td>
 					</tr>
 					<tr>
-						<th colspan="2" align="center"><input type="submit"
-							value="등록하기" style="font-size: 16px;"> &nbsp; &nbsp;
-							&nbsp; <input type="reset" value="취소하기" style="font-size: 16px;">
-							&nbsp; &nbsp; &nbsp; <input type="button" value="조회하기"
-							onclick="return movelist();" style="font-size: 16px;">
-							&nbsp; &nbsp; &nbsp; <a href="javascript:history.go(-1)"
+						<th colspan="2" align="center" padding="40px">
+							<input type="submit"value="등록하기" style="font-size: 16px;margin-left:140px;"> 
+							<input type="reset" value="초기화" style="font-size: 16px;margin-left:10px;">
+							<input type="button" value="조회하기"
+							onclick="return movelist();" style="font-size: 16px;margin-left:10px;">
+							<a style="float:right;"href="javascript:history.go(-1)"
 							style="font-size: 16px;">이전페이지로 이동></a></th>
-					</tr>
+<!-- 					</tr> -->
 				</table>
 			</form>
 		</div>
+	</div>
 
 		<!--**********************************
             Content body end
