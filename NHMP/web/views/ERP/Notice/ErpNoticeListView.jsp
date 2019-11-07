@@ -317,7 +317,7 @@ function button1_click(){
 	<form action="/NHMP/nsearch" method="post">
 		<input type="hidden" name="search" value="date">
 		<label>검색할 날짜를 선택하시오 : 
-		<input type="date" name="from" id="from"> ~ <input type="date" name="to" id="to"></label>
+		<input type="date" name="from" id="from"  max="9999-12-31"> ~ <input type="date" name="to" id="to"  max="9999-12-31"></label>
 		<input type="submit" value="검색" onclick="return button1_click();">
 	</form>
 </div>
