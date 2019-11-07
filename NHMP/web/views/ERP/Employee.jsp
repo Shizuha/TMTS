@@ -86,9 +86,9 @@ $(function(){
 			var values = "";
 			
 			for(var i in json.list){
-				values += "<tr><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].no + 
-				"</td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
-				+ "</a></td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd;'>" + json.list[i].date + "</td></tr>";
+				values += "<tr><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  '>" + json.list[i].no + 
+				"</td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  '>" + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
+				+ "</a></td><td style='border-bottom: 1px solid #444444; padding: 10px; text-align: center;  '>" + json.list[i].date + "</td></tr>";
 				/* <a href='/frist/ndetail?no= */
 			}
 			/* <td style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;  background-color: #e3f2fd; */
@@ -340,9 +340,13 @@ thead td {
 						<li class="icons dropdown">
 							<div class="user-img c-pointer position-relative"
 								data-toggle="dropdown">
-								<span class="activity active"></span> <img
-									src="/NHMP/resources/ERP/images/user/1.png" height="40"
+								<span class="activity active"></span> <%if(emp.getEmpImgOriginalFilename() != null){ %>
+								<img src="/NHMP/resources/ERP/emp_Img_file/<%=emp.getEmpRenameFilename() %>" height="40"
 									width="40" alt="">
+								<%}else{ %>
+								<img src="/NHMP/resources/ERP/images/캡처12.PNG" height="40"
+									width="40" alt="">
+									<%} %>
 							</div>
 							<div
 								class="drop-down dropdown-profile animated fadeIn dropdown-menu">
@@ -469,14 +473,14 @@ thead td {
 				<%if(emp.getEmpRenameFilename() != null){ %>
 					<center><img alt="" src="/NHMP/resources/ERP/emp_Img_file/<%=emp.getEmpRenameFilename() %>" height="100" width="100"></center><br><br>
 					<%}else{ %>
-					<center><img alt="" src="/NHMP/resources/ERP/images/testimonial2.jpg"></center><br><br>
+					<center><img alt="" src="/NHMP/resources/ERP/images/캡처12.PNG" height="100" width="100"></center><br><br>
 					<%} %>
 					<ul id="header_list" style="border: 1px soild;">
-						<li>사원코드 :<%=emp.getEmpId() %></li><br>
-						<li>부서 :<%= dp.getDeptName() %> </li>
-						<li style="font-size: 10pt;">팀 :<%= tm %></li><br>
-						<li>이름 :<%=emp.getEmpName() %></li><br>
-						<li>담당병동 :<%= wd.getWardName() %></li>
+						<li><b>사원코드 :</b><%=emp.getEmpId() %></li><br>
+						<li><b>부서 :</b><%= dp.getDeptName() %> </li><br />
+						<li style="font-size: 10pt; color:#7571f9;"><%= tm %></li><br>
+						<li><b>이름 :</b><%=emp.getEmpName() %></li><br>
+						<li><b>담당병동 :</b><%= wd.getWardName() %></li>
 					</ul><br>
 				</div>
 				<% }else{ %>
@@ -525,9 +529,9 @@ thead td {
 		<!-- Table -->
 		<table id="newNotice" style="width: 100%; border-top: 1px solid #444444; border-collapse: collapse;">
 				<tr>
-					<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">번호</th>
-					<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">내용</th>
-					<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center; background-color: #bbdefb;">등록일</th>
+					<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;background: rgba(117, 113, 249, 0.17);">번호</th>
+					<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;background: rgba(117, 113, 249, 0.17);">내용</th>
+					<th style="border-bottom: 1px solid #444444; padding: 10px; text-align: center;background: rgba(117, 113, 249, 0.17); ">등록일</th>
 				</tr>
 			</table>
 			<%-- <% for(Notice no : noList){ %>
@@ -540,7 +544,7 @@ thead td {
 				</tbody>
 				
 				<%} %> --%>
-			</table>
+			
 		</div>
 	</div>
         	</div>
