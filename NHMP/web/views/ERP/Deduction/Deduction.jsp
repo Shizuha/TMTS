@@ -105,7 +105,7 @@
 						'	<td><input type="checkbox" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>'+
 						'	<td><input type="text" name="Dname" style="text-align:center; width:100px;" placeholder="공제명"></td>'+
 						'	<td><input type="text" name="Dno" value="'+count+'" readonly style="text-align:center; width:25px;"></td>'+
-						'	<td><input type="text" name="Dcode" style="text-align:center; width:50px;" placeholder="코드"></td>'+
+						'	<td><input type="text" name="Dcode" style="text-align:center; width:50px;" placeholder="코드" value="gong'+count+'" readonly></td>'+
 						'	<td><input type="text" name="Dformula" id="Formula'+count+'" style="text-align:center; width:100px;" placeholder="계산식"></td>'+
 						'	<td><input type="checkbox" id="inFCheck'+count+'" onclick="inFCheck('+count+')" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>'+
 						'	<td><input type="button" class="inFbtn'+count+'" value="수식 입력" onclick="showPopup('+"'/NHMP/insertF?Bnum="+count+"','insertF'"+');"disabled></td>'+
@@ -404,7 +404,7 @@ $("#txtBox").removeAttr("disabled"); */
 							<td><input type="checkbox" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
 							<td><input type="text" name="Dname" style="text-align:center; width:100px;" placeholder="공제명"></td>
 							<td><input type="text" name="Dno" value="<%= list.size()+1 %>" readonly style="text-align:center; width:25px;"></td>
-							<td><input type="text" name="Dcode" style="text-align:center; width:50px;" placeholder="코드"></td>
+							<td><input type="text" name="Dcode" style="text-align:center; width:50px;" placeholder="코드" value="gong<%= list.size()+1 %>" readonly></td>
 							<td><input type="text" name="Dformula" id="Formula<%= list.size()+1 %>" style="text-align:center; width:100px;" readonly placeholder="계산식"></td>
 							<td><input type="checkbox" id="inFCheck<%= list.size()+1 %>" onclick="inFCheck(<%= list.size()+1 %>)" style="text-align: center; vertical-align: middle; width: 1.0rem; height: 1.0rem"></td>
 							<td><input type="button"  class="inFbtn<%= list.size()+1 %>" value="수식입력"  onclick="showPopup('/NHMP/insertF?Bnum=<%= list.size()+1 %>', 'insertF');"disabled></td>
