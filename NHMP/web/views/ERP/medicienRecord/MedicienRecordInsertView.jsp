@@ -265,11 +265,6 @@
 				<table align="center" width="800" border="3" cellspacing="0"
 					cellpadding="5">
 					<tr>
-						<th style="font-size: 16px;">날짜</th>
-						<td style="font-size: 16px;"><input type="date"
-							name="mr_date"></td>
-					</tr>
-					<tr>
 						<th style="font-size: 16px;">증상</th>
 						<td style="font-size: 16px;"><input type="text"
 							name="mr_state"></td>
@@ -302,7 +297,7 @@
 					<tr>
 						<th style="font-size: 16px;">투약자</th>
 						<td style="font-size: 16px;"><input type="text"
-							name="mr_emp_name"></td>
+							placeholder="ex) 조국, 김봉수"name="mr_emp_name"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">첨부파일</th>

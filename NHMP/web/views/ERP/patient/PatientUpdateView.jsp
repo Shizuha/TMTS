@@ -320,7 +320,7 @@
 					<tr>
 						<th style="font-size: 16px;">담당의사</th>
 						<td><input type="text" name="pat_doc"
-							style="font-size: 16px;"></td>
+							placeholder="ex)조국, 김봉수" style="font-size: 16px;"></td>
 					</tr>
 					<tr>
 						<th colspan="2"><input type="submit" value="수정하기"

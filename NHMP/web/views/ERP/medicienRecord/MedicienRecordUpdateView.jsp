@@ -304,7 +304,7 @@
 					<tr>
 						<th style="font-size: 16px;">투약자</th>
 						<td style="font-size: 16px;"><input type="text"
-							name="mr_emp_name"></td>
+							placeholder="ex)조국, 김봉수"name="mr_emp_name"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">첨부파일</th>
