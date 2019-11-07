@@ -267,46 +267,50 @@
 					<tr>
 						<th style="font-size: 16px;">제목</th>
 						<td><input type="text" name="cl_title" id="cl_title"
-							style="font-size: 16px;"></td>
+							style="font-size: 16px; width: 400px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">내용</th>
 						<td><input type="text" name="cl_contents" id="cl_contents"
-							style="font-size: 16px; width: 500px;"></td>
+							style="font-size: 16px; width: 400px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">연락처</th>
-						<td><input type="tel" name="cl_phone"
-							style="font-size: 16px;"></td>
+						<td><input type="tel" name="cl_phonef"
+							style="font-size: 16px; width: 129px;" maxlength="3">-
+							<input type="tel" name="cl_phonem"
+							style="font-size : 16px; width: 129px;" maxlength="4">-
+							<input type="tel" name="cl_phoneb"
+							style="font-size : 16px; width: 129px;" maxlength="4"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">비고</th>
 						<td><input type="text" name="cl_comment" id="cl_comment"
-							style="font-size: 16px;"></td>
+							style="font-size: 16px; width: 400px;""></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">환자명</th>
 						<td><input type="text" name="cl_pat_name" id="cl_pat_name"
-							style="font-size: 16px;"></td>
+							style="font-size: 16px; width: 400px;""></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">상담자</th>
 						<td><input type="text" name="cl_emp_name" id="cl_emp_name"
-							placeholder="ex) 조국, 김봉수"style="font-size: 16px;"></td>
+							placeholder="ex) 김상담, 이상담"style="font-size: 16px; width: 400px;""></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">첨부파일</th>
 						<td><input type="file" name="cl_original_filename"
-							id="cl_original_filename" style="font-size: 16px;"></td>
+							id="cl_original_filename" style="font-size: 16px; width: 400px;""></td>
 					</tr>
 					<tr>
 						<th colspan="2" align="center"><input type="submit"
-							value="등록하기" style="font-size: 16px;"> &nbsp; &nbsp;
+							value="등록하기" style="font-size: 16px; margin-left : 250px;"> &nbsp; &nbsp;
 							&nbsp; <input type="reset" value="취소하기" style="font-size: 16px;">
 							&nbsp; &nbsp; &nbsp; <input type="button" value="조회하기"
 							onclick="return movelist();" style="font-size: 16px;">
 							&nbsp; &nbsp; &nbsp; <a href="javascript:history.go(-1)"
-							style="font-size: 16px;">이전페이지로 이동</a></th>
+							style="font-size: 16px; float : right;">이전페이지로 이동</a></th>
 					</tr>
 				</table>
 			</form>

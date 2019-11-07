@@ -32,7 +32,7 @@ public class PatientDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// �솚�옄 �궘�젣 泥섎━�슜 而⑦듃濡ㅻ윭
+		//환자 삭제 처리용 컨트롤러
 		
 		request.setCharacterEncoding("utf-8");
 		
@@ -61,7 +61,7 @@ public class PatientDeleteServlet extends HttpServlet {
 			}
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", patNum + "踰덉쓽 �솚�옄 �젙蹂� �궘�젣 �떎�뙣!");
+			request.setAttribute("message", patNum + "번 환자정보 삭제 실패!");
 			view.forward(request, response);
 		}
 	}

@@ -37,9 +37,6 @@
 <script type="text/javascript"
 	src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
 <script>
-	function pat_doc(){
-		
-	}
 </script>
 </head>
 
@@ -131,9 +128,9 @@
 
 
 										<hr class="my-2">
-										<li><a href="/NHMP/ERP/views/Employee/calendar.jsp"><i
+										<li><a href="/NHMP/views/ERP/Calendar.jsp"><i
 												class="icon-lock"></i> <span>일정관리</span></a></li>
-										<li><a href="/NHMP/logout"><i class="icon-key"></i> <span>로그아웃</span></a></li>
+										<li><a href="/NHMP/logouts"><i class="icon-key"></i> <span>로그아웃</span></a></li>
 									</ul>
 								</div>
 							</div>
@@ -256,55 +253,61 @@
 					<tr>
 						<th style="font-size: 16px;">환자명</th>
 						<td><input type="text" name="pat_name"
-							style="font-size: 16px;"></td>
+							style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">구분</th>
 						<td><input type="text" name="pat_type"
-							style="font-size: 16px;"></td>
+							style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">환자성별</th>
-						<td style="font-size: 16px;"><input type="radio"
+						<td style="font-size: 16px;" width: 300px;><input type="radio"
 							name="pat_gender" value="M"> 남자 &nbsp; <input
 							type="radio" name="pat_gender" value="F"> 여자</td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">주민번호</th>
-						<td><input type="text" name="pat_no" style="font-size: 16px;"></td>
+						<td><input type="text" name="pat_nof" style="font-size: 16px; width: 145px;" maxlength="6">
+						-
+						<input type="text" name="pat_nob" style="font-size : 16px; width: 145px;" maxlength="7"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">주소</th>
 						<td><input type="text" name="address"
-							style="font-size: 16px;"></td>
+							style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">보호자명</th>
-						<td><input type="text" name="family" style="font-size: 16px;"></td>
+						<td><input type="text" name="family" style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">이메일</th>
-						<td><input type="email" name="email" style="font-size: 16px;"></td>
+						<td><input type="email" name="email" style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">전화번호</th>
-						<td><input type="tel" name="pat_phone"
-							style="font-size: 16px;"></td>
+						<td><input type="tel" name="pat_phonef"
+							style="font-size: 16px; width: 95px;" maxlength="3">-
+							<input type="tel" name="pat_phonem"
+							style="font-size : 16px; width: 95px;" maxlength="4">-
+							<input type="tel" name="pat_phoneb"
+							style="font-size : 16px; width: 95px;" maxlength="4"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">병동</th>
-						<td><input type="text" name="ward" placeholder="ex) KH1병동 KH2병동 KH3병동"style="width : 250px; font-size: 16px;"></td>
+						<td><input type="text" name="ward" placeholder="ex) KH1병동"style="font-size: 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">담당의사</th>
-						<td><input type="text" name="pat_doc" placeholder="ex) 김봉수, 조국" style="font-size : 16px;"></td>
+						<td><input type="text" name="pat_doc" placeholder="ex) 김상담, 이상담" style="font-size : 16px; width: 300px;"></td>
 					</tr>
 					<tr>
 						<th colspan="2"><input type="submit" value="등록하기"
-							style="font-size: 16px;"> &nbsp; &nbsp; &nbsp; <input
-							type="reset" value="취소하기" style="font-size: 16px;">
+							style="font-size: 16px; margin-left : 370px; width: 100px;"> &nbsp; &nbsp; &nbsp; <input
+							type="reset" value="취소하기" style="font-size: 16px; width: 100px;">
 							&nbsp; &nbsp; &nbsp; <a href="javascript:history.go(-1)"
-							style="font-size: 16px;">이전페이지로 이동</a></th>
+							style="font-size: 16px; width: 170px; float: right;">이전페이지로 이동</a></th>
 					</tr>
 				</table>
 			</form>
