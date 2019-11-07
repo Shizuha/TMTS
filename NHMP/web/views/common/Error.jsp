@@ -19,7 +19,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link href="/NHMP/resources/ERP/css/style.css" rel="stylesheet">
 </head>
-<body style="padding:30px;">
+<body style="padding:270px;">
 
     <div id="preloader">
         <div class="loader">
