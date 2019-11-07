@@ -32,7 +32,7 @@ public class PatientDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 환자 삭제 처리용 컨트롤러
+		// �솚�옄 �궘�젣 泥섎━�슜 而⑦듃濡ㅻ윭
 		
 		request.setCharacterEncoding("utf-8");
 		
@@ -54,10 +54,14 @@ public class PatientDeleteServlet extends HttpServlet {
 		int result = new PatientService().deletePatient(hostId, hostPwd, patNum);
 		
 		if(result > 0) {
-			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
+			if(emp != null) {
+				response.sendRedirect("views/ERP/Employee.jsp");
+			}else {
+				response.sendRedirect("views/ERP/Admin_main.jsp");
+			}
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", patNum + "번의 환자 정보 삭제 실패!");
+			request.setAttribute("message", patNum + "踰덉쓽 �솚�옄 �젙蹂� �궘�젣 �떎�뙣!");
 			view.forward(request, response);
 		}
 	}
