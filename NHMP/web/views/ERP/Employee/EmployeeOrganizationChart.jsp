@@ -534,9 +534,9 @@ ul {
 							class="nav-text">급여 관리</span> 
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
 							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
+							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 						</ul>
 						<li><a href="/NHMP/nlist.ad" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>

@@ -95,8 +95,8 @@ public class EmployeeListServlet extends HttpServlet {
 			PrintWriter pw = response.getWriter();
 			
 				pw.println("<script >");
-				pw.println("alert('사원이없습니다^^')");
-				pw.println("history.back()");
+				pw.println("alert('사원이없습니다. 사원을 먼저 등록해 주세요^^')");
+				pw.println("location.href='/NHMP/views/Emlpoyee/InsertEmployee.jsp'");
 				pw.println("</script>");
 				pw.flush();
 				pw.close();
