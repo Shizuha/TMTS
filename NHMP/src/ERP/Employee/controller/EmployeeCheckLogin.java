@@ -13,8 +13,13 @@ import javax.servlet.http.HttpSession;
 
 import ERP.Calendar.Model.Service.CalendarService;
 import ERP.Calendar.Model.vo.Calendar;
+import ERP.Department.model.service.DepartmentService;
+import ERP.Department.model.vo.Department;
 import ERP.Employee.model.service.EmployeeService;
 import ERP.Employee.model.vo.Employee;
+import ERP.Team.model.service.TeamService;
+import ERP.Ward.model.service.WardService;
+import ERP.Ward.model.vo.Ward;
 
 /**
  * Servlet implementation class EmployeeCheckLogin
@@ -45,7 +50,9 @@ public class EmployeeCheckLogin extends HttpServlet {
 		System.out.println("mem" + emp);
 		emp.setHostId(hostId);
 		emp.setHostPwd(hostPwd);
-		
+		Department dp = new DepartmentService().selectAuDeptName(hostId, hostPwd, emp.getDeptCode());
+		String tm = new TeamService().selectTeamName(emp.getTeamCode(), hostId, hostPwd);
+		Ward wd = new WardService().selectAuWardName(hostId, hostPwd, emp.getWardCode());
 		
 		/*ArrayList<Notice> noList = new NoticeService().selectList();
 		System.out.println("noList" + noList);*/
@@ -59,6 +66,9 @@ public class EmployeeCheckLogin extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("list", list);
 			session.setAttribute("loginEmployee", emp);
+			session.setAttribute("dp", dp);
+			session.setAttribute("tm", tm);
+			session.setAttribute("wd", wd);
 			/*session.setAttribute("noList", noList);*/
 			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
 		}else {

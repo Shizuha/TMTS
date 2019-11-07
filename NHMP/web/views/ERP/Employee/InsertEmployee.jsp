@@ -613,7 +613,10 @@ $(function(){
 input[type=checkbox]{
 	background:#F3F3F9;
 }
-
+ table, tr, th, td{
+    	border:1px solid gray;
+    	background:rgba(181,179,247,0.31);
+    }
 /* .Chk{
 	background:#F3F3F9;
 } */
