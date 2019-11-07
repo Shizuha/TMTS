@@ -334,9 +334,13 @@ function Acheckbox(Acode, Ano){
 						<li class="icons dropdown">
 							<div class="user-img c-pointer position-relative"
 								data-toggle="dropdown">
-								<span class="activity active"></span> <img
-									src="/NHMP/resources/ERP/images/user/1.png" height="40"
+								<span class="activity active"></span> <%if(emp.getEmpImgOriginalFilename() != null){ %>
+								<img src="/NHMP/resources/ERP/emp_Img_file/<%=emp.getEmpRenameFilename() %>" height="40"
 									width="40" alt="">
+								<%}else{ %>
+								<img src="/NHMP/resources/ERP/images/캡처12.PNG" height="40"
+									width="40" alt="">
+									<%} %>
 							</div>
 							<div
 								class="drop-down dropdown-profile animated fadeIn dropdown-menu">
@@ -347,7 +351,7 @@ function Acheckbox(Acode, Ano){
 
 
 										<hr class="my-2">
-										<li><a href="/NHMP/views/ERP/Calendar.jsp"><i
+										<li><a href="/NHMP/views/ERP/Calendar.jsp" onClick="window.open(this.href, '', 'width=800px, height=600px, left=400, top=200'); return false;"><i
 												class="icon-lock"></i> <span>일정관리</span></a></li>
 										<li><a href="/NHMP/logouts"><i class="icon-key"></i> <span>로그아웃</span></a></li>
 									</ul>

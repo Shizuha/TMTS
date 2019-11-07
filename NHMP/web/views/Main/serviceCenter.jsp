@@ -48,10 +48,8 @@
 		width:1200px;
 		height:800px;
 		margin-left:350px;
-		border:1px solid red;
 	}
 	#indiv .singupT {
-		border:1px solid red;
 		width:900px;
 		margin-left:150px;
 		float:center;
@@ -70,7 +68,6 @@
 		text-align:center;
 	}
 	#indiv #selectTable{
-		border:1px solid blue;
 		margin-left:50px;
 		text-align:center;
 		width:1100px;
@@ -202,7 +199,7 @@
 		</div>
 	</div>
 
-	<section class="ftco-section" border="1px solid red">
+	<section class="ftco-section" >
 
 		<form action="/NHMP/servicesingup" method="post">
 			<ul id="selectUL" style="padding-top: 0px;">
@@ -247,15 +244,15 @@
 				<table id="selectTable">
 					<tr>
 						<td>소규모의 병원이 사용하는 기능들 입니다.<br> 최대 환자 50명, 직원 10명, 관리자 1명을 사용할 데이터를 제공합니다.</td>
-						<td style="border-left: 1px solid blue; height: 50%;">중규모의 병원이 사용하는 기능들 입니다.<br> 최대 환자 100명, 직원 30명, 관리자 2명을 사용할 데이터를 제공합니다.</td>
-						<td style="border-left: 1px solid blue; height: 50%;">대규모의 병원이 사용하는 기능들 입니다.<br> 최대 환자 300명, 직원 50명, 관리자 3명을 사용할 데이터를 제공합니다.</td>
+						<td style=" height: 50%;">중규모의 병원이 사용하는 기능들 입니다.<br> 최대 환자 100명, 직원 30명, 관리자 2명을 사용할 데이터를 제공합니다.</td>
+						<td style="height: 50%;">대규모의 병원이 사용하는 기능들 입니다.<br> 최대 환자 300명, 직원 50명, 관리자 3명을 사용할 데이터를 제공합니다.</td>
 					</tr>
 					<tr>
-						<td style="border-right: 1px solid blue; height: 50%;">경량화 <br>
+						<td style=" height: 50%;">경량화 <br>
 							<input type="radio" name="selectType" value="basic"
 										style="width:25px;height:25px;">
 					</td>
-						<td style="border-right: 1px solid blue; height: 50%;">고급형 <br>
+						<td style=" height: 50%;">고급형 <br>
 							<input type="radio" name="selectType" value="advanced"
 										style="width:25px;height:25px;">
 						</td>

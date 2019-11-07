@@ -61,11 +61,11 @@
 	width: 1200px;
 	height: 800px;
 	margin-left: 350px;
-	border: 1px solid red;
+	/* border: 1px solid red; */
 }
 
 #indiv .singupT {
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	width: 900px;
 	margin-left: 150px;
 	float: center;
@@ -87,7 +87,7 @@
 }
 
 #indiv #selectTable {
-	border: 1px solid blue;
+	/* border: 1px solid blue; */
 	margin-left: 50px;
 	text-align: center;
 	width: 1100px;

@@ -34,7 +34,6 @@
 		align:center;
 		text-align:center;
 		width:1100px;
-		border: 1px solid blue;
 	}
 	
 	.root .Authlist{
@@ -43,7 +42,6 @@
 		width:1100px;
 		height:250px;
 		color:rgba(0, 0, 0, 1);
-		border: 1px solid red;
 	}
 	.root .Authlist table{
 		width:100%;
