@@ -89,7 +89,7 @@
   	border:none;
   	position:relative;
   	cursor:pointer;
-  	transition:600ms ease all;
+  	transition:500ms ease all;
   	outline:none;
   	padding:1px;
   	border-radius:3px;
@@ -102,7 +102,7 @@
   	border:none;
   	position:relative;
   	cursor:pointer;
-  	transition:600ms ease all;
+  	transition:500ms ease all;
   	outline:none;
   	padding:1px;
   	border-radius:3px;
@@ -135,6 +135,71 @@
   	color:#7571f9;
   	border: 1px solid #7571f9;
 	}
+.pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+ /*  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25; */
+  color: white;
+  background-color: rgb(117, 113, 249, 0.5);
+  border: 1px solid white;
+}
+
+.page-link:hover {
+  z-index: 2;
+  color: #7571f9;
+  text-decoration: none;
+  background-color: white;
+  border-color: rgb(117, 113, 249, 0.5);
+}
+
+.page-link:focus {
+  z-index: 2;
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(47, 164, 231, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(47, 164, 231, 0.25);
+}
+
+.page-item:first-child .page-link {
+  margin-left: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.page-item:last-child .page-link {
+  border-top-right-radius: 0.2rem;
+  border-bottom-right-radius: 0.2rem;
+}
+
+.page-item.active .page-link {
+  z-index: 1;
+  color: #7571f9;
+  background-color: white;
+  border-color: rgb(117, 113, 249, 0.5);
+} 
+
+.page-item.disabled .page-link {
+  color: #868e96;
+  pointer-events: none;
+  cursor: auto;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+.pagination-lg .page-link {
+  padding: 0.25rem 1.0rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
   </style>
 </head>
 
@@ -366,7 +431,7 @@
                 <table class="table table-bordered" style="margin-top:10px;"id="dataTable" width="100%" cellspacing="0" >
                   
                     <tr class="mainTr">
-                      <th><input type="checkbox" class="check-all">&nbsp;전체선택</th>
+                      <th style="width:10%;"><input type="checkbox" class="check-all">&nbsp;전체선택</th>
                       <th style="width:5%;">사번</th>
                       <th>이름</th>
                       <th>입사일</th>
@@ -399,42 +464,41 @@
                     </tr>
                 </table>
                 </form>
-				<div id="pagebox" align="center" style="margin-right: 30px;">
-					<a href="/NHMP/list?page=1"><i id="i1"class="fa fa-fast-backward" aria-hidden="true"></i></a>&nbsp;
-					<%
-						if (beginPage - 10 < 1) { %>
-						
-					<a href="/NHMP/list?page=1"><i id="i2" class="fa fa-hand-o-left" aria-hidden="true"></i></a>
-					
-					<%} else {%>
-						
-					<a href="/NHMP/list?page=<%=beginPage - 10%>">◀◀</a>
-					
-					<%}%>
-					&nbsp;
-					<% for (int p = beginPage; p <= endPage; p++) {
-							if (p == currentPage) {%>
-							
-					<a href="/NHMP/list?page=<%=p%>"><font color="red" size="3"><b>(<%=p%>)</b></font></a>
-
-					<%} else {%>
-					<a href="/NHMP/list?page=<%=p%>"><%=p%></a>
-
-					<%}}%>
-					&nbsp;
-					<%
-						if ((endPage + 10) > maxPage) {
-					%>
-					<a href="/NHMP/list?page=<%=maxPage%>"><i id="i3" class="fa fa-hand-o-right" aria-hidden="true"></i></a>
-					<%
-						} else {
-					%>
-					<a href="/NHMP/list?page=<%=endPage + 10%>"><i id="i3" class="fas fa-angle-double-right"></i></a>
-					<%
-						}
-					%>
-					&nbsp; <a href="/NHMP/list?page=<%=maxPage%>"><i id="i4" class="fa fa-fast-forward" aria-hidden="true"></i></a>
-				</div>
+				<div style="max-width:800px; margin: auto;text-align: center;">
+			  <ul class="pagination pagination-lg" style="justify-content: center;">
+			    <% if((beginPage - 10) < 1){ %>
+			     <li class="page-item">
+			      <a class="page-link" href="/NHMP/list?page=1">&laquo;</a>
+			       </li>
+			     <% }else{ %>
+			       <li class="page-item">
+			      <a class="page-link" href="/NHMP/list?page=<%= beginPage - 10 %>">&laquo;</a>
+			    </li>
+			    <% } %>
+			     <% for(int p = beginPage; p <= endPage; p++){ 
+					if(p == currentPage){
+				 %>
+			    <li class="page-item active">
+			      <a class="page-link" href="/NHMP/list?page=<%= p %>"><b><%= p %></b></a>
+			    </li>
+			    <% } else { %>
+			    <li class="page-item">
+			      <a class="page-link" href="/NHMP/list?page=<%= p %>"><%= p %></a>
+			    </li>
+			    <% }} %>
+			    <% if((endPage + 10) > maxPage){ %>
+			    <li class="page-item">
+			      <a class="page-link" href="/NHMP/list?page=<%= maxPage %>">&raquo;</a>
+			    </li>
+			    <% }else{ %>
+			    <li class="page-item">
+			      <a class="page-link" href="/NHMP/list?page=<%= endPage + 10 %>">&raquo;</a>
+			    </li>
+			    <% } %>
+			    
+			  </ul>
+		  </div>
+				
 			</div>
 		</div>
 
