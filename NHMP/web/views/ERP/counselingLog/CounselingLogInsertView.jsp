@@ -270,11 +270,6 @@
 							style="font-size: 16px;"></td>
 					</tr>
 					<tr>
-						<th style="font-size: 16px;">날짜</th>
-						<td><input type="date" name="cl_date" id="cl_date"
-							style="font-size: 16px;"></td>
-					</tr>
-					<tr>
 						<th style="font-size: 16px;">내용</th>
 						<td><input type="text" name="cl_contents" id="cl_contents"
 							style="font-size: 16px; width: 500px;"></td>

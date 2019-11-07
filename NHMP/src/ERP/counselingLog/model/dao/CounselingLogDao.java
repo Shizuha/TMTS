@@ -92,19 +92,18 @@ public class CounselingLogDao {
 		PreparedStatement pstmt = null;
 		
 		String query = "insert into counselingLog values("
-				+ "cl_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "cl_seq.nextval, ?, sysdate, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, counselingLog.getClTitle());
-			pstmt.setDate(2, counselingLog.getClDate());
-			pstmt.setString(3, counselingLog.getClContents());
-			pstmt.setString(4, counselingLog.getClPhone());
-			pstmt.setString(5, counselingLog.getClComment());
-			pstmt.setString(6, counselingLog.getClPatName());
-			pstmt.setString(7, counselingLog.getClEmpName());
-			pstmt.setString(8, counselingLog.getClOriginalFileName());
-			pstmt.setString(9, counselingLog.getClRenameFileName());
+			pstmt.setString(2, counselingLog.getClContents());
+			pstmt.setString(3, counselingLog.getClPhone());
+			pstmt.setString(4, counselingLog.getClComment());
+			pstmt.setString(5, counselingLog.getClPatName());
+			pstmt.setString(6, counselingLog.getClEmpName());
+			pstmt.setString(7, counselingLog.getClOriginalFileName());
+			pstmt.setString(8, counselingLog.getClRenameFileName());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

@@ -34,7 +34,7 @@ public class MedicienRecordDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//투약일지 삭제 처리용 컨트롤러
+		//�닾�빟�씪吏� �궘�젣 泥섎━�슜 而⑦듃濡ㅻ윭
 		request.setCharacterEncoding("utf-8");
 		
 		String hostId = null;
@@ -61,11 +61,14 @@ public class MedicienRecordDeleteServlet extends HttpServlet {
 				File renameFile = new File(savePath + "\\" + renameFileName);
 				renameFile.delete();
 			}
-			
-			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
+			if(emp != null) {
+				response.sendRedirect("views/ERP/Employee.jsp");
+			}else {
+				response.sendRedirect("views/ERP/Admin_main.jsp");
+			}
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", mrNo + "번 투약일지 삭제 실패!");
+			request.setAttribute("message", mrNo + "踰� �닾�빟�씪吏� �궘�젣 �떎�뙣!");
 			view.forward(request, response);
 		}
 	}

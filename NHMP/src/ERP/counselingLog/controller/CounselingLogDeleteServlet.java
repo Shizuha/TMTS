@@ -60,8 +60,11 @@ public class CounselingLogDeleteServlet extends HttpServlet {
 				File renameFile = new File(savePath + "\\" + renameFileName);
 				renameFile.delete();
 			}
-			
-			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
+			if(emp != null) {
+				response.sendRedirect("views/ERP/Employee.jsp");
+			}else {
+				response.sendRedirect("views/ERP/Admin_main.jsp");
+			}
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
 			request.setAttribute("message", clNo + "번 상담일지 삭제 실패!");

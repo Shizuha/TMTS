@@ -75,7 +75,6 @@ public class CounselingLogInsertServlet extends HttpServlet {
 		
 		CounselingLog counselingLog = new CounselingLog();
 		counselingLog.setClTitle(mrequest.getParameter("cl_title"));
-		counselingLog.setClDate(Date.valueOf(mrequest.getParameter("cl_date")));
 		counselingLog.setClContents(mrequest.getParameter("cl_contents"));
 		counselingLog.setClPhone(mrequest.getParameter("cl_phone"));
 		counselingLog.setClComment(mrequest.getParameter("cl_comment"));

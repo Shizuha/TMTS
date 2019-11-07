@@ -69,7 +69,11 @@ public class PatientUpdateServlet extends HttpServlet {
 		
 		
 		if(result > 0) {
-			response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
+			if(emp != null) {
+				response.sendRedirect("views/ERP/Employee.jsp");
+			}else {
+				response.sendRedirect("views/ERP/Admin_main.jsp");
+			}
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
 			request.setAttribute("message", patient.getPatNum() + "번 투약일지 수정 실패!");

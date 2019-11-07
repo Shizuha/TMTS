@@ -92,20 +92,19 @@ public class MedicienRecordDao {
 		PreparedStatement pstmt = null;
 		
 		String query = "insert into medicienrecord values("
-				+ "mr_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "mr_seq.nextval, sysdate, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setDate(1, medicienRecord.getMrDate());
-			pstmt.setString(2, medicienRecord.getMrState());
-			pstmt.setString(3, medicienRecord.getMrName());
-			pstmt.setString(4, medicienRecord.getMrTime());
-			pstmt.setString(5, medicienRecord.getMrMany());
-			pstmt.setString(6, medicienRecord.getMrComment());
-			pstmt.setString(7, medicienRecord.getMrPatName());
-			pstmt.setString(8, medicienRecord.getMrEmpName());
-			pstmt.setString(9, medicienRecord.getMrOriginalFileName());
-			pstmt.setString(10, medicienRecord.getMrRenameFileName());
+			pstmt.setString(1, medicienRecord.getMrState());
+			pstmt.setString(2, medicienRecord.getMrName());
+			pstmt.setString(3, medicienRecord.getMrTime());
+			pstmt.setString(4, medicienRecord.getMrMany());
+			pstmt.setString(5, medicienRecord.getMrComment());
+			pstmt.setString(6, medicienRecord.getMrPatName());
+			pstmt.setString(7, medicienRecord.getMrEmpName());
+			pstmt.setString(8, medicienRecord.getMrOriginalFileName());
+			pstmt.setString(9, medicienRecord.getMrRenameFileName());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
