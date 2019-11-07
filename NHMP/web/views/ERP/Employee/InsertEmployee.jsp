@@ -613,10 +613,9 @@ $(function(){
 input[type=checkbox]{
 	background:#F3F3F9;
 }
- table, tr, th, td{
-    	border:1px solid gray;
-    	background:rgba(181,179,247,0.31);
-    }
+table td{
+	padding:3px;
+}
 /* .Chk{
 	background:#F3F3F9;
 } */
@@ -1263,7 +1262,7 @@ input[type=checkbox]{
 				<!-- 경력사항 테이블~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>경력사항</h2>
 			<div class="fbtn"><button class="btn5">추가</button>&nbsp;<button class="btn6">삭제</button></div>
-				<table class="insertemp5" cellpadding="3" cellspacing="0" width="100%">
+				<table class="insertemp5" cellpadding="1" cellspacing="0" width="100%">
 					<tr>
 						<th>&nbsp;&nbsp;<input type="checkbox" class="comchkall" name="comchkall"></th>
 						<th>회사명</th>

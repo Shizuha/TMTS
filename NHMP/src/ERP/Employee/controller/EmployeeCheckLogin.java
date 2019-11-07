@@ -57,7 +57,7 @@ public class EmployeeCheckLogin extends HttpServlet {
 		/*ArrayList<Notice> noList = new NoticeService().selectList();
 		System.out.println("noList" + noList);*/
 		RequestDispatcher view  = null;
-		
+		System.out.println(dp.getDeptName());
 		 
 		if(emp != null) {
 			String empname = emp.getEmpName();
