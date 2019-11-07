@@ -340,13 +340,13 @@ $(function(){
                         <div class="row">
                             <div class="col-12">
                              <div class="card-body">
-                             	<h2 style="background: rgb(117, 113, 249, 0.5);color:rgba(0, 0, 0, 1); border-radius:3px; margin:3px;">금일일정</h2>
+                             	<h2 style=" text-align:center; background: rgb(117, 113, 249, 0.5);color:rgba(0, 0, 0, 1); border-radius:3px; margin:3px;">금일일정</h2>
                                          <div id='calendar'></div>
                                     </div>
                                        </div>
                                     <div class="card">
                                 <div class="card-body" style="background: #f3f3f9; padding:20px;">
-                                <h2 style="background: rgb(117, 113, 249, 0.5);color:rgba(0, 0, 0, 1); border-radius:3px; margin:3px;">공지사항</h2>
+                                <h2 style="text-align:center; background: rgb(117, 113, 249, 0.5);color:rgba(0, 0, 0, 1); border-radius:3px; margin:3px;">공지사항</h2>
                                     <h4 class="card-title">
                                     <a href="/NHMP/nlist.ad" title="공지사항"style="color:rgba(0, 0, 0, 1);">더보기 <i class="fa fa-angle-right"></i></a>
 								<table id="newNotice" style="width: 500px; border-top: 1px solid #444444; border-collapse: collapse;">
