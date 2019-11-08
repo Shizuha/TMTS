@@ -298,7 +298,7 @@
 					<tr>
 						<th style="font-size: 16px;">환자명</th>
 						<td><input type="text" name="cl_pat_name"
-							style="font-size: 16px; width: 400px;"></td>
+							placeholder="ex) 김환자, 이환자"style="font-size: 16px; width: 400px;"></td>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">상담자</th>

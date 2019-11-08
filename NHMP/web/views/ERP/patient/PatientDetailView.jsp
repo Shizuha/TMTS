@@ -288,7 +288,11 @@ function movedelete(){
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">퇴원날짜</th>
-						<td style="font-size: 16px;"><%=patient.getPatOutDate()%></td>
+						<% if(patient.getPatOutDate() != null){ %>
+						<td style="font-size: 16px;"><%=patient.getPatOutDate()%></td>	
+					<% }else{ %>
+						<td>없음</td>
+					<% } %>
 					</tr>
 					<tr>
 						<th style="font-size: 16px;">환자성별</th>

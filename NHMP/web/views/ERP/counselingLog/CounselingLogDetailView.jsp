@@ -308,7 +308,7 @@ function movedelete(){
 							<%
 								if (counselingLog.getClOriginalFileName() != null) {
 							%> <a
-							href="/first/nfdown?ofile=<%=counselingLog.getClOriginalFileName()%>&rfile=<%=counselingLog.getClRenameFileName()%>"><%=counselingLog.getClOriginalFileName()%></a>
+							href="/NHMP/counselfdown?ofile=<%=counselingLog.getClOriginalFileName()%>&rfile=<%=counselingLog.getClRenameFileName()%>"><%=counselingLog.getClOriginalFileName()%></a>
 							<%
 								} else {
 							%> 첨부파일 없음 <%

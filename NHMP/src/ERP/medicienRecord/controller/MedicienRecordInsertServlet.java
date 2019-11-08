@@ -86,10 +86,10 @@ public class MedicienRecordInsertServlet extends HttpServlet {
 		medicienRecord.setMrRenameFileName(mrequest.getParameter("mr_rename_filename"));
 		
 		String originalFileName = mrequest.getFilesystemName("mr_original_filename");
-		medicienRecord.setMrOriginalFileName(originalFileName);
 		
 		if(originalFileName != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+			
 			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis()))
 					+ "." + originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
 			
@@ -112,6 +112,7 @@ public class MedicienRecordInsertServlet extends HttpServlet {
 				originFile.delete();
 			}
 			
+			medicienRecord.setMrOriginalFileName(originalFileName);
 			medicienRecord.setMrRenameFileName(renameFileName);
 		}
 		
