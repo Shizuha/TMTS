@@ -1,6 +1,7 @@
 package ERP.Dataroom.model.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -97,9 +98,15 @@ public class DataroomSearchServlet extends HttpServlet {
 					request.setAttribute("endPage", endPage);
 					view.forward(request, response);
 				}else {
-					view = request.getRequestDispatcher("views/common/Error.jsp");
-					request.setAttribute("message", search + " 글 검색 조회 실패!");
-					view.forward(request, response);	
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter pw = response.getWriter();
+					
+						pw.println("<script >");
+						pw.println("alert('조회결과가 없습니다.')");
+						pw.println("history.back()");
+						pw.println("</script>");
+						pw.flush();
+						pw.close();	
 				}
 	}
 

@@ -6,6 +6,7 @@
 
 <%
 	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
+	Employee loginEmployee = (Employee)session.getAttribute("loginEmployee");
 %>
 
 <%@ page import="ERP.Dataroom.model.vo.Dataroom, java.util.ArrayList,
@@ -150,20 +151,24 @@ function showDiv(){
 						<li class="icons dropdown">
 							<div class="user-img c-pointer position-relative"
 								data-toggle="dropdown">
-								<span class="activity active"></span> <img
-									src="/NHMP/resources/ERP/images/user/1.png" height="40"
+								<span class="activity active"></span> <%if(emp.getEmpImgOriginalFilename() != null){ %>
+								<img src="/NHMP/resources/ERP/emp_Img_file/<%=emp.getEmpRenameFilename() %>" height="40"
 									width="40" alt="">
+								<%}else{ %>
+								<img src="/NHMP/resources/ERP/images/캡처12.PNG" height="40"
+									width="40" alt="">
+									<%} %>
 							</div>
 							<div
 								class="drop-down dropdown-profile animated fadeIn dropdown-menu">
 								<div class="dropdown-content-body">
 									<ul>
-										<li><a href="app-profile.html"><i class="icon-user"></i>
+										<li><a href="/NHMP/myinfo?userid=<%= loginEmployee.getUserId() %>"><i class="icon-user"></i>
 												<span>내정보 보기</span></a></li>
 
 
 										<hr class="my-2">
-										<li><a href="/NHMP/ERP/views/Employee/calendar.jsp"><i
+										<li><a href="/NHMP/views/ERP/Calendar.jsp" onClick="window.open(this.href, '', 'width=800px, height=600px, left=400, top=200'); return false;"><i
 												class="icon-lock"></i> <span>일정관리</span></a></li>
 										<li><a href="/NHMP/logouts"><i class="icon-key"></i> <span>로그아웃</span></a></li>
 									</ul>
@@ -315,7 +320,7 @@ function showDiv(){
 		<input type="hidden" name="search" value="title">
 		<label>검색할 제목을 입력하시오 : 
 		<input type="search" name="keyword"></label>
-		<input type="submit" value="검색">
+		<input type="submit" value="검색" onclick="return button1_click();">
 	</form>
 </div>
 <div id="writerdiv">
@@ -323,7 +328,7 @@ function showDiv(){
 		<input type="hidden" name="search" value="writer">
 		<label>검색할 작성자 아이디를 입력하시오 : 
 		<input type="search" name="keyword"></label>
-		<input type="submit" value="검색">
+		<input type="submit" value="검색" onclick="return button2_click();">
 	</form>
 </div>
 </div>

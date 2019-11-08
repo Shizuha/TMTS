@@ -5,15 +5,17 @@
 	page import="Main.NursingHospital.model.ov.NursingHospital"%>
 
 <%
+	Employee loginEmployee = (Employee)session.getAttribute("loginEmployee");
 	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
 %>
 
 <%@ page import="ERP.notice.model.vo.Notice, java.util.ArrayList" %>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.If"%>
-<%@page import="ERP.notice.model.vo.Notice" %> 
+<%@page import="ERP.Employee.model.vo.Employee,ERP.notice.model.vo.Notice" %> 
 <%
 	Notice notice = (Notice)request.getAttribute("notice");
 	String currentPage = (String)request.getAttribute("currentPage");
+	Employee emp = (Employee)session.getAttribute("loginEmployee");
 %>   
 
 <!DOCTYPE html>
@@ -191,7 +193,7 @@ $(function(){
 <!--**********************************
             	상단바 시작
         ***********************************-->
-		<div class="header">
+			<div class="header">
 			<div class="header-content clearfix">
 
 				<div class="nav-control">
@@ -212,7 +214,7 @@ $(function(){
 								class="drop-down dropdown-profile animated fadeIn dropdown-menu">
 								<div class="dropdown-content-body">
 									<ul>
-										<li><a href="app-profile.html"><i class="icon-user"></i>
+										<li><a href="/NHMP/myinfo.ad?userid=<%= loginHospital.getNH_USERID() %>"><i class="icon-user"></i>
 												<span>내정보 보기</span></a></li>
 
 

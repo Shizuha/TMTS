@@ -208,7 +208,7 @@ function moveList(){
 								class="drop-down dropdown-profile animated fadeIn dropdown-menu">
 								<div class="dropdown-content-body">
 									<ul>
-										<li><a href="app-profile.html"><i class="icon-user"></i>
+										<li><a href="/NHMP/myinfo.ad?userid=<%= loginHospital.getNH_USERID() %>"><i class="icon-user"></i>
 												<span>내정보 보기</span></a></li>
 
 

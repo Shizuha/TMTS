@@ -1,10 +1,13 @@
+<%@page import="ERP.Employee.model.vo.Employee"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%@
-	page import="Main.NursingHospital.model.ov.NursingHospital,ERP.notice.model.vo.Notice, java.util.ArrayList"%>
+	page import="Main.NursingHospital.model.ov.NursingHospital,ERP.notice.model.vo.Notice, 
+	java.util.ArrayList"%>
 
 <%
+	
 	NursingHospital loginHospital = (NursingHospital)session.getAttribute("loginHospital");
 	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
 	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
@@ -183,7 +186,7 @@ function callFunction(){
 	return false;  //다른 버튼으로 클릭 이벤트 전달 막기
 }
 
- function button1_click(){
+ function button3_click(){
 	if($("#from").val()==""){
 	alert("날짜를 입력해 주세요");
 	return false;
@@ -271,7 +274,7 @@ function callFunction(){
 								class="drop-down dropdown-profile animated fadeIn dropdown-menu">
 								<div class="dropdown-content-body">
 									<ul>
-										<li><a href="/NHMP/myinfo"><i class="icon-user"></i>
+										<li><a href="/NHMP/myinfo.ad?userid=<%= loginHospital.getNH_USERID() %>"><i class="icon-user"></i>
 												<span>내정보 보기</span></a></li>
 
 
@@ -500,7 +503,7 @@ function callFunction(){
 			<input type="hidden" name="search" value="title">
 			<label>검색할 제목을 입력하시오 : 
 			<input type="search" name="keyword"></label>
-			<input type="submit" value="검색">
+			<input type="submit" value="검색" onclick="return button1_click();">
 		</form>
 	</div>
 	<div id="writerdiv">
@@ -508,7 +511,7 @@ function callFunction(){
 			<input type="hidden" name="search" value="writer">
 			<label>검색할 작성자 아이디를 입력하시오 : 
 			<input type="search" name="keyword"></label>
-			<input type="submit" value="검색">
+			<input type="submit" value="검색" onclick="return button2_click();">
 		</form>
 	</div>
 	<div id="datediv">
@@ -516,7 +519,7 @@ function callFunction(){
 			<input type="hidden" name="search" value="date">
 			<label>검색할 날짜를 선택하시오 : 
 			<input type="date" name="from" id="from" max="9999-12-31"> ~ <input type="date" name="to" id="to" max="9999-12-31"></label>
-			<input type="submit" value="검색" onclick="return button1_click();">
+			<input type="submit" value="검색" onclick="return button3_click();">
 		</form>
 	</div>
 </div>
