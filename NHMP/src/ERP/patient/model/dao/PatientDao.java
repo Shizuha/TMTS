@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import ERP.counselingLog.model.vo.CounselingLog;
 import ERP.patient.model.vo.Patient;
 
 public class PatientDao {
@@ -175,7 +176,7 @@ public class PatientDao {
 		}
 		return result;
 	}
-
+	
 	public String PatientCount(Connection conn) {
 		String result = "0";
 		PreparedStatement pstmt = null;

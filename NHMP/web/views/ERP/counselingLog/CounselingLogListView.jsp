@@ -35,27 +35,6 @@
 <!-- 스크립트태그 -->
 <script type="text/javascript"
 	src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		showDiv();
-
-		$("input[name=click]").on("change", function() {
-			showDiv();
-		});
-	});
-
-	function showDiv() {
-		if ($("input[name=click]").eq(0).is(":checked")) {
-			$("#cl_title_div").css("display", "block");
-			$("#cl_emp_name_div").css("display", "none");
-		}
-
-		if ($("input[name=click]").eq(1).is(":checked")) {
-			$("#cl_title_div").css("display", "none");
-			$("#cl_emp_name_div").css("display", "block");
-		}
-	}
-</script>
 </head>
 
 <body>
@@ -287,33 +266,6 @@
 				<%=list.size()%>
 				개
 			</h2>
-			<center>
-				<div class="searchbox">
-					<div>
-						<h2>검색할 항목을 선택하세요</h2>
-						<input type="radio" name="click" value="cl_title" checked>
-						<label style="font-size: 16px;">제목 </label> &nbsp; &nbsp; &nbsp; <input
-							type="radio" name="click" value="cl_emp_name"> <label
-							style="font-size: 16px;">상담자 </label> &nbsp; &nbsp; &nbsp;
-					</div>
-					<div id="cl_title_div">
-						<form action="/NHMP/counselsearch" method="post">
-							<input type="hidden" name="search" value="cl_title"> <label
-								style="font-size: 16px;">검색할 제목을 입력하시오 : <input
-								type="search" name="cl_title">
-							</label> <input type="submit" value="검색" style="font-size: 16px;">
-						</form>
-					</div>
-					<div id="cl_emp_name_div">
-						<form action="/NHMP/counselsearch" method="post">
-							<input type="hidden" name="search" value="cl_emp_name"> <label
-								style="font-size: 16px;">검색할 상담자를 입력하시오 : <input
-								type="search" name="cl_emp_name">
-							</label> <input type="submit" value="검색" style="font-size: 16px;">
-						</form>
-					</div>
-				</div>
-			</center>
 			<table align="center" border="1" width="1500" cellspacing="1"
 				cellpadding="5" style="font-size: 16px;">
 				<tr>
@@ -341,7 +293,11 @@
 					<td><%=cl.getClComment()%></td>
 					<td><%=cl.getClPatName()%></td>
 					<td><%=cl.getClEmpName()%></td>
-					<td><%=cl.getClOriginalFileName()%></td>
+					<% if(cl.getClOriginalFileName() != null){ %>
+						<td><%=cl.getClOriginalFileName()%></td>
+					<% }else{ %>
+						<td>첨부파일 없음</td>
+					<% } %>
 				</tr>
 				<%
 					}

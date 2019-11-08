@@ -167,81 +167,27 @@ public class MedicienRecordDao {
 		return result;
 	}
 
-	public ArrayList<MedicienRecord> selectMrPatNameSearch(Connection conn, String mrPatName) {
-		ArrayList<MedicienRecord> list = new ArrayList<MedicienRecord>();
-		PreparedStatement pstmt = null;
+	public int getListCount(Connection conn) {
+		int listCount = 0;
+		Statement stmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from medicienrecord where mr_pat_name like ? order by mr_no desc";
+		String query = "select count(*) from medicienrecord";
 		
 		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, "%" + mrPatName + "%");
+			stmt = conn.createStatement();
 			
-			rset = pstmt.executeQuery();
+			rset = stmt.executeQuery(query);
 			
-			while(rset.next()) {
-				MedicienRecord medicienRecord = new MedicienRecord();
-				
-				medicienRecord.setMrNo(rset.getInt("mr_no"));
-				medicienRecord.setMrDate(rset.getDate("mr_date"));
-				medicienRecord.setMrState(rset.getString("mr_state"));
-				medicienRecord.setMrName(rset.getString("mr_name"));
-				medicienRecord.setMrTime(rset.getString("mr_time"));
-				medicienRecord.setMrMany(rset.getString("mr_many"));
-				medicienRecord.setMrComment(rset.getString("mr_comment"));
-				medicienRecord.setMrPatName(rset.getString("mr_pat_name"));
-				medicienRecord.setMrEmpName(rset.getString("mr_emp_name"));
-				medicienRecord.setMrOriginalFileName(rset.getString("mr_original_filename"));
-				medicienRecord.setMrRenameFileName(rset.getString("mr_rename_filename"));
-				
-				list.add(medicienRecord);
+			if(rset.next()) {
+				listCount = rset.getInt(1);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(pstmt);
+			close(stmt);
 		}
-		return list;
-	}
-
-	public ArrayList<MedicienRecord> selectMrEmpNameSearch(Connection conn, String mrEmpName) {
-		ArrayList<MedicienRecord> list = new ArrayList<MedicienRecord>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String query ="select * from medicienrecord wehre mr_emp_name like ? order by mr_no desc";
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, "%" + mrEmpName + "%");
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				MedicienRecord medicienRecord = new MedicienRecord();
-				
-				medicienRecord.setMrNo(rset.getInt("mr_no"));
-				medicienRecord.setMrDate(rset.getDate("mr_date"));
-				medicienRecord.setMrState(rset.getString("mr_state"));
-				medicienRecord.setMrName(rset.getString("mr_name"));
-				medicienRecord.setMrTime(rset.getString("mr_time"));
-				medicienRecord.setMrMany(rset.getString("mr_many"));
-				medicienRecord.setMrComment(rset.getString("mr_comment"));
-				medicienRecord.setMrPatName(rset.getString("mr_pat_name"));
-				medicienRecord.setMrEmpName(rset.getString("mr_emp_name"));
-				medicienRecord.setMrOriginalFileName(rset.getString("mr_original_filename"));
-				medicienRecord.setMrRenameFileName(rset.getString("mr_rename_filename"));
-				
-				list.add(medicienRecord);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
+		return listCount;
 	}
 }

@@ -12,7 +12,7 @@ import static common.JDBCTemplate.*;
 public class MedicienRecordService {
 	private MedicienRecordDao mrdao = new MedicienRecordDao();
 	
-	public ArrayList<MedicienRecord> ListView(String hostId, String hostPwd) {
+	public ArrayList<MedicienRecord> ListView(int startRow, int endRow, String hostId, String hostPwd) {
 		Connection conn = getConnection(hostId, hostPwd);
 		ArrayList<MedicienRecord> list = mrdao.ListView(conn);
 		close(conn);
@@ -58,18 +58,11 @@ public class MedicienRecordService {
 		close(conn);
 		return result;
 	}
-	
-	public ArrayList<MedicienRecord> selectMrPatNameSearch(String hostId, String hostPwd, String mrPatName) {
+
+	public int getListCount(String hostId, String hostPwd) {
 		Connection conn = getConnection(hostId, hostPwd);
-		ArrayList<MedicienRecord> list = mrdao.selectMrPatNameSearch(conn, mrPatName);
+		int listCount = mrdao.getListCount(conn);
 		close(conn);
-		return list;
-	}
-	
-	public ArrayList<MedicienRecord> selectMrEmpNameSearch(String hostId, String hostPwd, String mrEmpName) {
-		Connection conn = getConnection(hostId, hostPwd);
-		ArrayList<MedicienRecord> list = mrdao.selectMrEmpNameSearch(conn, mrEmpName);
-		close(conn);
-		return list;
+		return listCount;
 	}
 }

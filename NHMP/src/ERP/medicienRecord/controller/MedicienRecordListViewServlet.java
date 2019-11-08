@@ -57,9 +57,9 @@ public class MedicienRecordListViewServlet extends HttpServlet {
 		}
 		
 		int limit = 10;		//한 페이지에 출력할 목록 갯수
-		CounselingLogService cservice = new CounselingLogService();
+		MedicienRecordService mservice = new MedicienRecordService();
 		
-		int listCount = cservice.getListCount(hostId, hostPwd);	//테이블의 전체 목록 갯수 조회
+		int listCount = mservice.getListCount(hostId, hostPwd);	//테이블의 전체 목록 갯수 조회
 		//총 페이지 수 계산
 		int maxPage = listCount / limit;
 		if(listCount % limit > 0)
@@ -76,7 +76,7 @@ public class MedicienRecordListViewServlet extends HttpServlet {
 		int startRow = (currentPage * limit) - 9;
 		int endRow = currentPage * limit;
 		
-		ArrayList<MedicienRecord> list = new MedicienRecordService().ListView(hostId, hostPwd);
+		ArrayList<MedicienRecord> list = new MedicienRecordService().ListView(startRow, endRow, hostId, hostPwd);
 		
 		RequestDispatcher view = null;
 		if(list.size() > 0) {
@@ -86,6 +86,7 @@ public class MedicienRecordListViewServlet extends HttpServlet {
 			request.setAttribute("currentPage", currentPage);
 			request.setAttribute("beginPage", beginPage);
 			request.setAttribute("endPage", endPage);
+			request.setAttribute("listCount", listCount);
 			view.forward(request, response);
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
