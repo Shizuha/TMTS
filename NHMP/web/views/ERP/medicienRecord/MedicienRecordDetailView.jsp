@@ -36,7 +36,7 @@ function moveupdate(){
 	return false
 }
 function movedelete(){
-	location.href = "/NHMP/medicienRecord?mr_no=<%=medicienRecord.getMrNo()%>&rfile=<%=medicienRecord.getMrRenameFileName()%>";
+	location.href = "/NHMP/recorddelete?mr_no=<%=medicienRecord.getMrNo()%>&rfile=<%=medicienRecord.getMrRenameFileName()%>";
 		return false;
 	}
 </script>
@@ -313,7 +313,7 @@ function movedelete(){
 							<%
 								if (medicienRecord.getMrOriginalFileName() != null) {
 							%> <a
-							href="/first/nfdown?ofile=<%=medicienRecord.getMrOriginalFileName()%>&rfile=<%=medicienRecord.getMrRenameFileName()%>"><%=medicienRecord.getMrOriginalFileName()%></a>
+							href="/NHMP/recordfdown?ofile=<%=medicienRecord.getMrOriginalFileName()%>&rfile=<%=medicienRecord.getMrRenameFileName()%>"><%=medicienRecord.getMrOriginalFileName()%></a>
 							<%
 								} else {
 							%> 첨부파일 없음 <%
