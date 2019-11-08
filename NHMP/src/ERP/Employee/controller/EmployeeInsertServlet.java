@@ -400,7 +400,12 @@ public class EmployeeInsertServlet extends HttpServlet {
 			}
 			
 			if(result4 == carList.size()) {
-				response.sendRedirect("/NHMP/list");
+				if(emp1 != null)
+					response.sendRedirect("/NHMP/views/ERP/Employee.jsp");
+					else 
+					response.sendRedirect("/NHMP/views/ERP/Admin_main.jsp");
+					
+				
 				
 			}else {
 				pw.println("<script >");

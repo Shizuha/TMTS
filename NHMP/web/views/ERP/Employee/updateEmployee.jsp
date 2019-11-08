@@ -643,6 +643,27 @@ $(function(){
 body{
  font-family: Georgia, "맑은 고딕", serif;
  }
+
+input[type=checkbox]{
+	background:#F3F3F9;
+}
+table td, th{
+	
+	background:rgba(117, 113, 249, 0.04);
+	padding:3px;
+}
+input[type=file]{
+	width:200px;
+}
+ #sample4_jibunAddress{
+    	width:219px;
+    }
+input[type=email]{
+width:300px;
+}
+.insertemp3 ,.insertemp4 ,.insertemp5 td{
+text-align:center;
+}
 </style>
 </head>
 
@@ -782,6 +803,7 @@ body{
 							class="nav-text">급여 관리</span> <!--    <i class="icon-grid menu-icon"></i><span class="nav-text">급여 관리</span>  -->
 					</a>
 						<ul aria-expanded="false">
+						
 							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 						</ul>
 						<%}else{ %>
@@ -819,9 +841,11 @@ body{
 							class="nav-text">급여 관리</span> 
 					</a>
 						<ul aria-expanded="false">
+							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
+							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
 							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 						</ul>
-						<%} %>
+						
 					<li><a href="/NHMP/nlist" aria-expanded="false"> <i
 							class="fa fa-slideshare"></i> <span class="nav-text">공지사항</span>
 					</a></li>
@@ -829,6 +853,9 @@ body{
 							class="fa fa-download"></i> <span class="nav-text">자료실</span>
 					</a></li>
 					</ul>
+				<%} %>
+				
+				
 			</div>
 		</div>
 
@@ -846,7 +873,7 @@ body{
         	<input type="hidden" name="empid" value="<%=emp.getEmpId() %>">
         	<input type="hidden" name="rfile" value="<%=emp.getEmpRenameFilename() %>">
         	<input type="hidden" name="ofile" value="<%=emp.getEmpImgOriginalFilename() %>">
-			<table class="insertemp" cellpadding="5" cellspacing="0" >
+			<table class="insertemp" cellpadding="3" cellspacing="0" >
 				<tr>
 					<th>성명(한글)</th>
 						<td><input type="text" name="empname" value="<%=emp.getEmpName() %>"></td>
@@ -969,7 +996,7 @@ body{
 						<th>이미지</th>
 						<td>
 						<%if(emp.getEmpImgOriginalFilename() != null){ %>
-						기존파일명:&nbsp;<%=emp.getEmpImgOriginalFilename() %>
+						기존파일명:&nbsp;<%=emp.getEmpImgOriginalFilename() %>&nbsp;
 						<%}else{ %>
 						이미지파일 없음
 						<%} %>

@@ -83,7 +83,6 @@ function checkPwd(){
       		
          return false;
      }
-     window.close();
 }
 
 

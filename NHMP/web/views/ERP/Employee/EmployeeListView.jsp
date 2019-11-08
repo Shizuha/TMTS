@@ -374,14 +374,16 @@
 							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
 							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
 									입원 등록</a></li>
-							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
-							<li><a href="/NHMP/recordlistview">투약일지 등록</a></li>
+							<li><a href="/NHMP/views/ERP/counselingLog/CounselingLogInsertView.jsp">상담일지 등록</a></li>
+							<li><a href="/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp">투약일지 등록</a></li>
 						</ul></li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span
 							class="nav-text">급여 관리</span> 
 					</a>
 						<ul aria-expanded="false">
+							<li><a href="/NHMP/deduclise">공제항목등록</a></li>
+							<li><a href="/NHMP/allowlist">수당항목등록</a></li>
 							<li><a href="/NHMP/Epaylist">급여계산</a></li>
 						</ul>
 						<%} %>
@@ -466,6 +468,7 @@
                 </form>
 				<div style="max-width:800px; margin: auto;text-align: center;">
 			  <ul class="pagination pagination-lg" style="justify-content: center;">
+			  
 			    <% if((beginPage - 10) < 1){ %>
 			     <li class="page-item">
 			      <a class="page-link" href="/NHMP/list?page=1">&laquo;</a>
