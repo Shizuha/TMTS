@@ -183,7 +183,7 @@ function movelist(){
 <!--**********************************
             	상단바 시작
         ***********************************-->
-		<div class="header">
+			<div class="header">
 			<div class="header-content clearfix">
 
 				<div class="nav-control">
@@ -204,7 +204,7 @@ function movelist(){
 								class="drop-down dropdown-profile animated fadeIn dropdown-menu">
 								<div class="dropdown-content-body">
 									<ul>
-										<li><a href="app-profile.html"><i class="icon-user"></i>
+										<li><a href="/NHMP/myinfo.ad?userid=<%= loginHospital.getNH_USERID() %>"><i class="icon-user"></i>
 												<span>내정보 보기</span></a></li>
 
 

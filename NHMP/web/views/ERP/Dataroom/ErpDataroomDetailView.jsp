@@ -17,6 +17,7 @@
 <%
 Dataroom dataroom = (Dataroom)request.getAttribute("dataroom");
 Employee emp = (Employee)session.getAttribute("loginEmployee");
+Employee loginEmployee = (Employee)session.getAttribute("loginEmployee");
 %>   
 
 <!DOCTYPE html>
@@ -108,20 +109,24 @@ Employee emp = (Employee)session.getAttribute("loginEmployee");
 						<li class="icons dropdown">
 							<div class="user-img c-pointer position-relative"
 								data-toggle="dropdown">
-								<span class="activity active"></span> <img
-									src="/NHMP/resources/ERP/images/user/1.png" height="40"
+								<span class="activity active"></span> <%if(emp.getEmpImgOriginalFilename() != null){ %>
+								<img src="/NHMP/resources/ERP/emp_Img_file/<%=emp.getEmpRenameFilename() %>" height="40"
 									width="40" alt="">
+								<%}else{ %>
+								<img src="/NHMP/resources/ERP/images/캡처12.PNG" height="40"
+									width="40" alt="">
+									<%} %>
 							</div>
 							<div
 								class="drop-down dropdown-profile animated fadeIn dropdown-menu">
 								<div class="dropdown-content-body">
 									<ul>
-										<li><a href="app-profile.html"><i class="icon-user"></i>
+										<li><a href="/NHMP/myinfo?userid=<%= loginEmployee.getUserId() %>"><i class="icon-user"></i>
 												<span>내정보 보기</span></a></li>
 
 
 										<hr class="my-2">
-										<li><a href="/NHMP/ERP/views/Employee/calendar.jsp"><i
+										<li><a href="/NHMP/views/ERP/Calendar.jsp" onClick="window.open(this.href, '', 'width=800px, height=600px, left=400, top=200'); return false;"><i
 												class="icon-lock"></i> <span>일정관리</span></a></li>
 										<li><a href="/NHMP/logouts"><i class="icon-key"></i> <span>로그아웃</span></a></li>
 									</ul>
@@ -230,7 +235,7 @@ Employee emp = (Employee)session.getAttribute("loginEmployee");
 	
 		
 	<table align="center" width="500" border="1" cellspacing="0" cellpadding="5">
-	<tr><th colspan="4"><%= dataroom.getDataroomNo() %>번 공지사항 화면</th></tr>
+	<tr><th colspan="4"><%= dataroom.getDataroomNo() %>번 자료실 화면</th></tr>
 	<tr><th >제목</th><td><%= dataroom.getDataroomTitle() %></td><th>조회수</th><td><%= dataroom.getDataroomCount() %></td></tr>
 	<tr><th>작성자</th><td colspan="3"><%= dataroom.getDataroomWriter() %></td></tr>
 	<tr><th>등록날짜</th><td colspan="3"><%= dataroom.getDataroomDate() %></td></tr>

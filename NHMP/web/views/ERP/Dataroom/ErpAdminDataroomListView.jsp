@@ -184,6 +184,9 @@ function callFunction(){
 	window.location.href = "/NHMP/views/ERP/Dataroom/ErpAdminDataroomWriteForm.jsp";//글 쓰기를 만들어야 함 그 뒤에 이름바꾸기
 	return false;  //다른 버튼으로 클릭 이벤트 전달 막기
 }
+
+
+
 </script>
 <!-- ErpNoticeListView.jsp 추가분 끝 -->
 
@@ -237,7 +240,7 @@ function callFunction(){
 <!--**********************************
             	상단바 시작
         ***********************************-->
-		<div class="header">
+			<div class="header">
 			<div class="header-content clearfix">
 
 				<div class="nav-control">
@@ -258,7 +261,7 @@ function callFunction(){
 								class="drop-down dropdown-profile animated fadeIn dropdown-menu">
 								<div class="dropdown-content-body">
 									<ul>
-										<li><a href="app-profile.html"><i class="icon-user"></i>
+										<li><a href="/NHMP/myinfo.ad?userid=<%= loginHospital.getNH_USERID() %>"><i class="icon-user"></i>
 												<span>내정보 보기</span></a></li>
 
 
@@ -552,7 +555,7 @@ function callFunction(){
 			<input type="hidden" name="search" value="title">
 			<label>검색할 제목을 입력하시오 : 
 			<input type="search" name="keyword"></label>
-			<input type="submit" value="검색">
+			<input type="submit" value="검색" onclick="return button1_click();">
 		</form>
 	</div>
 	<div id="writerdiv">
@@ -560,7 +563,7 @@ function callFunction(){
 			<input type="hidden" name="search" value="writer">
 			<label>검색할 작성자 아이디를 입력하시오 : 
 			<input type="search" name="keyword"></label>
-			<input type="submit" value="검색">
+			<input type="submit" value="검색" onclick="return button2_click();">
 		</form>
 	</div>
 	

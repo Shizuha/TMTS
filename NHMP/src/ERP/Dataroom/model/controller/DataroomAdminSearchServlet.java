@@ -1,6 +1,7 @@
 package ERP.Dataroom.model.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -86,6 +87,7 @@ public class DataroomAdminSearchServlet extends HttpServlet {
 		
 		//6. 리턴값 내보내서 성공 실패 확인하기(리스트는 일반 리스트인대 admin리스트는?뷰파일을 두개 넣는 방법은?)admin 서블릿을 만들어야됨
 		RequestDispatcher view = null;
+		
 		if (list.size() > 0) {
 			view = request.getRequestDispatcher("views/ERP/Dataroom/ErpAdminDataroomListView.jsp");
 			request.setAttribute("list", list);
@@ -95,9 +97,17 @@ public class DataroomAdminSearchServlet extends HttpServlet {
 			request.setAttribute("endPage", endPage);
 			view.forward(request, response);
 		}else {
-			view = request.getRequestDispatcher("views/common/Error.jsp");
-			request.setAttribute("message", search + " 글 검색 조회 실패!");
-			view.forward(request, response);	
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter pw = response.getWriter();
+			
+				pw.println("<script >");
+				pw.println("alert('조회결과가 없습니다.')");
+				pw.println("history.back()");
+				pw.println("</script>");
+				pw.flush();
+				pw.close();
+				
+			
 		}
 		
 	}

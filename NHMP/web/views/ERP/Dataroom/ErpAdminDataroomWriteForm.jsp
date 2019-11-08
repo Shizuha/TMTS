@@ -186,7 +186,7 @@ function moveList(){
 <!--**********************************
             	상단바 시작
         ***********************************-->
-		<div class="header">
+			<div class="header">
 			<div class="header-content clearfix">
 
 				<div class="nav-control">
@@ -207,7 +207,7 @@ function moveList(){
 								class="drop-down dropdown-profile animated fadeIn dropdown-menu">
 								<div class="dropdown-content-body">
 									<ul>
-										<li><a href="app-profile.html"><i class="icon-user"></i>
+										<li><a href="/NHMP/myinfo.ad?userid=<%= loginHospital.getNH_USERID() %>"><i class="icon-user"></i>
 												<span>내정보 보기</span></a></li>
 
 
@@ -420,7 +420,7 @@ function moveList(){
 			</ul>
 		</div>
 
-<!-- ErpAdmindataroomWriteForm.jsp 추가분 -->		
+<!-- ErpAdmindataroomWriteForm.jsp 추가분 -->	
 <h1 align="center">관리자용 자료실 등록 페이지</h1>
 <br>
 <center>
@@ -428,7 +428,7 @@ function moveList(){
 <table align="center" width="500" border="1" cellspacing="0" cellspacing="5">
 <tr><th>제목</th><td><input type="text" name="title" size="50"></td></tr>
 <tr><th>작성자</th><td><input type="text" name="writer" readonly value="<%= loginHospital.getNH_NAME() %>"></td></tr>
-<tr><th>파일첨부</th><td><input type="file" name="upfile"></td></tr>
+<tr><th>파일첨부</th><td><input type="file" name="upfile"></td></tr>
 <tr><th>내용</th><td><textarea name="content" rows="5" cols="50"></textarea></td></tr>
 <tr><th colspan="2">
 	<input type="submit" value="등록하기"> &nbsp;
