@@ -34,27 +34,6 @@
 <!-- 스크립트태그 -->
 <script type="text/javascript"
 	src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		showDiv();
-
-		$("input[name=click]").on("change", function() {
-			showDiv();
-		});
-	});
-
-	function showDiv() {
-		if ($("input[name=click]").eq(0).is(":checked")) {
-			$("#mr_pat_name_div").css("display", "block");
-			$("#mr_emp_name_div").css("display", "none");
-		}
-
-		if ($("input[name=click]").eq(1).is(":checked")) {
-			$("#mr_pat_name_div").css("display", "none");
-			$("#mr_emp_name_div").css("display", "block");
-		}
-	}
-</script>
 </head>
 
 <body>
@@ -286,35 +265,6 @@
 				<%=list.size()%>
 				개
 			</h2>
-			<center>
-				<div class="searchbox">
-					<div>
-						<h2>검색할 항목을 선택하세요</h2>
-						<input type="radio" name="click" value="mr_pat_name" checked
-							style="font-size: 16px;"><label style="font-size: 16px;">
-							환자명 </label> &nbsp; &nbsp; &nbsp; <input type="radio" name="click"
-							value="mr_emp_name" style="font-size: 16px;"> <label
-							style="font-size: 16px;">투약자 </label> &nbsp; &nbsp; &nbsp;
-					</div>
-					<div id="mr_pat_name_div">
-						<form action="/NHMP/recordsearch" method="post">
-							<input type="hidden" name="search" value="mr_pat_name"
-								style="font-size: 16px;"> <label
-								style="font-size: 16px;">검색할 환자명을 입력하시오 : <input
-								type="search" name="mr_pat_name" style="font-size: 16px;">
-							</label> <input type="submit" value="검색" style="font-size: 16px;">
-						</form>
-					</div>
-					<div id="mr_emp_name_div">
-						<form action="/NHMP/recordsearch" method="post">
-							<input type="hidden" name="search" value="mr_emp_name"> <label
-								style="font-size: 16px;">검색할 투약자를 입력하시오 : <input
-								type="search" name="mr_emp_name" style="font-size: 16px;">
-							</label> <input type="submit" value="검색" style="font-size: 16px;">
-						</form>
-					</div>
-				</div>
-			</center>
 			<table align="center" width="1200" border="1" cellspacing="1"
 				cellpadding="5">
 				<tr>
@@ -327,6 +277,7 @@
 					<th style="font-size: 16px;">비고</th>
 					<th style="font-size: 16px;">환자명</th>
 					<th style="font-size: 16px;">투약자</th>
+					<th style="font-size: 16px;">첨부파일</th>
 				</tr>
 				<%
 					for (int i = 0; i < list.size(); i++) {
@@ -343,6 +294,11 @@
 					<td style="font-size: 16px;"><%=mr.getMrComment()%></td>
 					<td style="font-size: 16px;"><%=mr.getMrPatName()%></td>
 					<td style="font-size: 16px;"><%=mr.getMrEmpName()%></td>
+					<% if(mr.getMrOriginalFileName() != null){ %>
+						<td><%= mr.getMrOriginalFileName() %></td>
+					<% }else{ %>
+						<td>첨부파일 없음</td>
+					<% } %>
 				</tr>
 				<%
 					}

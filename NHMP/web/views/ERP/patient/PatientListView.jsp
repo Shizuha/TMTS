@@ -6,10 +6,12 @@ ERP.Employee.model.vo.Employee"%>
 <%
 	ArrayList<Patient> list = (ArrayList<Patient>) request.getAttribute("list");
 	Employee emp = (Employee) session.getAttribute("loginEmployee");
-	int currentPage = ((Integer) request.getAttribute("currentPage")).intValue();
-	int beginPage = ((Integer) request.getAttribute("beginPage")).intValue();
-	int endPage = ((Integer) request.getAttribute("endPage")).intValue();
-	int maxPage = ((Integer) request.getAttribute("maxPage")).intValue();
+	int maxPage = ((Integer) request.getAttribute("maxPage"));
+	int currentPage = ((Integer) request.getAttribute("currentPage"));
+	int beginPage = ((Integer) request.getAttribute("beginPage"));
+	int endPage = ((Integer) request.getAttribute("endPage"));
+	int listCount = (Integer)request.getAttribute("listCount");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -34,27 +36,6 @@ ERP.Employee.model.vo.Employee"%>
 <!-- 스크립트태그 -->
 <script type="text/javascript"
 	src="/NHMP/resources/ERP/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		showDiv();
-
-		$("input[name=click]").on("change", function() {
-			showDiv();
-		});
-	});
-
-	function showDiv() {
-		if ($("input[name=click]").eq(0).is(":checked")) {
-			$("#pat_name_div").css("display", "block");
-			$("#pat_doc_div").css("display", "none");
-		}
-
-		if ($("input[name=click]").eq(1).is(":checked")) {
-			$("#pat_name_div").css("display", "none");
-			$("#pat_doc_div").css("display", "block");
-		}
-	}
-</script>
 </head>
 
 <body>
@@ -286,30 +267,6 @@ ERP.Employee.model.vo.Employee"%>
 				<%=list.size()%>
 				명
 			</h2>
-			<center>
-				<div class="searchbox">
-					<div>
-						<h2>검색할 항목을 선택하세요</h2>
-						<input type="radio" name="click" value="pat_name" checked>
-						환자명 &nbsp; &nbsp; &nbsp; <input type="radio" name="click"
-							value="pat_doc"> 담당의사 &nbsp; &nbsp; &nbsp;
-					</div>
-					<div id="pat_name_div">
-						<form action="/NHMP/patientsearch" method="post">
-							<input type="hidden" name="search" value="pat_name"> <label>검색할
-								환자명을 입력하시오 : <input type="search" name="mr_pat_name">
-							</label> <input type="submit" value="검색">
-						</form>
-					</div>
-					<div id="pat_doc_div">
-						<form action="/NHMP/patientsearch" method="post">
-							<input type="hidden" name="search" value="pat_doc"> <label>검색할
-								담당의사를 입력하시오 : <input type="search" name="pat_doc">
-							</label> <input type="submit" value="검색">
-						</form>
-					</div>
-				</div>
-			</center>
 			<table align="center" width="1400" border="1" cellspacing="1"
 				cellpadding="5">
 				<tr>
@@ -337,7 +294,11 @@ ERP.Employee.model.vo.Employee"%>
 					<td style="font-size: 16px;"><%=p.getPatName()%></td>
 					<td style="font-size: 16px;"><%=p.getPatType()%></td>
 					<td style="font-size: 16px;"><%=p.getPatEntDate()%></td>
-					<td style="font-size: 16px;"><%=p.getPatOutDate()%></td>
+					<% if(p.getPatOutDate() != null){ %>
+						<td style="font-size: 16px;"><%=p.getPatOutDate()%></td>	
+					<% }else{ %>
+						<td>없음</td>
+					<% } %>
 					<td style="font-size: 16px;"><%=p.getPatGender()%></td>
 					<td style="font-size: 16px;"><%=p.getPatNo()%></td>
 					<td style="font-size: 16px;"><%=p.getAddress()%></td>

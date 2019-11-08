@@ -18,7 +18,7 @@ public class PatientService {
 	
 	public PatientService() {}
 
-	public ArrayList<Patient> ListView(String hostId, String hostPwd) {
+	public ArrayList<Patient> ListView(int startRow, int endRow, String hostId, String hostPwd) {
 		Connection conn = getConnection(hostId, hostPwd);
 		ArrayList<Patient> list = pdao.ListView(conn);
 		close(conn);
@@ -71,7 +71,4 @@ public class PatientService {
 		String result = pdao.PatientCount(conn);
 		return result;
 	}
-
-
-	
 }

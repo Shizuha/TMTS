@@ -63,20 +63,6 @@ public class CounselingLogService {
 		close(conn);
 		return result;
 	}
-	public ArrayList<CounselingLog> selectTitleSearch(String hostId, String hostPwd, String clTitle) {
-		Connection conn = getConnection(hostId, hostPwd);
-		ArrayList<CounselingLog> list = cldao.selectTitleSearch(conn, clTitle);
-		close(conn);
-		return list;
-	}
-
-	public ArrayList<CounselingLog> selectClEmpNameSearch(String hostId, String hostPwd, String clEmpName) {
-		Connection conn = getConnection(hostId, hostPwd);
-		ArrayList<CounselingLog> list = cldao.selectClEmpNameSearch(conn, clEmpName);
-		close(conn);
-		return list;
-	}
-
 	public int getListCount(String hostId, String hostPwd) {
 		Connection conn = getConnection(hostId, hostPwd);
 		int listCount = cldao.getListCount(conn);

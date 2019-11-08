@@ -74,7 +74,7 @@ public class PatientListViewServlet extends HttpServlet {
 		int startRow = (currentPage * limit) - 9;
 		int endRow = currentPage * limit;
 		
-		ArrayList<Patient> list = new PatientService().ListView(hostId, hostPwd);
+		ArrayList<Patient> list = new PatientService().ListView(startRow, endRow, hostId, hostPwd);
 		
 		RequestDispatcher view = null;
 		if(list.size() > 0) {
@@ -84,6 +84,7 @@ public class PatientListViewServlet extends HttpServlet {
 			request.setAttribute("currentPage", currentPage);
 			request.setAttribute("beginPage", beginPage);
 			request.setAttribute("endPage", endPage);
+			request.setAttribute("listCount", listCount);
 			view.forward(request, response);
 		}else {
 			view = request.getRequestDispatcher("views/common/Error.jsp");
