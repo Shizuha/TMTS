@@ -1,6 +1,7 @@
 package ERP.Employee.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,10 +49,16 @@ public class EmployeeNewPwdUpdateServlet extends HttpServlet {
 			hostPwd = loginHospital.getNH_USERPWD();
 		}
 		int result = new EmployeeService().empNewPwdUpdate(newPwd, empId,hostId, hostPwd);
-		
-		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		System.out.println("비밀번호 수정 완료값 =" + result);
 		if(result > 0 ) {
-			response.sendRedirect("/NHMP/list");
+			pw.println("<script>");
+			pw.println("alert('정상적으로 변경 되었습니다.')");
+			pw.println("window.close()");
+			pw.println("</script>");
+			pw.flush();
+			pw.close();
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/Error.jsp");
 			

@@ -215,13 +215,13 @@ public class EmployeeUpdateServlet extends HttpServlet {
 		}
 		String empId = mrequest.getParameter("empid"); 
 		emp.setEmpId(empId);
-		
+		System.out.println("사원정보 업데이트 하기전 사원 객체" + emp);
 		int result = new EmployeeService().updateEmployee(emp);
 		
 		
 		if(result == 0) {
 			pw.println("<script >");
-			pw.println("alert('사원기본 정보 등록 실패.')");
+			pw.println("alert('사원기본 정보 업데이트 실패.')");
 			pw.println("history.back()");
 			pw.println("</script>");
 			pw.flush();
@@ -268,7 +268,7 @@ public class EmployeeUpdateServlet extends HttpServlet {
 			inserResult = new EmpSalaryService().insertEmpSalary(empSal, hostId,hostPwd);
 			if(inserResult == 0) {
 				pw.println("<script >");
-				pw.println("alert('기본정보 등록실패!')");
+				pw.println("alert('급여정보 업데이트  실패!')");
 				pw.println("history.back()");
 				pw.println("</script>");
 				pw.flush();

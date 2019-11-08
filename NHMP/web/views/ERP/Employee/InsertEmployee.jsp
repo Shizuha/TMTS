@@ -895,8 +895,8 @@ text-align:center;
 							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
 							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
 									입원 등록</a></li>
-							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
-							<li><a href="/NHMP/recordlistview">투약일지 등록</a></li>
+							<li><a href="/NHMP/views/ERP/counselingLog/CounselingLogInsertView.jsp">상담일지 등록</a></li>
+							<li><a href="/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp">투약일지 등록</a></li>
 						</ul></li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span
@@ -990,7 +990,7 @@ text-align:center;
 				<tr>
 					<th>주소</th>
 					<td colspan="3">
-						<input type="text" id="sample4_postcode"style="border-radius:5px;" placeholder="우편번호">
+						<input type="text" id="sample4_postcode"style="border-radius:5px;" placeholder="우편번호" readonly>
 						<input type="button" onclick="sample4_execDaumPostcode();" value="우편번호 찾기" >&nbsp;
 						<input type="text" id="sample4_roadAddress"name="address1" placeholder="도로명주소" style="border-radius:5px;" readonly>
 						<input type="text" id="sample4_jibunAddress"name="address2" placeholder="지번주소" style="border-radius:5px; width:219px;" readonly><br>
@@ -1031,7 +1031,7 @@ text-align:center;
 				<tr>
 					<th>이메일</th>
 						<td>
-						<input type="email" name="email" id="email" style="border-radius:5px;">
+						<input type="email" name="email" id="email" style="border-radius:5px;" required>
 						<span class="succesEmailCheck" style="display:none; color:green; font-size:10pt;"><b>사용가능한 이메일 입니다<i class="fa fa-thumbs-o-up" aria-hidden="true"></i></b></span>
 						&nbsp;<span class="errorEmailCheck" style="display:none; color:red;font-size:10pt;"><b>이미 사용중인 이메일 입니다<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></b></span>
 						<span class="EmailCheck" style="display:none; color:red;font-size:10pt;"><b>이메일 형식이 틀립니다<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></b></span>

@@ -48,20 +48,17 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
             	var DeptName = $(this).text().substring(0,6);
             	$("#deptname").val(DeptName);
             	
-            	//자식요소 유무 이프문
-            	
-            	
             	$.ajax({
       				url : "organlist",
       				data : { deptName : $(this).text().trim() },
       				type : "post",
       				dataType : "json",
       				success : function(data){
-      					//전송 온 object 를 string 으로 바꿈
+      					
       					var jsonStr = JSON.stringify(data);
-      					//string 을 json 객체로 바꿈
+      					
       					var json = JSON.parse(jsonStr);
-      					//json 안에 list 가 들어있음.
+      					
       					for(var i in json.list){
       						
       						$("#deptcode").val(json.list[i].deptcode);
@@ -74,8 +71,6 @@ ArrayList<Position> pList =(ArrayList<Position>)request.getAttribute("pList"); *
       						$('.deptList').eq(index).children().append(li);
       						$('.teamList').css({'list-style-image':'url(/NHMP/resources/ERP/images/closeForder.PNG)'});
       					}
-      	
-      					
       				},
       				error :function(jqXHR, textStatus, errorThrown){
       					console.log("error : " + textStatus);
@@ -542,8 +537,8 @@ ul {
 							<li><a href="/NHMP/patientlistview">전체환자 조회</a></li>
 							<li><a href="/NHMP/views/ERP/patient/PatientInsertView.jsp">환자
 									입원 등록</a></li>
-							<li><a href="/NHMP/counsellistview">상담일지 등록</a></li>
-							<li><a href="/NHMP/recordlistview">투약일지 등록</a></li>
+							<li><a href="/NHMP/views/ERP/counselingLog/CounselingLogInsertView.jsp">상담일지 등록</a></li>
+							<li><a href="/NHMP/views/ERP/medicienRecord/MedicienRecordInsertView.jsp">투약일지 등록</a></li>
 						</ul></li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="fa fa-usd"></i><span

@@ -96,7 +96,7 @@ public class EmployeeListServlet extends HttpServlet {
 			
 				pw.println("<script >");
 				pw.println("alert('사원이없습니다. 사원을 먼저 등록해 주세요^^')");
-				pw.println("location.href='/NHMP/views/ERP/Emlpoyee/InsertEmployee.jsp'");
+				pw.println("location.href='/NHMP/views/ERP/Employee/InsertEmployee.jsp'");
 				pw.println("</script>");
 				pw.flush();
 				pw.close();
